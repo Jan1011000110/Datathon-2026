@@ -1,0 +1,39 @@
+h1 C clean    clean                                                        score  18.353 regret  1.566 d_reg  +0.000 infr 0 exc 0 bad 0 fb nan 1.1s  
+h1 C layout   test calendar (last 7 days, weekdays shifted)                score  17.777 regret  2.142 d_reg  +0.576 infr 0 exc 0 bad 0 fb nan 0.9s  
+h1 C layout   shifted by whole weeks (weekdays kept)                       score  18.353 regret  1.566 d_reg  +0.000 infr 0 exc 0 bad 0 fb nan 1.0s  
+h1 C layout   12 weeks (November = October week copied), real dates        score  18.050 regret  1.608 d_reg  +0.042 infr 0 exc 0 bad 0 fb nan 0.7s  
+h1 C layout   12 weeks on the test calendar                                score  17.429 regret  2.229 d_reg  +0.664 infr 0 exc 0 bad 0 fb nan 0.8s  
+h1 C layout   12 weeks on the test calendar + both clock changes           score  17.417 regret  2.228 d_reg  +0.662 infr 0 exc 0 bad 0 fb nan 0.7s  
+h1 C layout   12 weeks, test calendar, text timestamps                     score  17.417 regret  2.228 d_reg  +0.662 infr 0 exc 0 bad 0 fb nan 0.9s  
+h1 C layout   12 weeks, test calendar, weeks ordered January to December   score  17.609 regret  2.128 d_reg  +0.562 infr 0 exc 0 bad 0 fb nan 0.7s  
+h1 C layout   12 weeks, test calendar, 24 price/CO2 values                 score  18.524 regret  1.134 d_reg  -0.431 infr 0 exc 0 bad 0 fb nan 0.8s  
+h1 C layout   12 weeks, test calendar, lists shortened at every week end   score  16.861 regret  2.796 d_reg  +1.231 infr 0 exc 0 bad 0 fb nan 0.8s  
+h1 C layout   August week dropped                                          score  18.056 regret  1.486 d_reg  -0.080 infr 0 exc 0 bad 0 fb nan 0.7s  
+h1 C layout   run ends 60 h early                                          score  17.996 regret  1.412 d_reg  -0.154 infr 0 exc 0 bad 0 fb nan 0.7s  
+h1 C layout   run ends after 5 weeks                                       score  13.565 regret  1.530 d_reg  -0.036 infr 0 exc 0 bad 0 fb nan 0.4s  
+h1 C layout   gaps of 2-10 h, one per week                                 score  18.109 regret  2.003 d_reg  +0.438 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C layout   gaps of 2-10 h starting 18:00, one per week                  score  18.719 regret  1.767 d_reg  +0.201 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C layout   gaps of 2-10 h, three per week                               score  18.363 regret  2.236 d_reg  +0.670 infr 0 exc 0 bad 0 fb nan 1.0s  
+h1 C layout   12 duplicated hours                                          score  18.246 regret  1.589 d_reg  +0.023 infr 0 exc 0 bad 0 fb nan 1.1s  
+h1 C lowload  Dec week load x0.5                                           score  19.445 regret  1.766 d_reg  +0.201 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C lowload  Dec week load x0.6                                           score  19.214 regret  1.725 d_reg  +0.159 infr 0 exc 0 bad 0 fb nan 0.9s  
+h1 C lowload  Dec week load x0.7                                           score  19.001 regret  1.679 d_reg  +0.113 infr 0 exc 0 bad 0 fb nan 1.1s  
+h1 C lowload  Dec week: weekdays take the Sunday profile                   score  19.138 regret  1.695 d_reg  +0.129 infr 0 exc 0 bad 0 fb nan 1.1s  
+h1 C lowload  Jul week load x0.5                                           score  19.906 regret  1.780 d_reg  +0.214 infr 0 exc 0 bad 0 fb nan 1.4s  
+h1 C lowload  Jul week load x0.6                                           score  19.570 regret  1.699 d_reg  +0.133 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C lowload  Jul week load x0.7                                           score  19.269 regret  1.647 d_reg  +0.082 infr 0 exc 0 bad 0 fb nan 1.1s  
+h1 C lowload  Jul week: weekdays take the Sunday profile                   score  19.877 regret  1.678 d_reg  +0.113 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C lowload  every week: weekdays take the Sunday profile                 score  30.280 regret  3.106 d_reg  +1.540 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C lowload  whole run load x0.6                                          score  32.265 regret  3.792 d_reg  +2.227 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C lowload  whole run load x1.3                                          score  13.851 regret  1.071 d_reg  -0.495 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C faults   meter 0 for 3 h from 19:00, every week                       score  17.570 regret  2.374 d_reg  +0.808 infr 0 exc 0 bad 0 fb nan 1.1s  
+h1 C faults   meter 0 for 14 h from 12:00, every week                      score  19.324 regret  2.770 d_reg  +1.204 infr 0 exc 0 bad 0 fb nan 1.1s  
+h1 C faults   meter and solar 0 for 14 h from 12:00, every week            score  18.012 regret  2.541 d_reg  +0.976 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C faults   meter 0 for 48 h from 06:00, every week                      score  19.491 regret  4.897 d_reg  +3.332 infr 0 exc 0 bad 0 fb nan 1.3s  
+h1 C faults   meter 0 for a whole week (Oct), solar normal                 score  18.634 regret  1.903 d_reg  +0.337 infr 0 exc 0 bad 0 fb nan 1.3s  
+h1 C faults   meter and solar 0 for a whole week (Oct)                     score  18.031 regret  2.246 d_reg  +0.681 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C faults   load held constant for a whole week (Oct)                    score  19.327 regret  1.606 d_reg  +0.041 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C faults   solar 0 for the last week, irradiance normal                 score  18.191 regret  1.576 d_reg  +0.011 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C faults   solar and irradiance 0 for the last week                     score  18.191 regret  1.576 d_reg  +0.011 infr 0 exc 0 bad 0 fb nan 1.2s  
+h1 C faults   solar 0 for one day, every week                              score  17.706 regret  1.502 d_reg  -0.063 infr 0 exc 0 bad 0 fb nan 1.1s  
+done 48 s -> C:\Users\alexv\Documents\Datathon-2026\experiments\29_stress_hard\out\suite_h1_C_layout-lowload-faults.csv

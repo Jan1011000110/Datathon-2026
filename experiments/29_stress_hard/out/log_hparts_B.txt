@@ -1,0 +1,17 @@
+{'fold': 'B', 'month': 10, 'hidden_from': 'load', 'run_seen': 20.296, 'run_hidden': 20.292, 'd_run': -0.004, 'week_seen': 20.511, 'week_hidden': 20.509, 'd_week': -0.001, 'infractions': 0, 'exceptions': 0, 'fallbacks': 0, 'spill_kwh': 1137.087, 'spill_seen': 1008.001}
+{'fold': 'B', 'month': 10, 'hidden_from': 'solar', 'run_seen': 20.296, 'run_hidden': 20.298, 'd_run': 0.002, 'week_seen': 20.511, 'week_hidden': 20.497, 'd_week': -0.013, 'infractions': 0, 'exceptions': 0, 'fallbacks': 0, 'spill_kwh': 995.435, 'spill_seen': 1008.001}
+{'fold': 'B', 'month': 10, 'hidden_from': 'signal', 'run_seen': 20.296, 'run_hidden': 20.194, 'd_run': -0.103, 'week_seen': 20.511, 'week_hidden': 18.0, 'd_week': -2.511, 'infractions': 0, 'exceptions': 0, 'fallbacks': 0, 'spill_kwh': 939.249, 'spill_seen': 1008.001}
+{'fold': 'B', 'month': 10, 'hidden_from': 'load+solar', 'run_seen': 20.296, 'run_hidden': 20.294, 'd_run': -0.002, 'week_seen': 20.511, 'week_hidden': 20.5, 'd_week': -0.01, 'infractions': 0, 'exceptions': 0, 'fallbacks': 0, 'spill_kwh': 1120.942, 'spill_seen': 1008.001}
+{'fold': 'B', 'month': 12, 'hidden_from': 'load', 'run_seen': 20.296, 'run_hidden': 20.287, 'd_run': -0.009, 'week_seen': 9.539, 'week_hidden': 9.502, 'd_week': -0.036, 'infractions': 0, 'exceptions': 0, 'fallbacks': 0, 'spill_kwh': 1114.898, 'spill_seen': 1008.001}
+{'fold': 'B', 'month': 12, 'hidden_from': 'solar', 'run_seen': 20.296, 'run_hidden': 20.291, 'd_run': -0.006, 'week_seen': 9.539, 'week_hidden': 9.507, 'd_week': -0.032, 'infractions': 0, 'exceptions': 0, 'fallbacks': 0, 'spill_kwh': 1053.126, 'spill_seen': 1008.001}
+{'fold': 'B', 'month': 12, 'hidden_from': 'signal', 'run_seen': 20.296, 'run_hidden': 20.215, 'd_run': -0.082, 'week_seen': 9.539, 'week_hidden': 8.817, 'd_week': -0.722, 'infractions': 0, 'exceptions': 0, 'fallbacks': 0, 'spill_kwh': 989.073, 'spill_seen': 1008.001}
+{'fold': 'B', 'month': 12, 'hidden_from': 'load+solar', 'run_seen': 20.296, 'run_hidden': 20.279, 'd_run': -0.017, 'week_seen': 9.539, 'week_hidden': 9.459, 'd_week': -0.079, 'infractions': 0, 'exceptions': 0, 'fallbacks': 0, 'spill_kwh': 1171.389, 'spill_seen': 1008.001}
+  fold  month hidden_from  run_seen  run_hidden  d_run  week_seen  week_hidden  d_week  infractions  exceptions  fallbacks  spill_kwh  spill_seen
+0    B     10        load    20.296      20.292 -0.004     20.511       20.509  -0.001            0           0          0   1137.087    1008.001
+1    B     10       solar    20.296      20.298  0.002     20.511       20.497  -0.013            0           0          0    995.435    1008.001
+2    B     10      signal    20.296      20.194 -0.103     20.511       18.000  -2.511            0           0          0    939.249    1008.001
+3    B     10  load+solar    20.296      20.294 -0.002     20.511       20.500  -0.010            0           0          0   1120.942    1008.001
+4    B     12        load    20.296      20.287 -0.009      9.539        9.502  -0.036            0           0          0   1114.898    1008.001
+5    B     12       solar    20.296      20.291 -0.006      9.539        9.507  -0.032            0           0          0   1053.126    1008.001
+6    B     12      signal    20.296      20.215 -0.082      9.539        8.817  -0.722            0           0          0    989.073    1008.001
+7    B     12  load+solar    20.296      20.279 -0.017      9.539        9.459  -0.079            0           0          0   1171.389    1008.001

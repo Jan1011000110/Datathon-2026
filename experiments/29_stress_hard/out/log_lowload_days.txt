@@ -1,0 +1,32 @@
+B Dec h1 load x0.6 extra regret by day: [ 0.051 -0.127  0.126 -0.009  0.03   0.034  0.002] spill by day: [322.  80.  60.  46.  37.  57.  58.]
+B Dec h1 weekdays take the Sunday profile extra regret by day: [ 0.028 -0.119  0.121  0.002  0.029 -0.     0.009] spill by day: [214.  79.  95.  52.  66.   0.   0.]
+B Dec h2 load x0.6 extra regret by day: [-0.076 -0.036  0.158 -0.011  0.08   0.051  0.   ] spill by day: [ 0. 91.  3.  0.  0. 65. 37.]
+B Dec h2 weekdays take the Sunday profile extra regret by day: [ 0.041 -0.142  0.156 -0.005  0.083 -0.002  0.002] spill by day: [ 0.  0.  0.  0.  0. 12.  0.]
+B Jul h1 load x0.6 extra regret by day: [-0.095  0.249 -0.147  0.044  0.088  0.083 -0.231] spill by day: [128.  31. 142.  30.  66. 229.  13.]
+B Jul h1 weekdays take the Sunday profile extra regret by day: [-0.024  0.235 -0.121 -0.026  0.056  0.193 -0.254] spill by day: [290.  62. 229.   0.   0. 268. 166.]
+B Jul h2 load x0.6 extra regret by day: [ 0.013  0.243 -0.195 -0.052  0.087  0.097 -0.224] spill by day: [110.  17.  40.  45.  23.   0.   0.]
+B Jul h2 weekdays take the Sunday profile extra regret by day: [ 0.069  0.238 -0.185 -0.074  0.045  0.182 -0.25 ] spill by day: [402.  48.   0.   1.   0.  14.   0.]
+C Dec h1 load x0.6 extra regret by day: [ 0.021  0.002  0.015 -0.047  0.084  0.066  0.024] spill by day: [ 86.  38. 216. 163.  51.  71.  44.]
+C Dec h1 weekdays take the Sunday profile extra regret by day: [ 0.005  0.004  0.003 -0.006  0.054  0.001 -0.007] spill by day: [ 10.   0. 159. 162.  26.   0.   0.]
+C Dec h2 load x0.6 extra regret by day: [ 0.016  0.016  0.013 -0.055  0.093  0.067 -0.06 ] spill by day: [ 75.  90. 109. 156.  13. 131.  33.]
+C Dec h2 weekdays take the Sunday profile extra regret by day: [ 0.012  0.011  0.004 -0.054  0.089  0.002 -0.001] spill by day: [ 0. 12. 19. 70.  0. 11.  0.]
+C Jul h1 load x0.6 extra regret by day: [ 0.074  0.121 -0.269  0.108 -0.122 -0.019  0.201] spill by day: [  9.  13.  98.  44. 108. 267.  16.]
+C Jul h1 weekdays take the Sunday profile extra regret by day: [ 0.111  0.102 -0.244  0.048  0.013 -0.121  0.201] spill by day: [11.  0. 76.  7.  0. 99. 11.]
+C Jul h2 load x0.6 extra regret by day: [ 0.024  0.181 -0.216  0.036 -0.077 -0.107  0.276] spill by day: [ 73.  34.  63. 192.  84.  98.   0.]
+C Jul h2 weekdays take the Sunday profile extra regret by day: [ 0.076  0.159 -0.197  0.016  0.004 -0.195  0.279] spill by day: [276.   0.   6.  64.   2.  44.   0.]
+                                                       extra_regret  ...  spill_clean
+agent scenario                         part                          ...             
+h1    load x0.6                        day 1                  0.013  ...       84.801
+                                       day 2                  0.061  ...        6.203
+                                       days 3-7 (sum)         0.015  ...       55.697
+      weekdays take the Sunday profile day 1                  0.030  ...       84.801
+                                       day 2                  0.056  ...        6.203
+                                       days 3-7 (sum)        -0.012  ...       55.697
+h2    load x0.6                        day 1                 -0.006  ...        0.005
+                                       day 2                  0.101  ...        0.000
+                                       days 3-7 (sum)        -0.010  ...       22.546
+      weekdays take the Sunday profile day 1                  0.049  ...        0.005
+                                       day 2                  0.067  ...        0.000
+                                       days 3-7 (sum)        -0.026  ...       22.546
+
+[12 rows x 3 columns]

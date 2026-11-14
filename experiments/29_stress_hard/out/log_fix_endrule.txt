@@ -1,0 +1,34 @@
+{'agent': 'h1', 'fold': 'A', 'case': 'clean', 'packaged': 20.5813, 'gated': 20.5813, 'gain': 0.0, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'B', 'case': 'clean', 'packaged': 19.7901, 'gated': 19.7901, 'gain': 0.0, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'B', 'case': 'lists shortened at every week end', 'packaged': 19.4437, 'gated': 19.5415, 'gain': 0.0979, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'B', 'case': 'lists shortened at random hours (1 in 50)', 'packaged': 19.3131, 'gated': 19.6556, 'gain': 0.3425, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'B', 'case': 'price / CO2 lists absent', 'packaged': 0.3478, 'gated': 18.9838, 'gain': 18.6361, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'B', 'case': 'empty lists at random hours (1 in 50)', 'packaged': 19.7873, 'gated': 19.7888, 'gain': 0.0015, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'B', 'case': '12 weeks on the test calendar', 'packaged': 18.2622, 'gated': 18.2622, 'gain': 0.0, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'B', 'case': '12 weeks, test calendar, lists shortened at every week end', 'packaged': 17.9896, 'gated': 17.8581, 'gain': -0.1315, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'B', 'case': 'run ends after 5 weeks', 'packaged': 14.1464, 'gated': 14.0541, 'gain': -0.0923, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'C', 'case': 'clean', 'packaged': 18.3529, 'gated': 18.3529, 'gain': 0.0, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'C', 'case': 'lists shortened at every week end', 'packaged': 17.9728, 'gated': 18.0257, 'gain': 0.0529, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'C', 'case': 'lists shortened at random hours (1 in 50)', 'packaged': 17.7684, 'gated': 18.3115, 'gain': 0.5431, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'C', 'case': 'price / CO2 lists absent', 'packaged': 0.5944, 'gated': 17.2327, 'gain': 16.6383, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'C', 'case': 'empty lists at random hours (1 in 50)', 'packaged': 18.3361, 'gated': 18.3484, 'gain': 0.0124, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'C', 'case': '12 weeks on the test calendar', 'packaged': 17.4286, 'gated': 17.4286, 'gain': 0.0, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'C', 'case': '12 weeks, test calendar, lists shortened at every week end', 'packaged': 16.8612, 'gated': 16.9007, 'gain': 0.0395, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h1', 'fold': 'C', 'case': 'run ends after 5 weeks', 'packaged': 13.5645, 'gated': 13.4817, 'gain': -0.0828, 'infr': 0, 'exc': 0, 'fallbacks_packaged': nan, 'fallbacks_gated': nan}
+{'agent': 'h2', 'fold': 'A', 'case': 'clean', 'packaged': 21.1375, 'gated': 21.1375, 'gain': 0.0, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}
+{'agent': 'h2', 'fold': 'B', 'case': 'clean', 'packaged': 20.2963, 'gated': 20.2963, 'gain': 0.0, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}
+{'agent': 'h2', 'fold': 'B', 'case': 'lists shortened at every week end', 'packaged': 19.9851, 'gated': 20.2179, 'gain': 0.2328, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}
+{'agent': 'h2', 'fold': 'B', 'case': 'lists shortened at random hours (1 in 50)', 'packaged': 19.8216, 'gated': 20.1502, 'gain': 0.3286, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}
+{'agent': 'h2', 'fold': 'B', 'case': 'price / CO2 lists absent', 'packaged': 0.3478, 'gated': 18.9838, 'gain': 18.6361, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 1848, 'fallbacks_gated': 1848}
+{'agent': 'h2', 'fold': 'B', 'case': 'empty lists at random hours (1 in 50)', 'packaged': 20.2423, 'gated': 20.2885, 'gain': 0.0461, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 50, 'fallbacks_gated': 32}
+{'agent': 'h2', 'fold': 'B', 'case': '12 weeks on the test calendar', 'packaged': 18.822, 'gated': 18.822, 'gain': 0.0, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}
+{'agent': 'h2', 'fold': 'B', 'case': '12 weeks, test calendar, lists shortened at every week end', 'packaged': 18.6205, 'gated': 18.7524, 'gain': 0.1319, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}
+{'agent': 'h2', 'fold': 'B', 'case': 'run ends after 5 weeks', 'packaged': 14.4273, 'gated': 14.2288, 'gain': -0.1984, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}
+{'agent': 'h2', 'fold': 'C', 'case': 'clean', 'packaged': 18.7004, 'gated': 18.7004, 'gain': 0.0, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}
+{'agent': 'h2', 'fold': 'C', 'case': 'lists shortened at every week end', 'packaged': 18.4594, 'gated': 18.6502, 'gain': 0.1908, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}
+{'agent': 'h2', 'fold': 'C', 'case': 'lists shortened at random hours (1 in 50)', 'packaged': 18.2485, 'gated': 18.6229, 'gain': 0.3743, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}
+{'agent': 'h2', 'fold': 'C', 'case': 'price / CO2 lists absent', 'packaged': 0.5944, 'gated': 17.2327, 'gain': 16.6383, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 1725, 'fallbacks_gated': 1725}
+{'agent': 'h2', 'fold': 'C', 'case': 'empty lists at random hours (1 in 50)', 'packaged': 18.6438, 'gated': 18.6642, 'gain': 0.0204, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 45, 'fallbacks_gated': 36}
+{'agent': 'h2', 'fold': 'C', 'case': '12 weeks on the test calendar', 'packaged': 17.6042, 'gated': 17.6042, 'gain': 0.0, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}
+{'agent': 'h2', 'fold': 'C', 'case': '12 weeks, test calendar, lists shortened at every week end', 'packaged': 17.3823, 'gated': 17.4917, 'gain': 0.1094, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}
+{'agent': 'h2', 'fold': 'C', 'case': 'run ends after 5 weeks', 'packaged': 13.949, 'gated': 13.8912, 'gain': -0.0578, 'infr': 0, 'exc': 0, 'fallbacks_packaged': 0, 'fallbacks_gated': 0}

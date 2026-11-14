@@ -1,0 +1,14 @@
+{'prior': 1.0, 'fold': 'A', 'variant': 'packaged', 'score': 21.137514860451795, 'infractions': 0, 'fallbacks': 0, 'spill_kwh': 2360.8421442994004, 'last_error': ''}
+{'prior': 1.0, 'fold': 'A', 'variant': 'official', 'score': 21.13468511979888, 'infractions': 0, 'fallbacks': 0, 'spill_kwh': 2259.6536453849885, 'last_error': ''}
+{'prior': 1.0, 'fold': 'A', 'variant': 'official+closure', 'score': 21.138479378344243, 'infractions': 0, 'fallbacks': 0, 'spill_kwh': 2259.6536453849885, 'last_error': ''}
+{'prior': 1.0, 'fold': 'B', 'variant': 'packaged', 'score': 20.29634587386547, 'infractions': 0, 'fallbacks': 0, 'spill_kwh': 1008.0013897803966, 'last_error': ''}
+{'prior': 1.0, 'fold': 'B', 'variant': 'official', 'score': 20.310581277492133, 'infractions': 0, 'fallbacks': 0, 'spill_kwh': 996.5833377362123, 'last_error': ''}
+{'prior': 1.0, 'fold': 'B', 'variant': 'official+closure', 'score': 20.310581277492133, 'infractions': 0, 'fallbacks': 0, 'spill_kwh': 996.5833377362123, 'last_error': ''}
+{'prior': 1.0, 'fold': 'C', 'variant': 'packaged', 'score': 18.70044261119153, 'infractions': 0, 'fallbacks': 0, 'spill_kwh': 1512.6082559708686, 'last_error': ''}
+{'prior': 1.0, 'fold': 'C', 'variant': 'official', 'score': 18.70044261119153, 'infractions': 0, 'fallbacks': 0, 'spill_kwh': 1512.6082559708686, 'last_error': ''}
+{'prior': 1.0, 'fold': 'C', 'variant': 'official+closure', 'score': 18.70044261119153, 'infractions': 0, 'fallbacks': 0, 'spill_kwh': 1512.6082559708686, 'last_error': ''}
+fold                    A        B        C
+variant                                    
+official          21.1347  20.3106  18.7004
+official+closure  21.1385  20.3106  18.7004
+packaged          21.1375  20.2963  18.7004

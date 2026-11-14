@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 19:00",
+ "updated": "Sat 14 Nov 2026, 19:08",
  "ceiling": 21.26,
  "best": {
   "name": "h2: combined agent, packaged and cleared (`submissions/h2/submission.zip`)",
@@ -7,16 +7,17 @@
   "note": "validation, mean of 3 folds, 0 infractions; the ceiling is for the same folds"
  },
  "leaderboard": [
-  ["Low BaterIA", "23.23"],
-  ["SSA Gourmet", "23.10"],
-  ["Los Rojos", "22.33"],
-  ["Viquipèdia racers", "22.25"],
-  ["PrimerMatesInfoUb", "22.23"],
-  ["La Datoneta", "22.02"],
-  ["5 more teams", "21.04–21.80"],
-  ["Fa (us)", "h2, h1 and h0 ready to submit"]
+  ["SSA Gourmet", "23.46"],
+  ["Ommetje", "23.40"],
+  ["TeamName", "23.37"],
+  ["SanHackobos_v3", "23.35"],
+  ["aniMLs", "23.30"],
+  ["hackers la l", "23.29"],
+  ["Low BaterIA, AAA, LosAvocados, Fanboy & Chum Chum", "23.06–23.23"],
+  ["5 teams", "22.48–22.95"],
+  ["Fa (us)", "h2 ready to submit; about 22.4 expected"]
  ],
- "leaderboard_time": "17:58, public half of the hidden test. Estimated ceiling there: about 23.7 (the public test scores about 11 % higher than our folds for everyone)",
+ "leaderboard_time": "19:07, public half of the hidden test; 25 teams. Estimated ceiling there: about 23.7. Our agent given the true signal would score about 23.2",
  "now": [
   "**To do now, in the hard-mode tab (attempts expire at 21:00): submit `submissions/h2/submission.zip` to the ranking.** Optionally `submissions/h1/nov_fill/submission.zip` as a comparison point.",
   "**h2 is confirmed on the server** (probe on the free validation, 19:00): it built fully, 0 fallbacks, 1.4 ms per step (about 3 s for a full run), same numpy and pandas as ours. Every assumption checked holds: lists shrink only in the last two hours, the state of charge is unrounded, the night-time load is frozen, solar is ×12.",
@@ -26,7 +27,7 @@
   "**The server's obs is confirmed** by our probe (18:50): 3 price/CO₂ values, the six readings, battery 6,000 / 1,500, first hour 24 Sep 2025. Exactly as documented.",
   "**Both signals are public data** (checked on three train days): the price is REE's published PVPC hour for hour, and the CO₂ column is exactly 0.37 × the share of emitting generation REE publishes. So the test weeks' true signal could be embedded in an agent, and our agent with a perfect signal would sit where the top two teams are (about 98 % of the ceiling). Our agents do not do this; whether it is allowed is a question for the organisers.",
   "**Anomalies get little weight now.** The organisers' statement that nobody had reached the private maximum was wrong. We keep what is certain or free (no crashes or infractions, the real layout, holiday weeks, fallbacks) and stop tuning guards for faults.",
-  "**Leaderboard (17:58):** top two at 23.2 and 23.1, four teams at 22.0–22.3, five at 21.0–21.8. Estimated public ceiling 23.7."
+  "**Leaderboard (19:07):** ten teams in a 0.4-point band at 23.06–23.46. That band is where our own agent lands when given the true signal (about 23.2), and the signal is public, so that is the most likely source of the gap. The alternative, that the public test is easier than we assume, is settled by our first h2 submission: about 22.4 means the gap is real, 23 or more means we are in the pack."
  ],
  "scoreboard": [
   ["Perfect foresight (ceiling)", "22.44", "21.42", "19.92", "21.26", "reference"],
@@ -50,7 +51,7 @@
   ["Planner (round 2)", "Make the plan aware that the price/CO₂ forecast is uncertain (scenario paths of the signal)", "done", "18:46: +0.057, about +0.045 with settings chosen on other folds; `reports/19_signal_planning/report.md`"],
   ["Price/CO₂ forecaster (round 2)", "Better forecast for hours +3 to +11", "done", "18:44: +0.045; the planner needs the level of the next six hours, which obs does not seem to contain"],
   ["Packager (h2)", "Package the combined agent, with a fallback to h1's logic if anything fails on the server", "done", "18:45: identical to the harness on all three folds, every fallback path tested, 2.5 s per run quiet; `reports/22_h2/report.md`"],
-  ["Red-team", "Check h1, the combined agent and h2 on the real test layout, holiday weeks, months missing from train and odd obs; faults only as a quick check", "running", "since 18:24; re-scoped 18:29"],
+  ["Red-team", "Check h1 and h2 on the real test layout, holiday weeks, months missing from train and odd obs; faults only as a quick check", "done", "19:05: about 600 runs, no crash, bad value or infraction in any plausible case; `reports/21_stress_hard/report.md`"],
   ["Packager (h1)", "Package h1 = h0's forecasts + the new planner", "done", "18:11: `submissions/h1/`, identical to the harness, 0.4–0.7 s per run; `reports/20_h1/report.md`"],
   ["Planner", "Fast optimiser that accounts for forecast uncertainty", "done", "17:56: +0.71 over trusting the forecast, 15–40× faster; `reports/14_planner/report.md`"],
   ["Load forecaster", "Predict campus load, above all for the current hour", "done", "18:00: error 38 → 20 kW, +0.60; `reports/11_load_forecast/report.md`"],
@@ -84,6 +85,8 @@
   ["End of run: plan only the hours left when the lists shrink; and nothing after 31 Aug 2026 23:00", "+0.05 and +0.07", "adopt both; the second cannot hurt unless the run went past August"],
   ["Running LightGBM on the server for the load model", "a model string it cannot parse kills the Python process, which no fallback can catch", "replaced by walking the trees with numpy (bit-identical), rules-only as the fallback"],
   ["Second probe: h2 itself on the 48 validation hours, reporting on itself", "built fully, 0 fallbacks, 1.4 ms per step, same library versions; lists shrink only in the last 2 hours, state of charge unrounded, night load frozen, solar ×12", "h2 confirmed on the server"],
+  ["Red-team, about 600 runs: odd obs, the real layout, clock changes, low-load weeks, months missing from train", "no crash, bad value or infraction in any plausible case; a low-load week costs 0.1–0.2, a missing month 0.00–0.02 for h2", "nothing further to fix"],
+  ["Holiday calendar for the load forecaster; h1 answering the first hours after a week jump", "+0.01 at best, −0.05 to −0.08 if wrong; −0.03 to −0.23", "not adopted"],
   ["Probe on the free quick validation: what does the server's obs contain?", "exactly what the site documents: 3 values, six readings, 6,000 / 1,500, first hour 24 Sep 2025", "confirmed; \"the server sends more hours\" ruled out"],
   ["Signal forecaster round 2: bridge to the stored day after each week; night-time level from a per-hour model", "+0.045 (all folds positive)", "adopt in h3"],
   ["Signal forecaster: boosted second stage with weather and campus readings; per-hour models everywhere; level +3 %; spread ×0.85 / ×1.15", "better accuracy, no reliable score gain", "not adopted; accuracy has failed to convert to score three times"],
@@ -110,6 +113,8 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["19:08", "Leaderboard check: ten teams at 23.06–23.46, the band our agent reaches with the true signal. h3's first ZIP equals the harness on all three folds; final checks running."],
+  ["19:08", "Red-team finished: nothing left to fix in h1 or h2. A low-load week costs 0.1–0.2 points, a month missing from train 0.00–0.02 for h2. Much of h2's remaining loss sits on the first day of each week."],
   ["19:00", "You ran the h2 probe on the free validation: h2 builds and runs on the server exactly as on our machine (0 fallbacks, 1.4 ms per step). Go for h2 on the ranking."],
   ["18:59", "Web check done: the price and CO₂ series are REE's public data, so the test weeks' true signal is obtainable. Our agents do not use it; recommended asking the organisers whether external data is allowed."],
   ["18:58", "Asked the packager for h3 (h2 + the two signal improvements, three-level fallback)."],
@@ -145,6 +150,7 @@
  ],
  "files": [
   ["reports/README.md", "full work log (hard mode in Part I)"],
+  ["reports/21_stress_hard/report.md", "red-team: what h1 and h2 do under odd inputs, the real layout, holiday weeks, missing months"],
   ["reports/22_h2/report.md", "h2: the combined agent packaged, how it was verified, the safety net, the server probe"],
   ["reports/19_signal_planning/report.md", "second round on the signal: what the planner needs, forecaster v2, planning against signal scenarios"],
   ["reports/18_combined/report.md", "the combined agent: what each piece adds, scenarios, sensitivity, what is still missing"],

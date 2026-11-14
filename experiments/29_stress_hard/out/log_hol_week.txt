@@ -1,0 +1,6 @@
+{'fold': 'B', 'case': 'clean (the prior is wrong)', 'packaged': 20.2963, 'with_prior': 20.2206, 'gain': -0.0758, 'spill_packaged': 1008.0014, 'spill_prior': 1008.0014, 'infr': 0, 'fallbacks': 0}
+{'fold': 'B', 'case': 'Dec week: weekdays take the Sunday profile', 'packaged': 20.8286, 'with_prior': 20.8389, 'gain': 0.0103, 'spill_packaged': 1011.5731, 'spill_prior': 1011.5731, 'infr': 0, 'fallbacks': 0}
+{'fold': 'B', 'case': 'Dec week load x0.6', 'packaged': 21.1549, 'with_prior': 21.1555, 'gain': 0.0006, 'spill_packaged': 1194.8764, 'spill_prior': 1204.3447, 'infr': 0, 'fallbacks': 0}
+{'fold': 'C', 'case': 'clean (the prior is wrong)', 'packaged': 18.7004, 'with_prior': 18.6509, 'gain': -0.0495, 'spill_packaged': 1512.6083, 'spill_prior': 1472.8776, 'infr': 0, 'fallbacks': 0}
+{'fold': 'C', 'case': 'Dec week: weekdays take the Sunday profile', 'packaged': 19.5071, 'with_prior': 19.4825, 'gain': -0.0246, 'spill_packaged': 1584.6989, 'spill_prior': 1584.6989, 'infr': 0, 'fallbacks': 0}
+{'fold': 'C', 'case': 'Dec week load x0.6', 'packaged': 19.5782, 'with_prior': 19.5436, 'gain': -0.0346, 'spill_packaged': 2078.629, 'spill_prior': 2099.7218, 'infr': 0, 'fallbacks': 0}

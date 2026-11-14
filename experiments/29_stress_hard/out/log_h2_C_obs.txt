@@ -1,0 +1,64 @@
+h2 C clean    clean                                                        score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 2.0s  
+h2 C obs      timestamp: str                                               score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 2.1s  
+h2 C obs      timestamp: iso                                               score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 2.6s  
+h2 C obs      timestamp: datetime                                          score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 2.4s  
+h2 C obs      timestamp: np                                                score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 4.0s  
+h2 C obs      timestamp: tz                                                score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 3.0s  
+h2 C obs      timestamp: utc                                               score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 2.8s  
+h2 C obs      timestamp: dmy                                               score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 2.9s  
+h2 C obs      timestamp: epoch                                             score  17.491 regret  2.428 d_reg  +1.210 infr 0 exc 0 bad 0 fb 1725 0.7s  DateParseError('year 1786917600 is out of range: 1786917600')
+h2 C obs      timestamp: none                                              score  17.491 regret  2.428 d_reg  +1.210 infr 0 exc 0 bad 0 fb 1725 0.6s  DateParseError('Unknown datetime string format, unable to parse: None')
+h2 C obs      timestamp: missing                                           score  17.491 regret  2.428 d_reg  +1.210 infr 0 exc 0 bad 0 fb 1725 0.6s  KeyError('timestamp')
+h2 C obs      timestamp: const                                             score  12.774 regret  7.144 d_reg  +5.926 infr 0 exc 0 bad 0 fb 0 1.5s  
+h2 C obs      price/CO2 lists: 24                                          score  19.282 regret  0.636 d_reg  -0.582 infr 0 exc 0 bad 0 fb 0 3.3s  
+h2 C obs      price/CO2 lists: short_random                                score  18.249 regret  1.670 d_reg  +0.452 infr 0 exc 0 bad 0 fb 0 3.6s  
+h2 C obs      price/CO2 lists: short_weekend                               score  18.459 regret  1.459 d_reg  +0.241 infr 0 exc 0 bad 0 fb 0 2.9s  
+h2 C obs      price/CO2 lists: numpy                                       score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 3.1s  
+h2 C obs      price/CO2 lists: series                                      score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 3.7s  
+h2 C obs      price/CO2 lists: nan_random                                  score  18.644 regret  1.275 d_reg  +0.057 infr 0 exc 0 bad 0 fb 45 4.6s  ValueError('price / co2 lists')
+h2 C obs      price/CO2 lists: none_random                                 score  18.644 regret  1.275 d_reg  +0.057 infr 0 exc 0 bad 0 fb 45 3.0s  ValueError('price / co2 lists')
+h2 C obs      price/CO2 lists: empty_random                                score  18.644 regret  1.275 d_reg  +0.057 infr 0 exc 0 bad 0 fb 45 4.1s  ValueError('price / co2 lists')
+h2 C obs      price/CO2 lists: missing                                     score   0.594 regret 19.324 d_reg +18.106 infr 0 exc 0 bad 0 fb 1725 0.7s  ValueError('price / co2 lists')
+h2 C obs      price/CO2 lists: strings                                     score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 5.2s  
+h2 C obs      cap_max_kwh / power_max_kw missing                           score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 4.5s  
+h2 C obs      cap / power as text                                          score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 4.6s  
+h2 C obs      cap / power None                                             score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 4.4s  
+h2 C obs      hour / day_of_week missing                                   score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 3.6s  
+h2 C obs      preu_actual / co2_actual missing                             score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 4.2s  
+h2 C obs      soc_pct / soc_percent missing                                score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 3.8s  
+h2 C obs      soc: out                                                     score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 4.1s  
+h2 C obs      soc: round2                                                  score  18.700 regret  1.218 d_reg  -0.000 infr 0 exc 0 bad 0 fb 0 3.4s  
+h2 C obs      soc: round0                                                  score   4.300 regret 15.619 d_reg +14.401 infr 72 exc 0 bad 0 fb 0 2.9s  
+h2 C obs      soc: str                                                     score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 2.9s  
+h2 C obs      soc: pct_only                                                score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 2.8s  
+h2 C obs      soc: none                                                    score   0.000 regret 19.918 d_reg +18.700 infr 0 exc 0 bad 0 fb 1725 0.0s  no state of charge
+h2 C obs      start charge 0 kWh                                           score  18.481 regret  1.215 d_reg  -0.003 infr 0 exc 0 bad 0 fb 0 2.8s  
+h2 C obs      start charge 1500 kWh                                        score  18.593 regret  1.214 d_reg  -0.004 infr 0 exc 0 bad 0 fb 0 2.9s  
+h2 C obs      start charge 6000 kWh                                        score  18.909 regret  1.221 d_reg  +0.003 infr 0 exc 0 bad 0 fb 0 2.9s  
+h2 C obs      readings: dict_none                                          score  18.127 regret  1.792 d_reg  +0.574 infr 0 exc 0 bad 0 fb 0 2.2s  
+h2 C obs      readings: dict_missing                                       score  18.127 regret  1.792 d_reg  +0.574 infr 0 exc 0 bad 0 fb 0 2.0s  
+h2 C obs      readings: dict_none_random                                   score  18.656 regret  1.263 d_reg  +0.045 infr 0 exc 0 bad 0 fb 0 2.2s  
+h2 C obs      readings: all_nan_random                                     score  18.656 regret  1.263 d_reg  +0.045 infr 0 exc 0 bad 0 fb 0 2.1s  
+h2 C obs      readings: load_nan_random                                    score  18.659 regret  1.260 d_reg  +0.042 infr 0 exc 0 bad 0 fb 0 2.1s  
+h2 C obs      readings: pv_nan_random                                      score  18.682 regret  1.236 d_reg  +0.018 infr 0 exc 0 bad 0 fb 0 2.2s  
+h2 C obs      readings: numpy_scalars                                      score  18.701 regret  1.218 d_reg  -0.000 infr 0 exc 0 bad 0 fb 0 2.1s  
+h2 C obs      readings: ints                                               score  18.700 regret  1.219 d_reg  +0.001 infr 0 exc 0 bad 0 fb 0 4.2s  
+h2 C obs      readings: pv_not_x12                                         score  17.455 regret  2.464 d_reg  +1.246 infr 0 exc 0 bad 0 fb 0 6.3s  
+h2 C obs      readings: current_hour                                       score  18.490 regret  1.429 d_reg  +0.211 infr 0 exc 0 bad 0 fb 0 5.4s  
+h2 C obs      readings: w_nan                                              score  18.673 regret  1.246 d_reg  +0.028 infr 0 exc 0 bad 0 fb 0 6.3s  
+h2 C obs      readings: w_missing                                          score  18.673 regret  1.246 d_reg  +0.028 infr 0 exc 0 bad 0 fb 0 5.2s  
+h2 C obs      readings: w_other_names                                      score  18.673 regret  1.246 d_reg  +0.028 infr 0 exc 0 bad 0 fb 0 5.7s  
+h2 C obs      readings: w_const                                            score  18.509 regret  1.410 d_reg  +0.192 infr 0 exc 0 bad 0 fb 0 4.4s  
+h2 C obs      readings: w_zero                                             score  18.690 regret  1.228 d_reg  +0.010 infr 0 exc 0 bad 0 fb 0 4.5s  
+h2 C obs      readings: w_absurd                                           score  17.342 regret  2.576 d_reg  +1.358 infr 0 exc 0 bad 0 fb 0 5.4s  
+h2 C obs      readings: w_inf                                              score  18.673 regret  1.246 d_reg  +0.028 infr 0 exc 0 bad 0 fb 0 4.9s  
+h2 C obs      readings: w_none                                             score  18.673 regret  1.246 d_reg  +0.028 infr 0 exc 0 bad 0 fb 0 4.7s  
+h2 C obs      readings: w_str                                              score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 4.5s  
+h2 C obs      readings: w_nan_random                                       score  18.698 regret  1.220 d_reg  +0.002 infr 0 exc 0 bad 0 fb 0 5.9s  
+h2 C obs      readings: w_irr_kw                                           score  18.696 regret  1.222 d_reg  +0.004 infr 0 exc 0 bad 0 fb 0 5.4s  
+h2 C obs      readings: w_irr_x2                                           score  18.631 regret  1.287 d_reg  +0.069 infr 0 exc 0 bad 0 fb 0 2.9s  
+h2 C obs      readings: w_irr_half                                         score  18.699 regret  1.220 d_reg  +0.002 infr 0 exc 0 bad 0 fb 0 3.7s  
+h2 C obs      readings: w_kelvin                                           score  18.570 regret  1.348 d_reg  +0.130 infr 0 exc 0 bad 0 fb 0 3.1s  
+h2 C obs      readings: w_swapped                                          score  18.650 regret  1.268 d_reg  +0.050 infr 0 exc 0 bad 0 fb 0 3.1s  
+h2 C obs      string timestamps + numpy lists + no cap/power + soc out of  score  18.700 regret  1.218 d_reg  +0.000 infr 0 exc 0 bad 0 fb 0 3.1s  
+done 224 s -> C:\Users\alexv\Documents\Datathon-2026\experiments\29_stress_hard\out\suite_h2_C_obs.csv

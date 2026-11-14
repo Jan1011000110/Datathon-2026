@@ -90,6 +90,47 @@ What follows:
 
 One legitimate by-product: the CO₂ signal is a fixed 0.37 times the share of emitting generation. That is worth stating in the presentation, and it means the "CO₂" the battery chases is really the share of gas and other emitting plants in the mix.
 
+## 7. Snapshot at 19:07: ten teams between 23.06 and 23.46
+
+Raw data: `hard_leaderboard_20261114_1907.csv`. 25 teams, 66 submissions. We are not on it yet.
+
+| # | Team | Score | CO₂ −% | Cost −% | Submissions | Share of estimated ceiling |
+|---|---|---|---|---|---|---|
+| 1 | SSA Gourmet | 23.46 | 22.22 | 26.37 | 7 | 99 % |
+| 2 | Ommetje | 23.40 | 22.05 | 26.55 | 2 | 99 % |
+| 3 | TeamName | 23.37 | 22.09 | 26.36 | 1 | 99 % |
+| 4 | SanHackobos_v3 | 23.35 | 22.10 | 26.25 | 1 | 99 % |
+| 5 | aniMLs | 23.30 | 22.05 | 26.23 | 3 | 98 % |
+| 6 | hackers la l | 23.29 | 21.95 | 26.40 | 1 | 98 % |
+| 7 | Low BaterIA | 23.23 | 22.01 | 26.09 | 4 | 98 % |
+| 8 | AAA | 23.18 | 21.88 | 26.23 | 2 | 98 % |
+| 9 | LosAvocados | 23.13 | 21.81 | 26.20 | 6 | 98 % |
+| 10 | Fanboy & Chum Chum | 23.06 | 21.80 | 26.00 | 1 | 97 % |
+| 11–15 | JAMM, EquipB, PrimerMatesInfoUb, Los Rojos, Viquipèdia Racers | 22.48–22.95 | | | | 95–97 % |
+| 16–21 | La Datoneta, manguets, ASCII, Yukiyuk, BOLETSIA.CAT, Equip | 21.04–22.02 | | | | 89–93 % |
+
+Where our agents would land if the fold-to-public scaling (×1.114) holds:
+
+| Agent | On our folds | Scaled to the public test |
+|---|---|---|
+| h2 (signal forecast from train data) | 20.11 | about 22.4 |
+| h3 | 20.19 | about 22.5 |
+| Our agent given the true signal for every future hour | 20.84 | about 23.2 |
+| Same, also given the true net load of the current hour | 21.16 | about 23.6 |
+| Ceiling | 21.26 | about 23.7 |
+
+Reading:
+
+- **The top band is where our own agent lands when it is given the true signal.** Ten teams sit in 0.4 points, between "true signal with our net-load handling" and "true signal with the current hour's load known as well".
+- **A band that narrow points to a shared level of information,** as in standard mode, where every team with the 24-hour signal converged on 6.43. Honest forecasting would spread teams out.
+- **Four teams entered the band with their first submission** (TeamName, SanHackobos_v3, hackers la l, Fanboy & Chum Chum).
+- **The gap from h2 to the band, about 0.9 points, equals what the signal beyond 3 hours is worth** in our own decomposition (0.72 on the folds, 0.80 scaled).
+- **The signal is public** (section 5).
+
+So the most likely source of the difference is the real price and CO₂ of the test weeks, carried inside the submission. This is inference from the scores; we have not seen anyone's code.
+
+**The alternative we cannot yet exclude:** the public test may be easier than our folds by more than the 11 % we assume. Then the ceiling would be higher than 23.7, those teams would be at about 95 % like us, and h2 would score with them. Our first h2 submission settles this: about 22.4 means the gap is real; 23 or more means we were wrong about the ceiling.
+
 ## 6. What would settle it
 
 - **A probe (done, 18:50).** The free quick validation displays error text; the server sends exactly what is documented.

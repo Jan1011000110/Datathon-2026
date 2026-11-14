@@ -1,0 +1,31 @@
+{'fold': 'A', 'case': 'clean', 'month': 0, 'shipped': 20.581327801786596, 'proposal': 20.582220463190247, 'gain': 0.0008926614036504077, 'infr': 0}
+{'fold': 'B', 'case': 'clean', 'month': 0, 'shipped': 19.790077217903722, 'proposal': 19.775085772395627, 'gain': -0.014991445508094614, 'infr': 0}
+{'fold': 'B', 'case': 'load/solar month hidden: whole run', 'month': 10, 'shipped': 19.75518416807718, 'proposal': 19.75674616796466, 'gain': 0.0015619998874818464, 'infr': 0} {'fold': 'B', 'case': 'load/solar month hidden: that week', 'month': 10, 'shipped': 20.1134959027059, 'proposal': 20.22566227051517, 'gain': 0.11216636780926947, 'infr': 0}
+{'fold': 'B', 'case': 'load/solar month hidden: whole run', 'month': 12, 'shipped': 19.769304389447914, 'proposal': 19.77093326651907, 'gain': 0.0016288770711554434, 'infr': 0} {'fold': 'B', 'case': 'load/solar month hidden: that week', 'month': 12, 'shipped': 7.4406081341385, 'proposal': 7.276393811839957, 'gain': -0.1642143222985437, 'infr': 0}
+{'fold': 'B', 'case': 'load/solar month hidden: whole run', 'month': 3, 'shipped': 19.71618061333061, 'proposal': 19.77461615119941, 'gain': 0.058435537868799514, 'infr': 0} {'fold': 'B', 'case': 'load/solar month hidden: that week', 'month': 3, 'shipped': 21.968544175940213, 'proposal': 23.206729266383096, 'gain': 1.238185090442883, 'infr': 0}
+{'fold': 'B', 'case': 'load/solar month hidden: whole run', 'month': 6, 'shipped': 19.8090974973232, 'proposal': 19.78423312246479, 'gain': -0.024864374858410088, 'infr': 0} {'fold': 'B', 'case': 'load/solar month hidden: that week', 'month': 6, 'shipped': 16.171737119577273, 'proposal': 16.09414883705414, 'gain': -0.07758828252313421, 'infr': 0}
+{'fold': 'C', 'case': 'clean', 'month': 0, 'shipped': 18.35291021085838, 'proposal': 18.356250094692463, 'gain': 0.003339883834083679, 'infr': 0}
+{'fold': 'C', 'case': 'load/solar month hidden: whole run', 'month': 10, 'shipped': 18.332814257841928, 'proposal': 18.327708299389375, 'gain': -0.005105958452553239, 'infr': 0} {'fold': 'C', 'case': 'load/solar month hidden: that week', 'month': 10, 'shipped': 17.73040507891509, 'proposal': 17.011833344137433, 'gain': -0.7185717347776581, 'infr': 0}
+{'fold': 'C', 'case': 'load/solar month hidden: whole run', 'month': 12, 'shipped': 18.248777484673337, 'proposal': 18.34701505921827, 'gain': 0.09823757454493176, 'infr': 0} {'fold': 'C', 'case': 'load/solar month hidden: that week', 'month': 12, 'shipped': 5.955979581044105, 'proposal': 7.653506007731608, 'gain': 1.697526426687503, 'infr': 0}
+{'fold': 'C', 'case': 'load/solar month hidden: whole run', 'month': 3, 'shipped': 18.319804489095254, 'proposal': 18.31527507094112, 'gain': -0.004529418154135101, 'infr': 0} {'fold': 'C', 'case': 'load/solar month hidden: that week', 'month': 3, 'shipped': 21.27789402392452, 'proposal': 23.923558743881273, 'gain': 2.645664719956752, 'infr': 0}
+{'fold': 'C', 'case': 'load/solar month hidden: whole run', 'month': 6, 'shipped': 18.368678450244268, 'proposal': 18.35430971408323, 'gain': -0.014368736161038953, 'infr': 0} {'fold': 'C', 'case': 'load/solar month hidden: that week', 'month': 6, 'shipped': 19.588774758877282, 'proposal': 19.37579983485953, 'gain': -0.2129749240177503, 'infr': 0}
+   fold                                case  month  shipped  proposal   gain  infr
+0     A                               clean      0   20.581    20.582  0.001     0
+1     B                               clean      0   19.790    19.775 -0.015     0
+2     B  load/solar month hidden: whole run     10   19.755    19.757  0.002     0
+3     B  load/solar month hidden: that week     10   20.113    20.226  0.112     0
+4     B  load/solar month hidden: whole run     12   19.769    19.771  0.002     0
+5     B  load/solar month hidden: that week     12    7.441     7.276 -0.164     0
+6     B  load/solar month hidden: whole run      3   19.716    19.775  0.058     0
+7     B  load/solar month hidden: that week      3   21.969    23.207  1.238     0
+8     B  load/solar month hidden: whole run      6   19.809    19.784 -0.025     0
+9     B  load/solar month hidden: that week      6   16.172    16.094 -0.078     0
+10    C                               clean      0   18.353    18.356  0.003     0
+11    C  load/solar month hidden: whole run     10   18.333    18.328 -0.005     0
+12    C  load/solar month hidden: that week     10   17.730    17.012 -0.719     0
+13    C  load/solar month hidden: whole run     12   18.249    18.347  0.098     0
+14    C  load/solar month hidden: that week     12    5.956     7.654  1.698     0
+15    C  load/solar month hidden: whole run      3   18.320    18.315 -0.005     0
+16    C  load/solar month hidden: that week      3   21.278    23.924  2.646     0
+17    C  load/solar month hidden: whole run      6   18.369    18.354 -0.014     0
+18    C  load/solar month hidden: that week      6   19.589    19.376 -0.213     0
