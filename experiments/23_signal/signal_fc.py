@@ -1,0 +1,339 @@
+"""
+experiments/23_signal/signal_fc.py
+Forecast of the score signal  w = co2 + kappa * price  beyond the 3 hours given in obs (hard mode).
+
+    fc = SignalForecaster(fit_df, kappa)       # recommended configuration (see BEST below)
+    w = fc.predict(obs, hist, H)               # length H; indices 0..2 are the known values
+    fc.to_npz(path); fc = SignalFC.from_npz(path)      # ship the fitted forecaster without refitting
+
+fit_df: hourly DatetimeIndex, columns co2_kg_per_kwh and precio_eur_per_kwh. Give it EVERY train
+hour (price and CO2 have no gaps in the train files; `load_hard("filled")`), not the table that
+drops hours with missing load or solar.
+
+How it works (variant "A48", the recommended one)
+-------------------------------------------------
+* A store: one value per calendar hour for CO2 and for price, filled with the fit rows (train
+  days) and, during the run, with every value the agent is shown (this hour, +1, +2). Lookups are
+  by timestamp, so the hours before a test week come from the train days right before it.
+* Climatology: mean by (month, weekend-or-fixed-holiday, hour) on the fit rows. A day never enters
+  its own climatology (leave-one-day-out on fit rows), so train days and run days are treated alike.
+  With interp=True a day far from the centre of its month's fit days leans on the neighbouring
+  month (the test weeks sit at the end of each month, two weeks after the centre of its train days).
+* Anomaly = value - climatology of its own hour and day type. One ridge regression per horizon
+  k = 3..kmax and per signal predicts the anomaly at t+k from the anomalies of the last 48 known
+  hours (t-45..t+2), the other signal's anomalies of the last 12 known hours, and the climatology
+  at the target hour. Forecast = climatology(target) + predicted anomaly. Working on anomalies is
+  what makes weekday/weekend changes come out right; the recent anomalies carry the level.
+* Week boundaries: the run is made of 7-day blocks about 3 weeks apart. Rows beyond the end of the
+  current block belong to the next block and are forecast from the stored days right before it.
+* Missing history (cold start, never the case in the real test layout): missing hours are filled
+  with the climatology rescaled to the known hours.
+
+Other variants ("L48", "compact", "A24", "AH8", last-week terms) are kept for the comparison in
+the report. No market data other than the fit rows is used. Runtime imports: numpy, pandas.
+"""
+import numpy as np
+import pandas as pd
+
+KAPPA_DEFAULT = (0.3 / 0.7) * 0.634
+HOUR_NS = 3_600_000_000_000
+# fixed-date national holidays (billed like a weekend in the PVPC tariff): calendar facts, not market data
+HOLIDAYS = {(1, 1), (1, 6), (5, 1), (8, 15), (10, 12), (11, 1), (12, 6), (12, 8), (12, 25)}
+BACK = 170                    # hours of history kept in the local window (>= 168 + 2)
+W_OFF = np.arange(-45, 3)     # the 48 most recent known hours relative to the origin: t-45 .. t+2
+COLS = (("c", "co2_kg_per_kwh"), ("p", "precio_eur_per_kwh"))
+
+
+class SignalFC:
+    def __init__(self, fit_df=None, kappa=KAPPA_DEFAULT, kmax=50, ridge=0.03, variant="L48",
+                 use_lw=True, loo=True, cross=False, holidays=True, cold_min=0, interp=False):
+        self.kappa, self.kmax, self.ridge, self.variant = kappa, int(kmax), ridge, variant
+        self.holidays = holidays
+        self.interp = interp                  # blend each month's climatology with the neighbouring month's
+        self.cold_min = cold_min              # real values needed in the last 24 h to use the regression
+        self.use_lw, self.loo, self.cross = use_lw, loo, cross
+        self.ks = np.arange(3, self.kmax + 1)
+        self.m1 = np.where(self.ks <= 26, 1, np.where(self.ks <= 50, 2, 3))   # days back to the last known same hour
+        self._last_i = None
+        if fit_df is not None:
+            self.fit(fit_df, kappa)
+
+    # ------------------------------------------------------------------ fit
+    def fit(self, fit_df, kappa=None):
+        if kappa is not None:
+            self.kappa = kappa
+        idx = fit_df.index
+        t0 = idx.min().normalize() - pd.Timedelta(days=40)
+        t1 = idx.max().normalize() + pd.Timedelta(days=75)
+        grid = pd.date_range(t0, t1, freq="h")
+        self.t0_ns, self.n = int(t0.value), len(grid)
+        pos = ((idx.values.astype("datetime64[ns]").astype("int64") - self.t0_ns) // HOUR_NS).astype(int)
+        hol = np.fromiter(((m, d) in HOLIDAYS for m, d in zip(grid.month, grid.day)), bool, len(grid))
+        if not self.holidays:
+            hol[:] = False
+        dt = ((grid.dayofweek.values >= 5) | hol).astype(int)
+        cell = (grid.month.values - 1) * 48 + dt * 24 + grid.hour.values
+        cell2 = dt * 24 + grid.hour.values
+        self.hour_grid = grid.hour.values.astype(int)
+        self.nh = 24 if self.variant.startswith("AH") else 1      # AH: one model per hour of day of the origin
+        self.S0, self.CL, CLT = {}, {}, {}
+        for name, col in COLS:
+            s = np.full(self.n, np.nan)
+            s[pos] = fit_df[col].to_numpy(float)
+            ok = ~np.isnan(s)
+            sm = np.bincount(cell[ok], weights=s[ok], minlength=576)
+            cn = np.bincount(cell[ok], minlength=576)
+            sm2 = np.bincount(cell2[ok], weights=s[ok], minlength=48)
+            cn2 = np.bincount(cell2[ok], minlength=48)
+            base = (sm2 / np.maximum(cn2, 1))[cell2]
+            cl = np.where(cn[cell] > 0, sm[cell] / np.maximum(cn[cell], 1), base)
+            clt = cl.copy()                       # leave-one-day-out climatology for training targets
+            m = ok & (cn[cell] > 1)
+            clt[m] = (sm[cell][m] - s[m]) / (cn[cell][m] - 1)
+            if self.interp:
+                # a day far from the centre of its month's fit days leans on the neighbouring month
+                mon = grid.month.values - 1
+                dayf = grid.day.values + grid.hour.values / 24.0
+                cen = np.array([dayf[ok & (mon == q)].mean() if (ok & (mon == q)).any() else 15.5 for q in range(12)])
+                lam_t = (dayf - cen[mon]) / 30.4
+                nb_cell = np.where(lam_t >= 0, (mon + 1) % 12, (mon - 1) % 12) * 48 + dt * 24 + grid.hour.values
+                wn = np.where(cn[nb_cell] > 0, np.clip(np.abs(lam_t), 0.0, 1.0), 0.0)
+                cl_n = sm[nb_cell] / np.maximum(cn[nb_cell], 1)
+                cl = (1 - wn) * cl + wn * cl_n
+                clt = (1 - wn) * clt + wn * cl_n
+            if self.variant.startswith("A"):      # anomaly variants: a day never enters its own climatology
+                cl = clt if self.loo else cl
+            self.S0[name], self.CL[name], CLT[name] = s, cl, clt if self.loo else cl
+        # training set: every origin with a complete window
+        O = np.arange(BACK + 2, self.n - self.kmax - 2)
+        self.coef = {}
+        for name, _ in COLS:
+            other = "p" if name == "c" else "c"
+            for lw in ((True, False) if self.use_lw else (False,)):
+                g, P = self._feats(self.S0[name], self.CL[name], CLT[name], O, lw,
+                                   self.S0[other] if self.cross else None, self.CL[other])
+                Y = self.S0[name][O[:, None] + self.ks[None, :]]
+                if self.variant.startswith("A"):
+                    Y = Y - CLT[name][O[:, None] + self.ks[None, :]]
+                g_ok = np.isfinite(g).all(1)
+                K, nh = len(self.ks), self.nh
+                A = np.zeros((nh, K, g.shape[1]))
+                B = np.zeros((nh, K, P.shape[2]))
+                c0 = np.zeros((nh, K))
+                nfit = np.zeros((nh, K), int)
+                oh = self.hour_grid[O]
+                for h in range(nh):
+                    h_ok = g_ok & (oh == h) if nh > 1 else g_ok
+                    for j in range(K):
+                        okj = h_ok & np.isfinite(P[:, j, :]).all(1) & np.isfinite(Y[:, j])
+                        X = np.hstack([g[okj], P[okj, j, :]])
+                        y = Y[okj, j]
+                        nfit[h, j] = len(y)
+                        if len(y) < 40:
+                            continue
+                        mu, sd = X.mean(0), X.std(0) + 1e-12
+                        Xs = (X - mu) / sd
+                        b = np.linalg.solve(Xs.T @ Xs + self.ridge * len(y) * np.eye(X.shape[1]), Xs.T @ (y - y.mean()))
+                        b = b / sd
+                        A[h, j], B[h, j] = b[:g.shape[1]], b[g.shape[1]:]
+                        c0[h, j] = y.mean() - mu @ b
+                self.coef[(name, lw)] = (A, B, c0, nfit)
+        self.S = {k: v.copy() for k, v in self.S0.items()}
+        self._last_i = None
+        self.__dict__.pop("_lo", None)
+        return self
+
+    def _feats(self, S, CL, CLT, O, lw, S_other=None, CL_other=None):
+        """g: (n, ns) features shared by all horizons; P: (n, K, np) features of each target hour."""
+        O = np.asarray(O)[:, None]
+        tau = O + self.ks[None, :]
+        y1i = tau - 24 * self.m1[None, :]
+        win = S[O + W_OFF[None, :]]
+        cmean = CL[O + W_OFF[None, 24:]].mean(1, keepdims=True)
+        if self.variant == "A48":                  # anomalies against the day-type climatology
+            g = [win - CL[O + W_OFF[None, :]]]
+            if S_other is not None:               # the other signal's anomalies over the last 12 known hours
+                g.append(S_other[O + W_OFF[None, 36:]] - CL_other[O + W_OFF[None, 36:]])
+            P = [CLT[tau]]
+            if lw:
+                P += [S[tau - 168] - CL[tau - 168]]
+            return np.hstack(g), np.stack(P, axis=2)
+        if self.variant.startswith("AH"):          # compact anomaly features, one model per origin hour
+            an = win - CL[O + W_OFF[None, :]]
+            nrec = int(self.variant[2:] or 8)
+            g = [an[:, -nrec:], an[:, -24:].mean(1, keepdims=True), an[:, :24].mean(1, keepdims=True)]
+            P = [CLT[tau], S[y1i] - CL[y1i]]
+            if lw:
+                P += [S[tau - 168] - CL[tau - 168]]
+            return np.hstack(g), np.stack(P, axis=2)
+        if self.variant == "A24":
+            g = [win[:, 24:] - CL[O + W_OFF[None, 24:]]]
+            P = [CLT[tau]]
+            if lw:
+                P += [S[tau - 168] - CL[tau - 168]]
+            return np.hstack(g), np.stack(P, axis=2)
+        if self.variant == "L48":
+            g = [win, cmean]
+            P = [CLT[tau], CL[y1i]]
+        else:                                     # compact
+            g = [win[:, -3:], win[:, -24:].mean(1, keepdims=True), cmean]
+            P = [CLT[tau], S[y1i], CL[y1i], S[y1i - 24], CL[y1i - 24]]
+        if S_other is not None:
+            g.append(S_other[O + W_OFF[None, 24:]])
+        if lw:
+            P += [S[tau - 168], CL[tau - 168]]
+        return np.hstack(g), np.stack(P, axis=2)
+
+    # ------------------------------------------------------------------ packaging
+    def to_npz(self, path):
+        """Everything predict() needs, as plain arrays (for a submission that cannot refit)."""
+        d = {"meta": np.array([self.kappa, self.kmax, 0, self.n, self.nh, int(self.use_lw), int(self.cross), self.cold_min], float),
+             "t0_ns": np.array([self.t0_ns], np.int64), "variant": np.array(self.variant), "hour_grid": self.hour_grid}
+        for name, _ in COLS:
+            d[f"S0_{name}"], d[f"CL_{name}"] = self.S0[name], self.CL[name]
+        for (name, lw), (A, B, c0, nfit) in self.coef.items():
+            d[f"A_{name}_{int(lw)}"], d[f"B_{name}_{int(lw)}"], d[f"c_{name}_{int(lw)}"] = A, B, c0
+        np.savez_compressed(path, **d)
+
+    @classmethod
+    def from_npz(cls, path):
+        z = np.load(path, allow_pickle=False)
+        m = z["meta"]
+        self = SignalFC(None, kappa=float(m[0]), kmax=int(m[1]), variant=str(z["variant"]), use_lw=bool(m[5]),
+                        cross=bool(m[6]), cold_min=int(m[7]))
+        self.t0_ns, self.n, self.nh = int(z["t0_ns"][0]), int(m[3]), int(m[4])
+        self.hour_grid = z["hour_grid"]
+        self.S0 = {n: z[f"S0_{n}"] for n, _ in COLS}
+        self.CL = {n: z[f"CL_{n}"] for n, _ in COLS}
+        self.coef = {}
+        for n, _ in COLS:
+            for lw in (0, 1):
+                if f"A_{n}_{lw}" in z.files:
+                    self.coef[(n, bool(lw))] = (z[f"A_{n}_{lw}"], z[f"B_{n}_{lw}"], z[f"c_{n}_{lw}"], None)
+        self.reset()
+        return self
+
+    def reset(self):
+        """Forget everything seen in a run (called automatically when hist has a single record)."""
+        self.S = {k: v.copy() for k, v in self.S0.items()}
+        self._last_i = None
+
+    # ------------------------------------------------------------------ run time
+    def _next_block(self, ts):
+        d0 = ts.normalize()
+        first_next = (d0.replace(day=1) + pd.offsets.MonthBegin(1))
+        if d0.day == d0.days_in_month - 6:        # test layout: last 7 days of every month
+            nb = first_next + pd.Timedelta(days=first_next.days_in_month - 7)
+        else:                                     # folds: same day of the next month
+            nb = first_next + pd.Timedelta(days=d0.day - 1)
+        return int((nb.value - self.t0_ns) // HOUR_NS)
+
+    def _from(self, o):
+        """(co2, price) for hours o+3 .. o+kmax, from what the store holds up to o+2."""
+        out = []
+        seg = {}
+        lw_ok = True
+        cold = False
+        for name, _ in COLS:
+            s = self.S[name][o - BACK:o + 3].copy()
+            cl = self.CL[name][o - BACK:o + self.kmax + 1]
+            nan = np.isnan(s)
+            rho = 1.0
+            if nan.any():
+                v = ~nan[-24:]
+                rho = s[-24:][v].sum() / max(cl[BACK - 21:BACK + 3][v].sum(), 1e-12) if v.any() else 1.0
+                if nan[5:self.kmax + 3].any():
+                    lw_ok = False
+                if v.sum() < self.cold_min:       # cold start: too little recent history for the regression
+                    cold = True
+                s[nan] = cl[:BACK + 3][nan] * rho
+            seg[name] = (s, cl, rho)
+        if cold:                                  # climatology rescaled to the known hours, fading (as ClimW)
+            fade = 0.5 ** (self.ks / 24.0)
+            c, p = (seg[n][1][BACK + self.ks] * (1.0 + (min(max(seg[n][2], 0.2), 5.0) - 1.0) * fade) for n in ("c", "p"))
+            return np.maximum(c, self._floor("c")), np.maximum(p, self._floor("p"))
+        seg = {k: v[:2] for k, v in seg.items()}
+        lw = self.use_lw and lw_ok
+        for name, _ in COLS:
+            s, cl = seg[name]
+            so, clo = seg["p" if name == "c" else "c"]
+            g, P = self._feats(s, cl, cl, [BACK], lw, so if self.cross else None, clo)
+            A, B, c0, _ = self.coef[(name, lw)]
+            h = int(self.hour_grid[o]) if self.nh > 1 else 0
+            y = c0[h] + A[h] @ g[0] + (B[h] * P[0]).sum(1)
+            if self.variant.startswith("A"):
+                y = y + cl[BACK + self.ks]
+            out.append(y)
+        co2 = np.maximum(out[0], self._floor("c"))
+        price = np.maximum(out[1], self._floor("p"))
+        return co2, price
+
+    def _floor(self, name):
+        """Lowest value a forecast may take: 0.9 x the lowest value in the fit rows."""
+        if not hasattr(self, "_lo"):
+            self._lo = {k: 0.9 * float(np.nanmin(v)) for k, v in self.S0.items()}
+        return self._lo[name]
+
+    def predict_parts(self, obs, hist, H):
+        """(co2, price), each of length H, for the next H rows of the run."""
+        ts = obs["timestamp"]
+        if not isinstance(ts, pd.Timestamp):
+            ts = pd.Timestamp(ts)
+        i = int((ts.value - self.t0_ns) // HOUR_NS)
+        kc = np.asarray(obs["co2_properes_24h"], float)
+        kp = np.asarray(obs["preus_properes_24h"], float)
+        if i < BACK + 60 or i > self.n - self.kmax - 60:                     # outside the calendar: flat fallback
+            return np.full(H, kc.mean()), np.full(H, kp.mean())
+        new_run = len(hist) <= 1 or self._last_i is None
+        if new_run:
+            self.S = {k: v.copy() for k, v in self.S0.items()}
+            self._cont = False
+        if new_run or i - self._last_i > 48 or i < self._last_i:            # a new 7-day block starts
+            self._b0 = i - ts.hour
+            self._b1 = self._b0 + 168
+            self._nb = self._next_block(ts)
+            self._tail = None
+        elif i >= self._b1:                                                  # no jump after 7 days: continuous run
+            self._cont = True
+        self._last_i = i
+        b1 = self.n if self._cont else self._b1
+        for j in range(len(kc)):
+            if i + j < b1:
+                self.S["c"][i + j] = kc[j]
+                self.S["p"][i + j] = kp[j]
+        r = b1 - i                                                           # rows left in this block
+        H = int(H)
+        c_out, p_out = np.empty(H), np.empty(H)
+        n_cur = min(H, r)
+        if n_cur > 3:
+            c, p = self._from(i)
+            m = min(n_cur, self.kmax + 1)
+            c_out[3:m], p_out[3:m] = c[:m - 3], p[:m - 3]
+            if m < n_cur:
+                c_out[m:n_cur], p_out[m:n_cur] = c[-1], p[-1]
+        if H > r:                                                            # rows of the next block
+            if self._tail is None:
+                nb = min(max(self._nb, BACK + 60), self.n - self.kmax - 60)
+                self._tail = self._from(nb - 3)
+            c, p = self._tail
+            a = max(r, 0)
+            idx = np.minimum(np.arange(a - r, H - r), len(c) - 1)
+            c_out[a:H], p_out[a:H] = c[idx], p[idx]
+        k = min(len(kc), H, 3)
+        c_out[:k], p_out[:k] = kc[:k], kp[:k]
+        if k < min(3, H):                                                    # end of the run
+            c_out[k:3], p_out[k:3] = kc.mean(), kp.mean()
+        return c_out, p_out
+
+    def predict(self, obs, hist, H):
+        c, p = self.predict_parts(obs, hist, H)
+        return c + self.kappa * p
+
+
+BEST = dict(variant="A48", use_lw=False, cross=True, ridge=0.01, interp=True)
+
+
+class SignalForecaster(SignalFC):
+    """SignalFC with the recommended configuration."""
+    def __init__(self, fit_df=None, kappa=KAPPA_DEFAULT, **kw):
+        super().__init__(fit_df, kappa, **{**BEST, **kw})

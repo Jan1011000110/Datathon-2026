@@ -1,0 +1,39 @@
+fold                                                                       A       B       C    mean  spill_MWh  infr     sec
+config                                                                                                                       
+perfect w + profile n | det, H=24                                     20.679  20.035  18.686  19.800     22.029     0  10.590
+perfect w + profile n | stoch h0, Q=20, H=24                          21.119  20.571  19.111  20.267     10.348     0   1.764
+perfect w + profile n | stoch all, Q=9, H=24                          21.474  20.735  19.180  20.463      6.483     0   1.840
+perfect w + profile n | det, H=36                                     20.679  20.036  18.686  19.801     22.029     0   1.041
+perfect w + profile n | stoch h0, Q=20, H=36                          21.122  20.571  19.112  20.268     10.330     0   1.606
+perfect w + profile n | stoch all, Q=9, H=36                          21.474  20.735  19.180  20.463      6.480     0   2.136
+perfect w + profile n | det, H=48                                     20.679  20.036  18.686  19.801     22.029     0   1.711
+perfect w + profile n | stoch h0, Q=20, H=48                          21.122  20.570  19.112  20.268     10.330     0   3.339
+perfect w + profile n | stoch all, Q=9, H=48                          21.474  20.735  19.180  20.463      6.480     0   2.884
+perfect w + profile n | stoch h0, Q=20, H=24, v_end=0.25*mean(w)*eta  21.137  20.607  19.120  20.288     10.005     0   1.734
+perfect w + profile n | stoch h0, Q=20, H=36, v_end=0.25*mean(w)*eta  21.140  20.606  19.121  20.289      9.986     0   1.989
+perfect w + profile n | stoch h0, Q=20, H=24, v_end=0.50*mean(w)*eta  21.135  20.603  19.083  20.274      9.894     0   1.626
+perfect w + profile n | stoch h0, Q=20, H=36, v_end=0.50*mean(w)*eta  21.138  20.602  19.084  20.275      9.876     0   1.498
+perfect w + profile n | stoch h0, Q=20, H=24, v_end=0.75*mean(w)*eta  21.102  20.591  19.065  20.253      9.754     0   1.268
+perfect w + profile n | stoch h0, Q=20, H=36, v_end=0.75*mean(w)*eta  21.101  20.592  19.065  20.253      9.754     0   1.343
+perfect w + profile n | stoch h0, Q=20, H=24, v_end=1.00*mean(w)*eta  21.093  20.570  19.062  20.242      9.728     0   1.378
+perfect w + profile n | stoch h0, Q=20, H=36, v_end=1.00*mean(w)*eta  21.093  20.570  19.063  20.242      9.728     0   2.687
+clim w + profile n | det, H=24                                        19.700  19.099  17.645  18.815     21.853     0   6.997
+clim w + profile n | stoch h0, Q=20, H=24                             20.312  19.689  18.063  19.355      8.489     0   1.447
+clim w + profile n | stoch all, Q=9, H=24                             20.582  19.781  18.209  19.524      4.764     0   2.148
+clim w + profile n | det, H=36                                        19.701  19.099  17.644  18.815     21.853     0   1.349
+clim w + profile n | stoch h0, Q=20, H=36                             20.311  19.689  18.062  19.354      8.483     0   2.503
+clim w + profile n | stoch all, Q=9, H=36                             20.583  19.781  18.209  19.524      4.764     0   2.644
+clim w + profile n | det, H=48                                        19.701  19.099  17.644  18.815     21.853     0   1.297
+clim w + profile n | stoch h0, Q=20, H=48                             20.311  19.689  18.062  19.354      8.483     0   1.968
+clim w + profile n | stoch all, Q=9, H=48                             20.583  19.781  18.209  19.524      4.764     0   3.051
+clim w + profile n | stoch h0, Q=20, H=24, v_end=0.25*mean(w)*eta     20.312  19.689  18.063  19.355      8.489     0   3.587
+clim w + profile n | stoch h0, Q=20, H=36, v_end=0.25*mean(w)*eta     20.311  19.689  18.062  19.354      8.483     0   2.617
+clim w + profile n | stoch h0, Q=20, H=24, v_end=0.50*mean(w)*eta     20.312  19.689  18.063  19.355      8.489     0   2.856
+clim w + profile n | stoch h0, Q=20, H=36, v_end=0.50*mean(w)*eta     20.311  19.689  18.062  19.354      8.483     0   2.712
+clim w + profile n | stoch h0, Q=20, H=24, v_end=0.75*mean(w)*eta     20.311  19.689  18.063  19.354      8.484     0   2.731
+clim w + profile n | stoch h0, Q=20, H=36, v_end=0.75*mean(w)*eta     20.311  19.689  18.062  19.354      8.483     0   2.080
+clim w + profile n | stoch h0, Q=20, H=24, v_end=1.00*mean(w)*eta     20.311  19.689  18.063  19.354      8.484     0   2.297
+clim w + profile n | stoch h0, Q=20, H=36, v_end=1.00*mean(w)*eta     20.311  19.689  18.062  19.354      8.483     0   1.889
+perfect w + perfect n | det, H=24                                     22.440  21.415  19.918  21.258      0.000     0   0.980
+perfect w + perfect n | det, H=36                                     22.440  21.417  19.918  21.259      0.000     0   1.036
+perfect w + perfect n | det, H=48                                     22.440  21.417  19.918  21.259      0.000     0   1.061

@@ -1,0 +1,46 @@
+     H                                   planner  best_ms  median_ms  run_2016_calls_s
+0   24                        scipy LP (plan_lp)   10.252     10.252            20.668
+1   24                                  plan_det    0.442      0.471             0.950
+2   24      plan_stoch Q=3, scenarios for hour 0    0.638      0.667             1.345
+3   24   plan_stoch Q=3, scenarios for hours 0-5    1.084      2.734             5.512
+4   24   plan_stoch Q=3, scenarios for all hours    0.879      0.981             1.977
+5   24      plan_stoch Q=5, scenarios for hour 0    0.923      1.018             2.053
+6   24   plan_stoch Q=5, scenarios for hours 0-5    0.988      1.106             2.230
+7   24   plan_stoch Q=5, scenarios for all hours    0.972      1.050             2.116
+8   24      plan_stoch Q=9, scenarios for hour 0    0.969      1.064             2.146
+9   24   plan_stoch Q=9, scenarios for hours 0-5    1.238      1.337             2.694
+10  24   plan_stoch Q=9, scenarios for all hours    1.232      1.394             2.809
+11  24     plan_stoch Q=20, scenarios for hour 0    0.863      0.937             1.889
+12  24  plan_stoch Q=20, scenarios for hours 0-5    1.112      1.162             2.342
+13  24  plan_stoch Q=20, scenarios for all hours    1.792      1.913             3.857
+14  36                        scipy LP (plan_lp)   18.285     18.285            36.863
+15  36                                  plan_det    0.552      0.610             1.229
+16  36      plan_stoch Q=3, scenarios for hour 0    0.966      1.017             2.050
+17  36   plan_stoch Q=3, scenarios for hours 0-5    1.023      1.129             2.277
+18  36   plan_stoch Q=3, scenarios for all hours    0.901      0.962             1.939
+19  36      plan_stoch Q=5, scenarios for hour 0    1.030      2.366             4.770
+20  36   plan_stoch Q=5, scenarios for hours 0-5    1.071      1.127             2.272
+21  36   plan_stoch Q=5, scenarios for all hours    1.145      1.186             2.390
+22  36      plan_stoch Q=9, scenarios for hour 0    0.874      0.929             1.872
+23  36   plan_stoch Q=9, scenarios for hours 0-5    1.045      1.120             2.258
+24  36   plan_stoch Q=9, scenarios for all hours    1.309      1.367             2.757
+25  36     plan_stoch Q=20, scenarios for hour 0    1.019      1.142             2.302
+26  36  plan_stoch Q=20, scenarios for hours 0-5    1.502      1.765             3.558
+27  36  plan_stoch Q=20, scenarios for all hours    2.448      2.685             5.412
+28  48                        scipy LP (plan_lp)   37.932     37.932            76.470
+29  48                                  plan_det    0.636      0.712             1.436
+30  48      plan_stoch Q=3, scenarios for hour 0    0.924      1.071             2.159
+31  48   plan_stoch Q=3, scenarios for hours 0-5    1.008      1.090             2.198
+32  48   plan_stoch Q=3, scenarios for all hours    1.023      1.095             2.208
+33  48      plan_stoch Q=5, scenarios for hour 0    0.926      0.970             1.956
+34  48   plan_stoch Q=5, scenarios for hours 0-5    0.991      1.012             2.040
+35  48   plan_stoch Q=5, scenarios for all hours    1.124      1.167             2.353
+36  48      plan_stoch Q=9, scenarios for hour 0    0.947      1.015             2.045
+37  48   plan_stoch Q=9, scenarios for hours 0-5    1.042      1.115             2.248
+38  48   plan_stoch Q=9, scenarios for all hours    1.536      1.656             3.338
+39  48     plan_stoch Q=20, scenarios for hour 0    0.978      1.061             2.139
+40  48  plan_stoch Q=20, scenarios for hours 0-5    1.172      1.330             2.681
+41  48  plan_stoch Q=20, scenarios for all hours    2.445      2.945             5.936
+segments in v after hour 0, H=36, det: mean 7, max 12
+segments in v after hour 0, H=36, stoch Q=9 all hours: mean 16, max 57
+segments in v after hour 0, H=36, stoch Q=20 all hours: mean 30, max 123

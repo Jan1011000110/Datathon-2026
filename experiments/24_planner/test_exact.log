@@ -1,0 +1,21 @@
+                    family     n       max_gap      mean_gap       min_gap   max_rel_gap  infeasible
+0      det random, v_end=0  1500  9.094947e-13 -8.870770e-14 -2.728484e-12  2.220358e-04           0
+1      det random, v_end>0  1500  5.229595e-12  3.430974e-13 -1.818989e-12  2.691984e-13           0
+2  det real (fold B, H=36)  1500  1.818989e-12 -1.011055e-13 -1.818989e-12  6.598810e-16           0
+3   stoch random (Q=3/5/9)   400  1.591616e-12  4.755354e-14 -1.818989e-12  1.477212e-05           0
+                        0       1       2
+H                  24.000  36.000  48.000
+plan_lp_ms         19.885  19.750  15.883
+plan_det_ms         0.710   0.336   0.392
+stoch_Q3_h0_ms      1.310   0.532   0.593
+stoch_Q3_h0-5_ms    1.368   0.550   0.605
+stoch_Q3_all_ms     1.243   0.522   0.629
+stoch_Q5_h0_ms      0.995   0.522   0.599
+stoch_Q5_h0-5_ms    1.080   0.592   0.623
+stoch_Q5_all_ms     0.995   0.617   0.736
+stoch_Q9_h0_ms      0.980   0.560   0.586
+stoch_Q9_h0-5_ms    1.399   0.607   0.615
+stoch_Q9_all_ms     1.400   0.791   0.918
+stoch_Q20_h0_ms     0.934   0.590   0.575
+stoch_Q20_h0-5_ms   1.511   0.695   0.741
+stoch_Q20_all_ms    2.502   1.307   1.619

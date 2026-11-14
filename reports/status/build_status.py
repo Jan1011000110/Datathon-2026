@@ -1,94 +1,14 @@
 # Usage: .venv/Scripts/python.exe reports/status/build_status.py
 """Builds reports/status/status.html, the live status board for the hard-mode work.
-Edit DATA below (or the figures list), rerun, republish. Text fields accept `code` and **bold**."""
+Edit status_data.json, rerun, republish. Text fields accept `code` and **bold**."""
 import html
+import json
 import re
 from pathlib import Path
 
 HERE = Path(__file__).parent
 
-DATA = {
-    "updated": "Sat 14 Nov 2026, 17:55",
-    "ceiling": 21.26,
-    "best": {"name": "Naive agent h0", "score": 19.01, "note": "validation, mean of 3 folds, 0 infractions"},
-    "leaderboard": [("SSA Gourmet", "21.27"), ("Low BaterIA", "4.50"), ("Fa (us)", "h0 ready to submit")],
-    "leaderboard_time": "16:57, public half of the hidden test",
-    "now": [
-        "Ceiling on our three test-like folds is about **21 points** (perfect foresight).",
-        "**h0 is ready to submit:** `submissions/h0/submission.zip`. Naive legal agent, 19.84 / 19.30 / 17.90 on our folds, 0 infractions, passes the validator. Run the hard-mode quick validation first.",
-        "The gap is mostly the hour being decided: the agent does not know the current load, discharges too much, and the excess is thrown away.",
-        "Six subagents are working on load, solar and price/CO₂ forecasts, the planner, the submission package, and explainer figures.",
-    ],
-    "scoreboard": [  # name, A, B, C, mean, status
-        ("Perfect foresight (ceiling)", "22.44", "21.42", "19.92", "21.26", "reference"),
-        ("h0: naive agent, packaged (`submissions/h0/submission.zip`)", "19.84", "19.30", "17.90", "19.01", "ready to submit"),
-        ("Naive agent, 10 % discharge haircut (harness)", "19.83", "19.29", "17.76", "18.96", "superseded by h0"),
-        ("Naive agent, no haircut", "19.70", "19.10", "17.64", "18.81", "superseded"),
-    ],
-    "running": [  # who, task, state (running | done | queued | blocked), since/result
-        ("Packager", "Turn the naive agent into a valid submission ZIP", "done", "17:47: `submissions/h0/submission.zip`, report in `reports/16_h0/report.md`"),
-        ("Load forecaster", "Predict campus load, above all for the current hour (1.13 pts at stake)", "running", "since 17:19"),
-        ("Solar forecaster", "Predict solar ×12 for the current hour and next day (0.47 pts)", "done", "17:55: recovers 0.17 of the 0.47; `reports/12_solar_forecast/report.md`"),
-        ("Price/CO₂ forecaster", "Predict the signal beyond the 3 known hours (0.79 pts)", "running", "since 17:19"),
-        ("Planner", "Fast optimiser that accounts for forecast uncertainty", "running", "since 17:19"),
-        ("Analyst", "Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from", "done", "6 figures and a report at 17:42: `reports/15_hard_eda/report.md`"),
-    ],
-    "tried": [  # what, result, verdict
-        ("Perfect-foresight ceiling on 3 folds", "21.26 mean", "reference"),
-        ("Re-plan hourly with the true next 24 h vs 48 h", "both equal the ceiling to 0.002", "a 24 h horizon is enough"),
-        ("Average-day forecast of price/CO₂ beyond 3 h", "−0.79", "worth a real forecaster"),
-        ("Average-day forecast of load and solar", "−1.46 (current hour −1.07, later hours −0.34; load −1.13, solar −0.47)", "current hour's load is the first target"),
-        ("Plain persistence for the current hour's net load", "−1.86", "worse than the profile"),
-        ("Fixed 10 % haircut on discharge", "+0.15", "keep until the planner handles uncertainty"),
-        ("New solar forecaster (clear-sky envelope × clearness, night panel temperature)", "+0.06; error −7 % for the current hour", "small: accuracy is not what costs"),
-        ("Plan the current hour on the 75th percentile of solar", "+0.17 (three times the gain of the better forecast)", "keep; move the idea into the planner as a percentile of net load"),
-        ("Gradient boosting for solar (22 features)", "worse than the baseline (151 vs 91 kW) and slow", "dropped"),
-        ("Planning horizon 36 / 24 / 18 / 12 h in the packaged agent", "within 0.02 down to 18 h; 12 h loses 0.025 on one fold", "ship 18 h (half the run time)"),
-        ("Empty the battery when the run is about to end (2 hours of notice)", "+0.01 / +0.02 / +0.14", "kept; earlier notice would be worth more"),
-    ],
-    "figures": [  # file under figs/, title, caption
-        ("solar_loss_by_hour.png", "Solar errors cost score in the morning ramp",
-         "Points lost against perfect solar knowledge, by hour. The loss is energy discharged past the real net load when solar is under-forecast. A better mean forecast recovers little; planning on a high solar percentile recovers three times as much."),
-        ("solar_night_panel.png", "A panel colder than the air before dawn announces a clear day",
-         "Night-time panel minus ambient temperature against the next day's clearness, 250 train days. Under a clear night sky the panels radiate heat and cool below the air."),
-        ("f1_week.png", "One week of hard mode under the best possible schedule",
-         "8–14 May, train data. The battery fills at the midday trough of the score signal and on free solar surplus, and empties in the evening and before the morning ramp. The discharge (green) stops at the campus's net load (black line) in almost every hour."),
-        ("f4_value_sources.png", "Where the 21 points come from",
-         "Tripling the battery takes the ceiling from 5.9 to 16.5. Solar ×12 adds 3.0 only because the no-battery baseline shrinks. Storing free surplus adds 1.7 (8 %)."),
-        ("f3_discharge_limit.png", "The load, not the inverter, limits the discharge",
-         "In 87 % of the best schedule's discharge hours the battery covers the whole campus and stops. That is why the agent has to know the current hour's load."),
-        ("f5_night_freeze.png", "The meter is frozen at night",
-         "From 23:00 to 05:00 the recorded load repeats the last reading, so the next hour is known exactly (19 % of the discharge energy). The largest discharges fall in the evening and at 06:00–08:00, where the load moves most."),
-        ("losses.png", "Where the score is lost",
-         "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."),
-    ],
-    "log": [  # newest first
-        ("17:55", "Solar forecaster finished: better forecast +0.06, optimistic percentile for the current hour +0.17. Report in `reports/12_solar_forecast/report.md`."),
-        ("17:50", "Re-checked h0 myself: 17.90 on fold C in the organisers' environment, 0 infractions. Run time 15–33 s per 2,016 steps with the laptop busy; the server limit is 60 s."),
-        ("17:47", "Packager finished: `submissions/h0/submission.zip` passes the validator and reproduces the harness scores exactly."),
-        ("17:42", "Analyst finished: six explainer figures and `reports/15_hard_eda/report.md`. Free solar is only 8 % of the ceiling; 87 % of discharge hours are limited by the load; 19 % of the discharge energy falls in hours where the load is known exactly."),
-        ("17:26", "Leaderboard baselines agree with train: ×12 solar lowers the baseline by 16 % (CO₂) and 20 % (cost). Reminded the forecasters that hidden weeks include Christmas and late July."),
-        ("17:25", "Launched a sixth subagent for explainer figures."),
-        ("17:24", "One full battery is worth about 0.35 points; the optimum carries about 3,000 kWh across each week boundary."),
-        ("17:24", "Status board published."),
-        ("17:22", "Wrote `reports/10_hard_mode/report.md` and the hard-mode section of the work log."),
-        ("17:19", "Launched five subagents."),
-        ("17:17", "Split the loss by cause: current hour vs later hours, load vs solar."),
-        ("17:14", "First numbers: ceiling 21.26, naive legal agent 18.96."),
-        ("17:12", "Wrote the hard-mode simulator, ceiling and optimiser (`src/hard.py`, `src/hard_mpc.py`). Simulator matches the organisers' environment."),
-        ("17:06", "Committed the rules doc and starter-kit sync."),
-        ("16:40", "Scraped the new Mode Difícil tab; wrote `docs/NEW_RULES.md`."),
-    ],
-    "files": [
-        ("reports/README.md", "full work log (hard mode in Part I)"),
-        ("reports/10_hard_mode/report.md", "first hard-mode report"),
-        ("docs/NEW_RULES.md", "hard-mode rules"),
-        ("reports/16_h0/report.md", "the first submission: what it is, how it was verified"),
-        ("reports/12_solar_forecast/report.md", "solar forecast: what helped, what did not"),
-        ("reports/15_hard_eda/report.md", "what hard mode changes, six figures"),
-        ("experiments/20_hard_baseline/", "scripts behind the numbers"),
-    ],
-}
+DATA = json.loads((HERE / "status_data.json").read_text(encoding="utf-8"))
 
 
 def fmt(s):

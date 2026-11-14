@@ -1,0 +1,30 @@
+fold                                                          A       B       C    mean  spill_MWh  infr     sec
+config                                                                                                          
+perfect w + profile n | det, d_shade=0.925               20.805  20.180  18.875  19.953     14.541     0  13.027
+perfect w + profile n | det, d_shade=0.975               20.887  20.220  18.901  20.003     18.069     0   1.100
+perfect w + profile n | bias-corrected point, h0 (Q=1)   20.679  20.036  18.684  19.800     22.038     0   1.689
+perfect w + profile n | bias-corrected point, all (Q=1)  20.680  20.035  18.685  19.800     22.047     0   1.681
+perfect w + profile n | stoch all, Q=9, spread x0.50     21.280  20.610  19.118  20.336     11.273     0   3.116
+perfect w + profile n | stoch all, Q=9, spread x0.75     21.391  20.722  19.186  20.433      8.463     0   3.370
+perfect w + profile n | stoch all, Q=9, spread x1.25     21.485  20.673  19.132  20.430      5.419     0   6.650
+perfect w + profile n | stoch all, Q=9, spread x1.50     21.487  20.601  19.062  20.383      4.265     0   5.613
+perfect w + profile n | stoch all, Q=9, spread x2.00     21.351  20.420  18.882  20.218      3.191     0   5.670
+perfect w + profile n | stoch h0-1, Q=9                  21.230  20.657  19.157  20.348      9.088     0   3.875
+perfect w + profile n | stoch h0-2, Q=9                  21.349  20.721  19.198  20.423      8.022     0   2.694
+perfect w + profile n | stoch h0-11, Q=9                 21.476  20.740  19.179  20.465      6.481     0   3.931
+perfect w + profile n | stoch h0-23, Q=9                 21.474  20.735  19.180  20.463      6.480     0   5.323
+perfect w + profile n | stoch all, Q=60                  21.513  20.753  19.190  20.485      6.445     0  13.399
+clim w + profile n | det, d_shade=0.925                  19.923  19.357  17.838  19.039     13.773     0   5.451
+clim w + profile n | det, d_shade=0.975                  19.936  19.325  17.845  19.036     17.664     0   0.827
+clim w + profile n | bias-corrected point, h0 (Q=1)      19.701  19.096  17.642  18.813     21.863     0   1.267
+clim w + profile n | bias-corrected point, all (Q=1)     19.701  19.098  17.642  18.814     21.873     0   2.588
+clim w + profile n | stoch all, Q=9, spread x0.50        20.354  19.654  18.118  19.375     10.136     0   4.098
+clim w + profile n | stoch all, Q=9, spread x0.75        20.503  19.790  18.212  19.502      6.538     0   3.870
+clim w + profile n | stoch all, Q=9, spread x1.25        20.577  19.722  18.163  19.487      3.625     0   2.931
+clim w + profile n | stoch all, Q=9, spread x1.50        20.538  19.642  18.089  19.423      2.676     0   2.806
+clim w + profile n | stoch all, Q=9, spread x2.00        20.434  19.422  17.911  19.256      1.903     0   3.749
+clim w + profile n | stoch h0-1, Q=9                     20.403  19.739  18.116  19.420      6.978     0   3.603
+clim w + profile n | stoch h0-2, Q=9                     20.462  19.804  18.161  19.476      6.055     0   2.958
+clim w + profile n | stoch h0-11, Q=9                    20.581  19.786  18.209  19.525      4.756     0   3.604
+clim w + profile n | stoch h0-23, Q=9                    20.583  19.781  18.209  19.524      4.764     0   5.013
+clim w + profile n | stoch all, Q=60                     20.591  19.810  18.223  19.541      4.787     0  19.106

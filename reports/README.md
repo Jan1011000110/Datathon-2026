@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 17:55
+**Last updated:** Sat 14 Nov 2026, 18:06
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -14,11 +14,11 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 
 ## H1. Where we are
 
-1. **Ceiling on our folds: about 21 points** (22.44 / 21.42 / 19.92 with perfect foresight).
-2. **A first submission is ready: `submissions/h0/submission.zip`.** It is the naive legal agent: 19.84 / 19.30 / 17.90 on our folds, 0 infractions ([`16_h0/report.md`](16_h0/report.md)).
-3. **The gap is mostly the hour being decided:** the agent does not know the current hour's load, over-discharges, and the excess is thrown away.
-4. **Priorities:** load forecast (1.13 points at stake), price/CO₂ forecast (0.79), solar forecast (0.47), and a planner that knows its forecasts are uncertain.
-5. **Leaderboard (16:57):** SSA Gourmet 21.27, Low BaterIA 4.50. We have not submitted to hard mode yet.
+1. **Ceiling on our folds: 21.26 points** (22.44 / 21.42 / 19.92 with perfect foresight). The public test scores about 11 % higher for everyone; the ceiling there is about 23.7 ([`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md)).
+2. **A first submission is ready: `submissions/h0/submission.zip`.** Naive legal agent: 19.84 / 19.30 / 17.90, 0 infractions ([`16_h0/report.md`](16_h0/report.md)).
+3. **All four specialists have reported.** On its own, each adds to the naive agent (18.96): load forecaster +0.60, uncertainty-aware planner +0.56, price/CO₂ forecaster +0.27, solar forecaster +0.14.
+4. **Now:** an integrator is combining them, and the packager is building **h1** = h0's forecasts + the new planner (19.52).
+5. **Leaderboard (17:58):** 13 teams; Low BaterIA 23.23 and SSA Gourmet 23.10, about 98 % of the estimated public ceiling. We have not submitted yet.
 
 ![Where the score is lost](10_hard_mode/figs/losses.png)
 
@@ -27,6 +27,10 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Agent | A | B | C | Mean | Status |
 |---|---|---|---|---|---|
 | Perfect foresight (ceiling) | 22.44 | 21.42 | 19.92 | 21.26 | reference |
+| Load forecaster, current hour at its 20 % quantile (rest naive) | 20.65 | 19.87 | 18.16 | 19.56 | harness; being combined |
+| Uncertainty-aware planner (naive forecasts) | 20.58 | 19.79 | 18.21 | 19.52 | harness; being packaged as h1 |
+| Price/CO₂ forecaster (rest naive, 10 % haircut) | 20.17 | 19.57 | 17.96 | 19.23 | harness; being combined |
+| Solar forecaster, current hour at its 75 % quantile (rest naive, 10 % haircut) | 19.97 | 19.41 | 17.92 | 19.10 | harness; being combined |
 | **h0** (naive agent, packaged, 18 h horizon, end-of-run rule) | 19.84 | 19.30 | 17.90 | 19.01 | **ready to submit** |
 | Naive agent, 10 % discharge haircut (harness) | 19.83 | 19.29 | 17.76 | 18.96 | superseded by h0 |
 | Naive agent, no haircut | 19.70 | 19.10 | 17.64 | 18.81 | superseded |
@@ -36,10 +40,12 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Subagent | Task | Output | Status |
 |---|---|---|---|
 | Packager | Naive agent as a valid submission ZIP | `submissions/h0/submission.zip`, [`16_h0/report.md`](16_h0/report.md) | **done** 17:47 |
-| Load forecaster | Predict campus load, above all the current hour | `experiments/21_load/`, `11_load_forecast/` | running since 17:19 |
+| Load forecaster | Predict campus load, above all the current hour | [`11_load_forecast/report.md`](11_load_forecast/report.md), `experiments/21_load/load_fc.py` | **done** 18:00 |
 | Solar forecaster | Predict solar ×12, current hour and next day | [`12_solar_forecast/report.md`](12_solar_forecast/report.md), `experiments/22_solar/solar_fc.py` | **done** 17:55 |
-| Price/CO₂ forecaster | Predict the signal beyond the 3 known hours | `experiments/23_signal/`, `13_signal_forecast/` | running since 17:19 |
-| Planner | Fast optimiser that handles forecast uncertainty | `experiments/24_planner/`, `14_planner/` | running since 17:19 |
+| Price/CO₂ forecaster | Predict the signal beyond the 3 known hours | [`13_signal_forecast/report.md`](13_signal_forecast/report.md), `experiments/23_signal/signal_fc.py` | **done** 18:03 |
+| Planner | Fast optimiser that handles forecast uncertainty | [`14_planner/report.md`](14_planner/report.md), `experiments/24_planner/planner.py` | **done** 17:56 |
+| Packager (second task) | Package h1 = h0's forecasts + the new planner | `agents/h1/`, `submissions/h1/` | running since 18:00 |
+| Integrator | Combine planner, load, solar and price/CO₂ forecasters, with proper net-load scenarios | `experiments/27_combined/`, `18_combined/` | running since 18:03 |
 | Analyst | Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from | [`15_hard_eda/report.md`](15_hard_eda/report.md), 6 figures | **done** 17:42 |
 
 ## H4. Tried so far
@@ -52,6 +58,13 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | T4 | Average-day forecast of load and solar (price/CO₂ known) | −1.46; of which current hour −1.07, later hours −0.34; load −1.13, solar −0.47 | the current hour's load is the first target |
 | T5 | Plain persistence for the current hour's net load | −1.86 | worse than the profile forecast |
 | T6 | Fixed 10 % haircut on discharge | +0.15 | keep until the planner handles uncertainty itself |
+| T12 | Planner that plans against the distribution of net load (9 scenarios, hours 0–11) | 18.81 → 19.52 (+0.71); +0.44 over the best fixed haircut; energy thrown away 21.9 → 4.8 MWh | adopt; replaces the haircut |
+| T13 | Exact numpy planner in place of the linear programme | same optimum to 5e-12; 0.1–0.2 ms per call against 3 ms | adopt; run time is no longer a risk |
+| T14 | Load forecaster: night freeze, 06:00 release by weekday, recent-days reference, small boosted model | current-hour error 38 → 20 kW; legal agent 18.96 → 19.56 | adopt |
+| T15 | Load rules without the boosted model | 24 kW; within 0.07–0.10 points of the full model | fallback if LightGBM misbehaves on the server |
+| T16 | Price/CO₂: ridge regression on raw past values | better accuracy but a worse score than the average-day forecast (it carries Sunday into Monday) | dropped |
+| T17 | Price/CO₂: ridge on differences from a month-blended average day | +0.24 with net load known, +0.27 in the legal agent (30 % of the 3-hour-window loss) | adopt |
+| T18 | Horizons beyond 24 h; a value for energy left at the end of the horizon | no change, in three separate studies | 24 h is enough |
 | T9 | New solar forecaster: clear-sky envelope × clearness, plus night-time panel temperature | +0.06 (error −7 % for the current hour, −6 to −12 % later) | small; forecast accuracy is not what costs |
 | T10 | Plan the current hour on the 75th percentile of solar instead of the mean | +0.17 with perfect load; +0.14 in the fully legal agent | keep; the planner should do this with a percentile of net load |
 | T11 | Gradient boosting (LightGBM, 22 features) for solar | worse than the baseline (151 against 91 kW) and 1–3 ms per call | dropped |
@@ -70,6 +83,10 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | HF6 | Of the 21.26 points, tripling the battery gives 16.5, the smaller baseline from ×12 solar adds 3.0, and storing free surplus adds only 1.7 (8 %). | `15_hard_eda/report.md` §5 |
 | HF7 | In 87 % of the best schedule's discharge hours the battery covers the whole campus and stops; it reaches 1,500 kW in 1.4 %. Charging is the opposite: 63 % of charge hours are at full power. | `15_hard_eda/report.md` §4 |
 | HF8 | The meter is frozen from 23:00 to 05:00: the next hour's load equals the last reading (19 % of the discharge energy). The evening (47 %) and 06:00–08:00 (24 %) are where the load moves. At 06:00 the load rises on weekdays and falls at weekends. | `15_hard_eda/report.md` §6 |
+| HF12 | The right haircut is not a constant: discharge one more kW only while (chance it displaces import) × (what it earns now) exceeds what the kWh is worth later. Almost no haircut at 04:00 or 19:00, a large one at 13:00. | `14_planner/report.md` §2 |
+| HF13 | At 06:00 the load rises on weekdays (+383 kW on Mondays, +65 to +110 Tuesday–Friday) and falls on Saturdays (−188). 22:00 is the last reading taken, not an hourly mean. | `11_load_forecast/report.md` §2 |
+| HF14 | For price/CO₂, hours +3 to +5 carry two thirds of the forecast loss and +6 to +11 the rest; beyond +12 h is worth 0.01. Forecast accuracy is a poor guide to score. | `13_signal_forecast/report.md` §2 |
+| HF15 | The public test scores about 11 % higher than our folds; estimated public ceiling 23.7. The top two teams are at about 98 % of it. | `17_hard_leaderboard/report.md` |
 | HF10 | Solar errors cost score only when solar is under-forecast (the agent then discharges past the real net load), and almost only between 07:00 and 13:00. | `12_solar_forecast/report.md` §4 |
 | HF11 | A panel colder than the air before dawn announces a clear day (correlation −0.56 over 250 days). Irradiance adds nothing beyond last hour's output (correlation 0.995). Wind is always 0 in the data. | `12_solar_forecast/report.md` §5–6 |
 | HF9 | The cheapest hour of the day is at midday on 83 % of days; in February it is at night on 71 % of days. | `15_hard_eda/report.md` §7 |
@@ -88,6 +105,10 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 - **17:24** Measured the value of the starting charge with perfect foresight: starting empty instead of full costs 0.30–0.43 points over a run, so one full battery is worth about 0.35 points (`experiments/25_integration/boundaries.py`). The optimum ends each test week with about 3,000 kWh stored, so the agent must keep planning across the three-week jump between weeks.
 - **17:25** Launched a sixth subagent: explainer figures for the jury (`15_hard_eda/`).
 - **17:26** Compared train with the two leaderboards: the ×12 solar lowers the public baseline by 16.1 % in CO₂ and 20.0 % in cost; train months predict 15.2 % and 18.4 %. Consistent. Reminder sent to the load and price/CO₂ agents: the hidden weeks include Christmas week and late July, when load is far from a normal week.
+- **18:03** Price/CO₂ forecaster finished (T16–T17, HF14). Launched the integrator to combine all four pieces.
+- **18:00** Load forecaster finished (T14–T15, HF13). Asked the packager for h1 = h0's forecasts + the new planner.
+- **17:58** Leaderboard check at your request (HF15): 13 teams, top two at 23.23 and 23.10; they are at about 98 % of the estimated public ceiling, not above it. Possible explanations and what would settle it are in `17_hard_leaderboard/report.md`.
+- **17:56** Planner finished (T12–T13, HF12).
 - **17:55** Solar forecaster finished (T9–T11, HF10–HF11). The lesson for the planner: uncertainty handling is worth three times as much as forecast accuracy.
 - **17:47** Packager finished h0: passes `check_submission.py`, reproduces the harness to six decimals, survives malformed observations.
 - **17:50** My own check of h0: 17.90 on fold C in the organisers' environment, 0 infractions. Run time 15–33 s per 2,016 steps with the laptop busy (limit 60 s on a server of unknown speed).
