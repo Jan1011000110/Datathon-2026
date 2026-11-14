@@ -1,0 +1,65 @@
+cases: 240
+
+glitch  (240 cases)
+  typical |change| vs 0.60:  0.575: median 0.0004, 95th pct 0.0022,  0.59: median 0.0001, 95th pct 0.0010,  0.61: median 0.0002, 95th pct 0.0016,  0.625: median 0.0008, 95th pct 0.0039
+  pack flat (0.59 and 0.61 within 0.001 of 0.60): 84%
+  0.575 gains more than 0.004: 1.7%    loses more than 0.004: 0.0%
+  0.625 gains more than 0.004: 0.8%    loses more than 0.004: 3.3%
+  pack flat AND at least one outlier weighting gains > 0.004: 0.8%
+  pack flat AND both outlier weightings gain > 0.004:         0.0%
+
+mask random weeks  (240 cases)
+  typical |change| vs 0.60:  0.575: median 0.0005, 95th pct 0.0583,  0.59: median 0.0001, 95th pct 0.0008,  0.61: median 0.0002, 95th pct 0.0012,  0.625: median 0.0007, 95th pct 0.0028
+  pack flat (0.59 and 0.61 within 0.001 of 0.60): 92%
+  0.575 gains more than 0.004: 13.8%    loses more than 0.004: 9.2%
+  0.625 gains more than 0.004: 0.0%    loses more than 0.004: 0.8%
+  pack flat AND at least one outlier weighting gains > 0.004: 12.1%
+  pack flat AND both outlier weightings gain > 0.004:         0.0%
+
+mask alternate weeks  (240 cases)
+  typical |change| vs 0.60:  0.575: median 0.0007, 95th pct 0.0599,  0.59: median 0.0001, 95th pct 0.0004,  0.61: median 0.0001, 95th pct 0.0006,  0.625: median 0.0005, 95th pct 0.0015
+  pack flat (0.59 and 0.61 within 0.001 of 0.60): 98%
+  0.575 gains more than 0.004: 22.1%    loses more than 0.004: 21.2%
+  0.625 gains more than 0.004: 0.0%    loses more than 0.004: 0.0%
+  pack flat AND at least one outlier weighting gains > 0.004: 21.7%
+  pack flat AND both outlier weightings gain > 0.004:         0.0%
+
+mask first 84 h of each week  (240 cases)
+  typical |change| vs 0.60:  0.575: median 0.0123, 95th pct 0.0789,  0.59: median 0.0001, 95th pct 0.0006,  0.61: median 0.0001, 95th pct 0.0005,  0.625: median 0.0033, 95th pct 0.0097
+  pack flat (0.59 and 0.61 within 0.001 of 0.60): 100%
+  0.575 gains more than 0.004: 65.8%    loses more than 0.004: 0.0%
+  0.625 gains more than 0.004: 19.2%    loses more than 0.004: 29.2%
+  pack flat AND at least one outlier weighting gains > 0.004: 76.7%
+  pack flat AND both outlier weightings gain > 0.004:         8.3%
+
+mask last 84 h of each week  (240 cases)
+  typical |change| vs 0.60:  0.575: median 0.0140, 95th pct 0.0802,  0.59: median 0.0001, 95th pct 0.0004,  0.61: median 0.0004, 95th pct 0.0017,  0.625: median 0.0046, 95th pct 0.0136
+  pack flat (0.59 and 0.61 within 0.001 of 0.60): 78%
+  0.575 gains more than 0.004: 0.0%    loses more than 0.004: 65.8%
+  0.625 gains more than 0.004: 25.8%    loses more than 0.004: 30.8%
+  pack flat AND at least one outlier weighting gains > 0.004: 23.3%
+  pack flat AND both outlier weightings gain > 0.004:         0.0%
+
+mask alternate days  (240 cases)
+  typical |change| vs 0.60:  0.575: median 0.0191, 95th pct 0.0543,  0.59: median 0.0142, 95th pct 0.0387,  0.61: median 0.0526, 95th pct 0.0657,  0.625: median 0.0544, 95th pct 0.1028
+  pack flat (0.59 and 0.61 within 0.001 of 0.60): 3%
+  0.575 gains more than 0.004: 23.3%    loses more than 0.004: 65.0%
+  0.625 gains more than 0.004: 0.0%    loses more than 0.004: 100.0%
+  pack flat AND at least one outlier weighting gains > 0.004: 0.0%
+  pack flat AND both outlier weightings gain > 0.004:         0.0%
+
+mask first 4 days of each week  (240 cases)
+  typical |change| vs 0.60:  0.575: median 0.0103, 95th pct 0.0621,  0.59: median 0.0002, 95th pct 0.0113,  0.61: median 0.0582, 95th pct 0.0662,  0.625: median 0.0587, 95th pct 0.0936
+  pack flat (0.59 and 0.61 within 0.001 of 0.60): 34%
+  0.575 gains more than 0.004: 38.3%    loses more than 0.004: 19.2%
+  0.625 gains more than 0.004: 67.1%    loses more than 0.004: 0.0%
+  pack flat AND at least one outlier weighting gains > 0.004: 17.5%
+  pack flat AND both outlier weightings gain > 0.004:         3.3%
+
+mask last 3 days of each week  (240 cases)
+  typical |change| vs 0.60:  0.575: median 0.0146, 95th pct 0.0850,  0.59: median 0.0002, 95th pct 0.0156,  0.61: median 0.0852, 95th pct 0.0968,  0.625: median 0.0866, 95th pct 0.1384
+  pack flat (0.59 and 0.61 within 0.001 of 0.60): 34%
+  0.575 gains more than 0.004: 19.2%    loses more than 0.004: 38.3%
+  0.625 gains more than 0.004: 0.0%    loses more than 0.004: 67.9%
+  pack flat AND at least one outlier weighting gains > 0.004: 0.0%
+  pack flat AND both outlier weightings gain > 0.004:         0.0%

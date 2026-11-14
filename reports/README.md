@@ -2,11 +2,11 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 15:20
+**Last updated:** Sat 14 Nov 2026, 15:55
 
 ---
 
-> **Start here after lunch:** [`06_edge/report.md`](06_edge/report.md) — "Is there any real edge left?" Short answer: not on clean data (checked four ways); yes around meter glitches; and two teams above the pack point to something testable with two prepared submissions.
+> **Start here after lunch:** [`06_edge/report.md`](06_edge/report.md) — "Is there any real edge left?" Short answer: no better controller exists (checked four ways); a hardened v1.1 is ready for meter outages; and the two 6.44s on the board are most likely a side effect of how the public half is cut, which we could reproduce with one file but should not chase before asking the organisers how the final ranking is computed.
 
 ## 1. Where we are, in five lines
 
@@ -179,7 +179,7 @@ Safety layers:
 | Subagent | Task | Output will be in | Status |
 |---|---|---|---|
 | EDA analyst | Coverage map, load/PV/CO₂/price profiles, do CO₂ and price agree, predictability beyond 24 h. Presentation-grade plots. | [`reports/01_eda/report.md`](01_eda/report.md), 21 figures | **done** |
-| Red-team | Fuzz the agent with malformed inputs; zero-load weeks, outages, dropped weeks, low-load weeks; tune the outage guard. | `reports/02_robustness/` | running |
+| Red-team | Fuzz the agent with malformed inputs; zero-load weeks, outages, dropped weeks, low-load weeks; tune the outage guard. | [`reports/02_robustness/report.md`](02_robustness/report.md); candidate `experiments/02_stress/candidate/agent.py` | **done** |
 | Gap researcher | Break down the last 0.007 points of gap to the oracle and recover what can honestly be recovered. | [`reports/03_gap/report.md`](03_gap/report.md) | **done**: nothing honest is worth more than 0.001; keep v1 |
 | What-if analyst | Yearly tCO₂ and € saved, CO₂-vs-cost Pareto frontier, battery sizing (kWh and kW), efficiency. For the jury. | [`reports/04_whatif/report.md`](04_whatif/report.md), 8 figures | **done** |
 | Leaderboard scraper | Snapshot of the live leaderboard. | `reports/05_leaderboard/` | **done** (section 3) |
@@ -223,6 +223,9 @@ I report in chat when each one finishes and add its results here.
 - **14:50** What-if analyst finished: `04_whatif/report.md` with 8 figures (yearly savings 42.5 t CO₂ and 91 k€; the battery is energy-limited; 70/30 costs 20.5 k€ a year against cost-only). Parked for the presentation.
 - **15:00** Brute-force check of the ceiling done (`experiments/12_ceiling_check/`): exhaustive search never beats the LP.
 - **15:20** Wrote `06_edge/report.md`. Prepared two diagnostic submissions in `submissions/`.
+- **15:35** Simulated which explanation reproduces the leaderboard pattern (`experiments/13_fault_luck/which_mechanism.py`). A meter glitch: 0.8% of cases. Public half = first 84 h of each week, scored out of one continuous run: 77%. Measured how leaky that split is (`split_leak.py`).
+- **15:45** Red-team agent finished: `02_robustness/report.md`, v1.1 candidate, reusable stress harness.
+- **15:55** Rewrote `06_edge/report.md` around the split finding. Section 3a above is superseded by it.
 
 ---
 
