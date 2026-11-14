@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 18:11",
+ "updated": "Sat 14 Nov 2026, 18:14",
  "ceiling": 21.26,
  "best": {
   "name": "Combined agent: planner + load + solar + price/CO₂ forecasters (in the test harness, not yet packaged)",
@@ -21,7 +21,7 @@
   "**First combined agent: 19.99** on our folds (21.14 / 20.26 / 18.57), 0 infractions. That is 94 % of the ceiling, which would be about 22.3 on the public test by the same scaling.",
   "**What each piece adds once the planner handles uncertainty:** better load and solar forecasts +0.27, price/CO₂ forecaster +0.21. With a perfect price/CO₂ signal the same agent would score 20.71, so the signal beyond 3 hours is now the largest loss (0.72).",
   "**Running:** the integrator is finishing its checks; two specialists are back on the signal (a better forecast for hours +3 to +11, and a planner that knows the signal forecast is uncertain); the packager is building **h1** = h0's forecasts + the new planner for this shift.",
-  "**h0 is ready to submit:** `submissions/h0/submission.zip` (19.84 / 19.30 / 17.90 on our folds, 0 infractions). Run the hard-mode quick validation first.",
+  "**h1 is ready to submit and replaces h0 as the first choice:** `submissions/h1/nov_fill/submission.zip`. 20.58 / 19.79 / 18.35 on our folds, 0 infractions, under 1 second per run. Run the hard-mode quick validation first. h0 (`submissions/h0/submission.zip`, 19.01) is still worth one attempt as a comparison point.",
   "**Leaderboard:** the top two teams are at 23.2 and 23.1, about 98 % of the estimated public ceiling (23.7), not above it. By the same scaling h0 would land near 21.2."
  ],
  "scoreboard": [
@@ -29,7 +29,7 @@
   ["Combined: planner + load + solar + price/CO₂ forecasters", "21.14", "20.26", "18.57", "19.99", "harness; first result, checks in progress"],
   ["Same with a perfect price/CO₂ signal (not legal; shows what the signal costs)", "", "", "", "20.71", "diagnostic"],
   ["Load forecaster, current hour at its 20 % quantile (rest naive)", "20.65", "19.87", "18.16", "19.56", "harness; being combined"],
-  ["Uncertainty-aware planner (naive forecasts)", "20.58", "19.79", "18.21", "19.52", "harness; being packaged as h1"],
+  ["h1: uncertainty-aware planner + naive forecasts, packaged (`submissions/h1/nov_fill/submission.zip`)", "20.58", "19.79", "18.35", "19.57", "ready to submit"],
   ["Price/CO₂ forecaster (rest naive, 10 % haircut)", "20.17", "19.57", "17.96", "19.23", "harness; being combined"],
   ["Solar forecaster, current hour at its 75 % quantile (rest naive, 10 % haircut)", "19.97", "19.41", "17.92", "19.10", "harness; being combined"],
   ["h0: naive agent, packaged (`submissions/h0/submission.zip`)", "19.84", "19.30", "17.90", "19.01", "ready to submit"],
@@ -39,7 +39,7 @@
   ["Integrator", "Combine planner + load + solar + price/CO₂ forecasters into one agent, with proper net-load scenarios", "running", "first result 18:10: 19.99; sensitivity, run time and cross-checks due about 19:20"],
   ["Planner (round 2)", "Make the plan aware that the price/CO₂ forecast is uncertain (scenario paths of the signal)", "running", "since 18:11"],
   ["Price/CO₂ forecaster (round 2)", "Better forecast for hours +3 to +11: local weather, slope of the known hours, peak height", "running", "since 18:11"],
-  ["Packager", "Package h1 = h0's forecasts + the new planner", "running", "since 18:00 (h0 done 17:47)"],
+  ["Packager", "Package h1 = h0's forecasts + the new planner", "done", "18:11: `submissions/h1/`, identical to the harness, 0.4–0.7 s per run; `reports/20_h1/report.md`"],
   ["Planner", "Fast optimiser that accounts for forecast uncertainty", "done", "17:56: +0.71 over trusting the forecast, 15–40× faster; `reports/14_planner/report.md`"],
   ["Load forecaster", "Predict campus load, above all for the current hour", "done", "18:00: error 38 → 20 kW, +0.60; `reports/11_load_forecast/report.md`"],
   ["Price/CO₂ forecaster", "Predict the signal beyond the 3 known hours", "done", "18:03: recovers 30 % of the 0.80; `reports/13_signal_forecast/report.md`"],
@@ -64,7 +64,10 @@
   ["Plan the current hour on the 75th percentile of solar", "+0.17 (three times the gain of the better forecast)", "keep; move the idea into the planner as scenarios of net load"],
   ["Gradient boosting for solar (22 features)", "worse than the baseline (151 vs 91 kW) and slow", "dropped"],
   ["Planning horizon 36 / 24 / 18 / 12 h in the packaged agent", "within 0.02 down to 18 h; 12 h loses 0.025 on one fold", "h0 ships 18 h (half the run time)"],
-  ["Empty the battery when the run is about to end (2 hours of notice)", "+0.01 / +0.02 / +0.14", "kept; earlier notice would be worth more"]
+  ["Empty the battery when the run is about to end (2 hours of notice)", "+0.01 / +0.02 / +0.14", "kept; earlier notice would be worth more"],
+  ["A haircut on top of the planner's scenarios (2.5 / 5 / 10 %)", "worse at every level (−0.03 to −0.35)", "dropped: the scenarios already do that job"],
+  ["Calendar that knows the next test week follows a month end", "−0.08 / +0.18 / −0.05 by fold", "off: 10 boundaries per fold is too few to tell"],
+  ["November tables interpolated from October and December (train has no November)", "+0.7 on a hidden month's week in a hide-one-month test; about +0.1 overall if the November week exists", "adopt (the nov_fill variant)"]
  ],
  "figures": [
   ["planner_first_step.png", "Under uncertainty the best discharge is a quantile of the forecast", "Discharge one more kW only while the chance that it displaces grid import, times what it earns now, exceeds what the kWh is worth later. So the right haircut depends on the hour: almost none at 04:00 or 19:00, large at 13:00 when solar is uncertain."],
@@ -78,6 +81,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["18:13", "h1 packaged and re-checked: 20.58 / 19.79 / 18.35, 0 infractions, 0.4 s per run, passes the validator. Recommended ZIP: `submissions/h1/nov_fill/submission.zip`."],
   ["18:11", "Sent two specialists back to the signal, now the largest loss: a better forecast for hours +3 to +11, and a planner that samples scenario paths of the signal."],
   ["18:10", "First combined result: 19.99 (21.14 / 20.26 / 18.57), 0 infractions. Load + solar forecasts add 0.27 on top of the new planner, the price/CO₂ forecaster 0.21. Perfect signal would give 20.71."],
   ["18:07", "Built a probe for the site's quick validation that reports the structure of the server's obs (`submissions/probe_obs/`)."],
@@ -104,7 +108,8 @@
   ["reports/13_signal_forecast/report.md", "price/CO₂ forecast beyond 3 hours"],
   ["reports/12_solar_forecast/report.md", "solar forecast: what helped, what did not"],
   ["reports/17_hard_leaderboard/report.md", "leaderboard snapshot and the public-ceiling estimate"],
-  ["reports/16_h0/report.md", "the first submission: what it is, how it was verified"],
+  ["reports/20_h1/report.md", "h1: the packaged planner, how it was verified, the November variant"],
+  ["reports/16_h0/report.md", "h0: the naive agent, packaged"],
   ["reports/15_hard_eda/report.md", "what hard mode changes, six figures"],
   ["reports/10_hard_mode/report.md", "first hard-mode report"],
   ["docs/NEW_RULES.md", "hard-mode rules"]
