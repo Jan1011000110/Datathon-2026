@@ -1,5 +1,7 @@
 # Is there any real edge left?
 
+> **Correction, Sat 14 Nov, 18:29.** The organisers' message this report's update is built on was wrong: the team has confirmed that the maximum HAS been reached on the private ranking. So there is no evidence that the private half contains bad data, and the reasoning under "Update, 16:10" below no longer holds. What still stands: the measurements (what each protection costs and earns in each scenario) and the fact that v2's protections cost almost nothing on clean data (−0.0002). What changes: protections against outages and dead weeks are no longer a reason to prefer one agent over another, and we give anomalies much less weight from here on.
+
 **State: Sat 14 Nov, 16:10.** Sections 1–4 were written at 15:25. The update below and section 5 were rewritten at 16:10 after the organisers' message.
 
 ## Update, 16:10: the organisers say nobody has reached the maximum on the private ranking

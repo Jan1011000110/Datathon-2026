@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 18:14
+**Last updated:** Sat 14 Nov 2026, 18:29
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -19,7 +19,8 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 3. **All four specialists have reported.** On its own, each adds to the naive agent (18.96): load forecaster +0.60, uncertainty-aware planner +0.56, price/CO₂ forecaster +0.27, solar forecaster +0.14.
 4. **First combined agent: 19.99** (21.14 / 20.26 / 18.57), 0 infractions, 94 % of the ceiling. With a perfect price/CO₂ signal it would score 20.71, so the signal beyond 3 hours is now the largest loss (0.72).
 5. **Now:** the integrator is finishing its checks; two specialists are back on the signal; the packager is building **h1** = h0's forecasts + the new planner (19.52) for this shift.
-6. **Leaderboard (17:58):** 13 teams; Low BaterIA 23.23 and SSA Gourmet 23.10, about 98 % of the estimated public ceiling. We have not submitted yet.
+6. **Anomalies get little weight now.** The organisers' 16:00 statement that nobody had reached the maximum on the private ranking was wrong (confirmed by the team at 18:27): it had been reached. There is no evidence of bad data in the hidden test. See H7.
+7. **Leaderboard (17:58):** 13 teams; Low BaterIA 23.23 and SSA Gourmet 23.10, about 98 % of the estimated public ceiling. We have not submitted yet.
 
 ![Where the score is lost](10_hard_mode/figs/losses.png)
 
@@ -100,7 +101,29 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | HF11 | A panel colder than the air before dawn announces a clear day (correlation −0.56 over 250 days). Irradiance adds nothing beyond last hour's output (correlation 0.995). Wind is always 0 in the data. | `12_solar_forecast/report.md` §5–6 |
 | HF9 | The cheapest hour of the day is at midday on 83 % of days; in February it is at night on 71 % of days. | `15_hard_eda/report.md` §7 |
 
+## H7. How much weight anomalies get
+
+**Decision (18:29, at the team's request): little.** The only evidence for bad data in the hidden test was the organisers' 16:00 message, and it was false. In standard mode our outage guard never acted on the public half, and the private maximum has been reached by other teams.
+
+What we still do, because it is certain or free:
+
+- **No crash, no infraction, no NaN,** whatever `obs` looks like. Non-negotiable.
+- **The real layout:** last 7 days of each month, three-week jumps, clock-change weeks, the end of the run.
+- **Holiday weeks.** Christmas week is in the test for certain. That is real data, not a fault.
+- **Months missing from train** (November; late August for solar), in case those weeks exist in the test.
+- **h2's fallback to h1's logic** if something fails on the server.
+
+What we no longer spend time on:
+
+- Tuning guards for meter faults, dead weeks or inverter outages.
+- Any protection that costs points on clean data, however little.
+
+The red-team subagent was re-scoped accordingly at 18:29.
+
 ## H6. Log
+
+- **18:29** You confirmed the organisers' 16:00 statement about the private ranking was false. Anomalies down-weighted (H7); red-team re-scoped; correction added to `06_edge/report.md` and to Part II below.
+- **18:24** Launched a red-team subagent on h1, the combined agent and h2. h2 has a first working ZIP (18:23), still being checked.
 
 - **16:40** You asked for the hard-mode rules. Scraped the new tab, wrote `docs/NEW_RULES.md`.
 - **17:00** Synced `starter_kit/environment.py` and `docs/ENUNCIAT.md` from the site's ZIP (data unchanged). Old and new environment give identical standard-mode results.
@@ -131,6 +154,8 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 
 # Part II — Standard mode (as of 16:10)
 
+> **Correction, 18:29:** the organisers' 16:00 message quoted below was wrong; the private maximum has been reached. The inference about bad data in the private half no longer holds. v2 remains safe (its protections cost −0.0002 on clean data), but they are no longer a reason to prefer it.
+>
 > **Start here:** [`06_edge/report.md`](06_edge/report.md). At 16:00 the organisers said no team has reached the maximum on the *private* ranking. On clean data a plain optimiser is the maximum, so the private half most likely contains bad data (outages, a dead week). Our agent already has an outage guard; **agent v2** (`submissions/v2/agent.py`) adds every tested protection and is the recommended submission.
 
 ## 1. Where we are, in five lines
@@ -352,7 +377,7 @@ I report in chat when each one finishes and add its results here.
 - **15:15** Red-team agent finished: `02_robustness/report.md`, v1.1 candidate, reusable stress harness.
 - **15:22** Rewrote `06_edge/report.md` around the split finding. Section 3a above is superseded by it.
 - **15:24** Leaderboard: three more teams joined the pack after lunch; still only two entries at 6.44.
-- **16:00** Organisers' message: nobody has reached the maximum on the private ranking. Reading: bad data in the private half.
+- **16:00** Organisers' message: nobody has reached the maximum on the private ranking. Reading: bad data in the private half. *(Wrong, corrected at 18:29: the maximum had been reached.)*
 - **16:06** Built and validated agent v2 (`agents/v2/agent.py`, packaged in `submissions/v2/`): v1.1 plus low-load plan caps plus surplus-solar charging. Stress harness: 0 failures.
 - **16:10** Updated `06_edge/report.md` with the recommendation to submit v2.
 

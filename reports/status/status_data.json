@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 18:24",
+ "updated": "Sat 14 Nov 2026, 18:30",
  "ceiling": 21.26,
  "best": {
   "name": "Combined agent: planner + load + solar + price/CO₂ forecasters (in the test harness, not yet packaged)",
@@ -20,7 +20,8 @@
  "now": [
   "**First combined agent: 19.99** on our folds (21.14 / 20.26 / 18.57), 0 infractions. That is 94 % of the ceiling, which would be about 22.3 on the public test by the same scaling.",
   "**What each piece adds once the planner handles uncertainty:** better load and solar forecasts +0.27, price/CO₂ forecaster +0.21. With a perfect price/CO₂ signal the same agent would score 20.71, so the signal beyond 3 hours is now the largest loss (0.72).",
-  "**Running:** the packager is turning the combined agent into **h2** (a first ZIP exists since 18:23 and matches the harness on fold A; the remaining checks are in progress, so do not submit it yet); the integrator is finishing sensitivity and run-time checks; two specialists are back on the signal; a red-team is stress-testing h1 and h2 against bad data.",
+  "**Running:** the packager is turning the combined agent into **h2** (a first ZIP exists since 18:23 and matches the harness on fold A; the remaining checks are in progress, so do not submit it yet); the integrator is finishing sensitivity and run-time checks; two specialists are back on the signal; a red-team is checking h1 and h2 on the real test layout, holiday weeks and odd inputs.",
+  "**Anomalies get little weight now.** The organisers' statement that nobody had reached the private maximum was wrong, so there is no evidence of bad data in the hidden test. We keep what is certain or free (no crashes or infractions, the real layout, holiday weeks, h2's fallback) and stop tuning guards for faults.",
   "**h1 is ready to submit and replaces h0 as the first choice:** `submissions/h1/nov_fill/submission.zip`. 20.58 / 19.79 / 18.35 on our folds, 0 infractions, under 1 second per run. Run the hard-mode quick validation first. h0 (`submissions/h0/submission.zip`, 19.01) is still worth one attempt as a comparison point.",
   "**Leaderboard:** the top two teams are at 23.2 and 23.1, about 98 % of the estimated public ceiling (23.7), not above it. By the same scaling h0 would land near 21.2."
  ],
@@ -40,7 +41,7 @@
   ["Planner (round 2)", "Make the plan aware that the price/CO₂ forecast is uncertain (scenario paths of the signal)", "running", "since 18:11"],
   ["Price/CO₂ forecaster (round 2)", "Better forecast for hours +3 to +11: local weather, slope of the known hours, peak height", "running", "since 18:11"],
   ["Packager (h2)", "Package the combined agent, with a fallback to h1's logic if anything fails on the server", "running", "first ZIP 18:23, equals the harness on fold A; other folds, fuzz, fallbacks and timing in progress; target 19:45"],
-  ["Red-team", "Stress h1, the combined agent and h2: meter and inverter faults, missing weather, holiday weeks, the real test layout, odd obs", "running", "since 18:24"],
+  ["Red-team", "Check h1, the combined agent and h2 on the real test layout, holiday weeks, months missing from train and odd obs; faults only as a quick check", "running", "since 18:24; re-scoped 18:29"],
   ["Packager (h1)", "Package h1 = h0's forecasts + the new planner", "done", "18:11: `submissions/h1/`, identical to the harness, 0.4–0.7 s per run; `reports/20_h1/report.md`"],
   ["Planner", "Fast optimiser that accounts for forecast uncertainty", "done", "17:56: +0.71 over trusting the forecast, 15–40× faster; `reports/14_planner/report.md`"],
   ["Load forecaster", "Predict campus load, above all for the current hour", "done", "18:00: error 38 → 20 kW, +0.60; `reports/11_load_forecast/report.md`"],
@@ -83,6 +84,8 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["18:29", "You confirmed the organisers' statement about the private ranking was false. Anomalies down-weighted: red-team re-scoped, corrections written into the work log and the standard-mode edge report."],
+  ["18:24", "Launched a red-team on h1, the combined agent and h2. h2 has a first working ZIP (18:23) that matches the harness on fold A; still being checked."],
   ["18:13", "h1 packaged and re-checked: 20.58 / 19.79 / 18.35, 0 infractions, 0.4 s per run, passes the validator. Recommended ZIP: `submissions/h1/nov_fill/submission.zip`."],
   ["18:11", "Sent two specialists back to the signal, now the largest loss: a better forecast for hours +3 to +11, and a planner that samples scenario paths of the signal."],
   ["18:10", "First combined result: 19.99 (21.14 / 20.26 / 18.57), 0 infractions. Load + solar forecasts add 0.27 on top of the new planner, the price/CO₂ forecaster 0.21. Perfect signal would give 20.71."],
