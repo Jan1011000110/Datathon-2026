@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 17:51
+**Last updated:** Sat 14 Nov 2026, 17:55
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -37,7 +37,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 |---|---|---|---|
 | Packager | Naive agent as a valid submission ZIP | `submissions/h0/submission.zip`, [`16_h0/report.md`](16_h0/report.md) | **done** 17:47 |
 | Load forecaster | Predict campus load, above all the current hour | `experiments/21_load/`, `11_load_forecast/` | running since 17:19 |
-| Solar forecaster | Predict solar ×12, current hour and next day | `experiments/22_solar/`, `12_solar_forecast/` | running since 17:19 |
+| Solar forecaster | Predict solar ×12, current hour and next day | [`12_solar_forecast/report.md`](12_solar_forecast/report.md), `experiments/22_solar/solar_fc.py` | **done** 17:55 |
 | Price/CO₂ forecaster | Predict the signal beyond the 3 known hours | `experiments/23_signal/`, `13_signal_forecast/` | running since 17:19 |
 | Planner | Fast optimiser that handles forecast uncertainty | `experiments/24_planner/`, `14_planner/` | running since 17:19 |
 | Analyst | Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from | [`15_hard_eda/report.md`](15_hard_eda/report.md), 6 figures | **done** 17:42 |
@@ -52,6 +52,9 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | T4 | Average-day forecast of load and solar (price/CO₂ known) | −1.46; of which current hour −1.07, later hours −0.34; load −1.13, solar −0.47 | the current hour's load is the first target |
 | T5 | Plain persistence for the current hour's net load | −1.86 | worse than the profile forecast |
 | T6 | Fixed 10 % haircut on discharge | +0.15 | keep until the planner handles uncertainty itself |
+| T9 | New solar forecaster: clear-sky envelope × clearness, plus night-time panel temperature | +0.06 (error −7 % for the current hour, −6 to −12 % later) | small; forecast accuracy is not what costs |
+| T10 | Plan the current hour on the 75th percentile of solar instead of the mean | +0.17 with perfect load; +0.14 in the fully legal agent | keep; the planner should do this with a percentile of net load |
+| T11 | Gradient boosting (LightGBM, 22 features) for solar | worse than the baseline (151 against 91 kW) and 1–3 ms per call | dropped |
 | T7 | Planning horizon 36 / 24 / 18 / 12 h in the packaged agent | within 0.02 down to 18 h; 12 h loses 0.025 on fold A | ship 18 h: half the run time |
 | T8 | Empty the battery when the run is about to end (2 hours of notice from the shrinking lists) | +0.01 / +0.02 / +0.14 | kept; knowing the end earlier would be worth up to about 0.35 |
 
@@ -67,6 +70,8 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | HF6 | Of the 21.26 points, tripling the battery gives 16.5, the smaller baseline from ×12 solar adds 3.0, and storing free surplus adds only 1.7 (8 %). | `15_hard_eda/report.md` §5 |
 | HF7 | In 87 % of the best schedule's discharge hours the battery covers the whole campus and stops; it reaches 1,500 kW in 1.4 %. Charging is the opposite: 63 % of charge hours are at full power. | `15_hard_eda/report.md` §4 |
 | HF8 | The meter is frozen from 23:00 to 05:00: the next hour's load equals the last reading (19 % of the discharge energy). The evening (47 %) and 06:00–08:00 (24 %) are where the load moves. At 06:00 the load rises on weekdays and falls at weekends. | `15_hard_eda/report.md` §6 |
+| HF10 | Solar errors cost score only when solar is under-forecast (the agent then discharges past the real net load), and almost only between 07:00 and 13:00. | `12_solar_forecast/report.md` §4 |
+| HF11 | A panel colder than the air before dawn announces a clear day (correlation −0.56 over 250 days). Irradiance adds nothing beyond last hour's output (correlation 0.995). Wind is always 0 in the data. | `12_solar_forecast/report.md` §5–6 |
 | HF9 | The cheapest hour of the day is at midday on 83 % of days; in February it is at night on 71 % of days. | `15_hard_eda/report.md` §7 |
 
 ## H6. Log
@@ -83,6 +88,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 - **17:24** Measured the value of the starting charge with perfect foresight: starting empty instead of full costs 0.30–0.43 points over a run, so one full battery is worth about 0.35 points (`experiments/25_integration/boundaries.py`). The optimum ends each test week with about 3,000 kWh stored, so the agent must keep planning across the three-week jump between weeks.
 - **17:25** Launched a sixth subagent: explainer figures for the jury (`15_hard_eda/`).
 - **17:26** Compared train with the two leaderboards: the ×12 solar lowers the public baseline by 16.1 % in CO₂ and 20.0 % in cost; train months predict 15.2 % and 18.4 %. Consistent. Reminder sent to the load and price/CO₂ agents: the hidden weeks include Christmas week and late July, when load is far from a normal week.
+- **17:55** Solar forecaster finished (T9–T11, HF10–HF11). The lesson for the planner: uncertainty handling is worth three times as much as forecast accuracy.
 - **17:47** Packager finished h0: passes `check_submission.py`, reproduces the harness to six decimals, survives malformed observations.
 - **17:50** My own check of h0: 17.90 on fold C in the organisers' environment, 0 infractions. Run time 15–33 s per 2,016 steps with the laptop busy (limit 60 s on a server of unknown speed).
 - **17:42** Analyst finished: `15_hard_eda/report.md` with six figures (HF6–HF9). I saved its report and softened two statements about the August test week that it had no data for.

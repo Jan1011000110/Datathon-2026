@@ -1,0 +1,20 @@
+fold                                                                A       B       C    mean  spill_MWh
+config                                                                                                  
+perfect load + perfect solar                                   22.440  21.417  19.918  21.258        0.0
+perfect load + SolarFC q0.8 at h0                              22.049  21.121  19.698  20.956        4.2
+perfect load + SolarFC q0.75 at h0                             22.058  21.116  19.690  20.955        5.0
+perfect load + SolarFC q0.7 at h0                              22.058  21.111  19.685  20.951        5.3
+perfect load + SolarFC q0.9 at h0                              22.003  21.092  19.672  20.922        3.3
+perfect load + SolarFC q0.6 at h0                              22.029  21.072  19.650  20.917        6.8
+perfect load + SolarFC                                         21.956  21.012  19.572  20.847        9.1
+perfect load + SolarFC no weather                              21.952  21.011  19.554  20.839        9.4
+perfect load + profile solar                                   21.944  20.934  19.475  20.784       10.4
+profile load + SolarFC q0.75 at h0                             20.869  20.306  18.940  20.038       15.8
+profile load + SolarFC q0.7 at h0                              20.858  20.291  18.929  20.026       16.2
+profile load + SolarFC                                         20.670  20.124  18.784  19.859       21.1
+legal: clim w + profile load + SolarFC q0.75 at h0, shade 0.9  19.974  19.409  17.918  19.100        7.6
+legal: clim w + profile load + SolarFC q0.7 at h0, shade 0.9   19.968  19.406  17.913  19.096        7.9
+legal: clim w + profile load + SolarFC q0.8 at h0, no shade    19.953  19.370  17.940  19.088       14.5
+legal: clim w + profile load + SolarFC q0.6 at h0, shade 0.9   19.929  19.382  17.889  19.067        9.3
+legal: clim w + profile load + SolarFC q0.7 at h0, no shade    19.902  19.324  17.892  19.039       16.1
+legal: clim w + profile load + SolarFC, shade 0.9              19.839  19.332  17.833  19.001       11.7

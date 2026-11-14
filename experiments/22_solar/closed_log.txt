@@ -1,0 +1,8 @@
+fold                                                    A       B       C    mean  spill_MWh
+config                                                                                      
+perfect load + perfect solar                       22.440  21.417  19.918  21.258        0.0
+perfect load + SolarFC                             21.956  21.012  19.572  20.847        9.1
+perfect load + SolarFC no weather                  21.952  21.011  19.554  20.839        9.4
+perfect load + profile solar                       21.944  20.934  19.475  20.784       10.4
+profile load + SolarFC                             20.670  20.124  18.784  19.859       21.1
+legal: clim w + profile load + SolarFC, shade 0.9  19.839  19.332  17.833  19.001       11.7
