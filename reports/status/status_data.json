@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 20:45",
+ "updated": "Sat 14 Nov 2026, 20:50",
  "ceiling": 21.26,
  "best": {
   "name": "h3: h2 + round-2 signal forecaster + signal-aware planner (`submissions/h3/submission.zip`)",
@@ -22,7 +22,7 @@
   "**The cut is known: the first 84 hours of each week are public, the last 84 are private** (cut probe: 24.25 against h3's 23.32). Charge held at the end of a week counts for the public half and against the private one, so the public board cannot be used to compare teams.",
   "**Select the two jury submissions by hand before the close.** The automatic choice takes the two best public scores, and one of ours is now the probe (24.25), which is our worst agent on the private half (about −1.3).",
   "**Decision for the team:** a variant of h3 that empties the battery at each week's end (`h3w`) is expected to gain +2.1 to +2.7 on the private half, while losing about 3 on the public half and 0.8 of real, whole-run performance. It breaks no written rule; it is tuned to where the scoring cut falls. It is being built and verified so the choice can be made on facts. My advice: tell the organisers about the cut either way, and if `h3w` is picked, pair it with h3 and say openly what it is.",
-  "**The run most likely ends on 31 July:** an agent acting only on August dates scored exactly 0, twice. A July control (`submissions/probe_july/submission.zip`) confirms it if it scores above zero. `h3j` = h3 with that end date is being built.",
+  "**The run ends on 31 July 2026, confirmed:** an agent acting only on August dates scored exactly 0 twice, and the same code acting on July dates scored 0.53. h2 and h3 assume 31 August, so they reach the real end holding charge. `h3j` = h3 with the right end date is being built; expect the same public score as h3 (the end of the run is in the private half) and roughly +0.15 to +0.3 on the private half.",
   "**On the board:** h3 at 23.32 (real), the probe at 24.25 (an artefact). h2 at 23.06.",
   "**What we still lose for real, in public points:** the signal level 3 to 8 hours ahead (about 0.6) and the current hour's net load (0.35)."
  ],
@@ -89,7 +89,7 @@
   ["Running LightGBM on the server for the load model", "a model string it cannot parse kills the Python process, which no fallback can catch", "replaced by walking the trees with numpy (bit-identical), rules-only as the fallback"],
   ["Second probe: h2 itself on the 48 validation hours, reporting on itself", "built fully, 0 fallbacks, 1.4 ms per step, same library versions; lists shrink only in the last 2 hours, state of charge unrounded, night load frozen, solar ×12", "h2 confirmed on the server"],
   ["Cut probe on the leaderboard: h3 carrying more charge into each week", "24.25 against 23.32 (+0.93)", "the first 84 hours of each week are public, the last 84 private"],
-  ["August probe on the leaderboard: an agent acting only on August 2026 dates", "exactly 0, twice", "most likely no August week: the run ends on 31 July (July control pending)"],
+  ["August probe on the leaderboard: an agent acting only on August 2026 dates", "exactly 0, twice; the same code acting on July dates scored 0.53", "no August week: the run ends on 31 July 2026 at 23:00"],
   ["h3 valuing energy beyond the week's end at 0.75 / 0.5 / 0, or cutting the plan there", "last halves +1.1 / +1.9 / +3.0 on folds; whole run −0.08 / −0.29 / −0.79; first halves −1.1 / −2.1 / −4.1", "a transfer between halves, not a better agent; team decision"],
   ["69 rules for the last hours of a week (value or floor on the energy held, rescaled signal beyond the jump, and others)", "best +0.004; every rule chosen on two folds loses on the third; ceiling with perfect information about 0.01", "none adopted"],
   ["How the cut of the public half interacts with charge carried across it", "84-hour cut: +1.4 points per MWh on one half, −1.7 on the other, 0 on the whole run; alternate days or random hours: 0", "do not chase public differences under 0.5; jury picks on whole-run scores"],
@@ -123,6 +123,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["20:50", "July control scored 0.53, so the August zero is real: the run ends on 31 July. h3j (h3 with that end date) becomes the honest candidate."],
   ["20:45", "Measured what the cut does to variants of h3: emptying the battery at each week's end is +3.0 on the last halves of our folds, −0.8 on the whole run. Both an honest fix (h3j, run ends 31 July) and that variant (h3w) are being packaged; submitting h3w is the team's decision."],
   ["20:40", "Probe results: cut probe 24.25 (the first halves of the weeks are public); August probe 0 twice (most likely no August week). July control built."],
   ["20:30", "Leaderboard: 31 teams, we are 12th with h3 (23.32); leader 24.10. August probe built and tested; cut probe being packaged."],

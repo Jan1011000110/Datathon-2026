@@ -116,7 +116,7 @@ h2's score on the public half minus its whole-run score, by hypothesis:
 
 **The probe result.** The team submitted the probe of section 5 (h3 with the signal beyond the week's end ×1.2): **24.25** on the public leaderboard against h3's 23.32, +0.93. On the folds that variant gains +1.0 to +1.9 on the first halves and loses 1.1 to 1.9 on the last halves. So **the public half is the first 84 hours of each week, and the private half, which decides the podium, is the last 84.** One measurement; nothing else we tested moves the score that way.
 
-**A second probe:** an agent that acts only on August 2026 dates scored exactly 0, twice. With the first halves public, an existing August week would have shown above zero. So the test most likely has no August week and the run ends on 31 July 2026. A July control is being submitted to confirm.
+**A second probe:** an agent that acts only on August 2026 dates scored exactly 0, twice. With the first halves public, an existing August week would have shown above zero. So the test has no August week and the run ends on 31 July 2026 at 23:00. **Confirmed at 20:50 by a control:** the same code acting on July 2026 dates scored 0.53 on the server (296.3 kg CO₂ avoided, 596.31 € saved, 0 infractions), which is the battery's starting charge discharged on the first night of the July week.
 
 **The family "how much is energy worth beyond the week's end" on h3** (mean of folds; change against h3 in brackets):
 

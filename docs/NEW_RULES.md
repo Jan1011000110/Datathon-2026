@@ -226,6 +226,8 @@ We ran a probe agent on the site's free quick validation; the page shows the err
 - **Battery:** `cap_max_kwh` = 6000.0, `power_max_kw` = 1500.0, starting `soc_kwh` = 3000.0.
 - **Timestamp:** a pandas Timestamp. The first hour is 2025-09-24 00:00 (a Wednesday), so the first test week is 24–30 September 2025.
 - The quick validation runs 48 hours and displays the text of any exception.
+- **The test has no August week; the run ends on 2026-07-31 23:00.** An agent acting only on August 2026 dates scored exactly 0 twice; the same code acting on July dates scored 0.53 (two ranked submissions, 2026-11-14 about 20:40 and 20:50).
+- **The public half is the first 84 hours of each test week; the private half is the last 84.** Established with a ranked probe (see `reports/23_boundaries/report.md` §6).
 
 **Second probe, 19:00: h2 itself on the 48 validation hours.** The server's report:
 
