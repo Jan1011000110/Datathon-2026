@@ -120,7 +120,12 @@ Weighted by the five real glitch lengths, v1 loses 0.0082 per glitch and v1.1 lo
 
 It passed 660 fuzzed inputs, 9,828 edge-of-range cases and 114 scenario runs with no crash, no bad value and 0 infractions, in 0.27 s per run.
 
-**My view:** take rules 1 and 2 (no downside on anything real). Rule 3 is your call; it is one constant (`DROP_RATIO = 0.0` switches it off). I expect either version to score the same as v1 on the public board, because no reading on the public run triggered v1's guard.
+**My view:** take rules 1 and 2 (no downside on anything real). Rule 3 is your call. Both versions are packaged, pass `check_submission.py` and the stress harness with 0 failures, and are ready to upload:
+
+- `submissions/v1_1/agent.py`: rules 1 and 2 only. Identical to v1, to four decimals, on all five train runs I checked.
+- `submissions/v1_1_with_drop_rule/agent.py`: rules 1, 2 and 3. Identical on four runs, −0.0006 on fold C (the 20 January false alarm).
+
+I expect either to score the same as v1 on the public board, because no reading on the public run triggered v1's guard.
 
 ---
 
