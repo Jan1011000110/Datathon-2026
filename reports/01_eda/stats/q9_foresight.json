@@ -1,0 +1,253 @@
+{
+  "hours": 6768,
+  "days": 282.0,
+  "oracle": {
+    "score": 5.739932,
+    "co2_red_pct": 5.336994,
+    "cost_red_pct": 6.680121,
+    "discharged_kwh": 738666.666362,
+    "charged_kwh": 819686.647849,
+    "cycles_per_day": 1.380537,
+    "exported_kwh": 0.0
+  },
+  "oracle_co2_only": {
+    "score": 5.21689,
+    "co2_red_pct": 5.742347,
+    "cost_red_pct": 3.990824,
+    "discharged_kwh": 686219.265092,
+    "charged_kwh": 761411.757549,
+    "cycles_per_day": 1.282515,
+    "exported_kwh": 0.0
+  },
+  "oracle_price_only": {
+    "score": 4.216061,
+    "co2_red_pct": 2.517844,
+    "cost_red_pct": 8.178566,
+    "discharged_kwh": 900452.446419,
+    "charged_kwh": 999448.62569,
+    "cycles_per_day": 1.682908,
+    "exported_kwh": 0.0
+  },
+  "mpc": {
+    "2": {
+      "score": 1.587113,
+      "co2_red_pct": 1.325936,
+      "cost_red_pct": 2.196525,
+      "discharged_kwh": 205698.683298,
+      "charged_kwh": 227500.0,
+      "cycles_per_day": 0.384442,
+      "exported_kwh": 0.0
+    },
+    "4": {
+      "score": 4.281686,
+      "co2_red_pct": 3.798494,
+      "cost_red_pct": 5.409133,
+      "discharged_kwh": 586898.683298,
+      "charged_kwh": 651055.555556,
+      "cycles_per_day": 1.096889,
+      "exported_kwh": 0.0
+    },
+    "6": {
+      "score": 5.383345,
+      "co2_red_pct": 4.858194,
+      "cost_red_pct": 6.608696,
+      "discharged_kwh": 747065.419009,
+      "charged_kwh": 829018.595234,
+      "cycles_per_day": 1.396234,
+      "exported_kwh": 0.0
+    },
+    "8": {
+      "score": 5.658764,
+      "co2_red_pct": 5.203411,
+      "cost_red_pct": 6.721255,
+      "discharged_kwh": 756635.030841,
+      "charged_kwh": 839651.49727,
+      "cycles_per_day": 1.414119,
+      "exported_kwh": 0.0
+    },
+    "12": {
+      "score": 5.736814,
+      "co2_red_pct": 5.344107,
+      "cost_red_pct": 6.653131,
+      "discharged_kwh": 738450.865939,
+      "charged_kwh": 819446.869601,
+      "cycles_per_day": 1.380134,
+      "exported_kwh": 0.0
+    },
+    "16": {
+      "score": 5.739033,
+      "co2_red_pct": 5.340412,
+      "cost_red_pct": 6.669148,
+      "discharged_kwh": 737669.299766,
+      "charged_kwh": 818578.462742,
+      "cycles_per_day": 1.378673,
+      "exported_kwh": 0.0
+    },
+    "20": {
+      "score": 5.739384,
+      "co2_red_pct": 5.336583,
+      "cost_red_pct": 6.679255,
+      "discharged_kwh": 738764.032958,
+      "charged_kwh": 819794.832956,
+      "cycles_per_day": 1.380719,
+      "exported_kwh": 0.0
+    },
+    "24": {
+      "score": 5.739393,
+      "co2_red_pct": 5.336227,
+      "cost_red_pct": 6.680115,
+      "discharged_kwh": 738469.299766,
+      "charged_kwh": 819467.351631,
+      "cycles_per_day": 1.380168,
+      "exported_kwh": 0.0
+    },
+    "30": {
+      "score": 5.739409,
+      "co2_red_pct": 5.3363,
+      "cost_red_pct": 6.679997,
+      "discharged_kwh": 738764.032958,
+      "charged_kwh": 819794.832956,
+      "cycles_per_day": 1.380719,
+      "exported_kwh": 0.0
+    },
+    "36": {
+      "score": 5.739409,
+      "co2_red_pct": 5.3363,
+      "cost_red_pct": 6.679997,
+      "discharged_kwh": 738764.032958,
+      "charged_kwh": 819794.832956,
+      "cycles_per_day": 1.380719,
+      "exported_kwh": 0.0
+    },
+    "48": {
+      "score": 5.739409,
+      "co2_red_pct": 5.3363,
+      "cost_red_pct": 6.679997,
+      "discharged_kwh": 738764.032958,
+      "charged_kwh": 819794.832956,
+      "cycles_per_day": 1.380719,
+      "exported_kwh": 0.0
+    },
+    "72": {
+      "score": 5.739409,
+      "co2_red_pct": 5.3363,
+      "cost_red_pct": 6.679997,
+      "discharged_kwh": 738764.032958,
+      "charged_kwh": 819794.832956,
+      "cycles_per_day": 1.380719,
+      "exported_kwh": 0.0
+    }
+  },
+  "mpc_score_share_of_oracle": {
+    "2": 0.276504,
+    "4": 0.745947,
+    "6": 0.937876,
+    "8": 0.985859,
+    "12": 0.999457,
+    "16": 0.999843,
+    "20": 0.999905,
+    "24": 0.999906,
+    "30": 0.999909,
+    "36": 0.999909,
+    "48": 0.999909,
+    "72": 0.999909
+  },
+  "mpc48_persistence": {
+    "score": 5.739393,
+    "co2_red_pct": 5.336227,
+    "cost_red_pct": 6.680115,
+    "discharged_kwh": 738469.299766,
+    "charged_kwh": 819467.351631,
+    "cycles_per_day": 1.380168,
+    "exported_kwh": 0.0
+  },
+  "weight_sensitivity_score": {
+    "0.0": 4.216061,
+    "0.1": 4.636038,
+    "0.2": 5.019646,
+    "0.3": 5.272279,
+    "0.4": 5.465763,
+    "0.5": 5.617763,
+    "0.6": 5.706837,
+    "0.7": 5.739932,
+    "0.8": 5.697143,
+    "0.9": 5.548873,
+    "1.0": 5.21689
+  },
+  "mpc24_vs_oracle_mean_abs_diff_kw": 0.132723,
+  "mpc24_hours_identical_action_share": 0.998818,
+  "oracle_cycles_per_day_mean": 1.380537,
+  "oracle_cycles_per_day_quantiles": {
+    "0.1": 0.7134,
+    "0.25": 1.0,
+    "0.5": 1.474342,
+    "0.75": 1.79057,
+    "0.9": 1.997643
+  },
+  "oracle_cycles_per_day_by_month": {
+    "Jan": 1.558889,
+    "Feb": 1.709135,
+    "Mar": 1.540396,
+    "Apr": 1.476875,
+    "May": 1.24532,
+    "Jun": 1.295002,
+    "Jul": 1.12893,
+    "Aug": 1.102231,
+    "Sep": 1.317528,
+    "Oct": 1.387714,
+    "Nov": 1.39426,
+    "Dec": 1.452266
+  },
+  "oracle_share_days_ge_1p5_cycles": 0.485816,
+  "oracle_share_days_le_1p1_cycles": 0.312057,
+  "oracle_share_hours_idle": 0.486259,
+  "oracle_share_hours_full_power": 0.407654,
+  "oracle_score_points_per_100_days_by_month": {
+    "Jan": 1.576012,
+    "Feb": 1.081456,
+    "Mar": 1.968793,
+    "Apr": 1.486341,
+    "May": 2.025287,
+    "Jun": 2.172376,
+    "Jul": 2.688074,
+    "Aug": 3.617897,
+    "Sep": 2.145333,
+    "Oct": 2.477674,
+    "Nov": 1.574802,
+    "Dec": 1.455593
+  },
+  "oracle_kg_saved_per_day_by_month": {
+    "Jan": 89.216848,
+    "Feb": 28.462392,
+    "Mar": 94.611895,
+    "Apr": 73.251607,
+    "May": 114.184222,
+    "Jun": 125.514498,
+    "Jul": 177.636679,
+    "Aug": 234.868041,
+    "Sep": 128.331809,
+    "Oct": 157.080691,
+    "Nov": 89.895699,
+    "Dec": 85.212217
+  },
+  "oracle_eur_saved_per_day_by_month": {
+    "Jan": 201.23271,
+    "Feb": 267.917147,
+    "Mar": 318.127765,
+    "Apr": 232.940119,
+    "May": 260.44454,
+    "Jun": 267.320987,
+    "Jul": 242.292441,
+    "Aug": 342.80585,
+    "Sep": 246.634451,
+    "Oct": 249.69237,
+    "Nov": 198.116333,
+    "Dec": 174.711316
+  },
+  "gain_vs_24h_points": {
+    "Naive forecast of hours 24\u201347 (same hour one day earlier)": 0.0,
+    "Perfect knowledge of hours 24\u201347": 1.6e-05,
+    "Perfect knowledge of hours 24\u201371": 1.6e-05,
+    "Perfect knowledge of the whole year": 0.000539
+  }
+}

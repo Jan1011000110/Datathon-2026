@@ -1,0 +1,1165 @@
+{
+  "design": {
+    "cap_kwh": 2000.0,
+    "pmax_kw": 500.0,
+    "duration_h": 4.0,
+    "score": 5.707071,
+    "co2_t_year": 42.53394,
+    "eur_year": 90794.018604,
+    "cycles_per_day": 1.378888,
+    "peak_import_kw": 2760.335
+  },
+  "duals_design_point": {
+    "score_pts_per_kwh_capacity": 0.002077,
+    "score_pts_per_kw_power": 0.003123,
+    "score_pts_per_kw_charge_side": 0.001303,
+    "score_pts_per_kw_discharge_side": 0.00182,
+    "hours_full_pct": 12.411032,
+    "hours_empty_pct": 13.967972,
+    "hours_charge_at_pmax_pct": 23.042705,
+    "hours_discharge_at_pmax_pct": 17.689798
+  },
+  "finite_differences_design_point": {
+    "per_kwh_capacity": {
+      "score": 0.002072,
+      "co2_t_year": 0.017881,
+      "eur_year": 23.285438
+    },
+    "per_kw_power": {
+      "score": 0.003123,
+      "co2_t_year": 0.013521,
+      "eur_year": 88.449435
+    }
+  },
+  "annual_value_of_one_more_kwh": {
+    "kg_co2": 17.881423,
+    "eur": 23.285438
+  },
+  "annual_value_of_one_more_kw": {
+    "kg_co2": 13.521326,
+    "eur": 88.449435
+  },
+  "kwh_of_capacity_worth_one_kw": {
+    "score": 1.507039,
+    "co2": 0.756166,
+    "eur": 3.798487
+  },
+  "elasticity_design_point": {
+    "capacity": {
+      "score": 0.726231,
+      "co2_t_year": 0.840807,
+      "eur_year": 0.512929
+    },
+    "power": {
+      "score": 0.273615,
+      "co2_t_year": 0.158947,
+      "eur_year": 0.487088
+    }
+  },
+  "euler_check_score": {
+    "E*dV/dE + P*dV/dP": 5.706193,
+    "V": 5.707071
+  },
+  "doubling": {
+    "double_capacity_4000kwh_500kw": {
+      "score": 8.696458,
+      "co2_t_year": 71.451562,
+      "eur_year": 111946.664956,
+      "score_vs_design_pct": 152.380412
+    },
+    "double_power_2000kwh_1000kw": {
+      "score": 6.547448,
+      "co2_t_year": 46.886806,
+      "eur_year": 111771.437459,
+      "score_vs_design_pct": 114.72519
+    },
+    "double_both_4000kwh_1000kw": {
+      "score": 11.335095,
+      "co2_t_year": 84.465738,
+      "eur_year": 180375.634974,
+      "score_vs_design_pct": 198.614942
+    },
+    "half_capacity_1000kwh_500kw": {
+      "score": 3.287427,
+      "co2_t_year": 23.515788,
+      "eur_year": 56222.537032,
+      "score_vs_design_pct": 57.602697
+    },
+    "half_power_2000kwh_250kw": {
+      "score": 4.348282,
+      "co2_t_year": 35.726188,
+      "eur_year": 55974.110434,
+      "score_vs_design_pct": 76.191131
+    }
+  },
+  "by_duration": [
+    {
+      "duration_h": 0.25,
+      "n": 1,
+      "score_per_mwh": 3.538656,
+      "score_per_mwh_min": 3.538656,
+      "score_per_mwh_max": 3.538656,
+      "eur_per_kwh_year": 63.192239,
+      "kgco2_per_kwh_year": 24.640695,
+      "score_per_mw": 0.884664
+    },
+    {
+      "duration_h": 0.333333,
+      "n": 1,
+      "score_per_mwh": 3.538656,
+      "score_per_mwh_min": 3.538656,
+      "score_per_mwh_max": 3.538656,
+      "eur_per_kwh_year": 63.192239,
+      "kgco2_per_kwh_year": 24.640695,
+      "score_per_mw": 1.179552
+    },
+    {
+      "duration_h": 0.375,
+      "n": 1,
+      "score_per_mwh": 3.538345,
+      "score_per_mwh_min": 3.538345,
+      "score_per_mwh_max": 3.538345,
+      "eur_per_kwh_year": 63.180881,
+      "kgco2_per_kwh_year": 24.639992,
+      "score_per_mw": 1.326879
+    },
+    {
+      "duration_h": 0.5,
+      "n": 3,
+      "score_per_mwh": 3.535177,
+      "score_per_mwh_min": 3.528532,
+      "score_per_mwh_max": 3.538656,
+      "eur_per_kwh_year": 63.088497,
+      "kgco2_per_kwh_year": 24.626939,
+      "score_per_mw": 1.767589
+    },
+    {
+      "duration_h": 0.666667,
+      "n": 2,
+      "score_per_mwh": 3.533594,
+      "score_per_mwh_min": 3.528532,
+      "score_per_mwh_max": 3.538656,
+      "eur_per_kwh_year": 63.042305,
+      "kgco2_per_kwh_year": 24.620413,
+      "score_per_mw": 2.355729
+    },
+    {
+      "duration_h": 0.75,
+      "n": 2,
+      "score_per_mwh": 3.503288,
+      "score_per_mwh_min": 3.468231,
+      "score_per_mwh_max": 3.538345,
+      "eur_per_kwh_year": 62.154528,
+      "kgco2_per_kwh_year": 24.496732,
+      "score_per_mw": 2.627466
+    },
+    {
+      "duration_h": 1.0,
+      "n": 5,
+      "score_per_mwh": 3.485089,
+      "score_per_mwh_min": 3.380988,
+      "score_per_mwh_max": 3.531056,
+      "eur_per_kwh_year": 61.681059,
+      "kgco2_per_kwh_year": 24.407248,
+      "score_per_mw": 3.485089
+    },
+    {
+      "duration_h": 1.333333,
+      "n": 3,
+      "score_per_mwh": 3.397963,
+      "score_per_mwh_min": 3.349619,
+      "score_per_mwh_max": 3.422408,
+      "eur_per_kwh_year": 59.286434,
+      "kgco2_per_kwh_year": 24.011381,
+      "score_per_mw": 4.530618
+    },
+    {
+      "duration_h": 1.5,
+      "n": 3,
+      "score_per_mwh": 3.318773,
+      "score_per_mwh_min": 3.205869,
+      "score_per_mwh_max": 3.379782,
+      "eur_per_kwh_year": 57.239988,
+      "kgco2_per_kwh_year": 23.618747,
+      "score_per_mw": 4.97816
+    },
+    {
+      "duration_h": 2.0,
+      "n": 7,
+      "score_per_mwh": 3.235726,
+      "score_per_mwh_min": 3.048407,
+      "score_per_mwh_max": 3.287441,
+      "eur_per_kwh_year": 55.051066,
+      "kgco2_per_kwh_year": 23.217794,
+      "score_per_mw": 6.471452
+    },
+    {
+      "duration_h": 2.666667,
+      "n": 4,
+      "score_per_mwh": 3.09593,
+      "score_per_mwh_min": 3.003905,
+      "score_per_mwh_max": 3.126801,
+      "eur_per_kwh_year": 51.605486,
+      "kgco2_per_kwh_year": 22.482362,
+      "score_per_mw": 8.255813
+    },
+    {
+      "duration_h": 3.0,
+      "n": 4,
+      "score_per_mwh": 2.978864,
+      "score_per_mwh_min": 2.748896,
+      "score_per_mwh_max": 3.061258,
+      "eur_per_kwh_year": 48.820872,
+      "kgco2_per_kwh_year": 21.840865,
+      "score_per_mw": 8.936591
+    },
+    {
+      "duration_h": 4.0,
+      "n": 9,
+      "score_per_mwh": 2.792972,
+      "score_per_mwh_min": 2.495713,
+      "score_per_mwh_max": 2.853566,
+      "eur_per_kwh_year": 44.016358,
+      "kgco2_per_kwh_year": 20.919723,
+      "score_per_mw": 11.171889
+    },
+    {
+      "duration_h": 5.333333,
+      "n": 4,
+      "score_per_mwh": 2.551657,
+      "score_per_mwh_min": 2.414527,
+      "score_per_mwh_max": 2.597659,
+      "eur_per_kwh_year": 37.106547,
+      "kgco2_per_kwh_year": 19.893617,
+      "score_per_mw": 13.608835
+    },
+    {
+      "duration_h": 6.0,
+      "n": 4,
+      "score_per_mwh": 2.477205,
+      "score_per_mwh_min": 2.460878,
+      "score_per_mwh_max": 2.482655,
+      "eur_per_kwh_year": 34.958079,
+      "kgco2_per_kwh_year": 19.581653,
+      "score_per_mw": 14.863231
+    },
+    {
+      "duration_h": 8.0,
+      "n": 7,
+      "score_per_mwh": 2.170782,
+      "score_per_mwh_min": 2.1515,
+      "score_per_mwh_max": 2.174141,
+      "eur_per_kwh_year": 27.953982,
+      "kgco2_per_kwh_year": 17.832781,
+      "score_per_mw": 17.366254
+    },
+    {
+      "duration_h": 10.666667,
+      "n": 3,
+      "score_per_mwh": 1.801392,
+      "score_per_mwh_min": 1.800844,
+      "score_per_mwh_max": 1.801666,
+      "eur_per_kwh_year": 21.402554,
+      "kgco2_per_kwh_year": 15.249768,
+      "score_per_mw": 19.214849
+    },
+    {
+      "duration_h": 12.0,
+      "n": 3,
+      "score_per_mwh": 1.633662,
+      "score_per_mwh_min": 1.633648,
+      "score_per_mwh_max": 1.633669,
+      "eur_per_kwh_year": 19.144204,
+      "kgco2_per_kwh_year": 13.896591,
+      "score_per_mw": 19.603942
+    },
+    {
+      "duration_h": 16.0,
+      "n": 5,
+      "score_per_mwh": 1.274957,
+      "score_per_mwh_min": 1.274947,
+      "score_per_mwh_max": 1.27496,
+      "eur_per_kwh_year": 14.604031,
+      "kgco2_per_kwh_year": 10.929936,
+      "score_per_mw": 20.399315
+    },
+    {
+      "duration_h": 21.333333,
+      "n": 2,
+      "score_per_mwh": 0.988784,
+      "score_per_mwh_min": 0.988784,
+      "score_per_mwh_max": 0.988784,
+      "eur_per_kwh_year": 11.137993,
+      "kgco2_per_kwh_year": 8.524053,
+      "score_per_mw": 21.094049
+    },
+    {
+      "duration_h": 24.0,
+      "n": 2,
+      "score_per_mwh": 0.890121,
+      "score_per_mwh_min": 0.890121,
+      "score_per_mwh_max": 0.890121,
+      "eur_per_kwh_year": 10.006806,
+      "kgco2_per_kwh_year": 7.67811,
+      "score_per_mw": 21.362906
+    },
+    {
+      "duration_h": 32.0,
+      "n": 3,
+      "score_per_mwh": 0.686776,
+      "score_per_mwh_min": 0.686776,
+      "score_per_mwh_max": 0.686776,
+      "eur_per_kwh_year": 7.637078,
+      "kgco2_per_kwh_year": 5.943911,
+      "score_per_mw": 21.976841
+    },
+    {
+      "duration_h": 42.666667,
+      "n": 1,
+      "score_per_mwh": 0.528167,
+      "score_per_mwh_min": 0.528167,
+      "score_per_mwh_max": 0.528167,
+      "eur_per_kwh_year": 5.809839,
+      "kgco2_per_kwh_year": 4.586392,
+      "score_per_mw": 22.535113
+    },
+    {
+      "duration_h": 48.0,
+      "n": 1,
+      "score_per_mwh": 0.474082,
+      "score_per_mwh_min": 0.474082,
+      "score_per_mwh_max": 0.474082,
+      "eur_per_kwh_year": 5.180005,
+      "kgco2_per_kwh_year": 4.125278,
+      "score_per_mw": 22.755951
+    },
+    {
+      "duration_h": 64.0,
+      "n": 1,
+      "score_per_mwh": 0.363973,
+      "score_per_mwh_min": 0.363973,
+      "score_per_mwh_max": 0.363973,
+      "eur_per_kwh_year": 3.938938,
+      "kgco2_per_kwh_year": 3.175089,
+      "score_per_mw": 23.294278
+    }
+  ],
+  "duration_sweep_500kw": [
+    {
+      "cap_kwh": 250.0,
+      "pmax_kw": 500.0,
+      "duration_h": 0.5,
+      "score": 0.884666,
+      "co2_t_year": 6.160184,
+      "eur_year": 15798.10942,
+      "cycles_per_day": 1.850534,
+      "peak_import_kw": 2519.907305,
+      "marg_score_per_kwh": 0.003539,
+      "elast_score": 1.0,
+      "marg_co2_t_year_per_kwh": 0.024641,
+      "elast_co2_t_year": 1.0,
+      "marg_eur_year_per_kwh": 63.192438,
+      "elast_eur_year": 1.0
+    },
+    {
+      "cap_kwh": 375.0,
+      "pmax_kw": 500.0,
+      "duration_h": 0.75,
+      "score": 1.326999,
+      "co2_t_year": 9.240275,
+      "eur_year": 23697.16413,
+      "cycles_per_day": 1.850534,
+      "peak_import_kw": 2651.668874,
+      "marg_score_per_kwh": 0.003523,
+      "elast_score": 0.995624,
+      "marg_co2_t_year_per_kwh": 0.02457,
+      "elast_co2_t_year": 0.997099,
+      "marg_eur_year_per_kwh": 62.778584,
+      "elast_eur_year": 0.993331
+    },
+    {
+      "cap_kwh": 500.0,
+      "pmax_kw": 500.0,
+      "duration_h": 1.0,
+      "score": 1.765528,
+      "co2_t_year": 12.3028,
+      "eur_year": 31492.755316,
+      "cycles_per_day": 1.841037,
+      "peak_import_kw": 2756.384167,
+      "marg_score_per_kwh": 0.003365,
+      "elast_score": 0.950804,
+      "marg_co2_t_year_per_kwh": 0.023859,
+      "elast_co2_t_year": 0.968573,
+      "marg_eur_year_per_kwh": 58.370497,
+      "elast_eur_year": 0.922672
+    },
+    {
+      "cap_kwh": 750.0,
+      "pmax_kw": 500.0,
+      "duration_h": 1.5,
+      "score": 2.534837,
+      "co2_t_year": 17.947018,
+      "eur_year": 44088.263575,
+      "cycles_per_day": 1.724641,
+      "peak_import_kw": 2756.384167,
+      "marg_score_per_kwh": 0.003044,
+      "elast_score": 0.898844,
+      "marg_co2_t_year_per_kwh": 0.022426,
+      "elast_co2_t_year": 0.936024,
+      "marg_eur_year_per_kwh": 49.459563,
+      "elast_eur_year": 0.838739
+    },
+    {
+      "cap_kwh": 1000.0,
+      "pmax_kw": 500.0,
+      "duration_h": 2.0,
+      "score": 3.287427,
+      "co2_t_year": 23.515788,
+      "eur_year": 56222.537032,
+      "cycles_per_day": 1.657152,
+      "peak_import_kw": 2756.384167,
+      "marg_score_per_kwh": 0.002836,
+      "elast_score": 0.859944,
+      "marg_co2_t_year_per_kwh": 0.021264,
+      "elast_co2_t_year": 0.902503,
+      "marg_eur_year_per_kwh": 44.606185,
+      "elast_eur_year": 0.788751
+    },
+    {
+      "cap_kwh": 1250.0,
+      "pmax_kw": 500.0,
+      "duration_h": 2.5,
+      "score": 3.952799,
+      "co2_t_year": 28.579045,
+      "eur_year": 66391.356028,
+      "cycles_per_day": 1.578166,
+      "peak_import_kw": 2756.384167,
+      "marg_score_per_kwh": 0.002609,
+      "elast_score": 0.823778,
+      "marg_co2_t_year_per_kwh": 0.019986,
+      "elast_co2_t_year": 0.873286,
+      "marg_eur_year_per_kwh": 39.340324,
+      "elast_eur_year": 0.738748
+    },
+    {
+      "cap_kwh": 1500.0,
+      "pmax_kw": 500.0,
+      "duration_h": 3.0,
+      "score": 4.591854,
+      "co2_t_year": 33.508645,
+      "eur_year": 75892.698896,
+      "cycles_per_day": 1.513911,
+      "peak_import_kw": 2756.384167,
+      "marg_score_per_kwh": 0.002429,
+      "elast_score": 0.791663,
+      "marg_co2_t_year_per_kwh": 0.019009,
+      "elast_co2_t_year": 0.849722,
+      "marg_eur_year_per_kwh": 35.042898,
+      "elast_eur_year": 0.68922
+    },
+    {
+      "cap_kwh": 1750.0,
+      "pmax_kw": 500.0,
+      "duration_h": 3.5,
+      "score": 5.167409,
+      "co2_t_year": 38.083502,
+      "eur_year": 83912.805259,
+      "cycles_per_day": 1.443348,
+      "peak_import_kw": 2756.384167,
+      "marg_score_per_kwh": 0.00223,
+      "elast_score": 0.754184,
+      "marg_co2_t_year_per_kwh": 0.018051,
+      "elast_co2_t_year": 0.828855,
+      "marg_eur_year_per_kwh": 29.802639,
+      "elast_eur_year": 0.618759
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 500.0,
+      "duration_h": 4.0,
+      "score": 5.707071,
+      "co2_t_year": 42.53394,
+      "eur_year": 90794.018604,
+      "cycles_per_day": 1.378888,
+      "peak_import_kw": 2760.335,
+      "marg_score_per_kwh": 0.002061,
+      "elast_score": 0.719433,
+      "marg_co2_t_year_per_kwh": 0.017564,
+      "elast_co2_t_year": 0.824917,
+      "marg_eur_year_per_kwh": 24.029463,
+      "elast_eur_year": 0.519737
+    },
+    {
+      "cap_kwh": 2500.0,
+      "pmax_kw": 500.0,
+      "duration_h": 5.0,
+      "score": 6.640037,
+      "co2_t_year": 51.077666,
+      "eur_year": 99313.359255,
+      "cycles_per_day": 1.263289,
+      "peak_import_kw": 2889.25,
+      "marg_score_per_kwh": 0.001741,
+      "elast_score": 0.651679,
+      "marg_co2_t_year_per_kwh": 0.016342,
+      "elast_co2_t_year": 0.79772,
+      "marg_eur_year_per_kwh": 14.305891,
+      "elast_eur_year": 0.351671
+    },
+    {
+      "cap_kwh": 3000.0,
+      "pmax_kw": 500.0,
+      "duration_h": 6.0,
+      "score": 7.447895,
+      "co2_t_year": 58.875494,
+      "eur_year": 105099.909839,
+      "cycles_per_day": 1.174775,
+      "peak_import_kw": 2904.461667,
+      "marg_score_per_kwh": 0.001495,
+      "elast_score": 0.598553,
+      "marg_co2_t_year_per_kwh": 0.014618,
+      "elast_co2_t_year": 0.742307,
+      "marg_eur_year_per_kwh": 9.938915,
+      "elast_eur_year": 0.278509
+    },
+    {
+      "cap_kwh": 3500.0,
+      "pmax_kw": 500.0,
+      "duration_h": 7.0,
+      "score": 8.134669,
+      "co2_t_year": 65.695781,
+      "eur_year": 109252.273869,
+      "cycles_per_day": 1.098382,
+      "peak_import_kw": 2904.461667,
+      "marg_score_per_kwh": 0.001249,
+      "elast_score": 0.533569,
+      "marg_co2_t_year_per_kwh": 0.012576,
+      "elast_co2_t_year": 0.667063,
+      "marg_eur_year_per_kwh": 6.846755,
+      "elast_eur_year": 0.214439
+    },
+    {
+      "cap_kwh": 4000.0,
+      "pmax_kw": 500.0,
+      "duration_h": 8.0,
+      "score": 8.696458,
+      "co2_t_year": 71.451562,
+      "eur_year": 111946.664956,
+      "cycles_per_day": 1.028125,
+      "peak_import_kw": 2904.461667,
+      "marg_score_per_kwh": 0.001009,
+      "elast_score": 0.460555,
+      "marg_co2_t_year_per_kwh": 0.010453,
+      "elast_co2_t_year": 0.581981,
+      "marg_eur_year_per_kwh": 4.377165,
+      "elast_eur_year": 0.152815
+    },
+    {
+      "cap_kwh": 4500.0,
+      "pmax_kw": 500.0,
+      "duration_h": 9.0,
+      "score": 9.143577,
+      "co2_t_year": 76.148632,
+      "eur_year": 113629.438711,
+      "cycles_per_day": 0.968634,
+      "peak_import_kw": 2904.461667,
+      "marg_score_per_kwh": 0.000767,
+      "elast_score": 0.373177,
+      "marg_co2_t_year_per_kwh": 0.008255,
+      "elast_co2_t_year": 0.48397,
+      "marg_eur_year_per_kwh": 2.100721,
+      "elast_eur_year": 0.078204
+    },
+    {
+      "cap_kwh": 5000.0,
+      "pmax_kw": 500.0,
+      "duration_h": 10.0,
+      "score": 9.463318,
+      "co2_t_year": 79.706096,
+      "eur_year": 114047.386168,
+      "cycles_per_day": 0.911871,
+      "peak_import_kw": 2904.461667,
+      "marg_score_per_kwh": 0.000539,
+      "elast_score": 0.277362,
+      "marg_co2_t_year_per_kwh": 0.005968,
+      "elast_co2_t_year": 0.365136,
+      "marg_eur_year_per_kwh": 0.82967,
+      "elast_eur_year": 0.036427
+    },
+    {
+      "cap_kwh": 6000.0,
+      "pmax_kw": 500.0,
+      "duration_h": 12.0,
+      "score": 9.801891,
+      "co2_t_year": 83.37878,
+      "eur_year": 114864.605647,
+      "cycles_per_day": 0.795493,
+      "peak_import_kw": 2904.461667,
+      "marg_score_per_kwh": 0.000279,
+      "elast_score": 0.165847,
+      "marg_co2_t_year_per_kwh": 0.00297,
+      "elast_co2_t_year": 0.207477,
+      "marg_eur_year_per_kwh": 0.877429,
+      "elast_eur_year": 0.046519
+    },
+    {
+      "cap_kwh": 7000.0,
+      "pmax_kw": 500.0,
+      "duration_h": 14.0,
+      "score": 10.020444,
+      "co2_t_year": 85.645367,
+      "eur_year": 115802.244843,
+      "cycles_per_day": 0.691308,
+      "peak_import_kw": 2904.461667,
+      "marg_score_per_kwh": 0.000199,
+      "elast_score": 0.137502,
+      "marg_co2_t_year_per_kwh": 0.00203,
+      "elast_co2_t_year": 0.163925,
+      "marg_eur_year_per_kwh": 0.9832,
+      "elast_eur_year": 0.059971
+    },
+    {
+      "cap_kwh": 8000.0,
+      "pmax_kw": 500.0,
+      "duration_h": 16.0,
+      "score": 10.199573,
+      "co2_t_year": 87.438834,
+      "eur_year": 116831.006335,
+      "cycles_per_day": 0.611774,
+      "peak_import_kw": 2904.461667,
+      "marg_score_per_kwh": 0.000164,
+      "elast_score": 0.12691,
+      "marg_co2_t_year_per_kwh": 0.001662,
+      "elast_co2_t_year": 0.149975,
+      "marg_eur_year_per_kwh": 0.885186,
+      "elast_eur_year": 0.058527
+    },
+    {
+      "cap_kwh": 10000.0,
+      "pmax_kw": 500.0,
+      "duration_h": 20.0,
+      "score": 10.469949,
+      "co2_t_year": 90.238514,
+      "eur_year": 118027.077001,
+      "cycles_per_day": 0.498179,
+      "peak_import_kw": 2904.461667,
+      "marg_score_per_kwh": 0.00012,
+      "elast_score": 0.113052,
+      "marg_co2_t_year_per_kwh": 0.001174,
+      "elast_co2_t_year": 0.126285,
+      "marg_eur_year_per_kwh": 0.813563,
+      "elast_eur_year": 0.072709
+    },
+    {
+      "cap_kwh": 12000.0,
+      "pmax_kw": 500.0,
+      "duration_h": 24.0,
+      "score": 10.681312,
+      "co2_t_year": 92.134811,
+      "eur_year": 120085.257136,
+      "cycles_per_day": 0.419645,
+      "peak_import_kw": 2904.461667,
+      "marg_score_per_kwh": 0.000106,
+      "elast_score": 0.109622,
+      "marg_co2_t_year_per_kwh": 0.000948,
+      "elast_co2_t_year": 0.114065,
+      "marg_eur_year_per_kwh": 1.02909,
+      "elast_eur_year": 0.094821
+    }
+  ],
+  "balanced_duration_h": {
+    "score": 7.475,
+    "co2_t_year": 8.85,
+    "eur_year": 4.125
+  },
+  "best_duration_h_by_cost_ratio": {
+    "kw_costs_0.5_kwh": {
+      "score": 2.5,
+      "co2_t_year": 3.0,
+      "eur_year": 2.0
+    },
+    "kw_costs_1.0_kwh": {
+      "score": 3.5,
+      "co2_t_year": 5.0,
+      "eur_year": 3.0
+    },
+    "kw_costs_1.5_kwh": {
+      "score": 4.0,
+      "co2_t_year": 5.0,
+      "eur_year": 3.0
+    },
+    "kw_costs_2.0_kwh": {
+      "score": 4.0,
+      "co2_t_year": 6.0,
+      "eur_year": 3.5
+    },
+    "kw_costs_3.0_kwh": {
+      "score": 5.0,
+      "co2_t_year": 7.0,
+      "eur_year": 4.0
+    },
+    "kw_costs_4.0_kwh": {
+      "score": 6.0,
+      "co2_t_year": 7.0,
+      "eur_year": 4.0
+    }
+  },
+  "cut_capacity_at_500kw": [
+    {
+      "cap_kwh": 500,
+      "pmax_kw": 500.0,
+      "duration_h": 1.0,
+      "score": 1.765528,
+      "co2_t_year": 12.3028,
+      "eur_year": 31492.755316,
+      "cycles_per_day": 1.841037,
+      "peak_import_kw": 2756.384167,
+      "elasticity": 0.892011
+    },
+    {
+      "cap_kwh": 750,
+      "pmax_kw": 500.0,
+      "duration_h": 1.5,
+      "score": 2.534837,
+      "co2_t_year": 17.947018,
+      "eur_year": 44088.263575,
+      "cycles_per_day": 1.724641,
+      "peak_import_kw": 2756.384167,
+      "elasticity": 0.898844
+    },
+    {
+      "cap_kwh": 1000,
+      "pmax_kw": 500.0,
+      "duration_h": 2.0,
+      "score": 3.287427,
+      "co2_t_year": 23.515788,
+      "eur_year": 56222.537032,
+      "cycles_per_day": 1.657152,
+      "peak_import_kw": 2756.384167,
+      "elasticity": 0.859944
+    },
+    {
+      "cap_kwh": 1250,
+      "pmax_kw": 500.0,
+      "duration_h": 2.5,
+      "score": 3.952799,
+      "co2_t_year": 28.579045,
+      "eur_year": 66391.356028,
+      "cycles_per_day": 1.578166,
+      "peak_import_kw": 2756.384167,
+      "elasticity": 0.823778
+    },
+    {
+      "cap_kwh": 1500,
+      "pmax_kw": 500.0,
+      "duration_h": 3.0,
+      "score": 4.591854,
+      "co2_t_year": 33.508645,
+      "eur_year": 75892.698896,
+      "cycles_per_day": 1.513911,
+      "peak_import_kw": 2756.384167,
+      "elasticity": 0.791663
+    },
+    {
+      "cap_kwh": 1750,
+      "pmax_kw": 500.0,
+      "duration_h": 3.5,
+      "score": 5.167409,
+      "co2_t_year": 38.083502,
+      "eur_year": 83912.805259,
+      "cycles_per_day": 1.443348,
+      "peak_import_kw": 2756.384167,
+      "elasticity": 0.754184
+    },
+    {
+      "cap_kwh": 2000,
+      "pmax_kw": 500.0,
+      "duration_h": 4.0,
+      "score": 5.707071,
+      "co2_t_year": 42.53394,
+      "eur_year": 90794.018604,
+      "cycles_per_day": 1.378888,
+      "peak_import_kw": 2760.335,
+      "elasticity": 0.719433
+    },
+    {
+      "cap_kwh": 2500,
+      "pmax_kw": 500.0,
+      "duration_h": 5.0,
+      "score": 6.640037,
+      "co2_t_year": 51.077666,
+      "eur_year": 99313.359255,
+      "cycles_per_day": 1.263289,
+      "peak_import_kw": 2889.25,
+      "elasticity": 0.651679
+    },
+    {
+      "cap_kwh": 3000,
+      "pmax_kw": 500.0,
+      "duration_h": 6.0,
+      "score": 7.447895,
+      "co2_t_year": 58.875494,
+      "eur_year": 105099.909839,
+      "cycles_per_day": 1.174775,
+      "peak_import_kw": 2904.461667,
+      "elasticity": 0.598553
+    },
+    {
+      "cap_kwh": 3500,
+      "pmax_kw": 500.0,
+      "duration_h": 7.0,
+      "score": 8.134669,
+      "co2_t_year": 65.695781,
+      "eur_year": 109252.273869,
+      "cycles_per_day": 1.098382,
+      "peak_import_kw": 2904.461667,
+      "elasticity": 0.533569
+    },
+    {
+      "cap_kwh": 4000,
+      "pmax_kw": 500.0,
+      "duration_h": 8.0,
+      "score": 8.696458,
+      "co2_t_year": 71.451562,
+      "eur_year": 111946.664956,
+      "cycles_per_day": 1.028125,
+      "peak_import_kw": 2904.461667,
+      "elasticity": 0.454663
+    },
+    {
+      "cap_kwh": 5000,
+      "pmax_kw": 500.0,
+      "duration_h": 10.0,
+      "score": 9.463318,
+      "co2_t_year": 79.706096,
+      "eur_year": 114047.386168,
+      "cycles_per_day": 0.911871,
+      "peak_import_kw": 2904.461667,
+      "elasticity": 0.276399
+    },
+    {
+      "cap_kwh": 6000,
+      "pmax_kw": 500.0,
+      "duration_h": 12.0,
+      "score": 9.801891,
+      "co2_t_year": 83.37878,
+      "eur_year": 114864.605647,
+      "cycles_per_day": 0.795493,
+      "peak_import_kw": 2904.461667,
+      "elasticity": 0.165847
+    },
+    {
+      "cap_kwh": 7000,
+      "pmax_kw": 500.0,
+      "duration_h": 14.0,
+      "score": 10.020444,
+      "co2_t_year": 85.645367,
+      "eur_year": 115802.244843,
+      "cycles_per_day": 0.691308,
+      "peak_import_kw": 2904.461667,
+      "elasticity": 0.137502
+    },
+    {
+      "cap_kwh": 8000,
+      "pmax_kw": 500.0,
+      "duration_h": 16.0,
+      "score": 10.199573,
+      "co2_t_year": 87.438834,
+      "eur_year": 116831.006335,
+      "cycles_per_day": 0.611774,
+      "peak_import_kw": 2904.461667,
+      "elasticity": 0.132691
+    }
+  ],
+  "cut_power_at_2000kwh": [
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 125.0,
+      "duration_h": 16.0,
+      "score": 2.54992,
+      "co2_t_year": 21.859912,
+      "eur_year": 29208.140562,
+      "cycles_per_day": 0.611774,
+      "peak_import_kw": 2529.461667,
+      "elasticity": 0.852841
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 187.5,
+      "duration_h": 10.666667,
+      "score": 3.603332,
+      "co2_t_year": 30.505163,
+      "eur_year": 42807.690622,
+      "cycles_per_day": 0.873992,
+      "peak_import_kw": 2591.961667,
+      "elasticity": 0.736074
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 250.0,
+      "duration_h": 8.0,
+      "score": 4.348282,
+      "co2_t_year": 35.726188,
+      "eur_year": 55974.110434,
+      "cycles_per_day": 1.028125,
+      "peak_import_kw": 2654.461667,
+      "elasticity": 0.555962
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 312.5,
+      "duration_h": 6.4,
+      "score": 4.840438,
+      "co2_t_year": 38.617822,
+      "eur_year": 66895.80513,
+      "cycles_per_day": 1.143886,
+      "peak_import_kw": 2716.961667,
+      "elasticity": 0.429638
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 375.0,
+      "duration_h": 5.333333,
+      "score": 5.195318,
+      "co2_t_year": 40.34177,
+      "eur_year": 76204.55646,
+      "cycles_per_day": 1.233116,
+      "peak_import_kw": 2764.25,
+      "elasticity": 0.362725
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 437.5,
+      "duration_h": 4.571429,
+      "score": 5.475971,
+      "co2_t_year": 41.567115,
+      "eur_year": 84113.87422,
+      "cycles_per_day": 1.308715,
+      "peak_import_kw": 2747.435107,
+      "elasticity": 0.324294
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 500.0,
+      "duration_h": 4.0,
+      "score": 5.707071,
+      "co2_t_year": 42.53394,
+      "eur_year": 90794.018604,
+      "cycles_per_day": 1.378888,
+      "peak_import_kw": 2760.335,
+      "elasticity": 0.289481
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 625.0,
+      "duration_h": 3.2,
+      "score": 6.042472,
+      "co2_t_year": 44.274151,
+      "eur_year": 99152.672224,
+      "cycles_per_day": 1.487648,
+      "peak_import_kw": 2881.384167,
+      "elasticity": 0.218179
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 750.0,
+      "duration_h": 2.666667,
+      "score": 6.252426,
+      "co2_t_year": 45.343749,
+      "eur_year": 104464.637901,
+      "cycles_per_day": 1.555124,
+      "peak_import_kw": 3006.384167,
+      "elasticity": 0.178325
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 875.0,
+      "duration_h": 2.285714,
+      "score": 6.419134,
+      "co2_t_year": 46.228224,
+      "eur_year": 108543.937842,
+      "cycles_per_day": 1.601944,
+      "peak_import_kw": 3131.384167,
+      "elasticity": 0.158655
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 1000.0,
+      "duration_h": 2.0,
+      "score": 6.547448,
+      "co2_t_year": 46.886806,
+      "eur_year": 111771.437459,
+      "cycles_per_day": 1.63954,
+      "peak_import_kw": 3256.384167,
+      "elasticity": 0.119115
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 1250.0,
+      "duration_h": 1.6,
+      "score": 6.651231,
+      "co2_t_year": 47.358712,
+      "eur_year": 114622.642495,
+      "cycles_per_day": 1.676731,
+      "peak_import_kw": 3506.384167,
+      "elasticity": 0.0534
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 1500.0,
+      "duration_h": 1.333333,
+      "score": 6.699239,
+      "co2_t_year": 47.598818,
+      "eur_year": 115855.479087,
+      "cycles_per_day": 1.702859,
+      "peak_import_kw": 3756.384167,
+      "elasticity": 0.034805
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 1750.0,
+      "duration_h": 1.142857,
+      "score": 6.731204,
+      "co2_t_year": 47.740306,
+      "eur_year": 116749.395159,
+      "cycles_per_day": 1.723277,
+      "peak_import_kw": 4006.384167,
+      "elasticity": 0.032636
+    },
+    {
+      "cap_kwh": 2000.0,
+      "pmax_kw": 2000.0,
+      "duration_h": 1.0,
+      "score": 6.761976,
+      "co2_t_year": 47.872353,
+      "eur_year": 117626.438873,
+      "cycles_per_day": 1.741032,
+      "peak_import_kw": 4256.384167,
+      "elasticity": 0.034157
+    }
+  ],
+  "score_grid_rows_power_cols_capacity": {
+    "capacity_kwh": [
+      500,
+      750,
+      1000,
+      1500,
+      2000,
+      3000,
+      4000,
+      6000,
+      8000
+    ],
+    "power_kw": [
+      125,
+      187.5,
+      250,
+      375,
+      500,
+      750,
+      1000,
+      1500,
+      2000
+    ],
+    "score": [
+      [
+        1.427,
+        1.862,
+        2.174,
+        2.451,
+        2.55,
+        2.67,
+        2.747,
+        2.844,
+        2.912
+      ],
+      [
+        1.563,
+        2.14,
+        2.598,
+        3.261,
+        3.603,
+        3.825,
+        3.955,
+        4.121,
+        4.225
+      ],
+      [
+        1.644,
+        2.296,
+        2.854,
+        3.724,
+        4.348,
+        4.901,
+        5.1,
+        5.341,
+        5.494
+      ],
+      [
+        1.711,
+        2.466,
+        3.127,
+        4.28,
+        5.195,
+        6.522,
+        7.207,
+        7.65,
+        7.91
+      ],
+      [
+        1.766,
+        2.535,
+        3.287,
+        4.592,
+        5.707,
+        7.448,
+        8.696,
+        9.802,
+        10.2
+      ],
+      [
+        1.769,
+        2.648,
+        3.422,
+        4.93,
+        6.252,
+        8.558,
+        10.387,
+        13.04,
+        14.407
+      ],
+      [
+        1.769,
+        2.654,
+        3.521,
+        5.056,
+        6.547,
+        9.132,
+        11.335,
+        14.765,
+        17.212
+      ],
+      [
+        1.769,
+        2.654,
+        3.529,
+        5.192,
+        6.699,
+        9.536,
+        12.016,
+        16.12,
+        19.316
+      ],
+      [
+        1.769,
+        2.654,
+        3.529,
+        5.202,
+        6.762,
+        9.618,
+        12.194,
+        16.493,
+        19.966
+      ]
+    ]
+  }
+}

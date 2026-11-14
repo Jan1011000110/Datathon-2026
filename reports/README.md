@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 14:05
+**Last updated:** Sat 14 Nov 2026, 14:08
 
 ---
 
@@ -10,10 +10,10 @@ This is the one place to see what I'm doing, what I've found and what's coming. 
 
 1. **A submission-ready agent exists:** [`agents/v1/agent.py`](../agents/v1/agent.py). Single file, numpy only, 0 infractions, 0.25 s for a full run, passes `check_submission.py`.
 2. **It is essentially optimal.** On my three test-like validation folds it scores 5.96 / 5.78 / 5.77. The best score *possible with perfect knowledge of the future* on those same folds is 5.96 / 5.78 / 5.79.
-3. **The leaderboard is a seven-way tie at 6.43** (snapshot 13:50, section 3). All seven teams found the same optimum; their unrounded scores are 6.430–6.433. Ties are ordered by earliest submission.
-4. **My recommendation: submit v1 now** (run the free *Validació Ràpida* first). It should land in the 6.43 pack and lock in our tiebreak time; a later, better submission still moves us up. It also tells us things we can't learn any other way (section 6).
-5. **To pass the pack we need 6.44, which means +0.002 to +0.005 points.** That is the same size as the remaining gap to perfect foresight, so it is hard but not impossible. One subagent is on exactly this.
-6. **The bigger prizes are elsewhere:** robustness to bad data in the hidden test (finding F4: worth up to 0.5–0.9 points if a zero-load week exists) and the jury presentation.
+3. **We are on the leaderboard: team Fa, 10th, 6.43** (submitted 13:57 our time; section 3). Ten teams are tied at 6.43 with the same optimum, unrounded 6.430–6.433, ordered by submission time.
+4. **One team has broken out: "Programi qui programi" at 6.44** (unrounded ≈ 6.438, i.e. +0.0066 over the pack). So there is headroom, and it is bigger than my validation folds suggested. Finding out where it comes from is now the top priority for the score.
+5. **The hidden test is clean.** Our result matches two teams without an outage guard to the cent, so the guard never acted. The damaged weeks were dropped, not zero-filled. The guard stays (it costs nothing) but it is not an edge on this test.
+6. **The jury presentation is still the other half of the result.** Two subagents are producing analysis and figures for it.
 
 ![One week of agent v1](00_overview/figs/week_v1.png)
 
@@ -45,7 +45,35 @@ Folds: A = days 1–7 of every month, B = days 8–14, C = days 15–21, each co
 
 ---
 
-## 3. Leaderboard snapshot (14 Nov, 13:50)
+## 3. Leaderboard
+
+### Snapshot 2 — 14 Nov, 13:58 (after our first submission)
+
+Raw CSV: [`05_leaderboard/leaderboard_20261114_1400.csv`](05_leaderboard/). The site's clock is one hour behind ours (UTC).
+
+| Pos | Team | Score | CO₂ −% | Cost −% | CO₂ avoided (kg) | € saved | Unrounded (reconstructed) |
+|---|---|---|---|---|---|---|---|
+| 1 | **Programi qui programi** | **6.44** | 5.99 | 7.48 | 4,302.3 | 8,884.35 | ≈ 6.438 |
+| 2 | Prueba 1 (organisers) | 6.43 | 5.97 | 7.50 | 4,289.4 | 8,907.87 | ≈ 6.432 |
+| 3 | La Datoneta | 6.43 | 5.97 | 7.50 | 4,289.4 | 8,907.86 | ≈ 6.432 |
+| 4 | Manguets | 6.43 | 5.95 | 7.55 | 4,275.5 | 8,959.68 | ≈ 6.431 |
+| 5 | Los Rojos | 6.43 | 5.96 | 7.52 | 4,282.5 | 8,934.63 | ≈ 6.432 |
+| 6 | hackers la l | 6.43 | 5.96 | 7.52 | 4,282.5 | 8,934.63 | ≈ 6.432 |
+| 7 | SSA Gourmet | 6.43 | 5.96 | 7.54 | 4,277.6 | 8,953.44 | ≈ 6.432 |
+| 8 | Viquipèdia racers | 6.43 | 5.97 | 7.50 | 4,287.6 | 8,905.61 | ≈ 6.429 |
+| 9 | JAMM | 6.43 | 5.97 | 7.50 | 4,289.4 | 8,907.85 | ≈ 6.432 |
+| **10** | **Fa (us, v1)** | **6.43** | 5.96 | 7.52 | 4,282.5 | 8,934.63 | ≈ 6.432 |
+| 11 | Dos enginyers i mig | 6.43 | 5.95 | 7.54 | 4,276.6 | 8,957.61 | ≈ 6.431 |
+| 12 | La MasIA | 4.03 | 3.72 | 4.75 | 2,670.3 | 5,639.08 | ≈ 4.027 |
+
+Reading it:
+
+- **v1 landed exactly where predicted** (I had written 5.96–5.97% CO₂, 7.50–7.52% cost, 4,283–4,289 kg, 8,908–8,935 €). Our row is identical to Los Rojos and hackers la l, so those teams run the same optimisation with the same CO₂-vs-price weighting, and without our guard. The guard therefore never changed an action: **no zero-load or low-load stretch in the test.**
+- **Programi qui programi is doing something different.** Against the plain optimum (Prueba 1) they saved 12.9 kg more CO₂ and 23.5 € less. Moving along the plain optimum's own trade-off line costs 3.9 € per extra kg; they paid 1.8 € per kg. That is not a reweighting. It is a better policy on the public hours.
+- **Why that surprises me:** on my clean validation folds, perfect foresight adds only 0.0001–0.0035 over v1. Their +0.0066 is more than that. Candidate explanations, to be tested: (a) the test weeks reward looking beyond 24 h more than my train folds do; (b) the public score only counts half the hours, so a policy that is equally good overall can score a few thousandths higher or lower on the public half by chance; (c) something about the problem I have not seen yet.
+- **Each submission is a precise measurement.** With the reconstructed public baseline (CO₂ 71,797–71,832 kg; cost 118,733–118,750 €) the kg and € columns give the unrounded public score to about ±0.001. We have 9 submissions left in this shift (until 21:00), 10 tonight, 10 tomorrow.
+
+### Snapshot 1 — 14 Nov, 13:50 (before we submitted)
 
 Raw CSV: [`05_leaderboard/leaderboard_20261114_1350.csv`](05_leaderboard/leaderboard_20261114_1350.csv). Re-run with `experiments/05_leaderboard/scrape.py` (read-only).
 
@@ -69,13 +97,40 @@ What this tells us:
 
 ---
 
-## 3b. How v1 works
+## 3b. Why "perfect foresight" is a real ceiling
+
+A fair question: even if you knew the whole future, isn't choosing when to charge and discharge still a hard problem? It isn't, and that is why the ceiling can be trusted.
+
+With all the data known, the schedule is a **linear programme**:
+
+- **Unknowns:** kW charged and kW discharged in each hour.
+- **Rules:** power between 0 and 500 kW; stored energy rises by 0.949 × charge and falls by discharge ÷ 0.949; stored energy stays between 0 and 2,000 kWh.
+- **Goal:** minimise the weighted sum of grid imports, where grid import = load − solar + battery power.
+
+Every one of those relationships is a straight line. Problems of that shape have no local optima: a standard solver (HiGHS) returns the single best schedule with a mathematical guarantee that no other schedule scores higher. That schedule's score is what I call the oracle.
+
+Checks that the number is right:
+
+- The oracle's schedule, replayed through the official simulator, gives the same score. So my model of the physics and of the scoring matches the organisers'.
+- A completely different method (the dynamic programme inside our agent) reproduces the solver's optimum to 14 decimal places on 300 random cases.
+
+So the only thing between a real agent and the oracle is **information**: the agent sees 24 hours ahead, the oracle sees everything. v1 solves "the best plan for the 24 hours I can see" exactly, every hour. The measured cost of not seeing further is about 0.0001 points on clean data.
+
+Caveat: the ceiling is computed on train weeks, because the hidden test is hidden. The leaderboard is consistent with it (ten teams on the same score), but I cannot compute the test's own ceiling.
+
+---
+
+## 3c. How v1 works
 
 Each hour it:
 
 1. Builds the signal `w` for the 24 known hours (CO₂ intensity plus price, weighted the way the score weighs them).
 2. Solves for the best possible charge/discharge plan over those 24 hours, exactly. The solver is a small dynamic programme on "how much is one more kWh in the battery worth"; it gives the same answer as a linear programme (checked on 300 random cases, difference 1e-14) but takes 0.1 ms and needs only numpy.
 3. Applies the first hour of that plan, then repeats next hour with the new information.
+
+![How the agent decides](00_overview/figs/how_it_decides.png)
+
+*Three hours of the same day. The black curve is what one more stored kWh will be worth later, worked out exactly from the 24 known hours; it falls as the battery fills because the best future uses get taken first. If that value is above the cost of storing a kWh now (blue), charge. If it is below what a kWh earns now (red), discharge. Otherwise wait. The gap between blue and red is the 10% round-trip loss.*
 
 Safety layers:
 
@@ -120,10 +175,13 @@ I report in chat when each one finishes and add its results here.
 - **13:45** Wrote `agents/v1/agent.py` with an exact numpy-only solver. Verified against the LP, the official environment and `check_submission.py`. Committed.
 - **13:48** Launched four more subagents (table in section 4).
 - **13:50** Wrote this log.
-- **13:53** Measured the zero-load-week scenario (F4): no guard −0.5 to −0.9 points; v1 recovers most. Sent the red-team agent an idea for the rest (use the calendar: a dead week ends at the month boundary).
-- **13:55** Leaderboard scrape done: seven teams tied at 6.43, all the same optimum (section 3). Reconstructed the public baseline and the unrounded scores.
-- **13:58** Added the one-week figure (`00_overview/figs/week_v1.png`).
-- **14:05** Tried to infer how many usable weeks the hidden test has (`experiments/08_test_composition/`). The battery's savings per hour don't depend on campus load, so I compared the leaderboard's savings with what train data predicts. Result: 12 clean weeks over-predicts the public savings by 13–18%; 11 weeks (no November) by 6–10%; 10 weeks under-predicts CO₂ by 13%. **Inconclusive** between "November dropped" and "November present with zero load, where the plain optimisers waste energy". Only a submission of v1 can settle it.
+- **13:51** Measured the zero-load-week scenario (F4): no guard −0.5 to −0.9 points; v1 recovers most. Sent the red-team agent an idea for the rest (use the calendar: a dead week ends at the month boundary).
+- **13:52** Leaderboard scrape done: seven teams tied at 6.43, all the same optimum (section 3). Reconstructed the public baseline and the unrounded scores.
+- **13:52** Added the one-week figure (`00_overview/figs/week_v1.png`).
+- **13:53** Tried to infer how many usable weeks the hidden test has (`experiments/08_test_composition/`). The battery's savings per hour don't depend on campus load, so I compared the leaderboard's savings with what train data predicts. Result: 12 clean weeks over-predicts the public savings by 13–18%; 11 weeks (no November) by 6–10%; 10 weeks under-predicts CO₂ by 13%. **Inconclusive** between "November dropped" and "November present with zero load, where the plain optimisers waste energy". Only a submission of v1 can settle it.
+- **13:57** You submitted v1 as team Fa: 6.43, 10th place.
+- **14:00** Second leaderboard snapshot. v1's row matches the prediction; the test is clean (guard never acted); one team is at 6.44 (≈ 6.438). Told the gap researcher the new target.
+- **14:08** Added section 3b (why the oracle is a true ceiling) and the "how it decides" figure, after a question from the team.
 
 ---
 

@@ -1,0 +1,173 @@
+{
+  "train_days": 282,
+  "train_hours": 6768,
+  "test_days": 84,
+  "test_hours": 2016,
+  "hours_with_load": 6187,
+  "hours_with_pv": 5994,
+  "hours_official_table": 5993,
+  "share_official_of_train": 0.885491,
+  "hours_missing_load": 581,
+  "hours_missing_pv": 774,
+  "hours_missing_load_november": 552,
+  "hours_missing_load_other": 29,
+  "missing_load_other_timestamps": [
+    "2026-06-17 15:00:00",
+    "2026-06-17 16:00:00",
+    "2026-08-04 08:00:00",
+    "2026-08-04 09:00:00",
+    "2026-08-04 10:00:00",
+    "2026-08-04 11:00:00",
+    "2026-09-01 01:00:00",
+    "2026-09-01 02:00:00",
+    "2026-09-01 03:00:00",
+    "2026-09-01 04:00:00",
+    "2026-09-01 05:00:00",
+    "2026-09-01 06:00:00",
+    "2026-09-01 07:00:00",
+    "2026-09-01 08:00:00",
+    "2026-09-01 09:00:00",
+    "2026-09-01 10:00:00",
+    "2026-09-01 11:00:00",
+    "2026-09-01 12:00:00",
+    "2026-09-01 13:00:00",
+    "2026-09-01 14:00:00",
+    "2026-09-01 15:00:00",
+    "2026-09-01 16:00:00",
+    "2026-09-01 17:00:00",
+    "2026-09-01 18:00:00",
+    "2026-09-01 19:00:00",
+    "2026-09-01 20:00:00",
+    "2026-09-01 21:00:00",
+    "2026-09-01 22:00:00",
+    "2026-09-01 23:00:00"
+  ],
+  "hours_pv_missing_but_load_present": 194,
+  "pv_last_timestamp": "2026-08-16 22:00:00",
+  "hours_meter_reads_zero": 15,
+  "zero_hours_list": [
+    "2026-06-17 17:00:00",
+    "2026-06-17 18:00:00",
+    "2026-06-17 19:00:00",
+    "2026-06-17 20:00:00",
+    "2026-06-17 21:00:00",
+    "2026-06-17 22:00:00",
+    "2026-06-17 23:00:00",
+    "2026-06-18 00:00:00",
+    "2026-06-18 01:00:00",
+    "2026-06-18 02:00:00",
+    "2026-06-18 03:00:00",
+    "2026-06-18 04:00:00",
+    "2026-06-18 05:00:00",
+    "2026-06-18 06:00:00",
+    "2026-08-06 08:00:00"
+  ],
+  "days_with_zero_hours": {
+    "2026-06-17": 7,
+    "2026-06-18": 7,
+    "2026-08-06": 1
+  },
+  "zero_runs_5min": [
+    {
+      "start": "2026-01-16 17:30:00",
+      "end": "2026-01-16 17:30:00",
+      "samples": 1
+    },
+    {
+      "start": "2026-01-20 09:10:00",
+      "end": "2026-01-20 09:30:00",
+      "samples": 5
+    },
+    {
+      "start": "2026-06-17 17:25:00",
+      "end": "2026-06-18 07:15:00",
+      "samples": 167
+    },
+    {
+      "start": "2026-08-05 09:00:00",
+      "end": "2026-08-05 09:05:00",
+      "samples": 2
+    },
+    {
+      "start": "2026-08-06 07:35:00",
+      "end": "2026-08-06 09:20:00",
+      "samples": 22
+    }
+  ],
+  "intraday_gaps": [
+    {
+      "resumes": "2026-06-17 17:25:00",
+      "gap_minutes": 145
+    },
+    {
+      "resumes": "2026-08-04 12:40:00",
+      "gap_minutes": 330
+    }
+  ],
+  "share_5min_identical_to_previous": 0.337771,
+  "share_stale_22_06": 0.979854,
+  "share_stale_06_22": 0.0161,
+  "share_polled_23_06": 0.0,
+  "share_polled_07_22": 0.999892,
+  "daytime_energy_x12_over_power_median": 1.000662,
+  "daytime_energy_x12_vs_power_corr": 0.99438,
+  "nights_with_energy_catchup": 257,
+  "night_held_kw_median": 1015.0,
+  "night_true_kw_median": 765.559909,
+  "night_true_kw_min": 642.777587,
+  "night_true_kw_p05": 703.541867,
+  "night_overstatement_pct_median": 31.330802,
+  "night_overstatement_pct_mean": 24.614663,
+  "night_overstatement_pct_p10_p90": [
+    1.729836,
+    40.410432
+  ],
+  "share_nights_overstated": 0.918288,
+  "baseline_energy_overstated_pct": 6.064781,
+  "baseline_co2_overstated_pct": 7.25522,
+  "baseline_cost_overstated_pct": 5.644687,
+  "wind_sensor_all_zero": true,
+  "ambient_temp_max_c": 56.6,
+  "ambient_temp_hours_above_45c": 185,
+  "co2_equals_0p37_times_emitting_share": true,
+  "inverter_ac_cap_kw_each": 50.07,
+  "baseline": {
+    "hours": 5993,
+    "energy_kwh": 6568861.641742,
+    "co2_kg": 551822.508518,
+    "cost_eur": 939634.219531,
+    "co2_per_kwh": 0.084006,
+    "eur_per_kwh": 0.143044,
+    "kg_per_eur": 0.587274
+  },
+  "calendar_days": 281,
+  "day_status_counts": {
+    "meter": {
+      "ok": 254,
+      "miss": 23,
+      "part": 4
+    },
+    "pv": {
+      "ok": 247,
+      "miss": 31,
+      "part": 3
+    },
+    "signals": {
+      "ok": 281
+    }
+  },
+  "partial_days": {
+    "meter": [
+      "2026-06-17",
+      "2026-06-18",
+      "2026-08-04",
+      "2026-08-06"
+    ],
+    "pv": [
+      "2026-06-17",
+      "2026-08-04",
+      "2026-08-16"
+    ],
+    "signals": []
+  }
+}

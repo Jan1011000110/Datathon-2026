@@ -1,0 +1,240 @@
+{
+  "sweep": [
+    {
+      "rte": 0.7,
+      "score": 3.64841,
+      "co2_pct": 3.417795,
+      "cost_pct": 4.186512,
+      "co2_t_year": 27.416441,
+      "eur_year": 57097.271261,
+      "cycles_per_day": 0.920589,
+      "charged_mwh_year": 802.827449,
+      "delivered_mwh_year": 562.017106
+    },
+    {
+      "rte": 0.725,
+      "score": 3.892265,
+      "co2_pct": 3.647113,
+      "cost_pct": 4.464286,
+      "co2_t_year": 29.257113,
+      "eur_year": 60887.840337,
+      "cycles_per_day": 0.95457,
+      "charged_mwh_year": 818.020632,
+      "delivered_mwh_year": 593.103521
+    },
+    {
+      "rte": 0.75,
+      "score": 4.138034,
+      "co2_pct": 3.87395,
+      "cost_pct": 4.754231,
+      "co2_t_year": 31.078222,
+      "eur_year": 64843.257079,
+      "cycles_per_day": 0.997515,
+      "charged_mwh_year": 840.558991,
+      "delivered_mwh_year": 630.458466
+    },
+    {
+      "rte": 0.775,
+      "score": 4.386075,
+      "co2_pct": 4.104912,
+      "cost_pct": 5.04212,
+      "co2_t_year": 32.931793,
+      "eur_year": 68774.049512,
+      "cycles_per_day": 1.042308,
+      "charged_mwh_year": 864.108403,
+      "delivered_mwh_year": 669.723883
+    },
+    {
+      "rte": 0.8,
+      "score": 4.637978,
+      "co2_pct": 4.335342,
+      "cost_pct": 5.344127,
+      "co2_t_year": 34.780895,
+      "eur_year": 72898.777487,
+      "cycles_per_day": 1.09178,
+      "charged_mwh_year": 891.063645,
+      "delivered_mwh_year": 712.891424
+    },
+    {
+      "rte": 0.825,
+      "score": 4.894859,
+      "co2_pct": 4.565947,
+      "cost_pct": 5.662322,
+      "co2_t_year": 36.631039,
+      "eur_year": 77247.536867,
+      "cycles_per_day": 1.149537,
+      "charged_mwh_year": 924.063959,
+      "delivered_mwh_year": 762.393903
+    },
+    {
+      "rte": 0.85,
+      "score": 5.157008,
+      "co2_pct": 4.80195,
+      "cost_pct": 5.985477,
+      "co2_t_year": 38.525142,
+      "eur_year": 81662.942694,
+      "cycles_per_day": 1.219913,
+      "charged_mwh_year": 966.235047,
+      "delivered_mwh_year": 821.341545
+    },
+    {
+      "rte": 0.875,
+      "score": 5.427548,
+      "co2_pct": 5.053548,
+      "cost_pct": 6.300213,
+      "co2_t_year": 40.545042,
+      "eur_year": 85962.483893,
+      "cycles_per_day": 1.292763,
+      "charged_mwh_year": 1009.266991,
+      "delivered_mwh_year": 883.150982
+    },
+    {
+      "rte": 0.9,
+      "score": 5.707071,
+      "co2_pct": 5.301292,
+      "cost_pct": 6.653889,
+      "co2_t_year": 42.53394,
+      "eur_year": 90794.018604,
+      "cycles_per_day": 1.378888,
+      "charged_mwh_year": 1061.566423,
+      "delivered_mwh_year": 955.452747
+    },
+    {
+      "rte": 0.925,
+      "score": 5.998729,
+      "co2_pct": 5.563953,
+      "cost_pct": 7.013204,
+      "co2_t_year": 44.643834,
+      "eur_year": 95699.036161,
+      "cycles_per_day": 1.46674,
+      "charged_mwh_year": 1113.878445,
+      "delivered_mwh_year": 1030.38112
+    },
+    {
+      "rte": 0.95,
+      "score": 6.306694,
+      "co2_pct": 5.863098,
+      "cost_pct": 7.34175,
+      "co2_t_year": 47.046749,
+      "eur_year": 100185.262782,
+      "cycles_per_day": 1.598414,
+      "charged_mwh_year": 1197.82055,
+      "delivered_mwh_year": 1137.973665
+    },
+    {
+      "rte": 0.975,
+      "score": 6.641002,
+      "co2_pct": 6.18538,
+      "cost_pct": 7.704119,
+      "co2_t_year": 49.636833,
+      "eur_year": 105127.139879,
+      "cycles_per_day": 1.768619,
+      "charged_mwh_year": 1308.249929,
+      "delivered_mwh_year": 1275.588718
+    },
+    {
+      "rte": 1.0,
+      "score": 7.009644,
+      "co2_pct": 6.524856,
+      "cost_pct": 8.140816,
+      "co2_t_year": 52.36519,
+      "eur_year": 111081.360993,
+      "cycles_per_day": 2.047134,
+      "charged_mwh_year": 1495.316941,
+      "delivered_mwh_year": 1495.362231
+    }
+  ],
+  "split_at_90pct": {
+    "co2_t": {
+      "avoided_by_discharging": 105.191895,
+      "added_by_charging": 62.657954,
+      "net_saving": 42.53394,
+      "charging_for_delivered_energy": 56.392159,
+      "charging_for_losses": 6.265795,
+      "gross_spread_on_delivered_energy": 48.799736,
+      "losses_pct_of_gross_spread": 12.839814
+    },
+    "eur": {
+      "avoided_by_discharging": 187256.440134,
+      "added_by_charging": 96462.42153,
+      "net_saving": 90794.018604,
+      "charging_for_delivered_energy": 86816.179377,
+      "charging_for_losses": 9646.242153,
+      "gross_spread_on_delivered_energy": 100440.260757,
+      "losses_pct_of_gross_spread": 9.60396
+    },
+    "score_pts": {
+      "avoided_by_discharging": 13.283641,
+      "added_by_charging": 7.576571,
+      "net_saving": 5.707071,
+      "charging_for_delivered_energy": 6.818913,
+      "charging_for_losses": 0.757657,
+      "gross_spread_on_delivered_energy": 6.464728,
+      "losses_pct_of_gross_spread": 11.71986
+    }
+  },
+  "vs_lossless": {
+    "co2_t": {
+      "lossless_battery": 52.36519,
+      "at_90pct": 42.53394,
+      "gap": 9.83125,
+      "gap_pct_of_lossless": 18.774399,
+      "of_which_conversion_losses_on_trades_made": 6.265795,
+      "of_which_trades_forgone_or_smaller": 3.565454,
+      "conversion_share_of_gap_pct": 63.733459
+    },
+    "eur": {
+      "lossless_battery": 111081.360993,
+      "at_90pct": 90794.018604,
+      "gap": 20287.342389,
+      "gap_pct_of_lossless": 18.263498,
+      "of_which_conversion_losses_on_trades_made": 9646.242153,
+      "of_which_trades_forgone_or_smaller": 10641.100236,
+      "conversion_share_of_gap_pct": 47.548082
+    },
+    "score_pts": {
+      "lossless_battery": 7.009644,
+      "at_90pct": 5.707071,
+      "gap": 1.302573,
+      "gap_pct_of_lossless": 18.582586,
+      "of_which_conversion_losses_on_trades_made": 0.757657,
+      "of_which_trades_forgone_or_smaller": 0.544916,
+      "conversion_share_of_gap_pct": 58.166184
+    }
+  },
+  "sensitivity_per_efficiency_point": {
+    "score": 0.114236,
+    "co2_t_year": 0.819758,
+    "eur_year": 1947.310454
+  },
+  "sensitivity_pct_of_saving_per_point": {
+    "score": 2.001661,
+    "co2_t_year": 1.927304,
+    "eur_year": 2.144756
+  },
+  "spread_traded": {
+    "co2_at_charge_g": 59.068043,
+    "co2_at_discharge_g": 110.27108,
+    "price_at_charge_c": 9.090925,
+    "price_at_discharge_c": 19.609028,
+    "w_ratio_discharge_over_charge": 1.948058,
+    "break_even_ratio": 1.111111,
+    "co2_ratio": 1.866848,
+    "price_ratio": 2.156989
+  },
+  "pct_of_lossless_kept": {
+    "score": 81.417414,
+    "co2_t_year": 81.225601,
+    "eur_year": 81.736502
+  },
+  "at_80pct_vs_90pct": {
+    "score": 81.267222,
+    "co2_t_year": 81.772097,
+    "eur_year": 80.290286
+  },
+  "at_70pct_vs_90pct": {
+    "score": 63.927899,
+    "co2_t_year": 64.457798,
+    "eur_year": 62.8866
+  }
+}
