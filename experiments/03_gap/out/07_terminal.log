@@ -1,0 +1,84 @@
+
+fold A   v1 5.9613   oracle 5.9649   gap 35.27e-4
+                         variant  gain_1e-4  gain_%gap  hours_changed  weeks+  weeks-  worst_week_1e-4  best_week_1e-4  infr
+                              v1        0.0        0.0              0       0       0              0.0             0.0     0
+           CHEAT true future +6h        0.0        0.0              0       0       0              0.0             0.0     0
+          CHEAT true future +12h        0.0        0.0              0       0       0              0.0             0.0     0
+          CHEAT true future +24h        0.0        0.0              0       0       0              0.0             0.0     0
+          CHEAT true future +48h        0.0        0.0              0       0       0              0.0             0.0     0
+    CHEAT true future, whole run        0.0        0.0              0       0       0              0.0             0.0     0
+           const eta*q25(window)        0.0        0.0              0       0       0              0.0             0.0     0
+           const eta*q50(window)        0.0        0.0              0       0       0              0.0             0.0     0
+           const eta*q75(window)        0.0        0.0              0       0       0              0.0             0.0     0
+           const min(window)/eta        0.0        0.0              0       0       0              0.0             0.0     0
+     own-history water value K=1        0.0        0.0              0       0       0              0.0             0.0     0
+     own-history water value K=3        0.0        0.0              0       0       0              0.0             0.0     0
+     own-history water value K=7        0.0        0.0              0       0       0              0.0             0.0     0
+  train-analog water value (24h)        0.0        0.0              0       0       0              0.0             0.0     0
+  train-analog water value (48h)        0.0        0.0              0       0       0              0.0             0.0     0
+              forecast: periodic        0.0        0.0              0       0       0              0.0             0.0     0
+     forecast: yesterday x trend        0.0        0.0              0       0       0              0.0             0.0     0
+forecast: month-hour climatology        0.0        0.0              0       0       0              0.0             0.0     0
+
+fold B   v1 5.7794   oracle 5.7795   gap 0.57e-4
+                         variant  gain_1e-4  gain_%gap  hours_changed  weeks+  weeks-  worst_week_1e-4  best_week_1e-4  infr
+                              v1       0.00       0.00              0       0       0              0.0            0.00     0
+           CHEAT true future +6h       0.57      99.17              5       2       0              0.0            0.53     0
+          CHEAT true future +12h       0.57      99.17              5       2       0              0.0            0.53     0
+          CHEAT true future +24h       0.57      99.17              5       2       0              0.0            0.53     0
+          CHEAT true future +48h       0.57      99.17              5       2       0              0.0            0.53     0
+    CHEAT true future, whole run       0.57      99.17              5       2       0              0.0            0.53     0
+           const eta*q25(window)       0.00       0.00              0       0       0              0.0            0.00     0
+           const eta*q50(window)       0.00       0.00              0       0       0              0.0            0.00     0
+           const eta*q75(window)       0.00       0.00              0       0       0              0.0            0.00     0
+           const min(window)/eta       0.00       0.00              0       0       0              0.0            0.00     0
+     own-history water value K=1       0.00       0.00              0       0       0              0.0            0.00     0
+     own-history water value K=3       0.00       0.00              0       0       0              0.0            0.00     0
+     own-history water value K=7       0.00       0.00              0       0       0              0.0            0.00     0
+  train-analog water value (24h)       0.00       0.00              0       0       0              0.0            0.00     0
+  train-analog water value (48h)       0.00       0.00              0       0       0              0.0            0.00     0
+              forecast: periodic       0.00       0.00              0       0       0              0.0            0.00     0
+     forecast: yesterday x trend       0.00       0.00              0       0       0              0.0            0.00     0
+forecast: month-hour climatology       0.00       0.00              0       0       0              0.0            0.00     0
+
+fold C   v1 5.7679   oracle 5.7868   gap 188.37e-4
+                         variant  gain_1e-4  gain_%gap  hours_changed  weeks+  weeks-  worst_week_1e-4  best_week_1e-4  infr
+                              v1        0.0        0.0              0       0       0              0.0             0.0     0
+           CHEAT true future +6h        0.0        0.0              0       0       0              0.0             0.0     0
+          CHEAT true future +12h        0.0        0.0              0       0       0              0.0             0.0     0
+          CHEAT true future +24h        0.0        0.0              0       0       0              0.0             0.0     0
+          CHEAT true future +48h        0.0        0.0              0       0       0              0.0             0.0     0
+    CHEAT true future, whole run        0.0        0.0              0       0       0              0.0             0.0     0
+           const eta*q25(window)        0.0        0.0              0       0       0              0.0             0.0     0
+           const eta*q50(window)        0.0        0.0              0       0       0              0.0             0.0     0
+           const eta*q75(window)        0.0        0.0              0       0       0              0.0             0.0     0
+           const min(window)/eta        0.0        0.0              0       0       0              0.0             0.0     0
+     own-history water value K=1        0.0        0.0              0       0       0              0.0             0.0     0
+     own-history water value K=3        0.0        0.0              0       0       0              0.0             0.0     0
+     own-history water value K=7        0.0        0.0              0       0       0              0.0             0.0     0
+  train-analog water value (24h)        0.0        0.0              0       0       0              0.0             0.0     0
+  train-analog water value (48h)        0.0        0.0              0       0       0              0.0             0.0     0
+              forecast: periodic        0.0        0.0              0       0       0              0.0             0.0     0
+     forecast: yesterday x trend        0.0        0.0              0       0       0              0.0             0.0     0
+forecast: month-hour climatology        0.0        0.0              0       0       0              0.0             0.0     0
+
+fold ALL   v1 5.7176   oracle 5.7246   gap 70.49e-4   (tables fitted IN-SAMPLE for ALL)
+                         variant  gain_1e-4  gain_%gap  hours_changed  weeks+  weeks-  worst_week_1e-4  best_week_1e-4  infr
+                              v1       0.00       0.00              0       0       0              0.0            0.00     0
+           CHEAT true future +6h       0.15       0.21              5       2       0              0.0            0.13     0
+          CHEAT true future +12h       0.15       0.21              5       2       0              0.0            0.13     0
+          CHEAT true future +24h       0.15       0.21              5       2       0              0.0            0.13     0
+          CHEAT true future +48h       0.15       0.21              5       2       0              0.0            0.13     0
+    CHEAT true future, whole run       0.15       0.21              5       2       0              0.0            0.13     0
+           const eta*q25(window)       0.00       0.00              0       0       0              0.0            0.00     0
+           const eta*q50(window)       0.00       0.00              0       0       0              0.0            0.00     0
+           const eta*q75(window)       0.00       0.00              0       0       0              0.0            0.00     0
+           const min(window)/eta       0.00       0.00              0       0       0              0.0            0.00     0
+     own-history water value K=1       0.00       0.00              0       0       0              0.0            0.00     0
+     own-history water value K=3       0.00       0.00              0       0       0              0.0            0.00     0
+     own-history water value K=7       0.00       0.00              0       0       0              0.0            0.00     0
+  train-analog water value (24h)       0.00       0.00              0       0       0              0.0            0.00     0
+  train-analog water value (48h)       0.00       0.00              0       0       0              0.0            0.00     0
+              forecast: periodic       0.00       0.00              0       0       0              0.0            0.00     0
+     forecast: yesterday x trend       0.00       0.00              0       0       0              0.0            0.00     0
+forecast: month-hour climatology       0.00       0.00              0       0       0              0.0            0.00     0

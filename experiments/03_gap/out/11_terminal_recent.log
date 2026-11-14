@@ -1,0 +1,38 @@
+gain vs v1 in 1e-4 points; weeks- = number of weeks (all folds) with a loss:
+fold                                        A     B    C   ALL  weeks-  hours_changed   min
+variant                                                                                    
+v1                                       0.00  0.00  0.0  0.00       0              0  0.00
+CHEAT true future, whole run             0.00  0.57  0.0  0.15       0             10  0.00
+recent mean  1d x 0.80                   0.00  0.00  0.0  0.00       0              0  0.00
+recent mean  1d x eta                    0.00  0.00  0.0 -0.17       1              2 -0.17
+recent mean  1d x 1.00                   0.00  0.57  0.0 -0.02       1             12 -0.02
+recent mean  1d x 1/eta                 -0.63  0.57  0.0 -0.02       2             14 -0.63
+recent mean  1d x 1.25                  -0.63  0.57  0.0 -0.02       2             14 -0.63
+recent mean  2d x 0.80                   0.00  0.00  0.0  0.00       0              0  0.00
+recent mean  2d x eta                    0.00  0.57  0.0 -0.04       1             10 -0.04
+recent mean  2d x 1.00                   0.00  0.57  0.0 -0.02       1             12 -0.02
+recent mean  2d x 1/eta                  0.00  0.57  0.0 -0.02       1             12 -0.02
+recent mean  2d x 1.25                  -0.63  0.57  0.0 -0.02       2             14 -0.63
+recent mean  4d x 0.80                   0.00  0.53  0.0  0.13       0              6  0.00
+recent mean  4d x eta                    0.00  0.57  0.0 -0.04       1             10 -0.04
+recent mean  4d x 1.00                   0.00  0.57  0.0 -0.02       1             12 -0.02
+recent mean  4d x 1/eta                  0.00  0.57  0.0 -0.02       1             12 -0.02
+recent mean  4d x 1.25                  -0.63  0.57  0.0 -0.02       2             14 -0.63
+recent mean  7d x 0.80                   0.00  0.53  0.0  0.13       0              6  0.00
+recent mean  7d x eta                    0.00  0.57  0.0  0.13       0              8  0.00
+recent mean  7d x 1.00                   0.00  0.57  0.0 -0.02       1             12 -0.02
+recent mean  7d x 1/eta                 -0.63  0.57  0.0 -0.02       2             14 -0.63
+recent mean  7d x 1.25                  -0.63  0.57  0.0 -0.02       2             14 -0.63
+recent mean 14d x 0.80                   0.00  0.57  0.0  0.00       0              5  0.00
+recent mean 14d x eta                   -0.63  0.57  0.0  0.15       1             12 -0.63
+recent mean 14d x 1.00                  -0.63  0.57  0.0  0.15       1             12 -0.63
+recent mean 14d x 1/eta                 -0.63  0.57  0.0 -0.02       2             14 -0.63
+recent mean 14d x 1.25                  -0.63  0.57  0.0 -0.02       2             14 -0.63
+recent mean 28d x 0.80                  -0.63  0.57  0.0  0.15       1             12 -0.63
+recent mean 28d x eta                   -0.63  0.57  0.0  0.15       1             12 -0.63
+recent mean 28d x 1.00                  -0.63  0.57  0.0 -0.02       2             14 -0.63
+recent mean 28d x 1/eta                 -0.63  0.57  0.0 -0.02       2             14 -0.63
+recent mean 28d x 1.25                  -0.63  0.57  0.0 -0.02       2             14 -0.63
+own-history water value, unscaled, K=3   0.00  0.04  0.0  0.00       0              2  0.00
+own-history water value, unscaled, K=7   0.00  0.00  0.0  0.13       0              3  0.00
+own-history water value, unscaled, K=14 -0.63  0.57  0.0  0.13       1             10 -0.63

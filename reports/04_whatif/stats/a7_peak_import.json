@@ -1,0 +1,261 @@
+{
+  "peak_no_battery_kw": 2404.461667,
+  "peak_with_battery_kw": 2760.335,
+  "peak_increase_kw": 355.873333,
+  "p999_no_battery_kw": 2257.399531,
+  "p999_with_battery_kw": 2660.407978,
+  "hours_above_monthly_no_battery_peak": 712,
+  "hours_above_monthly_no_battery_peak_per_year": 926.271739,
+  "months_with_higher_peak": 12,
+  "mean_monthly_peak_increase_kw": 433.617569,
+  "max_monthly_peak_increase_kw": 500.0,
+  "hours_over_by_hour_of_day": [
+    11,
+    19,
+    16,
+    18,
+    14,
+    11,
+    7,
+    6,
+    0,
+    28,
+    2,
+    18,
+    35,
+    55,
+    153,
+    142,
+    111,
+    55,
+    0,
+    0,
+    0,
+    0,
+    5,
+    6
+  ],
+  "share_of_top_decile_load_hours_in_which_battery_charges_pct": 39.259259,
+  "monthly": [
+    {
+      "month": "Sep",
+      "peak_no_battery_kw": 2008.0625,
+      "peak_with_battery_kw": 2408.31,
+      "increase_kw": 400.2475,
+      "increase_pct": 19.932024,
+      "hours_above_no_battery_peak": 32
+    },
+    {
+      "month": "Oct",
+      "peak_no_battery_kw": 1719.188333,
+      "peak_with_battery_kw": 2219.188333,
+      "increase_kw": 500.0,
+      "increase_pct": 29.083492,
+      "hours_above_no_battery_peak": 73
+    },
+    {
+      "month": "Nov",
+      "peak_no_battery_kw": 1456.548287,
+      "peak_with_battery_kw": 1956.548287,
+      "increase_kw": 500.0,
+      "increase_pct": 34.327733,
+      "hours_above_no_battery_peak": 98
+    },
+    {
+      "month": "Dec",
+      "peak_no_battery_kw": 1700.025,
+      "peak_with_battery_kw": 2200.025,
+      "increase_kw": 500.0,
+      "increase_pct": 29.411332,
+      "hours_above_no_battery_peak": 47
+    },
+    {
+      "month": "Jan",
+      "peak_no_battery_kw": 1630.179167,
+      "peak_with_battery_kw": 2109.8525,
+      "increase_kw": 479.673333,
+      "increase_pct": 29.424578,
+      "hours_above_no_battery_peak": 62
+    },
+    {
+      "month": "Feb",
+      "peak_no_battery_kw": 1609.2175,
+      "peak_with_battery_kw": 1987.186667,
+      "increase_kw": 377.969167,
+      "increase_pct": 23.487761,
+      "hours_above_no_battery_peak": 73
+    },
+    {
+      "month": "Mar",
+      "peak_no_battery_kw": 1711.721667,
+      "peak_with_battery_kw": 2105.685833,
+      "increase_kw": 393.964167,
+      "increase_pct": 23.015667,
+      "hours_above_no_battery_peak": 60
+    },
+    {
+      "month": "Apr",
+      "peak_no_battery_kw": 1400.575833,
+      "peak_with_battery_kw": 1807.863333,
+      "increase_kw": 407.2875,
+      "increase_pct": 29.080003,
+      "hours_above_no_battery_peak": 94
+    },
+    {
+      "month": "May",
+      "peak_no_battery_kw": 1584.4375,
+      "peak_with_battery_kw": 1872.833333,
+      "increase_kw": 288.395833,
+      "increase_pct": 18.20178,
+      "hours_above_no_battery_peak": 71
+    },
+    {
+      "month": "Jun",
+      "peak_no_battery_kw": 2099.091667,
+      "peak_with_battery_kw": 2599.091667,
+      "increase_kw": 500.0,
+      "increase_pct": 23.819827,
+      "hours_above_no_battery_peak": 57
+    },
+    {
+      "month": "Jul",
+      "peak_no_battery_kw": 2404.461667,
+      "peak_with_battery_kw": 2760.335,
+      "increase_kw": 355.873333,
+      "increase_pct": 14.800541,
+      "hours_above_no_battery_peak": 39
+    },
+    {
+      "month": "Aug",
+      "peak_no_battery_kw": 1498.508417,
+      "peak_with_battery_kw": 1998.508417,
+      "increase_kw": 500.0,
+      "increase_pct": 33.366513,
+      "hours_above_no_battery_peak": 6
+    }
+  ],
+  "caps": [
+    {
+      "cap_pct_of_monthly_peak": 100.0,
+      "feasible": true,
+      "score": 5.343871,
+      "score_retained_pct": 93.635961,
+      "co2_t_year": 40.084622,
+      "eur_year": 83967.897117,
+      "co2_retained_pct": 94.241497,
+      "eur_retained_pct": 92.48175,
+      "cycles_per_day": 1.279652,
+      "mean_monthly_peak_cut_kw": 0.0,
+      "note": null
+    },
+    {
+      "cap_pct_of_monthly_peak": 97.5,
+      "feasible": true,
+      "score": 5.201194,
+      "score_retained_pct": 91.135961,
+      "co2_t_year": 38.90512,
+      "eur_year": 82151.180705,
+      "co2_retained_pct": 91.468414,
+      "eur_retained_pct": 90.480829,
+      "cycles_per_day": 1.250951,
+      "mean_monthly_peak_cut_kw": 43.379203,
+      "note": null
+    },
+    {
+      "cap_pct_of_monthly_peak": 95.0,
+      "feasible": true,
+      "score": 5.003993,
+      "score_retained_pct": 87.680585,
+      "co2_t_year": 37.244884,
+      "eur_year": 79760.17825,
+      "co2_retained_pct": 87.565092,
+      "eur_retained_pct": 87.847393,
+      "cycles_per_day": 1.221119,
+      "mean_monthly_peak_cut_kw": 86.758406,
+      "note": null
+    },
+    {
+      "cap_pct_of_monthly_peak": 92.5,
+      "feasible": true,
+      "score": 4.746882,
+      "score_retained_pct": 83.175459,
+      "co2_t_year": 35.051924,
+      "eur_year": 76757.507406,
+      "co2_retained_pct": 82.409303,
+      "eur_retained_pct": 84.540269,
+      "cycles_per_day": 1.188233,
+      "mean_monthly_peak_cut_kw": 130.13761,
+      "note": null
+    },
+    {
+      "cap_pct_of_monthly_peak": 90.0,
+      "feasible": true,
+      "score": 4.422175,
+      "score_retained_pct": 77.485906,
+      "co2_t_year": 32.211254,
+      "eur_year": 73250.899914,
+      "co2_retained_pct": 75.730708,
+      "eur_retained_pct": 80.678112,
+      "cycles_per_day": 1.153253,
+      "mean_monthly_peak_cut_kw": 173.516813,
+      "note": null
+    },
+    {
+      "cap_pct_of_monthly_peak": 87.5,
+      "feasible": true,
+      "score": 4.026363,
+      "score_retained_pct": 70.550438,
+      "co2_t_year": 28.738426,
+      "eur_year": 69018.289192,
+      "co2_retained_pct": 67.565869,
+      "eur_retained_pct": 76.016339,
+      "cycles_per_day": 1.113919,
+      "mean_monthly_peak_cut_kw": 216.896016,
+      "note": null
+    },
+    {
+      "cap_pct_of_monthly_peak": 85.0,
+      "feasible": false,
+      "score": null,
+      "score_retained_pct": null,
+      "co2_t_year": null,
+      "eur_year": null,
+      "co2_retained_pct": null,
+      "eur_retained_pct": null,
+      "cycles_per_day": null,
+      "mean_monthly_peak_cut_kw": null,
+      "note": "The problem is infeasible. (HiGHS Status 8: model_status is "
+    },
+    {
+      "cap_pct_of_monthly_peak": 82.5,
+      "feasible": false,
+      "score": null,
+      "score_retained_pct": null,
+      "co2_t_year": null,
+      "eur_year": null,
+      "co2_retained_pct": null,
+      "eur_retained_pct": null,
+      "cycles_per_day": null,
+      "mean_monthly_peak_cut_kw": null,
+      "note": "The problem is infeasible. (HiGHS Status 8: model_status is "
+    },
+    {
+      "cap_pct_of_monthly_peak": 80.0,
+      "feasible": false,
+      "score": null,
+      "score_retained_pct": null,
+      "co2_t_year": null,
+      "eur_year": null,
+      "co2_retained_pct": null,
+      "eur_retained_pct": null,
+      "cycles_per_day": null,
+      "mean_monthly_peak_cut_kw": null,
+      "note": "The problem is infeasible. (HiGHS Status 8: model_status is "
+    }
+  ],
+  "uncapped": {
+    "score": 5.707071,
+    "co2_t_per_year": 42.53394,
+    "eur_per_year": 90794.018604
+  }
+}

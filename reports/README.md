@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 14:08
+**Last updated:** Sat 14 Nov 2026, 14:25
 
 ---
 
@@ -11,7 +11,7 @@ This is the one place to see what I'm doing, what I've found and what's coming. 
 1. **A submission-ready agent exists:** [`agents/v1/agent.py`](../agents/v1/agent.py). Single file, numpy only, 0 infractions, 0.25 s for a full run, passes `check_submission.py`.
 2. **It is essentially optimal.** On my three test-like validation folds it scores 5.96 / 5.78 / 5.77. The best score *possible with perfect knowledge of the future* on those same folds is 5.96 / 5.78 / 5.79.
 3. **We are on the leaderboard: team Fa, 10th, 6.43** (submitted 13:57 our time; section 3). Ten teams are tied at 6.43 with the same optimum, unrounded 6.430–6.433, ordered by submission time.
-4. **One team has broken out: "Programi qui programi" at 6.44** (unrounded ≈ 6.438, i.e. +0.0066 over the pack). So there is headroom, and it is bigger than my validation folds suggested. Finding out where it comes from is now the top priority for the score.
+4. **One team is at 6.44** ("Programi qui programi", unrounded ≈ 6.438, +0.0066 over the pack). My best explanation is that it is an effect of how the public half is cut, not a better controller (section 3a). I am not certain, and I changed my mind twice getting here; the section says what is measured and what is inferred.
 5. **The hidden test is clean.** Our result matches two teams without an outage guard to the cent, so the guard never acted. The damaged weeks were dropped, not zero-filled. The guard stays (it costs nothing) but it is not an edge on this test.
 6. **The jury presentation is still the other half of the result.** Two subagents are producing analysis and figures for it.
 
@@ -32,6 +32,12 @@ This is the one place to see what I'm doing, what I've found and what's coming. 
 | F5 | **There is a real outage in the train data:** the meter reads exactly 0 for 14 h on 17–18 June. | `load_kw == 0` rows | On the fold containing it, an agent with no outage guard loses 0.04 points. |
 | F6 | **The starter-kit heuristic scores ~0** on our folds: it causes 4–10 infractions per run because its clamp has no safety margin. | `experiments/00_baselines/results.csv` | Teams that only tweak the template will be far behind. |
 | F7 | **The public-leaderboard baseline is ~22% lower than train data predicts** for 2,016 h (about 143,700 kg CO₂ and 237,600 € for the full test, against ~184,000 kg and ~313,000 € expected). | Derived from the "Prueba 1" row on the site | Consistent with F4: the test probably has fewer than 12 usable weeks, or weeks with zero load. Unresolved. |
+
+| F8 | **The safety nets cost nothing; over-caution costs a lot.** v1's 0.0001 kW margin: 0.00000 points. A 1 kW margin: −0.005. Keeping the battery between 5% and 95%: **−0.48**. The load guard: 0 on clean data, +0.031 on the fold with the meter outage. | `experiments/11_safety_margin/results.csv` | v1 uses the full 0–100% range and full ±500 kW. Nothing to gain by being more aggressive: the limits are physical, and asking for more than fits earns an infraction (−0.20) and no extra energy. |
+| F9 | **The meter is not read between 22:00 and 06:00.** The official night load is the 22:00 reading held flat for 8 hours, on all 257 nights; the meter's energy register shows the real night load is 31% lower (median 766 kW vs 1,015 kW). | `reports/01_eda/report.md` §1, `figs/q1_meter_night_freeze.png` | The no-battery baseline is inflated by about 7% in CO₂ and 6% in cost, so the battery's real percentage savings are higher than the score says. No effect on control. A strong data-quality point for the jury. |
+| F10 | **In meter-fault hours the inverters read 0 too** (even with the sun out). No train hour has solar above load. | 15 fault hours checked | There is never free surplus solar to store, not even during faults. |
+| F11 | **The two objectives partly conflict, and CO₂ dominates.** Price and CO₂ agree on the midday trough and evening peak but disagree on weekday nights (cheap but dirty). CO₂ alone gets 91% of the best score; price alone 73%. | `reports/01_eda/report.md` §6 | The battery is mostly a decarbonisation tool that also saves money. |
+| F12 | **A fixed timetable gets only 64% of the optimum** (charge 13–17 h, discharge 18–22 h scores 3.66). | `reports/01_eda/report.md` §9 | The value is in reading the day-ahead signals each day, which is what the optimiser does. |
 
 Validation scores (all with 0 infractions):
 
@@ -72,6 +78,28 @@ Reading it:
 - **Programi qui programi is doing something different.** Against the plain optimum (Prueba 1) they saved 12.9 kg more CO₂ and 23.5 € less. Moving along the plain optimum's own trade-off line costs 3.9 € per extra kg; they paid 1.8 € per kg. That is not a reweighting. It is a better policy on the public hours.
 - **Why that surprises me:** on my clean validation folds, perfect foresight adds only 0.0001–0.0035 over v1. Their +0.0066 is more than that. Candidate explanations, to be tested: (a) the test weeks reward looking beyond 24 h more than my train folds do; (b) the public score only counts half the hours, so a policy that is equally good overall can score a few thousandths higher or lower on the public half by chance; (c) something about the problem I have not seen yet.
 - **Each submission is a precise measurement.** With the reconstructed public baseline (CO₂ 71,797–71,832 kg; cost 118,733–118,750 €) the kg and € columns give the unrounded public score to about ±0.001. We have 9 submissions left in this shift (until 21:00), 10 tonight, 10 tomorrow.
+
+### 3a. What explains the 6.44? (state at 14:25)
+
+What is measured:
+
+1. **No controller can be 0.0066 better than v1 over a whole clean run.** On 98 simulated 12-week tests, perfect foresight beats v1 by 0.0001 on average and 0.0006 at most (`experiments/09_public_noise/`).
+2. **The only train situations where perfect foresight gains more are meter faults** (recorded load near zero), e.g. 6 Aug 07:00–08:00, worth 0.003 on a 2,016 h run. These cannot be predicted, and there is no free solar in them (finding F10). v1's guard never acted on the public run, so no such stretch occurred when we wanted to discharge.
+3. **Hour-level sampling of the public half is ruled out.** A run made of every other hour would score 8–9, not 6.43 (`experiments/10_run_structure/`).
+4. **The pack agrees too well for the public half to be cut inside weeks.** Five teams with visibly different schedules are within 0.0005 of each other. In simulation, two schedules that differ that much differ by a median of 0.013 if the public half is the first 3.5 days of each week or alternate days, but by a median of 0.0008 if it is whole weeks (`experiments/09_public_noise/run_weekmask.py`).
+5. **With whole weeks as the public half, outliers still happen.** In 5% of simulated cases two equally good controllers differ by more than 0.05 on the public weeks, because one carried more energy across a week boundary (charged in a hidden week, discharged in a public one).
+
+What I infer: the public set is most likely whole weeks (6 × 168 h = 1,008 h), and the 6.44 team's policy happens to carry a little more energy into a public week than the plain optimum does (about 70 kWh would do it). If so, their gain on the public weeks is a loss on the private weeks, because the total is fixed.
+
+What I cannot rule out: a real effect in the hidden data that train data does not show.
+
+What I ruled out along the way: a longer forecast horizon (worth ≤ 0.0006), free surplus solar during meter faults (the inverters read 0 too), and being "more aggressive" at the limits (finding F8).
+
+![Public split noise](00_overview/figs/public_split_noise.png)
+
+*Each dot is one simulated 12-week test. Top row: over the whole test, perfect foresight and v1 score the same. Other rows: scored on half of the hours only, the same two controllers differ by hundredths. (This figure shows cuts inside weeks; the whole-weeks case is in `results_weekmask.csv`.)*
+
+**Recommendation:** do not chase the 6.44. If the final ranking uses the private half or the whole test, a policy tuned to gain on the public half will do the same or worse there. v1 is at the ceiling of what can be scored honestly.
 
 ### Snapshot 1 — 14 Nov, 13:50 (before we submitted)
 
@@ -145,7 +173,7 @@ Safety layers:
 
 | Subagent | Task | Output will be in | Status |
 |---|---|---|---|
-| EDA analyst | Coverage map, load/PV/CO₂/price profiles, do CO₂ and price agree, predictability beyond 24 h. Presentation-grade plots. | `reports/01_eda/` | running |
+| EDA analyst | Coverage map, load/PV/CO₂/price profiles, do CO₂ and price agree, predictability beyond 24 h. Presentation-grade plots. | [`reports/01_eda/report.md`](01_eda/report.md), 21 figures | **done** |
 | Red-team | Fuzz the agent with malformed inputs; zero-load weeks, outages, dropped weeks, low-load weeks; tune the outage guard. | `reports/02_robustness/` | running |
 | Gap researcher | Break down the last 0.007 points of gap to the oracle and recover what can honestly be recovered. | `reports/03_gap/` | running |
 | What-if analyst | Yearly tCO₂ and € saved, CO₂-vs-cost Pareto frontier, battery sizing (kWh and kW), efficiency. For the jury. | `reports/04_whatif/` | running |
@@ -182,6 +210,9 @@ I report in chat when each one finishes and add its results here.
 - **13:57** You submitted v1 as team Fa: 6.43, 10th place.
 - **14:00** Second leaderboard snapshot. v1's row matches the prediction; the test is clean (guard never acted); one team is at 6.44 (≈ 6.438). Told the gap researcher the new target.
 - **14:08** Added section 3b (why the oracle is a true ceiling) and the "how it decides" figure, after a question from the team.
+- **14:10** Investigated the 6.44. First thought it was noise from scoring half the hours; then that it was free solar during meter faults (wrong: inverters read 0 in those hours); settled on "public half = whole weeks, energy carried across a week boundary" as the best-supported reading (section 3a).
+- **14:15** EDA subagent finished: 21 figures and a report (`01_eda/report.md`). New findings F9–F12. I saved its report text because subagents cannot write report files.
+- **14:20** Measured what the safety nets cost, after a question from the team (finding F8). The clamp margin withholds 0.059 kWh over a whole run; the load guard changes 1 action in 2,016 on a clean fold.
 
 ---
 
