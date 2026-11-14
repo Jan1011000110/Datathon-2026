@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 22:12",
+ "updated": "Sat 14 Nov 2026, 23:27",
  "ceiling": 21.26,
  "best": {
   "name": "h3: h2 + round-2 signal forecaster + signal-aware planner (`submissions/h3/submission.zip`)",
@@ -19,7 +19,8 @@
  ],
  "leaderboard_time": "21:01, public half (the first 84 hours of each week); 33 teams, 140 submissions. Our eight submissions: h2 23.06, h3 23.32, cut probe 24.25, August probe 0.00 twice, July control 0.53, h3j 23.32, h3w 20.03",
  "now": [
-  "**Public-max probe ready, not submitted** (`submissions/probe_public/submission.zip`): built at the team's request, for show. It empties the battery inside the public half and refills it in the private half. Expected public score about 27 (top now: 24.25); over the whole run about half of h3, and 0 on the private half. Never a jury pick. Best submitted in the last minutes, after the jury picks are selected by hand, because it advertises the split to everyone.",
+  "**Deadline: Sunday 15 November, 12:00 (last call for submissions), from the event site's schedule.** Demos at 14:00, jury at 17:00, prizes at 17:30. The challenge site itself gives no closing time. Plan: jury picks h3j (general) and h3w (private half), selected by hand tonight; they can be changed until the close.",
+  "**Public-max probe built but I now advise against submitting it** (`submissions/probe_public/submission.zip`, expected about 27 public). The event's rules allow disqualification for unsporting behaviour at the organisers' discretion. Its measured numbers can be shown in the demo instead, as evidence of how the split behaves.",
   "**Two honest leads tested and closed (21:40 to 22:15).** The test weeks are the last seven days of each month and contain things our validation weeks never do. Holidays: a calendar is worth about +0.03 over the whole run and nothing on the private half, so it is not shipped. Clock-change days: all four agents are unaffected. Nothing is running.",
   "**Site re-read at 21:41:** no rule changed; the submission tab now says 20 attempts per shift. The organisers have not answered the questions on the final.",
   "**Select the two jury submissions by hand before the close.** The automatic choice takes the two best public scores. For us that includes the cut probe (24.25), our worst agent on the private half.",
@@ -133,6 +134,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["23:27", "Deadline found on the event site: Sunday 12:00, last call for submissions; demos 14:00. Event rules read: disqualification possible for unsporting behaviour. Advice on the public-max probe changed to: do not submit."],
   ["22:12", "Holiday-calendar study back: about +0.03 over the whole run, 0 on the private half. Not shipped. Both test-week leads closed."],
   ["22:10", "Public-max probe built and checked at the team's request: first halves +3.85 over h3 on leak-free folds, expected public score about 27; 0 infractions. Not submitted."],
   ["21:54", "v2w submitted in standard mode: 5.59. Split confirmed there; expected private gain about +0.7. Four other teams have near-identical rows. ZIP of v2 built for the same team name."],

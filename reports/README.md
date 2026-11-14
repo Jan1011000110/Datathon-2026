@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 22:12
+**Last updated:** Sat 14 Nov 2026, 23:27
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -195,6 +195,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **23:27** You asked for the submission deadline. The challenge site gives none; the event site's schedule says **Sunday 12:00, "Últim avís per a les entregues"**, then demos at 14:00 and the jury at 17:00 (`docs/WEBSITE_NOTES.md`, last section). The event's rules allow disqualification for "comportaments antiesportius" at the organisers' discretion, which changes my advice on the public-max probe: I now advise against submitting it. You plan to select h3j (general) and h3w (private half); I agree.
 - **22:12** Holiday-calendar study back ([`27_holiday_calendar/report.md`](27_holiday_calendar/report.md), HF33): about +0.03 over the whole run, +0.07 on the public half, 0 on the private half, resting on one comparable day. National holidays are billed like weekends, so the signal is flat and h3 buys nothing at night: there is nothing to get wrong. Not packaged. Both leads from the difference between test weeks and folds are now closed (holidays, clock changes).
 - **22:10** You asked for the opposite of the private-half trick: a submission that pushes the public score as high as the split allows, for show. Built `submissions/probe_public/` from h3w (plan to hour 84, refill and hold in the second half; `26_h3j_h3w/report.md` §7). Leak-free on the folds: first halves +3.85 over h3, whole run 9.5, last halves 0. Expected public score about 27. 0 infractions, validator passes. Not submitted; I advised submitting it only at the very end and selecting the jury picks by hand first.
 - **21:54** You submitted v2w in standard mode: 5.59 (HF32). The split is confirmed there; the expected private gain drops from +1.1 to about +0.7. Four other teams already have near-identical rows. Our 6.43 is under the name "Fa" and v2w under "Fanboy & Chum Chum"; built `submissions/v2/submission.zip` so v2 can go in under the same name.

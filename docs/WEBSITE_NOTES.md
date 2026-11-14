@@ -166,3 +166,31 @@ Every tab was read again and compared with the earlier dumps.
 - **FAQ, unchanged, the two sentences that bear on the final:** the ranking seen during the Datathon "correspon al 50% públic de cada setmana de test", the other 50 % stays hidden until the verdict; and the two selected submissions "seran les úniques considerades pel jurat per al rànquing privat secret que decidirà el podi final".
 - **Rules tab, unchanged:** "el jurat valorarà de forma decisiva la presentació final, la claredat del raonament tècnic, l'anàlisi de les dades i la justificació".
 - Nothing on the site says which mode's private ranking counts.
+
+## Event site (www.datathon.cat), read Sat 14 Nov 2026, 23:27
+
+The challenge site gives no closing time: its third shift runs "des de les 08:00h fins al tancament del repte". The event's own site does.
+
+**Schedule for Sunday 15 November 2026** (`/#horari` and `/horari-datathon-fme.pdf`, identical):
+
+| Time | Item |
+|---|---|
+| 9:00 | Esmorzar |
+| **12:00** | **Últim avís per a les entregues** (last call for submissions) |
+| 13:00 | Dinar |
+| 14:00 | Demos |
+| 17:00 | Deliberació del jurat |
+| 17:30 | Cerimònia de premis |
+| 18:30 | Comiat |
+
+- "Last call" is not stated to be the hard close. Treat 12:00 as the deadline; the close cannot be later than the demos at 14:00.
+- `/calendari.ics` holds only the whole-event entry, no times.
+
+**Competition rules** (`/condicions`, section 2, a customised version of the MLH hackathon rules):
+
+- "Els equips poden ser desqualificats de la competició a discreció dels organitzadors. Les raons poden incloure, però no es limiten a, trencar les Regles de la Competició, trencar el Codi de Conducta o altres comportaments antiesportius."
+- Cheating includes "Un equip que representa falsament el treball que han fet".
+- After the working time ends, teams show their projects to each other and to the judges (demos); a demo is strongly recommended.
+- Judging criteria, given as guides only: idea and innovation, technology, learning, design and usability, presentation, problem solving, efficacy. "En última instància, els jutges són lliures de prendre decisions basades en la seva intuïció sobre quins projectes són els més impressionants i mereixedors."
+- "Els Organitzadors es reserven el dret de decidir quin mètode s'utilitza per donar els premis ... sense la necessitat o obligació de fer públic el criteri."
+- Nothing there says how the leaderboard and the demo are combined, or which mode counts.
