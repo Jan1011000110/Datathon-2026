@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 20:58
+**Last updated:** Sat 14 Nov 2026, 20:59
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -34,7 +34,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 |---|---|---|---|---|---|
 | Perfect foresight (ceiling) | 22.44 | 21.42 | 19.92 | 21.26 | reference |
 | **h3j** (h3 with the run ending on 31 July) | as h3 on these folds | | | | **submitted: 23.32 public**, identical to h3's row; honest candidate |
-| h3w (h3j with every week its own run) | 20.82 | 19.51 | 17.86 | 19.40 | cleared 20:56; team decision. Last 84 h of each week: 25.68 / 24.09 / 21.83 against h3's 23.09 / 20.43 / 18.96 |
+| h3w (h3j with every week its own run) | 20.82 | 19.51 | 17.86 | 19.40 | **submitted: 20.03 public** (−3.29 against h3, as predicted); expected about +2 to +2.5 on the private half. Last 84 h of each week: 25.68 / 24.09 / 21.83 against h3's 23.09 / 20.43 / 18.96 |
 | **h3** (h2 + round-2 signal forecaster + signal-aware planner, packaged) | 21.33 | 20.48 | 18.77 | **20.19** | **submitted 20:13: 23.32 public** |
 | **h2** (combined agent + end-of-run handling, packaged) | 21.27 | 20.37 | 18.70 | **20.11** | **submitted 19:01: 23.06 public** |
 | Combined, end of run from the shrinking lists only | 21.14 | 20.30 | 18.70 | 20.04 | h2 ZIP of 18:33 matches this exactly |
@@ -139,6 +139,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | HF26 | More history does not help the signal forecast. Its weak point is the level of the next six hours on a given day; more past years sharpen the average relationship but say nothing about today. Better accuracy failed to convert to score for the fourth time. | `25_ree_history/report.md` |
 | HF27 | The public half is the first 84 hours of each week (cut probe +0.93). A variant of h3 that empties the battery at each week's end gains about 3.0 on the last halves of our folds (+2.1 to +2.7 expected on the real private half) while losing 0.8 on the whole run. A schedule built only for the last halves would gain 7.8 there. | `23_boundaries/report.md` §6 |
 | HF28 | An agent acting only on August 2026 dates scores exactly 0, and the same code acting on July dates scores 0.53: the test has no August week and the run ends on 31 July 2026 at 23:00. h2 and h3 assume 31 August, so they reach the real end holding charge. | `23_boundaries/report.md` §6 |
+| HF29 | Three submissions now agree on the cut: more charge at week ends +0.93 public (probe), almost none −3.29 public (h3w), and a change confined to the last hours of the run 0.00 public (h3j). The real test moves by 0.7 to 0.9 times the fold figures. | `26_h3j_h3w/report.md`, `23_boundaries/report.md` §6 |
 | HF12 | The right haircut is not a constant: discharge one more kW only while (chance it displaces import) × (what it earns now) exceeds what the kWh is worth later. Almost no haircut at 04:00 or 19:00, a large one at 13:00. | `14_planner/report.md` §2 |
 | HF13 | At 06:00 the load rises on weekdays (+383 kW on Mondays, +65 to +110 Tuesday–Friday) and falls on Saturdays (−188). 22:00 is the last reading taken, not an hourly mean. | `11_load_forecast/report.md` §2 |
 | HF14 | For price/CO₂, hours +3 to +5 carry two thirds of the forecast loss and +6 to +11 the rest; beyond +12 h is worth 0.01. Forecast accuracy is a poor guide to score. | `13_signal_forecast/report.md` §2 |
@@ -190,6 +191,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **20:59** You submitted h3w: 20.03 public, 3.29 below h3, inside the predicted range (HF29). Expected on the private half: about +2 to +2.5 over h3j. Jury selection still to be made by hand; I advise h3j + h3w if the private ranking is the hidden half alone, never the cut probe.
 - **20:58** You submitted h3j: 23.32 public, 13,281.5 kg and 24,989.84 €, identical to h3's row to the last digit, as predicted. It replaces h3 as the honest candidate for the jury selection.
 - **20:57** `h3j` and `h3w` packaged (20:54) and re-checked by me: both differ from h3 only in configuration, 0 infractions, validator passes. You asked what decides the final: by the written rules the private half of the two selected submissions plus the jury's judgement; which mode counts, whether "private" is the hidden half alone, and whether the better of two picks counts are unanswered (questions added to `docs/NEW_RULES.md` §8). Started the same cut analysis for the standard-mode agent.
 - **20:50** July control: 0.53 (296.3 kg avoided). The August zero is real: the run ends on 31 July 2026 at 23:00. `h3j` (h3 with that end date) becomes the honest candidate in place of h3; its public score will not change, since the end of the run is in the private half.

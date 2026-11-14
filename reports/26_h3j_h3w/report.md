@@ -48,6 +48,8 @@ Against h3 on the same folds: whole run −0.50 / −0.97 / −0.91; first 84 ho
 
 **Scaled to the real test** (the cut probe moved the public score by 0.7 to 0.9 times the fold figure): about +2.1 to +2.7 on the private half, about 3 to 3.5 lower on the public board, and about 0.6 to 0.8 lower over the whole run.
 
+**Result on the server (20:59):** the team submitted h3w. It scored **20.03** on the public leaderboard (CO₂ −18.54 %, 11,171.3 kg; cost −23.51 %, 22,331.14 €; 0 infractions), 3.29 below h3. The folds gave −4.07 on the first halves, so the real test moved by 0.81 times the fold figure, in line with the cut probe (0.7 to 0.9). On the same scale the private half should be about +2 to +2.5 above h3j. The private half itself has not been observed.
+
 **What it is not.** It is not a better battery controller. Over the whole run it is worse than h3 on every fold. It scores higher on the private half only because of where the organisers' cut falls.
 
 **Verification.** Equal to the study's reference variant on every command of the three folds; organisers' environment 19.51 on fold B; validator passes; if the top level fails, the fallback also respects the week cut.

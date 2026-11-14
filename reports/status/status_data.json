@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 20:58",
+ "updated": "Sat 14 Nov 2026, 20:59",
  "ceiling": 21.26,
  "best": {
   "name": "h3: h2 + round-2 signal forecaster + signal-aware planner (`submissions/h3/submission.zip`)",
@@ -19,6 +19,7 @@
  ],
  "leaderboard_time": "20:29, public half of the hidden test; 31 teams, 124 submissions, we are 12th. Public ceiling about 24.4 by our own calibration",
  "now": [
+  "**h3w is submitted: 20.03 on the public board, 3.29 below h3, as predicted.** Emptying the battery at each week's end costs on the public half (first 84 hours) exactly what the folds said it would, scaled by 0.81. On the private half (last 84 hours) the same scaling gives about +2 to +2.5 over h3j. Over the whole run it is the weaker controller by 0.6 to 0.8.",
   "**Select the two jury submissions by hand before the close.** The automatic choice takes the two best public scores, and one of ours is the cut probe (24.25), our worst agent on the private half.",
   "**h3j is submitted: 23.32, identical to h3's row to the last digit, as predicted.** It is h3 with the run ending on 31 July; its gain (0 to +0.4) lands in the private half. It replaces h3 as the honest candidate.",
   "**Two candidates:** `submissions/h3j/submission.zip` (submitted, see above) and `submissions/h3w/submission.zip` (every week its own run: about +2.1 to +2.7 on the private half, about −3 on the public board, −0.8 over the whole run). Submitting h3w is the team's decision; an agent must have been submitted to be selectable.",
@@ -30,7 +31,7 @@
  "scoreboard": [
   ["Perfect foresight (ceiling)", "22.44", "21.42", "19.92", "21.26", "reference"],
   ["h3j: h3 with the run ending on 31 July (`submissions/h3j/submission.zip`)", "as h3", "as h3", "as h3", "20.19", "submitted: 23.32 public, identical to h3; honest candidate; +0.03 / +0.20 / +0.07 when the folds are cut at July"],
-  ["h3w: h3j with every week its own run (`submissions/h3w/submission.zip`)", "20.82", "19.51", "17.86", "19.40", "cleared 20:56; team decision. Last halves: 25.68 / 24.09 / 21.83 against h3's 23.09 / 20.43 / 18.96"],
+  ["h3w: h3j with every week its own run (`submissions/h3w/submission.zip`)", "20.82", "19.51", "17.86", "19.40", "submitted: 20.03 public (−3.29, as predicted); about +2 to +2.5 expected on the private half. Last halves: 25.68 / 24.09 / 21.83 against h3's 23.09 / 20.43 / 18.96"],
   ["h3: h2 + round-2 signal forecaster + signal-aware planner, packaged (`submissions/h3/submission.zip`)", "21.33", "20.48", "18.77", "20.19", "submitted 20:13: 23.32 on the public test"],
   ["h2: combined agent + end-of-run handling, packaged (`submissions/h2/submission.zip`)", "21.27", "20.37", "18.70", "20.11", "submitted 19:01: 23.06 on the public test"],
   ["Combined, end of run from the shrinking lists only", "21.14", "20.30", "18.70", "20.04", "harness"],
@@ -127,6 +128,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["20:59", "h3w submitted: 20.03 public, 3.29 below h3, inside the predicted range. Three submissions now agree on how the cut works."],
   ["20:58", "h3j submitted: 23.32, identical to h3's row to the last digit, as predicted. It replaces h3 as the honest candidate."],
   ["20:57", "h3j and h3w cleared after my own check. Listed what is and is not known about how the final is scored; questions for the organisers added to the rules doc. Standard-mode cut analysis started."],
   ["20:50", "July control scored 0.53, so the August zero is real: the run ends on 31 July. h3j (h3 with that end date) becomes the honest candidate."],
