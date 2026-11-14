@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 21:47",
+ "updated": "Sat 14 Nov 2026, 21:54",
  "ceiling": 21.26,
  "best": {
   "name": "h3: h2 + round-2 signal forecaster + signal-aware planner (`submissions/h3/submission.zip`)",
@@ -24,16 +24,16 @@
   "**Select the two jury submissions by hand before the close.** The automatic choice takes the two best public scores. For us that includes the cut probe (24.25), our worst agent on the private half.",
   "**Hard mode, submitted and selectable:** h3j at 23.32 (h3 with the run ending on 31 July; the honest candidate) and h3w at 20.03 (every week its own run; expect +2 to +3 over h3j on the private half, and −0.8 over the whole run).",
   "**We are first on the public board with the cut probe (24.25). That is an artefact:** it carries extra charge into each week, which counts for the public half and against the private one. On real quality h3j at 23.32 is 13th of the board's rows, 10th if the four SanHackobos entries are one team.",
-  "**Standard mode has the same cut effect.** `submissions/v2w/submission.zip` is v2 with its 24-hour window stopped at the week's end: about +1.1 on the private half (v2 about 6.3, v2w about 7.4), about 5.1 on the public board, −0.16 over the whole run. Verified, not submitted; the team's decision. Its public score would also show whether standard mode has the same cut.",
+  "**Standard mode has the same split: v2w scored 5.59** against v2's 6.43 (submitted under the name Fanboy & Chum Chum; our 6.43 is under Fa). The effect is smaller than predicted, so expect about +0.7 on the private half, and −0.16 over the whole run. `submissions/v2/submission.zip` is ready so that v2 can be submitted under the same name.",
   "**What decides the final is partly unclear.** Written rules: the private half of the two selected submissions, plus the jury's judgement of the presentation. Unanswered: which mode counts (standard, hard or both), whether the private ranking is the hidden half alone or the whole test, and whether the better of the two picks counts. Questions for the organisers are in `docs/NEW_RULES.md` §8.",
   "**Known about the test (all confirmed on the server):** the first 84 hours of each week are public, the last 84 private; there is no August week, so the run ends on 31 July 2026; obs is exactly as documented.",
-  "**Other teams:** three have a submission that looks like h3w's row (about 3 points below their own best, cost-to-CO₂ ratio up): JAMM, EquipB, Low BaterIA. Suggestive only; an ordinary regression can look the same."
+  "**Other teams are on the same idea.** In standard mode four teams (Dos enginyers i mig since 14:04, EquipB, Manguihackers, GOLDEN) have a submission within 0.4 % of v2w's row. In hard mode three have one that looks like h3w (JAMM, EquipB, Low BaterIA). The board does not show whether they mean to select them."
  ],
  "scoreboard": [
   ["Perfect foresight (ceiling)", "22.44", "21.42", "19.92", "21.26", "reference"],
   ["h3j: h3 with the run ending on 31 July (`submissions/h3j/submission.zip`)", "as h3", "as h3", "as h3", "20.19", "submitted: 23.32 public, identical to h3; honest candidate; +0.03 / +0.20 / +0.07 when the folds are cut at July"],
   ["h3w: h3j with every week its own run (`submissions/h3w/submission.zip`)", "20.82", "19.51", "17.86", "19.40", "submitted: 20.03 public (−3.29, as predicted); expect +2 to +3 on the private half. Last halves: 25.68 / 24.09 / 21.83 against h3's 23.09 / 20.43 / 18.96"],
-  ["STANDARD MODE: v2w = v2 with the window cut at the week's end (`submissions/v2w/submission.zip`)", "5.38", "5.14", "5.20", "5.24", "cleared 21:02; team decision. Last halves 6.39 / 6.14 / 6.26 against v2's 5.45 / 4.96 / 5.64; folds without August"],
+  ["STANDARD MODE: v2w = v2 with the window cut at the week's end (`submissions/v2w/submission.zip`)", "5.38", "5.14", "5.20", "5.24", "submitted: 5.59 public (v2: 6.43); expect about +0.7 on the private half. Last halves on folds 6.39 / 6.14 / 6.26 against v2's 5.45 / 4.96 / 5.64"],
   ["h3: h2 + round-2 signal forecaster + signal-aware planner, packaged (`submissions/h3/submission.zip`)", "21.33", "20.48", "18.77", "20.19", "submitted 20:13: 23.32 on the public test"],
   ["h2: combined agent + end-of-run handling, packaged (`submissions/h2/submission.zip`)", "21.27", "20.37", "18.70", "20.11", "submitted 19:01: 23.06 on the public test"],
   ["Combined, end of run from the shrinking lists only", "21.14", "20.30", "18.70", "20.04", "harness"],
@@ -132,6 +132,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["21:54", "v2w submitted in standard mode: 5.59. Split confirmed there; expected private gain about +0.7. Four other teams have near-identical rows. ZIP of v2 built for the same team name."],
   ["21:47", "Clock-change days tested on all four candidate agents: 0 infractions, no fallback, scores within 0.013. Nothing to fix."],
   ["21:47", "Organisers silent; the team asked for more gains. Site re-read (no rule changed; 20 attempts per shift now shown). New lead: holidays and clock changes exist only in test weeks. Load specialist resumed on a holiday calendar; clock-change check running."],
   ["21:06", "Read the 21:01 leaderboard rows: cut probe +564.5 kg and +874 € over h3 on the public half; three other teams have a submission that looks like h3w (suggestive only). Board tidied: both hard-mode candidates are submitted."],

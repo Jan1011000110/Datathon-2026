@@ -94,6 +94,24 @@ It is not settled which mode's private ranking decides the final, so the boundar
 
 Like h3w, it is a worse controller over the whole run that scores higher on the last halves because of where the cut falls. Submitting it is the team's decision.
 
+**Result on the server (21:54).** The team submitted v2w in standard mode, under the name "Fanboy & Chum Chum" (our v2 is on that board as "Fa"). It scored **5.59**: CO₂ −5.04 % (3,622.7 kg), cost −6.86 % (8,141.01 €), 0 infractions.
+
+- **Standard mode has the same split.** An agent that differs from v2 only near week ends moved by −0.84 on the public board.
+- **The move is smaller than predicted** (5.59 against about 5.1): 0.63 times the fold figure. On the folds the last-half gain is 0.81 times the first-half loss, so expect about **+0.7 on the private half** (+0.5 to +0.9), not +1.1.
+- **The same reasoning for h3w** (public −3.29; on the folds the last-half gain is 0.75 times the first-half loss) gives about +2.5 on the private half, inside the +2 to +3 already stated.
+- **Four other teams have a standard-mode submission within 0.4 % of v2w's row:**
+
+| Team | First seen (local time) | Score | CO₂ avoided | Bill saved |
+|---|---|---|---|---|
+| Dos enginyers i mig | 14:04 | 5.54 | 3,613.9 kg | 7,985.40 € |
+| EquipB | 16:31 (5.58), 17:45 (5.59) | 5.59 | 3,628.2 kg | 8,112.54 € |
+| Manguihackers | 16:53 | 5.59 | 3,629.5 kg | 8,114.25 € |
+| GOLDEN | 18:13 | 5.57 | 3,615.0 kg | 8,117.62 € |
+| us (v2w) | 21:49 | 5.59 | 3,622.7 kg | 8,141.01 € |
+
+  The board does not show what those agents do or whether the teams mean to select them. The match is close enough that they are most likely the same idea: the 24-hour optimum with each week treated as its own run.
+- **`submissions/v2/submission.zip`** was built (the ZIP did not exist; `agent.py` is byte-identical to `agents/v2/agent.py`, validator passes) so that v2 can be submitted under the same team name as v2w if the selection needs both under one name.
+
 **A correction to section 2.** The private-half gain of h3w was scaled down to "+2.1 to +2.7" because the cut probe had moved less on the real board than on the folds. That comparison used folds that still had an August week. Without it the folds predicted +0.77 for the probe and the real figure was +0.93, so the probe shows no damping. h3w's own public move does: −3.29 on the server against −4.07 on folds that still had August (not re-measured without it). Taking both, expect **+2 to +3** on the private half; the folds at face value say +2.6 / +3.7 / +2.9.
 
 ## 5. For the jury selection
