@@ -2,11 +2,15 @@
 
 What the official platform says beyond `docs/`, plus the values we treat as true wherever the sources disagree.
 
-- **Source:** <https://repteupc.datathon.cat/>. It is a Streamlit app with 5 tabs: *Bases i Enunciat Tècnic*, *Dades del Campus i Starter Kit*, *Lliurament de Solucions*, *Classificació General (Leaderboard)* and *Preguntes Freqüents*.
-- **Checked on:** 2026-11-14 (Saturday of the Datathon).
+- **Source:** <https://repteupc.datathon.cat/>. It is a Streamlit app with 6 tabs: *Bases i Enunciat Tècnic*, *Dades del Campus i Starter Kit*, *Lliurament de Solucions*, *Classificació General (Leaderboard)*, *🔥 Mode Difícil* (added on the afternoon of 2026-11-14) and *Preguntes Freqüents*.
+- **Checked on:** 2026-11-14 (Saturday of the Datathon), at midday. Re-checked at 16:57.
 - **Organisers:** AED × UPC Sostenible.
 
+> **Update, 2026-11-14 16:57:** the site added the *🔥 Mode Difícil* tab and a rule about choosing 2 submissions for the jury (§2.1). Hard mode is described in [`NEW_RULES.md`](NEW_RULES.md). The rest of this page describes standard mode; its tabs had no other changes since midday.
+
 The site's "Paquet per als Participants" ZIP (13 MB) matches this repo exactly: `README.md`, `docs/`, `starter_kit/` and the 6 CSVs in `data/train/`. Only the line endings differ. So everything below comes from the web page itself, not from any extra file.
+
+The ZIP changed once during the day: `starter_kit/environment.py` and `docs/ENUNCIAT.md` were updated on the site and synced here at about 17:00 (details in `NEW_RULES.md` §5). The data never changed.
 
 ---
 
@@ -24,7 +28,7 @@ The site's "Paquet per als Participants" ZIP (13 MB) matches this repo exactly: 
 | 4 | Submission quota | `ENUNCIAT.md`: 10 per shift, 30 total. LaTeX: "10 valid attempts per team per day" | 10 per shift, 3 shifts (30 total) | — | **10 per shift, 30 total** (the LaTeX wording is outdated) |
 | 5 | I/O signals file name | `entrades_salides.csv` | `entradas_salidas.csv` | The file is `data/train/entradas_salidas.csv` | **`entradas_salidas.csv`** |
 | 6 | `contador.csv` sampling rate | 5 min | 15 min (data tab table) | Timestamps are 5 min apart (00:05, 00:10, …) | **5 min** |
-| 7 | Keys in `obs` | No `soc_percent` | Lists `soc_percent` (0–100) | `obs` includes `soc_percent` (`environment.py:82`) | `soc_percent` **exists** (it equals `soc_pct × 100`) |
+| 7 | Keys in `obs` | No `soc_percent` | Lists `soc_percent` (0–100) | `obs` includes `soc_percent` (`environment.py:82`) | `soc_percent` **exists** (it equals `soc_pct × 100`). Since the 2026-11-14 update, the local `obs` also has `cap_max_kwh` (2000.0) and `power_max_kw` (500.0); whether the standard-mode server sends them is unconfirmed. |
 | 8 | When the SOC starts at 50% | "At the start of each evaluation period" (ambiguous) | Only at hour 0 of the whole simulation. **No daily or weekly reset.** | `reset()` is called once per run | **Once.** The SOC carries over between days and across the gaps between test weeks. |
 | 9 | What counts as an infraction | "Each setpoint that violates the limits" | "Each hour with physical clipping or a limit violation" | Counts **each event**. One hour can add up to 2: power clip (>±500 kW) plus capacity clip, or an SOC bound violation. Any overshoot counts, even a tiny one. | Count per event. Use the safety clamp with `eps` (§2.4). |
 | 10 | PIN | "Minimum 4 characters" | "Minimum 4 characters" (form) / "4-character key" (rules) | — | **At least 4 characters** |
@@ -53,6 +57,10 @@ To load files, use `pathlib.Path(__file__).parent`. Never use `os.path`.
   1. Higher Score.
   2. Fewer physical infractions.
   3. Earlier submission time.
+- **Pick 2 submissions for the jury** (rule added on 2026-11-14):
+  - Before the close, each team chooses its 2 official submissions in the *Lliurament* tab, section "🎯 Selecció Oficial per al Jurat" (shown after entering team name and PIN).
+  - Only those two are considered on the private ranking that decides the podium.
+  - The choice can be changed until the close. With no choice, the system takes the team's two best on the public ranking.
 - **Code audit:** every submission is archived automatically for review by the UPC jury.
 - **Leaderboard columns** (from the CSV backup you can download on the Leaderboard tab): `Data, Equip, Puntuacio, Reduccio CO2 (%), Estalvi Cost (%), CO2 Evitat (kg), Estalvi Factura (€), Infraccions`.
 - **Snapshot on 2026-11-14 ~12:50:** 1 team ("Prueba 1", which looks like an organiser test), 2 submissions, best score 6.43 pts, CO₂ −5.97 %, cost −7.5 %, 4,289.4 kg CO₂ avoided, 8,907.87 € saved, 0 infractions.

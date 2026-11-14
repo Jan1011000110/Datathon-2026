@@ -95,6 +95,8 @@ def simulate(agent, df: pd.DataFrame, mask=None, return_trace: bool = False) -> 
             "soc_kwh": float(soc),
             "soc_pct": float(soc / CAP),
             "soc_percent": float(soc / CAP * 100),
+            "cap_max_kwh": CAP,       # added to the official obs on 2026-11-14 (hard-mode update)
+            "power_max_kw": PMAX,
             "preu_actual": price_l[t],
             "co2_actual": co2_l[t],
             "preus_properes_24h": price_l[t:h_end],

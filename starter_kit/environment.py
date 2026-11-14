@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 
 class CampusBatteryEnv:
-    def __init__(self, hourly_data: pd.DataFrame, spec: dict = None, export_price: float = 0.0):
+    def __init__(self, hourly_data: pd.DataFrame, spec: dict = None, export_price: float = 0.0, forecast_horizon: int = 24):
         """
         hourly_data: DataFrame indexat o amb columna 'Fecha' i columnes:
                      ['load_kw', 'pv_kw', 'precio_eur_per_kwh', 'co2_kg_per_kwh']
@@ -24,6 +24,7 @@ class CampusBatteryEnv:
                 
         self.spec = spec
         self.export_price = export_price
+        self.forecast_horizon = int(spec.get("forecast_horizon", forecast_horizon))
         
         # Paràmetres de la bateria
         self.cap = float(spec["capacity_kwh"])
@@ -64,14 +65,24 @@ class CampusBatteryEnv:
         row = self.df.iloc[self.t]
         ts = row["Fecha"]
         
-        # Previsions conegudes per a les properes 24 hores (PVPC i CO2)
-        h_end = min(self.t + 24, self.n)
+        # Previsions conegudes per a les properes hores (24h en Mode Estàndard, 3h en Mode Difícil)
+        h_end = min(self.t + self.forecast_horizon, self.n)
         future_prices = self.df["precio_eur_per_kwh"].iloc[self.t:h_end].values.tolist()
         future_co2 = self.df["co2_kg_per_kwh"].iloc[self.t:h_end].values.tolist()
         
         # Última hora transcorreguda (dades de t-1 a t)
-        last_load = float(self.df["load_kw"].iloc[self.t - 1]) if self.t > 0 else float(row["load_kw"])
-        last_pv = float(self.df["pv_kw"].iloc[self.t - 1]) if self.t > 0 else float(row["pv_kw"])
+        prev_idx = self.t - 1 if self.t > 0 else 0
+        prev_row = self.df.iloc[prev_idx]
+        last_load = float(prev_row["load_kw"])
+        last_pv = float(prev_row["pv_kw"])
+        
+        noves_dades = {
+            "ultim_consum_kw": last_load,
+            "ultima_solar_kw": last_pv
+        }
+        for m_col in ("irradiancia_wm2", "temp_ambient_c", "temp_panel_c", "vent_ms"):
+            if m_col in self.df.columns:
+                noves_dades[m_col] = float(prev_row[m_col])
         
         obs = {
             "timestamp": ts,
@@ -80,14 +91,13 @@ class CampusBatteryEnv:
             "soc_kwh": float(self.soc),
             "soc_pct": float(self.soc / self.cap),
             "soc_percent": float(self.soc / self.cap * 100),
+            "cap_max_kwh": float(self.cap),
+            "power_max_kw": float(self.power),
             "preu_actual": float(row["precio_eur_per_kwh"]),
             "co2_actual": float(row["co2_kg_per_kwh"]),
             "preus_properes_24h": future_prices,
             "co2_properes_24h": future_co2,
-            "noves_dades_5min": {
-                "ultim_consum_kw": last_load,
-                "ultima_solar_kw": last_pv
-            }
+            "noves_dades_5min": noves_dades
         }
         return obs
 
