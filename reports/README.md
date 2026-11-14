@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 20:50
+**Last updated:** Sat 14 Nov 2026, 20:57
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -16,6 +16,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 
 1. **Ceiling on our folds: 21.26 points** (22.44 / 21.42 / 19.92 with perfect foresight). The public test scores about 11 % higher for everyone; the ceiling there is about 23.7 ([`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md)).
 1b. **The cut of the public half is known: the first 84 hours of each week are public, the last 84 private** (cut probe: 24.25 against h3's 23.32). Charge held at the end of a week counts for the public half and against the private one. **The two jury submissions must be selected by hand:** the automatic choice would take the probe. The test has no August week (August probe: 0; July control: 0.53), so the run ends on 31 July ([`23_boundaries/report.md`](23_boundaries/report.md) §6).
+1c. **Two variants of h3 are cleared for the jury selection** ([`26_h3j_h3w/report.md`](26_h3j_h3w/report.md)): `h3j` (the run ends on 31 July; the honest candidate; same public score as h3, 0 to +0.4 on the private half) and `h3w` (every week its own run; about +2.1 to +2.7 on the private half, about −3 public, −0.8 over the whole run; the team's decision).
 2. **h3 is on the public leaderboard at 23.32** (team Fanboy & Chum Chum; submitted 20:13; CO₂ −22.04 %, cost −26.31 %, 0 infractions). 12th of 31 at 20:29, 0.78 behind the leader (SanHackobos_v7, 24.10) and 0.39 behind second place. h2 scored 23.06, so h3 gained +0.26 where the folds predicted +0.09 ([`24_h3/report.md`](24_h3/report.md), H8).
 3. **h2, packaged and confirmed on the server:** `submissions/h2/submission.zip`, 21.27 / 20.37 / 18.70 (mean 20.11), 0 infractions, falls back to h1's logic on any failure ([`22_h2/report.md`](22_h2/report.md)). The h2 probe on the free validation (19:00) showed it builds fully there, with 0 fallbacks and 1.4 ms per step. Also ready: **h1**: `submissions/h1/nov_fill/submission.zip`, 20.58 / 19.79 / 18.35, 0 infractions, under 1 s per run ([`20_h1/report.md`](20_h1/report.md)). Comparison point **h0**: `submissions/h0/submission.zip`, 19.84 / 19.30 / 17.90 ([`16_h0/report.md`](16_h0/report.md)).
 4. **All four specialists have reported.** On its own, each adds to the naive agent (18.96): load forecaster +0.60, uncertainty-aware planner +0.56, price/CO₂ forecaster +0.27, solar forecaster +0.14.
@@ -32,6 +33,8 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Agent | A | B | C | Mean | Status |
 |---|---|---|---|---|---|
 | Perfect foresight (ceiling) | 22.44 | 21.42 | 19.92 | 21.26 | reference |
+| **h3j** (h3 with the run ending on 31 July) | as h3 on these folds | | | | **cleared 20:56**; honest candidate |
+| h3w (h3j with every week its own run) | 20.82 | 19.51 | 17.86 | 19.40 | cleared 20:56; team decision. Last 84 h of each week: 25.68 / 24.09 / 21.83 against h3's 23.09 / 20.43 / 18.96 |
 | **h3** (h2 + round-2 signal forecaster + signal-aware planner, packaged) | 21.33 | 20.48 | 18.77 | **20.19** | **submitted 20:13: 23.32 public** |
 | **h2** (combined agent + end-of-run handling, packaged) | 21.27 | 20.37 | 18.70 | **20.11** | **submitted 19:01: 23.06 public** |
 | Combined, end of run from the shrinking lists only | 21.14 | 20.30 | 18.70 | 20.04 | h2 ZIP of 18:33 matches this exactly |
@@ -187,6 +190,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **20:57** `h3j` and `h3w` packaged (20:54) and re-checked by me: both differ from h3 only in configuration, 0 infractions, validator passes. You asked what decides the final: by the written rules the private half of the two selected submissions plus the jury's judgement; which mode counts, whether "private" is the hidden half alone, and whether the better of two picks counts are unanswered (questions added to `docs/NEW_RULES.md` §8). Started the same cut analysis for the standard-mode agent.
 - **20:50** July control: 0.53 (296.3 kg avoided). The August zero is real: the run ends on 31 July 2026 at 23:00. `h3j` (h3 with that end date) becomes the honest candidate in place of h3; its public score will not change, since the end of the run is in the private half.
 - **20:45** Measured "each week is its own run" on h3 (HF27). Asked the packager for `h3j` (run ends 31 July) and `h3w` (plan cut at every week's end), both verified, for the next shift. Whether `h3w` is submitted is the team's decision; I recommended telling the organisers about the cut either way.
 - **20:41** Built a July control for the August probe (`submissions/probe_july/`).

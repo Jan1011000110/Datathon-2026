@@ -249,3 +249,7 @@ We ran a probe agent on the site's free quick validation; the page shows the err
 5. Which `meteo.csv` columns and what aggregation feed the four weather keys? (The keys exist and are numeric: confirmed in §7.)
 6. Does the standard-mode server now send `cap_max_kwh` and `power_max_kw` too?
 7. Is shipping external public data (for example REE's published prices and CO₂) inside a submission allowed?
+8. Does the final score use the standard-mode ranking, the hard-mode ranking, or both, and how are they combined? (Question 1 above, restated: it is still unanswered.)
+9. Is the private ranking computed on the hidden 50 % of each week only, or on the whole test?
+10. Of the two submissions selected for the jury, does the better one count?
+11. Is "70 % private ranking + 30 % presentation" (said on Discord, 2026-11-14) official?
