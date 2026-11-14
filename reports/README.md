@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 18:38
+**Last updated:** Sat 14 Nov 2026, 18:40
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -82,6 +82,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | T26 | Modelling the correlation between load and solar errors (−0.31) | −0.002 | dropped |
 | T27 | End of run: plan only the hours left when the lists shrink; nothing after 31 Aug 2026 23:00 | +0.05 and +0.07 more | adopt both |
 | T28 | Running LightGBM on the server for the load model | a model string it cannot parse kills the process, which no fallback can catch | replaced by walking the trees with numpy (bit-identical); rules-only as fallback |
+| T29 | Red-team: the server reporting the state of charge rounded to 2 decimals | 52–66 infractions per fold (about −12 points) for h1 and h2 with the 0.0001 kW clamp margin | fixed: margin 0.01 kW gives 0 infractions and costs 0.00004 points on clean folds |
 | T20 | A haircut on top of the planner's scenarios (2.5 / 5 / 10 %) | worse at every level (−0.03 to −0.35) | dropped: the scenarios already do that job |
 | T21 | Calendar that knows the next test week follows a month end | −0.08 / +0.18 / −0.05 by fold | off: 10 boundaries per fold is too few to tell |
 | T22 | November tables interpolated from October and December (train has no November) | +0.7 on a hidden month's week in a hide-one-month test; about +0.1 overall if the November week exists | adopt (h1's `nov_fill` variant) |
@@ -134,6 +135,7 @@ The red-team subagent was re-scoped accordingly at 18:29.
 
 ## H6. Log
 
+- **18:39** Red-team reported the rounded-state-of-charge risk (T29). I reproduced it on h1, widened the final clamp margin to 0.01 kW, and rebuilt both h1 ZIPs (validator passes). The published environment sends the unrounded value, so this is insurance, but it is free. h2 gets the same change in its rebuild.
 - **18:38** Saved the integrator's report; sent h2's final settings (calendar end of run) to the packager.
 - **18:36** Integrator finished (T23–T27, HF16–HF17): 20.11 with end-of-run handling. Packager: h2 equals the harness on all three folds, passes validator, fuzz and fallback tests, 2.5–4.4 s per run; LightGBM replaced at run time (T28).
 - **18:29** You confirmed the organisers' 16:00 statement about the private ranking was false. Anomalies down-weighted (H7); red-team re-scoped; correction added to `06_edge/report.md` and to Part II below.

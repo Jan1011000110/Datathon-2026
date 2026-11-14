@@ -34,6 +34,10 @@ As shipped (end-of-run rule on):
 - **Malformed observations:** 69 single cases and three corrupted full runs, no exception and no infraction.
 - **My own check (18:13):** both ZIPs extracted and run on fold B: 0 infractions, 0.42 s per 2,016 steps. The two variants have the same `agent.py`; their tables differ only for November.
 
+### Change at 18:39: wider clamp margin
+
+The red-team found that if the server reported the state of charge rounded to 2 decimals, the original 0.0001 kW safety margin would let the agent ask for slightly more than the battery holds: 66 / 61 / 52 infractions on folds A / B / C. The margin is now 0.01 kW. With rounding: 0 infractions. On clean folds the score changes by −0.00004. Both ZIPs were rebuilt and pass the validator. The published environment sends the unrounded value, so this is insurance.
+
 ## 3. Options tested and left off
 
 Change in score per fold when each option is switched on:

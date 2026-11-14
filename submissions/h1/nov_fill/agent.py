@@ -45,7 +45,7 @@ from pathlib import Path
 import numpy as np
 
 ETA = 0.9 ** 0.5             # one-way efficiency
-EPS = 1e-4                   # safety margin on the physical limits
+EPS = 0.01                   # kW, safety margin of the final clamp (also covers a soc_kwh rounded to 2 decimals)
 CAP_DEFAULT = 6000.0         # kWh, used when obs has no "cap_max_kwh"
 PMAX_DEFAULT = 1500.0        # kW, used when obs has no "power_max_kw"
 LOOKAHEAD = 3                # price / CO2 values obs carries in hard mode

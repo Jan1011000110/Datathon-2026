@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 18:38",
+ "updated": "Sat 14 Nov 2026, 18:41",
  "ceiling": 21.26,
  "best": {
   "name": "Combined agent: planner + load + solar + price/CO₂ forecasters + end-of-run handling (being packaged as h2)",
@@ -77,6 +77,7 @@
   ["Modelling that load and solar errors are correlated (−0.31)", "−0.002", "dropped"],
   ["End of run: plan only the hours left when the lists shrink; and nothing after 31 Aug 2026 23:00", "+0.05 and +0.07", "adopt both; the second cannot hurt unless the run went past August"],
   ["Running LightGBM on the server for the load model", "a model string it cannot parse kills the Python process, which no fallback can catch", "replaced by walking the trees with numpy (bit-identical), rules-only as the fallback"],
+  ["Red-team: what if the server reports the state of charge rounded to 2 decimals?", "h1 and h2 would take 52–66 infractions per fold (about −12 points) with the 0.0001 kW clamp margin", "fixed: margin 0.01 kW, 0 infractions, costs 0.00004 points on clean data; h1 ZIPs rebuilt 18:39, h2 follows"],
   ["A haircut on top of the planner's scenarios (2.5 / 5 / 10 %)", "worse at every level (−0.03 to −0.35)", "dropped: the scenarios already do that job"],
   ["Calendar that knows the next test week follows a month end", "−0.08 / +0.18 / −0.05 by fold", "off: 10 boundaries per fold is too few to tell"],
   ["November tables interpolated from October and December (train has no November)", "+0.7 on a hidden month's week in a hide-one-month test; about +0.1 overall if the November week exists", "adopt (the nov_fill variant)"]
@@ -95,6 +96,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["18:39", "Red-team found that a state of charge rounded by the server would cause dozens of infractions. Widened the final clamp margin to 0.01 kW in h1 (0 infractions with rounding, −0.00004 on clean folds) and rebuilt both h1 ZIPs; h2 gets the same change in its rebuild."],
   ["18:37", "Sent h2's final settings to the packager (calendar end of run). Saved the integrator's report."],
   ["18:36", "Integrator finished: 20.04 with the safe end-of-run rule, 20.11 with the calendar end; remaining gap split into signal 0.54, net load 0.55, end of run 0.18. h2 ZIP passes every check on the previous settings; LightGBM replaced by numpy tree-walking after the packager found a bad model string kills the process."],
   ["18:29", "You confirmed the organisers' statement about the private ranking was false. Anomalies down-weighted: red-team re-scoped, corrections written into the work log and the standard-mode edge report."],
