@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 20:14
+**Last updated:** Sat 14 Nov 2026, 20:30
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -15,7 +15,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 ## H1. Where we are
 
 1. **Ceiling on our folds: 21.26 points** (22.44 / 21.42 / 19.92 with perfect foresight). The public test scores about 11 % higher for everyone; the ceiling there is about 23.7 ([`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md)).
-2. **h2 is on the public leaderboard at 23.06** (team Fanboy & Chum Chum, 10th of 25, 0.40 behind the leader). I had predicted 22.4; see H8 for what that corrects. **h3 is cleared:** `submissions/h3/submission.zip`, 21.33 / 20.48 / 18.77 on our folds (20.19), about 23.15 expected ([`24_h3/report.md`](24_h3/report.md)).
+2. **h3 is on the public leaderboard at 23.32** (team Fanboy & Chum Chum; submitted 20:13; CO₂ −22.04 %, cost −26.31 %, 0 infractions). 12th of 31 at 20:29, 0.78 behind the leader (SanHackobos_v7, 24.10) and 0.39 behind second place. h2 scored 23.06, so h3 gained +0.26 where the folds predicted +0.09 ([`24_h3/report.md`](24_h3/report.md), H8).
 3. **h2, packaged and confirmed on the server:** `submissions/h2/submission.zip`, 21.27 / 20.37 / 18.70 (mean 20.11), 0 infractions, falls back to h1's logic on any failure ([`22_h2/report.md`](22_h2/report.md)). The h2 probe on the free validation (19:00) showed it builds fully there, with 0 fallbacks and 1.4 ms per step. Also ready: **h1**: `submissions/h1/nov_fill/submission.zip`, 20.58 / 19.79 / 18.35, 0 infractions, under 1 s per run ([`20_h1/report.md`](20_h1/report.md)). Comparison point **h0**: `submissions/h0/submission.zip`, 19.84 / 19.30 / 17.90 ([`16_h0/report.md`](16_h0/report.md)).
 4. **All four specialists have reported.** On its own, each adds to the naive agent (18.96): load forecaster +0.60, uncertainty-aware planner +0.56, price/CO₂ forecaster +0.27, solar forecaster +0.14.
 5. **Combined agent: 20.11** (21.27 / 20.37 / 18.70) with end-of-run handling, 0 infractions, 95 % of the ceiling ([`18_combined/report.md`](18_combined/report.md)). Still missing: the signal 3 to 11 hours ahead (0.54) and the net load of the current hour (0.30), mostly on weekday mornings.
@@ -31,7 +31,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Agent | A | B | C | Mean | Status |
 |---|---|---|---|---|---|
 | Perfect foresight (ceiling) | 22.44 | 21.42 | 19.92 | 21.26 | reference |
-| **h3** (h2 + round-2 signal forecaster + signal-aware planner, packaged) | 21.33 | 20.48 | 18.77 | **20.19** | **ready to submit** |
+| **h3** (h2 + round-2 signal forecaster + signal-aware planner, packaged) | 21.33 | 20.48 | 18.77 | **20.19** | **submitted 20:13: 23.32 public** |
 | **h2** (combined agent + end-of-run handling, packaged) | 21.27 | 20.37 | 18.70 | **20.11** | **submitted 19:01: 23.06 public** |
 | Combined, end of run from the shrinking lists only | 21.14 | 20.30 | 18.70 | 20.04 | h2 ZIP of 18:33 matches this exactly |
 | Combined: planner + load + solar + price/CO₂ forecasters | 21.14 | 20.26 | 18.57 | 19.99 | harness |
@@ -184,6 +184,8 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **20:30** Leaderboard snapshot (`17_hard_leaderboard/hard_leaderboard_20261114_2029.csv`): 31 teams, 124 submissions; we are 12th with h3. Leader 24.10. Built the August probe (`submissions/probe_august/`: 0.28 on a run with an August week, exactly 0 without); the cut probe is being packaged.
+- **20:13** You submitted h3: **23.32** public, +0.26 over h2. The folds predicted +0.09; the boundary study's range was +0.04 to +0.11. The gain is larger than predicted and I do not yet know why; the cut probe should say how much of it is charge at the cut.
 - **20:14** Older REE history tested (T39, HF26): no reliable gain, not shipped. The permission system had refused the subagent's download, so you ran the script yourself; I fixed its date guard, which was refusing a legitimate last row of August 2025.
 - **19:37** Boundary study finished (T38, HF24–HF25). No boundary rule; the cut of the public half can move leaderboard numbers by more than the whole top band without any real gain. Decision: jury submissions are chosen on whole-run fold scores.
 - **19:22** You decided that older REE history is legitimate training data. The signal specialist is downloading it (nothing dated after 31 Aug 2025; guard in the code) and testing it inside the h3 stack. You also settled that any run-time use of `data/train/` is fine. I declined to hide real test-week values in a `.pkl`.

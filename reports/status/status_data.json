@@ -1,36 +1,34 @@
 {
- "updated": "Sat 14 Nov 2026, 20:14",
+ "updated": "Sat 14 Nov 2026, 20:30",
  "ceiling": 21.26,
  "best": {
-  "name": "h3: h2 + round-2 signal forecaster + signal-aware planner, packaged and cleared (`submissions/h3/submission.zip`)",
+  "name": "h3: h2 + round-2 signal forecaster + signal-aware planner (`submissions/h3/submission.zip`)",
   "score": 20.19,
-  "note": "validation, mean of 3 folds, 0 infractions; the ceiling is for the same folds. h2 (20.11 here) scored 23.06 on the public test"
+  "note": "validation, mean of 3 folds, 0 infractions; the ceiling is for the same folds. On the public test h3 scored 23.32 and h2 23.06"
  },
  "leaderboard": [
-  ["SSA Gourmet", "23.46"],
-  ["Ommetje", "23.40"],
-  ["TeamName", "23.37"],
-  ["SanHackobos_v3", "23.35"],
-  ["aniMLs", "23.30"],
-  ["hackers la l", "23.29"],
-  ["Low BaterIA, AAA, LosAvocados", "23.13–23.23"],
-  ["Fanboy & Chum Chum (us, h2)", "23.06"],
-  ["5 teams", "22.48–22.95"]
+  ["SanHackobos_v7", "24.10"],
+  ["AAA", "23.71"],
+  ["Sanhackobos_v6", "23.70"],
+  ["Ommetje", "23.57"],
+  ["SSA Gourmet", "23.50"],
+  ["Riviera Maya Boys, JAMM, hackers la l, Dos enginyers i mig", "23.40–23.45"],
+  ["TeamName, SanHackobos_v3", "23.35–23.37"],
+  ["Fanboy & Chum Chum (us, h3)", "23.32"],
+  ["aniMLs, Low BaterIA, Prova1, LosAvocados", "23.13–23.30"]
  ],
- "leaderboard_time": "19:07, public half of the hidden test; 25 teams, we are 10th. Recalibrated on our own score, the public ceiling is about 24.4",
+ "leaderboard_time": "20:29, public half of the hidden test; 31 teams, 124 submissions, we are 12th. Public ceiling about 24.4 by our own calibration",
  "now": [
-  "**h2 is on the public leaderboard at 23.06: 10th of 25, 0.40 behind the leader.** Nine teams sit within that 0.40.",
-  "**To do now (attempts expire at 21:00):** `submissions/probe_h3/submission.zip` on the free quick validation only, then `submissions/h3/submission.zip` to the ranking. h3 is h2 plus two improvements on the signal: 20.19 on our folds (+0.075), about 23.15 expected.",
-  "**Correction:** I predicted 22.4 for h2 and a public ceiling of 23.7, and on that basis wrote that the top teams were where our agent would land with the true price/CO₂ signal. The measured ratio (1.147, not 1.114) puts the ceiling near 24.4 and that inference is withdrawn: nothing in the scores requires anyone to use real market data.",
-  "**Where the 0.1–0.4 above us could come from:** (1) the two things we know we lose: the signal forecast 3 to 11 hours ahead (about 0.6 public points) and the current hour's net load (0.35); (2) how the public half is cut: if it is an 84-hour split of each week, each MWh more carried across the cut moves +1.4 points onto one half and −1.7 off the other with no real gain, so 0.40 could be 0.3 MWh of charge at the cut. The cut is unknown.",
-  "**Week boundaries are not a real lever** (study finished 19:36): with perfect information beyond every week's end h2 gains about 0.01, and 69 boundary rules gave nothing. So h3 ships as it is, and the two jury submissions should be chosen on whole-run fold scores, not on public differences under about 0.5.",
-  "**Older REE history does not help** (tested 20:13): +0.017 in the h3 stack, −0.018 with net load known, better in 15 of 33 weeks and worse in 18. Not shipped. Nothing is running now.",
-  "**Confirmed on the server:** obs is exactly as documented; h2 builds fully there, 1.4 ms per step, same library versions.",
-  "**Anomalies get little weight now.** We keep what is certain or free and stop tuning guards for faults."
+  "**h3 scored 23.32 on the public leaderboard** (submitted 20:13): +0.26 over h2 (23.06). 12th of 31, 0.78 behind the leader (24.10) and 0.39 behind second place.",
+  "**The gain is three times what the folds predicted (+0.09).** I do not know why yet. Part of it may be charge at the cut of the public half and not a real gain; the cut probe is the way to find out.",
+  "**Two probes, your decision to submit (attempts expire at 21:00):** `submissions/probe_august/submission.zip` is ready: it scores above zero only if the August week is in the test, which tells us where the run ends. `submissions/probe_cut/` is being packaged: its score tells us which hours of each week are public. Neither is a candidate for the jury.",
+  "**Tested and not shipped:** older REE history for the signal forecaster (perhaps +0.03 to +0.05, perhaps nothing; an h4 could be built if wanted) and 69 rules for the week boundaries (nothing).",
+  "**What we still lose, in public points:** the signal level 3 to 8 hours ahead (about 0.6) and the current hour's net load (0.35). No untested idea for either that I expect to beat noise.",
+  "**Confirmed on the server:** obs is exactly as documented; our agents build fully there and run in about 3 s."
  ],
  "scoreboard": [
   ["Perfect foresight (ceiling)", "22.44", "21.42", "19.92", "21.26", "reference"],
-  ["h3: h2 + round-2 signal forecaster + signal-aware planner, packaged (`submissions/h3/submission.zip`)", "21.33", "20.48", "18.77", "20.19", "ready to submit; about 23.15 expected"],
+  ["h3: h2 + round-2 signal forecaster + signal-aware planner, packaged (`submissions/h3/submission.zip`)", "21.33", "20.48", "18.77", "20.19", "submitted 20:13: 23.32 on the public test"],
   ["h2: combined agent + end-of-run handling, packaged (`submissions/h2/submission.zip`)", "21.27", "20.37", "18.70", "20.11", "submitted 19:01: 23.06 on the public test"],
   ["Combined, end of run from the shrinking lists only", "21.14", "20.30", "18.70", "20.04", "harness"],
   ["Combined: planner + load + solar + price/CO₂ forecasters", "21.14", "20.26", "18.57", "19.99", "harness"],
@@ -43,6 +41,8 @@
   ["Naive agent, no haircut", "19.70", "19.10", "17.64", "18.81", "superseded"]
  ],
  "running": [
+  ["Packager (cut probe)", "h3 made optimistic about next week's prices, to reveal which hours of each week are public", "running", "since 20:27; due about 20:50"],
+  ["August probe", "An agent that only acts on August 2026 dates, to learn whether the run ends in August or July", "done", "20:28: `submissions/probe_august/submission.zip`; 0.28 on a run with an August week, exactly 0 without"],
   ["Integrator", "Combine planner + load + solar + price/CO₂ forecasters into one agent, with proper net-load scenarios", "done", "18:36: 20.11 with end-of-run handling; ladder, calibration, sensitivity, gap analysis in `reports/18_combined/report.md`"],
   ["Price/CO₂ forecaster (round 3)", "Does older REE history (up to 31 Aug 2025 only) improve the signal forecast inside the h3 stack?", "done", "20:13: no reliable gain (+0.017, sign unstable); not shipped; `reports/25_ree_history/report.md`"],
   ["Boundary study", "What h2 carries across week jumps against the optimum; a better rule for the last hours of a week; how the cut of the public half moves the leaderboard number", "done", "19:36: boundaries cost about 0.01; no rule helps; an 84-hour cut would move ±1.4 points per MWh between halves; `reports/23_boundaries/report.md`"],
@@ -118,6 +118,8 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["20:30", "Leaderboard: 31 teams, we are 12th with h3 (23.32); leader 24.10. August probe built and tested; cut probe being packaged."],
+  ["20:13", "You submitted h3: 23.32 public, +0.26 over h2, three times the gain the folds predicted."],
   ["20:14", "Older REE history tested as extra training data for the signal forecaster: no reliable gain, not shipped. You ran the download; nothing dated after 31 Aug 2025 was fetched."],
   ["19:37", "Boundary study finished: no boundary rule helps the whole run; under an 84-hour cut the public number moves by ±1.4 points per MWh of charge at the cut with no real gain. Jury submissions will be chosen on whole-run fold scores."],
   ["19:22", "By your decision, older REE history (nothing after 31 Aug 2025) is being tested as extra training data for the signal forecaster. I declined to hide real test-week values in a .pkl."],
