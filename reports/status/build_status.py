@@ -1,0 +1,168 @@
+# Usage: .venv/Scripts/python.exe reports/status/build_status.py
+"""Builds reports/status/status.html, the live status board for the hard-mode work.
+Edit DATA below (or the figures list), rerun, republish. Text fields accept `code` and **bold**."""
+import html
+import re
+from pathlib import Path
+
+HERE = Path(__file__).parent
+
+DATA = {
+    "updated": "Sat 14 Nov 2026, 17:34",
+    "ceiling": 21.26,
+    "best": {"name": "Naive agent h0", "score": 18.96, "note": "validation, mean of 3 folds, 0 infractions"},
+    "leaderboard": [("SSA Gourmet", "21.27"), ("Low BaterIA", "4.50"), ("Fa (us)", "not submitted yet")],
+    "leaderboard_time": "16:57, public half of the hidden test",
+    "now": [
+        "Ceiling on our three test-like folds is about **21 points** (perfect foresight).",
+        "A naive legal agent scores about **19** with 0 infractions. It is being packaged for a first submission in this shift (until 21:00).",
+        "The gap is mostly the hour being decided: the agent does not know the current load, discharges too much, and the excess is thrown away.",
+        "Six subagents are working on load, solar and price/CO₂ forecasts, the planner, the submission package, and explainer figures.",
+    ],
+    "scoreboard": [  # name, A, B, C, mean, status
+        ("Perfect foresight (ceiling)", "22.44", "21.42", "19.92", "21.26", "reference"),
+        ("Naive agent, 10 % discharge haircut (h0)", "19.83", "19.29", "17.76", "18.96", "being packaged"),
+        ("Naive agent, no haircut", "19.70", "19.10", "17.64", "18.81", "superseded"),
+    ],
+    "running": [  # who, task, state (running | done | queued | blocked), since/result
+        ("Packager", "Turn the naive agent into a valid submission ZIP", "running", "since 17:19"),
+        ("Load forecaster", "Predict campus load, above all for the current hour (1.13 pts at stake)", "running", "since 17:19"),
+        ("Solar forecaster", "Predict solar ×12 for the current hour and next day (0.47 pts)", "running", "since 17:19"),
+        ("Price/CO₂ forecaster", "Predict the signal beyond the 3 known hours (0.79 pts)", "running", "since 17:19"),
+        ("Planner", "Fast optimiser that accounts for forecast uncertainty", "running", "since 17:19"),
+        ("Analyst", "Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from", "running", "since 17:28"),
+    ],
+    "tried": [  # what, result, verdict
+        ("Perfect-foresight ceiling on 3 folds", "21.26 mean", "reference"),
+        ("Re-plan hourly with the true next 24 h vs 48 h", "both equal the ceiling to 0.002", "a 24 h horizon is enough"),
+        ("Average-day forecast of price/CO₂ beyond 3 h", "−0.79", "worth a real forecaster"),
+        ("Average-day forecast of load and solar", "−1.46 (current hour −1.07, later hours −0.34; load −1.13, solar −0.47)", "current hour's load is the first target"),
+        ("Plain persistence for the current hour's net load", "−1.86", "worse than the profile"),
+        ("Fixed 10 % haircut on discharge", "+0.15", "keep until the planner handles uncertainty"),
+    ],
+    "figures": [  # file under figs/, title, caption
+        ("losses.png", "Where the score is lost",
+         "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."),
+    ],
+    "log": [  # newest first
+        ("17:33", "Leaderboard baselines agree with train: ×12 solar lowers the baseline by 16 % (CO₂) and 20 % (cost). Reminded the forecasters that hidden weeks include Christmas and late July."),
+        ("17:28", "Launched a sixth subagent for explainer figures."),
+        ("17:27", "One full battery is worth about 0.35 points; the optimum carries about 3,000 kWh across each week boundary."),
+        ("17:24", "Status board published."),
+        ("17:22", "Wrote `reports/10_hard_mode/report.md` and the hard-mode section of the work log."),
+        ("17:19", "Launched five subagents."),
+        ("17:17", "Split the loss by cause: current hour vs later hours, load vs solar."),
+        ("17:14", "First numbers: ceiling 21.26, naive legal agent 18.96."),
+        ("17:12", "Wrote the hard-mode simulator, ceiling and optimiser (`src/hard.py`, `src/hard_mpc.py`). Simulator matches the organisers' environment."),
+        ("17:06", "Committed the rules doc and starter-kit sync."),
+        ("16:40", "Scraped the new Mode Difícil tab; wrote `docs/NEW_RULES.md`."),
+    ],
+    "files": [
+        ("reports/README.md", "full work log (hard mode in Part I)"),
+        ("reports/10_hard_mode/report.md", "first hard-mode report"),
+        ("docs/NEW_RULES.md", "hard-mode rules"),
+        ("experiments/20_hard_baseline/", "scripts behind the numbers"),
+    ],
+}
+
+
+def fmt(s):
+    s = html.escape(str(s))
+    s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
+    return re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
+
+
+STATE = {"running": ("●", "Running"), "done": ("✓", "Done"), "queued": ("○", "Queued"), "blocked": ("!", "Blocked")}
+
+CSS = """
+/* Layout: one reading column; a status header with a charge gauge, then tables that scroll inside themselves. */
+:root{--bg:#f4f6f8;--panel:#ffffff;--ink:#101820;--ink2:#465362;--muted:#7a8794;--line:#dde3e9;--accent:#2a78d6;--accent-soft:#e3eefb;
+--good:#0a7d0a;--good-bg:#e4f5e4;--idle:#5d6975;--idle-bg:#e9edf1;--warn:#9a5b00;--warn-bg:#fdf0d5;--paper:#fcfcfb;
+--display:"Space Grotesk",system-ui,sans-serif;--body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1318;--panel:#161d24;--ink:#e9eef3;--ink2:#b3bec9;--muted:#8794a1;--line:#27313b;--accent:#5a9df0;--accent-soft:#17283d;
+--good:#4cc24c;--good-bg:#132a16;--idle:#a3afba;--idle-bg:#222b34;--warn:#f0b445;--warn-bg:#33270f;--paper:#fcfcfb;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1318;--panel:#161d24;--ink:#e9eef3;--ink2:#b3bec9;--muted:#8794a1;--line:#27313b;--accent:#5a9df0;--accent-soft:#17283d;
+--good:#4cc24c;--good-bg:#132a16;--idle:#a3afba;--idle-bg:#222b34;--warn:#f0b445;--warn-bg:#33270f;--paper:#fcfcfb;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+h1{font-family:var(--display);font-size:1.75rem;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-size:1.1rem;margin:0 0 10px;text-wrap:balance}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.stamp{font-family:var(--mono);font-size:.82rem;color:var(--ink2);margin:8px 0 0}
+code{font-family:var(--mono);font-size:.86em;background:var(--accent-soft);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+.top{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:720px){.top{grid-template-columns:minmax(0,1fr)}}
+.now{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:8px;max-width:65ch}
+.gauge{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.gauge .big{font-family:var(--display);font-size:2.4rem;line-height:1;font-weight:600}
+.gauge .big small{font-size:1rem;font-weight:500;color:var(--ink2)}
+.track{height:14px;border-radius:7px;background:var(--accent-soft);overflow:hidden}
+.fill{height:100%;background:var(--accent);border-radius:7px 0 0 7px}
+.gauge p{margin:0;color:var(--ink2);font-size:.86rem}
+.lb{margin:4px 0 0;padding:10px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;font-size:.88rem}
+.lb dt{color:var(--ink2)} .lb dd{margin:0;font-family:var(--mono);text-align:right}
+.scroll{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;white-space:nowrap}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);white-space:nowrap}
+tr.ref td{color:var(--ink2)} tr.lead td{font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.74rem;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.pill.running{color:var(--accent);background:var(--accent-soft)} .pill.done{color:var(--good);background:var(--good-bg)}
+.pill.queued{color:var(--idle);background:var(--idle-bg)} .pill.blocked{color:var(--warn);background:var(--warn-bg)}
+figure{margin:0;display:flex;flex-direction:column;gap:8px}
+figure img{background:var(--paper);border:1px solid var(--line);border-radius:10px;display:block;width:100%;height:auto}
+figcaption{color:var(--ink2);font-size:.88rem;max-width:75ch}
+figcaption strong{color:var(--ink)}
+.figs{display:flex;flex-direction:column;gap:22px}
+.log{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.log li{display:grid;grid-template-columns:3.6em minmax(0,1fr);gap:10px}
+.log time{font-family:var(--mono);font-size:.82rem;color:var(--muted);padding-top:2px}
+.files{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px;font-size:.9rem;color:var(--ink2)}
+"""
+
+
+def build():
+    d = DATA
+    pct = max(0.0, min(100.0, 100.0 * d["best"]["score"] / d["ceiling"]))
+    o = ['<meta name="claude:viewport-fit-sides" content="cover">', "<title>Hard Mode Status Board</title>",
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;600&family=Space+Grotesk:wght@500;600&display=swap">',
+         f"<style>{CSS}</style>", '<div class="wrap">']
+    o.append('<header><p class="eyebrow">FME Datathon 2026 · UPC Sostenible · battery challenge</p><h1>Hard mode status board</h1>'
+             f'<p class="stamp">Last updated {fmt(d["updated"])}</p></header>')
+    o.append('<section class="top"><div><h2>Where we are</h2><ul class="now">' + "".join(f"<li>{fmt(x)}</li>" for x in d["now"]) + "</ul></div>")
+    o.append('<div class="gauge"><p class="eyebrow" style="margin:0">Best validated agent vs ceiling</p>'
+             f'<div class="big">{d["best"]["score"]:.2f} <small>of {d["ceiling"]:.2f} points</small></div>'
+             f'<div class="track" role="img" aria-label="{pct:.0f} percent of the ceiling"><div class="fill" style="width:{pct:.1f}%"></div></div>'
+             f'<p>{fmt(d["best"]["name"])}: {pct:.0f} % of the perfect-foresight ceiling ({fmt(d["best"]["note"])}).</p>'
+             '<dl class="lb">' + "".join(f"<dt>{fmt(n)}</dt><dd>{fmt(v)}</dd>" for n, v in d["leaderboard"]) + "</dl>"
+             f'<p>Hard-mode leaderboard at {fmt(d["leaderboard_time"])}.</p></div></section>')
+    o.append('<section><h2>Scoreboard</h2><div class="scroll"><table><thead><tr><th>Agent</th><th class="num">Fold A</th><th class="num">Fold B</th>'
+             '<th class="num">Fold C</th><th class="num">Mean</th><th>Status</th></tr></thead><tbody>')
+    for i, (n, a, b, c, m, s) in enumerate(d["scoreboard"]):
+        cls = "ref" if s == "reference" else ("lead" if i == 1 else "")
+        o.append(f'<tr class="{cls}"><td>{fmt(n)}</td><td class="num">{a}</td><td class="num">{b}</td><td class="num">{c}</td><td class="num">{m}</td><td>{fmt(s)}</td></tr>')
+    o.append("</tbody></table></div></section>")
+    o.append('<section><h2>Running now</h2><div class="scroll"><table><thead><tr><th>Who</th><th>Task</th><th>State</th><th>Detail</th></tr></thead><tbody>')
+    for who, task, state, det in d["running"]:
+        ic, lab = STATE[state]
+        o.append(f'<tr><td><strong>{fmt(who)}</strong></td><td>{fmt(task)}</td><td><span class="pill {state}"><span aria-hidden="true">{ic}</span>{lab}</span></td><td>{fmt(det)}</td></tr>')
+    o.append("</tbody></table></div></section>")
+    o.append('<section><h2>Tried so far</h2><div class="scroll"><table><thead><tr><th>What</th><th>Result (score points)</th><th>Verdict</th></tr></thead><tbody>')
+    for what, res, ver in d["tried"]:
+        o.append(f"<tr><td>{fmt(what)}</td><td>{fmt(res)}</td><td>{fmt(ver)}</td></tr>")
+    o.append("</tbody></table></div></section>")
+    o.append('<section><h2>Figures</h2><div class="figs">')
+    for f, title, cap in d["figures"]:
+        o.append(f'<figure><img src="figs/{html.escape(f)}" alt="{html.escape(title)}"><figcaption><strong>{fmt(title)}.</strong> {fmt(cap)}</figcaption></figure>')
+    o.append("</div></section>")
+    o.append('<section><h2>Log</h2><ul class="log">' + "".join(f"<li><time>{fmt(t)}</time><span>{fmt(x)}</span></li>" for t, x in d["log"]) + "</ul></section>")
+    o.append('<section><h2>In the repo</h2><ul class="files">' + "".join(f"<li><code>{html.escape(p)}</code> {fmt(x)}</li>" for p, x in d["files"]) + "</ul></section>")
+    o.append("</div>")
+    (HERE / "status.html").write_text("\n".join(o), encoding="utf-8")
+    print("wrote", HERE / "status.html")
+
+
+if __name__ == "__main__":
+    build()

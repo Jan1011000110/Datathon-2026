@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 17:25
+**Last updated:** Sat 14 Nov 2026, 17:34
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -39,6 +39,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Solar forecaster | Predict solar ×12, current hour and next day | `experiments/22_solar/`, `12_solar_forecast/` | running since 17:19 |
 | Price/CO₂ forecaster | Predict the signal beyond the 3 known hours | `experiments/23_signal/`, `13_signal_forecast/` | running since 17:19 |
 | Planner | Fast optimiser that handles forecast uncertainty | `experiments/24_planner/`, `14_planner/` | running since 17:19 |
+| Analyst | Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from | `experiments/26_hard_eda/`, `15_hard_eda/` | running since 17:28 |
 
 ## H4. Tried so far
 
@@ -70,7 +71,11 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 - **17:14** First numbers: ceiling 21.26, naive legal agent 18.96 (T1–T6).
 - **17:17** Split the loss by cause (HF3, HF4).
 - **17:19** Launched five subagents (H3).
-- **17:25** Wrote `10_hard_mode/report.md` and this section.
+- **17:22** Wrote `10_hard_mode/report.md` and this section.
+- **17:24** Published a live status board (link in chat); it is rebuilt by `reports/status/build_status.py`.
+- **17:27** Measured the value of the starting charge with perfect foresight: starting empty instead of full costs 0.30–0.43 points over a run, so one full battery is worth about 0.35 points (`experiments/25_integration/boundaries.py`). The optimum ends each test week with about 3,000 kWh stored, so the agent must keep planning across the three-week jump between weeks.
+- **17:28** Launched a sixth subagent: explainer figures for the jury (`15_hard_eda/`).
+- **17:33** Compared train with the two leaderboards: the ×12 solar lowers the public baseline by 16.1 % in CO₂ and 20.0 % in cost; train months predict 15.2 % and 18.4 %. Consistent. Reminder sent to the load and price/CO₂ agents: the hidden weeks include Christmas week and late July, when load is far from a normal week.
 
 ---
 

@@ -1,0 +1,81 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Hard Mode Status Board</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;600&family=Space+Grotesk:wght@500;600&display=swap">
+<style>
+/* Layout: one reading column; a status header with a charge gauge, then tables that scroll inside themselves. */
+:root{--bg:#f4f6f8;--panel:#ffffff;--ink:#101820;--ink2:#465362;--muted:#7a8794;--line:#dde3e9;--accent:#2a78d6;--accent-soft:#e3eefb;
+--good:#0a7d0a;--good-bg:#e4f5e4;--idle:#5d6975;--idle-bg:#e9edf1;--warn:#9a5b00;--warn-bg:#fdf0d5;--paper:#fcfcfb;
+--display:"Space Grotesk",system-ui,sans-serif;--body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1318;--panel:#161d24;--ink:#e9eef3;--ink2:#b3bec9;--muted:#8794a1;--line:#27313b;--accent:#5a9df0;--accent-soft:#17283d;
+--good:#4cc24c;--good-bg:#132a16;--idle:#a3afba;--idle-bg:#222b34;--warn:#f0b445;--warn-bg:#33270f;--paper:#fcfcfb;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1318;--panel:#161d24;--ink:#e9eef3;--ink2:#b3bec9;--muted:#8794a1;--line:#27313b;--accent:#5a9df0;--accent-soft:#17283d;
+--good:#4cc24c;--good-bg:#132a16;--idle:#a3afba;--idle-bg:#222b34;--warn:#f0b445;--warn-bg:#33270f;--paper:#fcfcfb;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+h1{font-family:var(--display);font-size:1.75rem;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-size:1.1rem;margin:0 0 10px;text-wrap:balance}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.stamp{font-family:var(--mono);font-size:.82rem;color:var(--ink2);margin:8px 0 0}
+code{font-family:var(--mono);font-size:.86em;background:var(--accent-soft);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+.top{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:720px){.top{grid-template-columns:minmax(0,1fr)}}
+.now{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:8px;max-width:65ch}
+.gauge{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.gauge .big{font-family:var(--display);font-size:2.4rem;line-height:1;font-weight:600}
+.gauge .big small{font-size:1rem;font-weight:500;color:var(--ink2)}
+.track{height:14px;border-radius:7px;background:var(--accent-soft);overflow:hidden}
+.fill{height:100%;background:var(--accent);border-radius:7px 0 0 7px}
+.gauge p{margin:0;color:var(--ink2);font-size:.86rem}
+.lb{margin:4px 0 0;padding:10px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;font-size:.88rem}
+.lb dt{color:var(--ink2)} .lb dd{margin:0;font-family:var(--mono);text-align:right}
+.scroll{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;white-space:nowrap}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);white-space:nowrap}
+tr.ref td{color:var(--ink2)} tr.lead td{font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.74rem;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.pill.running{color:var(--accent);background:var(--accent-soft)} .pill.done{color:var(--good);background:var(--good-bg)}
+.pill.queued{color:var(--idle);background:var(--idle-bg)} .pill.blocked{color:var(--warn);background:var(--warn-bg)}
+figure{margin:0;display:flex;flex-direction:column;gap:8px}
+figure img{background:var(--paper);border:1px solid var(--line);border-radius:10px;display:block;width:100%;height:auto}
+figcaption{color:var(--ink2);font-size:.88rem;max-width:75ch}
+figcaption strong{color:var(--ink)}
+.figs{display:flex;flex-direction:column;gap:22px}
+.log{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.log li{display:grid;grid-template-columns:3.6em minmax(0,1fr);gap:10px}
+.log time{font-family:var(--mono);font-size:.82rem;color:var(--muted);padding-top:2px}
+.files{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px;font-size:.9rem;color:var(--ink2)}
+</style>
+<div class="wrap">
+<header><p class="eyebrow">FME Datathon 2026 · UPC Sostenible · battery challenge</p><h1>Hard mode status board</h1><p class="stamp">Last updated Sat 14 Nov 2026, 17:34</p></header>
+<section class="top"><div><h2>Where we are</h2><ul class="now"><li>Ceiling on our three test-like folds is about <strong>21 points</strong> (perfect foresight).</li><li>A naive legal agent scores about <strong>19</strong> with 0 infractions. It is being packaged for a first submission in this shift (until 21:00).</li><li>The gap is mostly the hour being decided: the agent does not know the current load, discharges too much, and the excess is thrown away.</li><li>Six subagents are working on load, solar and price/CO₂ forecasts, the planner, the submission package, and explainer figures.</li></ul></div>
+<div class="gauge"><p class="eyebrow" style="margin:0">Best validated agent vs ceiling</p><div class="big">18.96 <small>of 21.26 points</small></div><div class="track" role="img" aria-label="89 percent of the ceiling"><div class="fill" style="width:89.2%"></div></div><p>Naive agent h0: 89 % of the perfect-foresight ceiling (validation, mean of 3 folds, 0 infractions).</p><dl class="lb"><dt>SSA Gourmet</dt><dd>21.27</dd><dt>Low BaterIA</dt><dd>4.50</dd><dt>Fa (us)</dt><dd>not submitted yet</dd></dl><p>Hard-mode leaderboard at 16:57, public half of the hidden test.</p></div></section>
+<section><h2>Scoreboard</h2><div class="scroll"><table><thead><tr><th>Agent</th><th class="num">Fold A</th><th class="num">Fold B</th><th class="num">Fold C</th><th class="num">Mean</th><th>Status</th></tr></thead><tbody>
+<tr class="ref"><td>Perfect foresight (ceiling)</td><td class="num">22.44</td><td class="num">21.42</td><td class="num">19.92</td><td class="num">21.26</td><td>reference</td></tr>
+<tr class="lead"><td>Naive agent, 10 % discharge haircut (h0)</td><td class="num">19.83</td><td class="num">19.29</td><td class="num">17.76</td><td class="num">18.96</td><td>being packaged</td></tr>
+<tr class=""><td>Naive agent, no haircut</td><td class="num">19.70</td><td class="num">19.10</td><td class="num">17.64</td><td class="num">18.81</td><td>superseded</td></tr>
+</tbody></table></div></section>
+<section><h2>Running now</h2><div class="scroll"><table><thead><tr><th>Who</th><th>Task</th><th>State</th><th>Detail</th></tr></thead><tbody>
+<tr><td><strong>Packager</strong></td><td>Turn the naive agent into a valid submission ZIP</td><td><span class="pill running"><span aria-hidden="true">●</span>Running</span></td><td>since 17:19</td></tr>
+<tr><td><strong>Load forecaster</strong></td><td>Predict campus load, above all for the current hour (1.13 pts at stake)</td><td><span class="pill running"><span aria-hidden="true">●</span>Running</span></td><td>since 17:19</td></tr>
+<tr><td><strong>Solar forecaster</strong></td><td>Predict solar ×12 for the current hour and next day (0.47 pts)</td><td><span class="pill running"><span aria-hidden="true">●</span>Running</span></td><td>since 17:19</td></tr>
+<tr><td><strong>Price/CO₂ forecaster</strong></td><td>Predict the signal beyond the 3 known hours (0.79 pts)</td><td><span class="pill running"><span aria-hidden="true">●</span>Running</span></td><td>since 17:19</td></tr>
+<tr><td><strong>Planner</strong></td><td>Fast optimiser that accounts for forecast uncertainty</td><td><span class="pill running"><span aria-hidden="true">●</span>Running</span></td><td>since 17:19</td></tr>
+<tr><td><strong>Analyst</strong></td><td>Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from</td><td><span class="pill running"><span aria-hidden="true">●</span>Running</span></td><td>since 17:28</td></tr>
+</tbody></table></div></section>
+<section><h2>Tried so far</h2><div class="scroll"><table><thead><tr><th>What</th><th>Result (score points)</th><th>Verdict</th></tr></thead><tbody>
+<tr><td>Perfect-foresight ceiling on 3 folds</td><td>21.26 mean</td><td>reference</td></tr>
+<tr><td>Re-plan hourly with the true next 24 h vs 48 h</td><td>both equal the ceiling to 0.002</td><td>a 24 h horizon is enough</td></tr>
+<tr><td>Average-day forecast of price/CO₂ beyond 3 h</td><td>−0.79</td><td>worth a real forecaster</td></tr>
+<tr><td>Average-day forecast of load and solar</td><td>−1.46 (current hour −1.07, later hours −0.34; load −1.13, solar −0.47)</td><td>current hour&#x27;s load is the first target</td></tr>
+<tr><td>Plain persistence for the current hour&#x27;s net load</td><td>−1.86</td><td>worse than the profile</td></tr>
+<tr><td>Fixed 10 % haircut on discharge</td><td>+0.15</td><td>keep until the planner handles uncertainty</td></tr>
+</tbody></table></div></section>
+<section><h2>Figures</h2><div class="figs">
+<figure><img src="figs/losses.png" alt="Where the score is lost"><figcaption><strong>Where the score is lost.</strong> Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents.</figcaption></figure>
+</div></section>
+<section><h2>Log</h2><ul class="log"><li><time>17:33</time><span>Leaderboard baselines agree with train: ×12 solar lowers the baseline by 16 % (CO₂) and 20 % (cost). Reminded the forecasters that hidden weeks include Christmas and late July.</span></li><li><time>17:28</time><span>Launched a sixth subagent for explainer figures.</span></li><li><time>17:27</time><span>One full battery is worth about 0.35 points; the optimum carries about 3,000 kWh across each week boundary.</span></li><li><time>17:24</time><span>Status board published.</span></li><li><time>17:22</time><span>Wrote <code>reports/10_hard_mode/report.md</code> and the hard-mode section of the work log.</span></li><li><time>17:19</time><span>Launched five subagents.</span></li><li><time>17:17</time><span>Split the loss by cause: current hour vs later hours, load vs solar.</span></li><li><time>17:14</time><span>First numbers: ceiling 21.26, naive legal agent 18.96.</span></li><li><time>17:12</time><span>Wrote the hard-mode simulator, ceiling and optimiser (<code>src/hard.py</code>, <code>src/hard_mpc.py</code>). Simulator matches the organisers&#x27; environment.</span></li><li><time>17:06</time><span>Committed the rules doc and starter-kit sync.</span></li><li><time>16:40</time><span>Scraped the new Mode Difícil tab; wrote <code>docs/NEW_RULES.md</code>.</span></li></ul></section>
+<section><h2>In the repo</h2><ul class="files"><li><code>reports/README.md</code> full work log (hard mode in Part I)</li><li><code>reports/10_hard_mode/report.md</code> first hard-mode report</li><li><code>docs/NEW_RULES.md</code> hard-mode rules</li><li><code>experiments/20_hard_baseline/</code> scripts behind the numbers</li></ul></section>
+</div>

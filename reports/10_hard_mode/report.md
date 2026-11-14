@@ -1,6 +1,6 @@
 # Hard mode: first numbers and plan of attack
 
-**Written:** Sat 14 Nov 2026, 17:25. Rules of the mode: [`docs/NEW_RULES.md`](../../docs/NEW_RULES.md).
+**Written:** Sat 14 Nov 2026, 17:22. Rules of the mode: [`docs/NEW_RULES.md`](../../docs/NEW_RULES.md).
 
 ## 1. Summary
 
