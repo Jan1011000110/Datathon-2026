@@ -180,7 +180,7 @@ def score_weights(df: pd.DataFrame) -> np.ndarray:
     return ALPHA * co2 / np.sum(base * co2) + BETA * price / np.sum(base * price)
 
 
-def solve_lp(w, net, soc0=SOC0, soc_end_value=0.0):
+def solve_lp(w, net, soc0=SOC0, soc_end_value=0.0, cap=CAP, pmax=PMAX):
     """min sum_t w_t * g_t - soc_end_value * s_T
        s.t. s_t = s_{t-1} + ETA*c_t - d_t/ETA,  0<=s<=CAP,  0<=c,d<=PMAX,  g_t >= net_t + c_t - d_t,  g>=0
     Returns (c, d, s, g, objective)."""
@@ -197,7 +197,7 @@ def solve_lp(w, net, soc0=SOC0, soc_end_value=0.0):
     scale = 1.0 / float(np.mean(np.abs(w)))
     cost = np.concatenate([np.zeros(2 * T), np.zeros(T), np.asarray(w, float) * scale])
     cost[3 * T - 1] -= soc_end_value * scale
-    bounds = [(0, PMAX)] * (2 * T) + [(0, CAP)] * T + [(0, None)] * T
+    bounds = [(0, pmax)] * (2 * T) + [(0, cap)] * T + [(0, None)] * T
     r = linprog(cost, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs")
     if r.status != 0:
         raise RuntimeError(r.message)

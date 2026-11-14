@@ -2,9 +2,79 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 16:10
+**Last updated:** Sat 14 Nov 2026, 17:25
+
+**Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
 ---
+
+# Part I — Hard mode (live)
+
+Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode/report.md`](10_hard_mode/report.md).
+
+## H1. Where we are
+
+1. **Ceiling on our folds: about 21 points** (22.44 / 21.42 / 19.92 with perfect foresight).
+2. **A naive legal agent scores about 19** (19.83 / 19.29 / 17.76, 0 infractions). It is being packaged for a first submission in this shift.
+3. **The gap is mostly the hour being decided:** the agent does not know the current hour's load, over-discharges, and the excess is thrown away.
+4. **Priorities:** load forecast (1.13 points at stake), price/CO₂ forecast (0.79), solar forecast (0.47), and a planner that knows its forecasts are uncertain.
+5. **Leaderboard (16:57):** SSA Gourmet 21.27, Low BaterIA 4.50. We have not submitted to hard mode yet.
+
+![Where the score is lost](10_hard_mode/figs/losses.png)
+
+## H2. Scoreboard (validation folds, 0 infractions unless noted)
+
+| Agent | A | B | C | Mean | Status |
+|---|---|---|---|---|---|
+| Perfect foresight (ceiling) | 22.44 | 21.42 | 19.92 | 21.26 | reference |
+| Naive agent, 10 % discharge haircut (`h0`) | 19.83 | 19.29 | 17.76 | 18.96 | being packaged |
+| Naive agent, no haircut | 19.70 | 19.10 | 17.64 | 18.81 | superseded |
+
+## H3. Running now
+
+| Subagent | Task | Output | Status |
+|---|---|---|---|
+| Packager | Naive agent as a valid submission ZIP | `agents/h0/`, `submissions/h0/` | running since 17:19 |
+| Load forecaster | Predict campus load, above all the current hour | `experiments/21_load/`, `11_load_forecast/` | running since 17:19 |
+| Solar forecaster | Predict solar ×12, current hour and next day | `experiments/22_solar/`, `12_solar_forecast/` | running since 17:19 |
+| Price/CO₂ forecaster | Predict the signal beyond the 3 known hours | `experiments/23_signal/`, `13_signal_forecast/` | running since 17:19 |
+| Planner | Fast optimiser that handles forecast uncertainty | `experiments/24_planner/`, `14_planner/` | running since 17:19 |
+
+## H4. Tried so far
+
+| # | What | Result | Verdict |
+|---|---|---|---|
+| T1 | Perfect-foresight ceiling on 3 folds | 21.26 mean | reference |
+| T2 | Re-plan hourly with the true next 24 h vs 48 h | both equal the ceiling to 0.002 | a 24 h horizon is enough |
+| T3 | Average-day forecast of price/CO₂ beyond 3 h (load and solar known) | −0.79 | worth a real forecaster |
+| T4 | Average-day forecast of load and solar (price/CO₂ known) | −1.46; of which current hour −1.07, later hours −0.34; load −1.13, solar −0.47 | the current hour's load is the first target |
+| T5 | Plain persistence for the current hour's net load | −1.86 | worse than the profile forecast |
+| T6 | Fixed 10 % haircut on discharge | +0.15 | keep until the planner handles uncertainty itself |
+
+## H5. Findings
+
+| # | Finding | Evidence |
+|---|---|---|
+| HF1 | With solar ×12 the battery is limited by the campus's load, not by its inverter. Net load is under 1,500 kW in 98 % of hours. | `docs/NEW_RULES.md` §6 |
+| HF2 | Seeing 24 h of price/CO₂ would be enough for the optimum; we see 3. | T2 |
+| HF3 | The largest loss is over-discharging in the current hour: 17–22 MWh per run are sent to the grid for nothing by the naive agent. | `experiments/20_hard_baseline/decompose_n.csv` |
+| HF4 | Load errors cost more than solar errors although they are smaller in kW, because discharging happens in the evening, night and morning, when there is no sun. | `decompose_parts.csv` |
+| HF5 | Hard-mode scores are several times the standard-mode ones (ceiling 21 against 6) because the battery is three times larger and the baseline is smaller. | T1 |
+
+## H6. Log
+
+- **16:40** You asked for the hard-mode rules. Scraped the new tab, wrote `docs/NEW_RULES.md`.
+- **17:00** Synced `starter_kit/environment.py` and `docs/ENUNCIAT.md` from the site's ZIP (data unchanged). Old and new environment give identical standard-mode results.
+- **17:06** Committed. You asked me to manage the hard-mode work.
+- **17:12** Wrote `src/hard.py` (table, folds, simulator, ceiling) and `src/hard_mpc.py` (optimiser with pluggable forecasters). Simulator matches the organisers' environment.
+- **17:14** First numbers: ceiling 21.26, naive legal agent 18.96 (T1–T6).
+- **17:17** Split the loss by cause (HF3, HF4).
+- **17:19** Launched five subagents (H3).
+- **17:25** Wrote `10_hard_mode/report.md` and this section.
+
+---
+
+# Part II — Standard mode (as of 16:10)
 
 > **Start here:** [`06_edge/report.md`](06_edge/report.md). At 16:00 the organisers said no team has reached the maximum on the *private* ranking. On clean data a plain optimiser is the maximum, so the private half most likely contains bad data (outages, a dead week). Our agent already has an outage guard; **agent v2** (`submissions/v2/agent.py`) adds every tested protection and is the recommended submission.
 
