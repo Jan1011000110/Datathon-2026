@@ -2,11 +2,11 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 15:25
+**Last updated:** Sat 14 Nov 2026, 16:10
 
 ---
 
-> **Start here after lunch:** [`06_edge/report.md`](06_edge/report.md) — "Is there any real edge left?" Short answer: no better controller exists (checked four ways); a hardened v1.1 is ready for meter outages; and the two 6.44s on the board are most likely a side effect of how the public half is cut, which we could reproduce with one file but should not chase before asking the organisers how the final ranking is computed.
+> **Start here:** [`06_edge/report.md`](06_edge/report.md). At 16:00 the organisers said no team has reached the maximum on the *private* ranking. On clean data a plain optimiser is the maximum, so the private half most likely contains bad data (outages, a dead week). Our agent already has an outage guard; **agent v2** (`submissions/v2/agent.py`) adds every tested protection and is the recommended submission.
 
 ## 1. Where we are, in five lines
 
@@ -226,6 +226,10 @@ I report in chat when each one finishes and add its results here.
 - **15:12** Simulated which explanation reproduces the leaderboard pattern (`experiments/13_fault_luck/which_mechanism.py`). A meter glitch: 0.8% of cases. Public half = first 84 h of each week, scored out of one continuous run: 77%. Measured how leaky that split is (`split_leak.py`).
 - **15:15** Red-team agent finished: `02_robustness/report.md`, v1.1 candidate, reusable stress harness.
 - **15:22** Rewrote `06_edge/report.md` around the split finding. Section 3a above is superseded by it.
+- **15:24** Leaderboard: three more teams joined the pack after lunch; still only two entries at 6.44.
+- **16:00** Organisers' message: nobody has reached the maximum on the private ranking. Reading: bad data in the private half.
+- **16:06** Built and validated agent v2 (`agents/v2/agent.py`, packaged in `submissions/v2/`): v1.1 plus low-load plan caps plus surplus-solar charging. Stress harness: 0 failures.
+- **16:10** Updated `06_edge/report.md` with the recommendation to submit v2.
 
 ---
 

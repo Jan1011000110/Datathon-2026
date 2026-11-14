@@ -1,6 +1,45 @@
 # Is there any real edge left?
 
-**State: Sat 14 Nov, 15:25.** Written for the team to read after lunch. It replaces what I said in chat earlier this afternoon, where I changed my mind more than once; this is where the evidence ended up.
+**State: Sat 14 Nov, 16:10.** Sections 1–4 were written at 15:25. The update below and section 5 were rewritten at 16:10 after the organisers' message.
+
+## Update, 16:10: the organisers say nobody has reached the maximum on the private ranking
+
+Their message: teams who say they have reached the maximum score have done so on the public ranking; on the private ranking no team has.
+
+**What it tells us.** On clean data a plain optimiser *is* the maximum (section 1). The only things that separate an optimiser from perfect foresight are hours where the recorded campus load is zero or low (section 3). The public half has none: our outage guard never acted there. So the private half most likely contains bad data, such as an outage, a dead stretch or the November week filled with zeros, and every team is losing points on it.
+
+**Why the two halves can differ.** They are different specific hours, not two random samples. Whatever unusual event sits in one is absent from the other.
+
+**Why we can still test.** We know what the faults look like (five real ones in train), and the red-team harness injects outages, dead weeks, low-load stretches and missing readings into real weeks and scores any agent against perfect foresight: 142 scenarios.
+
+**Where we probably stand.** v1 already has an outage guard and the pack does not (we match guard-less teams to the cent on the clean public half). In a dead-week scenario an optimiser with no guard loses 0.5–0.9 points and v1 loses under 0.1. So we may already be well ahead on the private ranking without being able to see it.
+
+**What I built: agent v2** (`submissions/v2/agent.py`). It is v1's optimiser, unchanged, with every tested protection:
+
+| Situation in the hidden data | v2 minus v1 (points, mean of three folds) |
+|---|---|
+| Clean data | −0.0002 (one false alarm in the whole train set) |
+| A dead week (load and solar read 0), early or mid-run | +0.008 to +0.048 |
+| A dead week with solar still reporting | +0.028 |
+| A 3-day outage | 0 to +0.068 |
+| A 110-minute glitch | +0.010 to +0.020 each |
+| A 14-hour glitch starting mid-hour | +0.013 to +0.017 each |
+| Campus at 45% of normal load for the whole run | +0.19 |
+| A 25-minute glitch | −0.003 to −0.004 each |
+| A dead *last* week | −0.016 |
+
+It passes `check_submission.py` and the stress harness with 0 failures and 0 infractions (`experiments/02_stress/out/v2_stress.txt`), in 0.3 s per run. On clean train folds it matches v1 to four decimals on A and B and is 0.0006 lower on C.
+
+**Recommendation: submit `submissions/v2/agent.py` now.** Expect the same 6.43 on the public board. If its row differs at all from v1's (4,282.5 kg, 8,934.63 €), that by itself proves the new rules fired somewhere in the run, which would confirm bad data in the hidden half.
+
+**One open risk: which submission counts.** If the private ranking uses each team's *best public* submission and ties go to the earliest, a v2 that ties v1 at 6.43 would not replace it, and our private score would stay v1's. Two ways to handle that:
+
+- **Ask the organisers** which submission is used for the private ranking (best public, last, or best private). This is the clean answer.
+- **Or hedge with two submissions.** First `submissions/v2_w0575/agent.py`: v2 with the CO₂/price weighting at 0.575, which I expect to show about 6.44 on the public board (section 4) and so become our best public entry. Then `submissions/v2/agent.py` last. That covers all three rules: best public picks the robust agent, last picks the robust agent, best private picks whichever is better. The cost is about 0.007 on the private half if the re-weighted one is the one that counts, small next to what robustness is worth if bad data is there.
+
+---
+
+*The rest of this report is as written at 15:25. It replaces what I said in chat earlier in the afternoon, where I changed my mind more than once.*
 
 ## The short answer
 
@@ -205,50 +244,35 @@ So a team that worked out the cut could post 7+ on the public board with a contr
 
 ## 5. What to do
 
-### First: two questions for the organisers
+Superseded by the update at the top. In short:
 
-1. **Is the final ranking computed on the private half, on all hours, or on the public half?**
-2. **Which submission counts for a team: its best on the public board, its last, or one we choose?**
+1. **Submit `submissions/v2/agent.py`.** The private ranking is where teams differ, and robustness to bad data is the only lever there.
+2. **Do not chase 6.44 on the public board for its own sake.** It is most likely a side effect of the public/private cut (section 4), and it costs on the private half about what it gains on the public one. The only reason to use the re-weighted variant is the "which submission counts" hedge described in the update.
+3. **Ask the organisers which submission is used for the private ranking.**
+4. **Consider telling them about the cut.** If section 4 is right, the public board can be inflated by more than a point with a controller that is worse in reality. Scoring all hours, or running each half as its own simulation, would close it. Your call.
 
-Everything below depends on the answers.
-
-| If the final ranking uses… | Then chasing 6.44 on the public board… | Best entry |
-|---|---|---|
-| All hours | costs about 0.0003. Harmless, and it buys public rank. | Either; the probe if you want the rank |
-| The public half | is a real gain in rank. | The probe that scores highest |
-| The private half | **costs about what it gains.** A +0.007 on public is roughly −0.007 on private, which would put us at the bottom of the pack. | v1 or v1.1; do not chase |
-
-### The probe, if you decide to use it
-
-`submissions/probe_w0575/agent.py` is v1 with the weighting set to 0.575. It passes `check_submission.py` with 0 infractions and scores within 0.001 of v1 on whole train runs.
-
-- **What I expect:** about 6.438, displayed as 6.44, the same as Programi's first entry. That would also confirm section 4.
-- **What a 6.43 would mean:** Programi is not simply a re-weighted optimum, and my explanation is wrong or incomplete.
-- **The risk:** if the best public submission automatically becomes our final entry and the final uses the private half, this would replace v1 with something slightly worse there.
-
-`submissions/probe_w0625/agent.py` (weighting 0.625, the Prueba_1 side) is also ready but is a coin flip by my simulation. To read a result precisely:
+To read any new leaderboard row precisely:
 
 ```
 .venv/Scripts/python.exe experiments/05_leaderboard/unrounded.py <CO2 avoided kg> <EUR saved>
 ```
 
-You have 9 submissions left in this shift; they expire at 21:00.
+Files ready in `submissions/`, all passing the checker with 0 infractions:
 
-### Consider telling the organisers
-
-If section 4 is right, the public board can be inflated by more than a point with a controller that is worse in reality, and small accidental differences are already reordering the top. Scoring all hours, or running each half as its own simulation, would close it. Raising this is fair to everyone and it is exactly the kind of analysis the jury says it weighs. Your call.
-
-### My recommendation
-
-1. Ask the two questions.
-2. Keep v1 as our entry for now. Swap to v1.1 (rules 1 and 2, and rule 3 if you want the bet) once we know nothing about the final rule argues against a second submission.
-3. Use the probe only if the answer is "all hours" or "public half", or if you decide the public rank is worth the risk.
+| File | What it is |
+|---|---|
+| `v2/agent.py` | **Recommended.** v1's optimiser plus all protections. |
+| `v2_w0575/agent.py` | v2 with the weighting at 0.575 (the hedge). |
+| `v1_1/agent.py` | v1 plus crash-proofing and outage persistence only. |
+| `v1_1_with_drop_rule/agent.py` | The above plus the sudden-drop rule. |
+| `v1/agent.py` | What we submitted at 13:57. |
+| `probe_w0575/`, `probe_w0625/`, `probe_w0550/`, `probe_w0650/` | v1 with other weightings; diagnostics only. |
 
 ---
 
 ## 6. Open items
 
-- **The organisers' answers** to the two questions above.
+- **The organisers' answer** on which submission is used for the private ranking.
 - **One thing you can tell me:** when you ran the free *Validació Ràpida*, what did it print? If it shows a score for its 48-hour test, that is a second measurement we have not used.
 - **Not knowable from here:** how many glitches the hidden test has, and what Prueba_1 is.
 
