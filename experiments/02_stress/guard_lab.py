@@ -34,6 +34,7 @@ DEFAULTS = dict(
     fut="none",           # caps for FUTURE hours: "none" | "persist" | "truth" (cheat, upper bound)
     fut_thresh=600.0,     # ... only when the last net load is below this
     fut_margin=0.0,
+    fut_hours=24,         # ... and only for this many hours ahead
     fut_round="floor",    # how the future caps are put on the 50 kW lattice
     free_solar=False,     # (old name) = surplus="persist", surplus_factor=0.9, only when the plan idles
     surplus="off",        # last net load < 0 (pv > load): charge at least the expected surplus and
@@ -235,6 +236,7 @@ class LabAgent:
             m = np.floor(c + 1e-9) if P["fut_round"] == "floor" else np.round(c)
             s = int(2 * min(10, max(0, m)))
             hi = n if left is None else min(n, left)   # beyond the week boundary: unknown -> 500
+            hi = min(hi, int(P["fut_hours"]))
             sd[:hi] = s
         elif P["fut"] == "truth":
             df = P["truth"]

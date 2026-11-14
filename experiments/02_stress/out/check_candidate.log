@@ -1,0 +1,6 @@
+1. candidate with new rules off vs v1  : max |action difference| over 114 runs = 0 kW
+2. candidate vs lab agent, same params : max |action difference| over 114 runs = 0 kW
+3. official train table, 5993 h: outage rule fired 17 times (zero reading 15, sudden drop 2)
+      2026-01-20 10:00:00 drop 1456 -> 886 kW
+      2026-08-06 08:00:00 drop 810 -> 465 kW
+   score v1 5.6668, candidate 5.6666, oracle 5.6753

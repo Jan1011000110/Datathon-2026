@@ -409,6 +409,26 @@ class Poison:
         return self.agent.act(obs)
 
 
+class NanPrice:
+    """One hour of the run has no price (NaN): it shows up in 24 consecutive lookahead lists
+    and once as preu_actual."""
+
+    def __init__(self, agent, when, key=P, actual="preu_actual"):
+        self.agent, self.when, self.key, self.actual, self.t = agent, set(when), key, actual, 0
+
+    def act(self, obs):
+        obs = dict(obs)
+        lst = list(obs[self.key])
+        for k in range(len(lst)):
+            if self.t + k in self.when:
+                lst[k] = NAN
+        obs[self.key] = lst
+        if self.t in self.when:
+            obs[self.actual] = NAN
+        self.t += 1
+        return self.agent.act(obs)
+
+
 def section_sequences(R, mod, df):
     head("3. SEQUENCES  (full 2,016-step run, fold C: contains the real 14 h outage, so the guard matters)")
     try:
@@ -448,6 +468,15 @@ def section_sequences(R, mod, df):
               "regret vs oracle %.4f, %d infr" % (reg, r["infractions"]))
     except Exception as e:
         R.add("sequences", "DST-like days", "FAIL", "%s: %s" % (type(e).__name__, str(e)[:90]))
+    # a hole in the market data
+    for label, when in (("one hour without price (NaN)", [700]), ("three separate hours without price (NaN)", [300, 1000, 1700])):
+        try:
+            r = run(NanPrice(mod.BatteryAgent(), when), df)
+            d = r["raw"] - base["raw"]
+            st = "FAIL" if r["infractions"] else ("WARN" if d < -0.01 else "PASS")
+            R.add("sequences", label, st, "score %+.4f vs clean run, %d infr" % (d, r["infractions"]))
+        except Exception as e:
+            R.add("sequences", label, "FAIL", "%s: %s" % (type(e).__name__, str(e)[:90]))
     # poison
     garbage = [lambda o: o.update({P: None, K: None}), lambda o: o.update(timestamp="garbage"),
                lambda o: o.update({M: {"ultim_consum_kw": NAN, "ultima_solar_kw": None}}),

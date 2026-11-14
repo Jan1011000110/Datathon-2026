@@ -2,9 +2,11 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 14:25
+**Last updated:** Sat 14 Nov 2026, 15:20
 
 ---
+
+> **Start here after lunch:** [`06_edge/report.md`](06_edge/report.md) — "Is there any real edge left?" Short answer: not on clean data (checked four ways); yes around meter glitches; and two teams above the pack point to something testable with two prepared submissions.
 
 ## 1. Where we are, in five lines
 
@@ -179,7 +181,7 @@ Safety layers:
 | EDA analyst | Coverage map, load/PV/CO₂/price profiles, do CO₂ and price agree, predictability beyond 24 h. Presentation-grade plots. | [`reports/01_eda/report.md`](01_eda/report.md), 21 figures | **done** |
 | Red-team | Fuzz the agent with malformed inputs; zero-load weeks, outages, dropped weeks, low-load weeks; tune the outage guard. | `reports/02_robustness/` | running |
 | Gap researcher | Break down the last 0.007 points of gap to the oracle and recover what can honestly be recovered. | [`reports/03_gap/report.md`](03_gap/report.md) | **done**: nothing honest is worth more than 0.001; keep v1 |
-| What-if analyst | Yearly tCO₂ and € saved, CO₂-vs-cost Pareto frontier, battery sizing (kWh and kW), efficiency. For the jury. | `reports/04_whatif/` | running |
+| What-if analyst | Yearly tCO₂ and € saved, CO₂-vs-cost Pareto frontier, battery sizing (kWh and kW), efficiency. For the jury. | [`reports/04_whatif/report.md`](04_whatif/report.md), 8 figures | **done** |
 | Leaderboard scraper | Snapshot of the live leaderboard. | `reports/05_leaderboard/` | **done** (section 3) |
 
 I report in chat when each one finishes and add its results here.
@@ -217,6 +219,10 @@ I report in chat when each one finishes and add its results here.
 - **14:15** EDA subagent finished: 21 figures and a report (`01_eda/report.md`). New findings F9–F12. I saved its report text because subagents cannot write report files.
 - **14:20** Measured what the safety nets cost, after a question from the team (finding F8). The clamp margin withholds 0.059 kWh over a whole run; the load guard changes 1 action in 2,016 on a clean fold.
 - **14:30** Gap researcher finished (`03_gap/report.md`, findings F13–F14). It tried terminal values, forecasts of the next day and online estimates of the CO₂/price ratio: none gives a gain that holds across folds. Recommendation: keep v1 unchanged.
+- **14:45** Leaderboard snapshot 3: 22 teams, 17 at 6.43, a second entry above the pack (Prueba_1, ≈ 6.443).
+- **14:50** What-if analyst finished: `04_whatif/report.md` with 8 figures (yearly savings 42.5 t CO₂ and 91 k€; the battery is energy-limited; 70/30 costs 20.5 k€ a year against cost-only). Parked for the presentation.
+- **15:00** Brute-force check of the ceiling done (`experiments/12_ceiling_check/`): exhaustive search never beats the LP.
+- **15:20** Wrote `06_edge/report.md`. Prepared two diagnostic submissions in `submissions/`.
 
 ---
 

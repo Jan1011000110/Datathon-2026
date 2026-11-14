@@ -45,10 +45,11 @@ def panel_figure(df, traces, t0, t1, band, title, subtitle, notes, fname, kappa=
     ax[1].set_ylim(0, None)
     ax[1].text(pd.Timestamp(band[0]) + (pd.Timestamp(band[1]) - pd.Timestamp(band[0])) / 2, ax[1].get_ylim()[1] * 0.45,
                notes["band"], ha="center", va="center", color=INK2, fontsize=8.5)
-    for name, tr in traces.items():
+    for j, (name, tr) in enumerate(traces.items()):
         p = tr["p_kw"].loc[s]
-        ax[2].step(idx, p, where="post", color=COL[name], lw=2, label=name)
-        ax[3].step(idx, tr["soc_kwh"].loc[s], where="post", color=COL[name], lw=2, label=name)
+        lw = 4.2 if j == 0 else 1.8              # first agent drawn wide underneath, so overlaps stay visible
+        ax[2].step(idx, p, where="post", color=COL[name], lw=lw, label=name, solid_capstyle="butt")
+        ax[3].step(idx, tr["soc_kwh"].loc[s], where="post", color=COL[name], lw=lw, label=name, solid_capstyle="butt")
     ax[2].axhline(0, color=INK2, lw=0.8)
     ax[2].set_title("Battery command (kW):  above 0 = charging,  below 0 = discharging")
     ax[2].set_ylim(-560, 560)
@@ -65,9 +66,9 @@ def panel_figure(df, traces, t0, t1, band, title, subtitle, notes, fname, kappa=
                        color=INK, fontsize=8.5, va="center")
     ax[3].xaxis.set_major_locator(mdates.HourLocator(byhour=range(0, 24, 6)))
     ax[3].xaxis.set_major_formatter(mdates.DateFormatter("%d %b\n%H:%M"))
-    fig.suptitle(title, x=0.065, y=0.985, ha="left", fontsize=12.5, fontweight="bold")
-    fig.text(0.065, 0.948, subtitle, ha="left", fontsize=9, color=INK2)
-    fig.subplots_adjust(left=0.065, right=0.93, top=0.905, bottom=0.07)
+    fig.suptitle(title, x=0.065, y=0.988, ha="left", fontsize=12, fontweight="bold")
+    fig.text(0.065, 0.962, subtitle, ha="left", va="top", fontsize=8.8, color=INK2, linespacing=1.35)
+    fig.subplots_adjust(left=0.065, right=0.93, top=0.885, bottom=0.07)
     FIGS.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIGS / fname, dpi=160)
     plt.close(fig)
@@ -87,13 +88,13 @@ def main():
     panel_figure(
         df, {k: r["trace"] for k, r in tr.items()}, "2026-06-17 06:00", "2026-06-18 14:00",
         ("2026-06-17 17:00", "2026-06-18 07:00"),
-        "Through a real meter outage: the guard holds the energy instead of exporting it for nothing",
-        "17-18 June 2026 (fold C). Without the guard the optimiser sends %.0f kWh to the grid, worth nothing, and re-buys it: "
-        "fold score %.3f vs %.3f with v1's guard." % (exp["no guard"], sc["no guard"], sc["v1"]),
+        "A real meter outage: the guard keeps the energy instead of exporting it for nothing",
+        "17-18 June 2026, fold C. Without the guard the optimiser sends %.0f kWh into a load of zero and has to buy it again.\n"
+        "Score of the whole 2,016 h run: %.3f without the guard, %.3f with v1's guard." % (exp["no guard"], sc["no guard"], sc["v1"]),
         {"band": "meter reads exactly 0 for 14 hours",
-         "arrows": [(2, "2026-06-17 23:30", -330, "no guard: evening peak\ndischarged into zero load", ("2026-06-17 21:30", -480)),
-                    (2, "2026-06-18 08:40", 330, "v1: blocked one hour too long\n(last reading still 0)", ("2026-06-18 07:30", 0))],
-         "label_dy": {"no guard": -6, "v1": 6}},
+         "arrows": [(2, "2026-06-17 22:40", -300, "no guard: the evening peak and\nthe early morning go to waste", ("2026-06-17 21:40", -470)),
+                    (2, "2026-06-18 08:20", 300, "v1 sits out 07:00:\nthe last reading was still 0", ("2026-06-18 07:30", 10))],
+         "label_dy": {"no guard": -7, "v1": 7}},
         "outage_guard.png")
 
     # ---- figure 2: a partial glitch hour, v1 vs v1.1 ------------------------------------------
@@ -107,11 +108,12 @@ def main():
     panel_figure(
         df2, {k: r["trace"] for k, r in tr2.items()}, a, b,
         (day + pd.Timedelta(hours=19), day + pd.Timedelta(hours=22)),
-        "A logger glitch that starts mid-hour: v1 trusts the half-empty reading, v1.1 reads it as a warning",
-        "Injected glitch 19:24-21:14 (same shape as the real one of 6 Aug 2026). The 19:00 reading is 40%% of normal; v1 still discharges 95%% of it "
-        "into a dead hour.\nEnergy exported for nothing: v1 %.0f kWh, v1.1 %.0f kWh. Run score %.4f vs %.4f." % (exp2["v1"], exp2["v1.1"], sc2["v1"], sc2["v1.1"]),
+        "A glitch that starts mid-hour: v1 trusts the half-empty reading, v1.1 treats it as a warning",
+        "Injected logger glitch 19:24-21:14 (110 min, like the real one of 6 Aug 2026). The 19:00 reading is 40%% of normal;\n"
+        "v1 still discharges 95%% of it at 20:00, into nothing. Exported for nothing: v1 %.0f kWh, v1.1 %.0f kWh. "
+        "Run score %.4f vs %.4f." % (exp2["v1"], exp2["v1.1"], sc2["v1"], sc2["v1.1"]),
         {"band": "glitch",
-         "arrows": [(2, (day + pd.Timedelta(hours=22, minutes=30)).isoformat(), -200, "v1: 95% of a\npartial reading", ((day + pd.Timedelta(hours=20, minutes=30)).isoformat(), -300))],
+         "arrows": [(2, (day + pd.Timedelta(hours=23, minutes=20)).isoformat(), -250, "v1 at 20:00: 95% of\na partial reading", ((day + pd.Timedelta(hours=20, minutes=40)).isoformat(), -440))],
          "label_dy": {"v1": -6, "v1.1": 6}},
         "glitch_guard.png")
 

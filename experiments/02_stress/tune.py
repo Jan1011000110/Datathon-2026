@@ -113,17 +113,38 @@ GROUPS = {
         "exit+entry+buy48": dict(cal_exit=True, entry_week=2, dead_buy=48),
     },
 }
-V11 = dict(drop_ratio=0.65, night=True, cal_exit=True)
+V11 = dict(drop_ratio=0.70, drop_skip6=True, pers_a=4, pers_b=1)
 GROUPS["final"] = {
     "v1": {},
-    "v1.1 = drop.65 + night + exit": V11,
-    "v1.1 + entry": dict(V11, entry_week=2),
-    "v1.1 + q05": dict(V11, profile="q05", margin=0.0),
+    "drop.70s": dict(drop_ratio=0.70, drop_skip6=True),
+    "drop.65": dict(drop_ratio=0.65),
+    "b1 (a4 b1)": dict(pers_a=4, pers_b=1),
+    "v1.1 = drop.70s + b1": V11,
+    "v1.1 with drop.65": dict(V11, drop_ratio=0.65, drop_skip6=False),
+    "v1.1 a1 b1": dict(V11, pers_a=1),
+    "v1.1 a1 b0": dict(V11, pers_a=1, pers_b=0),
+    "v1.1 + exit": dict(V11, cal_exit=True),
+    "v1.1 + exit + entry": dict(V11, cal_exit=True, entry_week=2),
+    "v1.1 + night": dict(V11, night=True),
     "v1.1 + persist<600": dict(V11, fut="persist", fut_thresh=600.0),
-    "v1.1 + q05 + persist<600": dict(V11, profile="q05", margin=0.0, fut="persist", fut_thresh=600.0),
-    "v1.1 - drop": dict(night=True, cal_exit=True),
-    "v1.1 - night": dict(drop_ratio=0.65, cal_exit=True),
-    "v1.1 - exit": dict(drop_ratio=0.65, night=True),
+    "v1.1 + persist<600 6h": dict(V11, fut="persist", fut_thresh=600.0, fut_hours=6),
+    "v1.1 + persist<500": dict(V11, fut="persist", fut_thresh=500.0),
+    "v1.1 + persist<500 6h": dict(V11, fut="persist", fut_thresh=500.0, fut_hours=6),
+}
+GROUPS["margin"] = {
+    "v1 (5%)": {},
+    "m 0%": dict(margin=0.0), "m 2%": dict(margin=0.02), "m 10%": dict(margin=0.10), "m 15%": dict(margin=0.15),
+    "m 5% night": dict(night=True), "q05": dict(profile="q05", margin=0.0),
+}
+GROUPS["future"] = {
+    "v1": {},
+    "truth caps (cheat)": dict(fut="truth"),
+    "persist <600": dict(fut="persist", fut_thresh=600.0),
+    "persist <500": dict(fut="persist", fut_thresh=500.0),
+    "persist <700": dict(fut="persist", fut_thresh=700.0),
+    "persist <600 nearest": dict(fut="persist", fut_thresh=600.0, fut_round="nearest"),
+    "persist <600 6h": dict(fut="persist", fut_thresh=600.0, fut_hours=6),
+    "persist <600 12h": dict(fut="persist", fut_thresh=600.0, fut_hours=12),
 }
 
 
@@ -140,7 +161,7 @@ def main():
         V = GROUPS[gname]
         tasks = [(vn, kw, i) for vn, kw in V.items() for i in range(len(S))]
         t0 = time.time()
-        with ProcessPoolExecutor(max_workers=6) as ex:
+        with ProcessPoolExecutor(max_workers=9) as ex:
             res = list(ex.map(_work, tasks, chunksize=8))
         raw = {vn: np.full(len(S), np.nan) for vn in V}
         ninf = 0

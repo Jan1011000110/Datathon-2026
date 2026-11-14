@@ -1,0 +1,76 @@
+stress.py  candidate = C:\Users\alexv\Documents\Datathon-2026\agents\v1\agent.py   calendar = test   2026-11-14 14:33
+
+====================================================================================================
+4. DATA-SHAPE SCENARIOS  (score in points, unclamped; regret = oracle - agent; mean of folds A,B,C)
+====================================================================================================
+scenario                                      agent no-guard   oracle |   regret ref.regr    worst | extra/evt  infr
+-- a.clean
+clean                                        5.8362   5.8259   5.8437 |   0.0075   0.0178   0.0188 |         -     0
+-- b.dropped
+drop Nov week                                5.9467   5.9354   5.9549 |   0.0082   0.0195   0.0206 |         -     0
+drop Aug week                                5.4030   5.3918   5.4100 |   0.0070   0.0181   0.0202 |         -     0
+drop Nov+Aug weeks                           5.4789   5.4666   5.4866 |   0.0077   0.0200   0.0222 |         -     0
+-- c.zero-week
+zero load+pv week: first/Sep                 5.8180   5.2220   5.8812 |   0.0632   0.6592   0.0912 |    0.0557     0
+zero load+pv week: Nov                       5.9665   5.1318   6.0024 |   0.0359   0.8706   0.0517 |    0.0284     0
+zero load+pv week: Mar                       5.7568   4.9810   5.7853 |   0.0285   0.8043   0.0509 |    0.0210     0
+zero load+pv week: last/Aug                  5.2980   4.9179   5.4100 |   0.1120   0.4921   0.1548 |    0.1045     0
+zero load week (pv real): Nov                5.9676   5.1885   6.0678 |   0.1002   0.8793   0.1234 |    0.0928     0
+-- c.zero-pv
+zero pv week: Aug                            5.8273   5.8169   5.8347 |   0.0074   0.0178   0.0188 |         -     0
+zero pv whole run                            5.7456   5.7354   5.7529 |   0.0073   0.0175   0.0185 |         -     0
+-- d.outage-1h
+outage  1h from 20:00 (x12)                  5.5078   5.5557   5.8519 |   0.3441   0.2962   0.3925 |    0.0281     0
+outage  1h from 14:00 (x12)                  5.8622   5.8518   5.8697 |   0.0076   0.0179   0.0189 |    0.0000     0
+outage  1h from 17:00 (x12)                  5.8377   5.8498   5.8775 |   0.0398   0.0277   0.0638 |    0.0027     0
+-- d.outage-3h
+outage  3h from 20:00 (x12)                  5.5348   5.1428   5.8442 |   0.3093   0.7013   0.3528 |    0.0252     0
+outage  3h from 14:00 (x12)                  5.9138   5.9091   5.9272 |   0.0133   0.0181   0.0191 |    0.0005     0
+outage  3h from 17:00 (x12)                  5.8054   5.5658   5.9070 |   0.1017   0.3412   0.1324 |    0.0078     0
+-- d.outage-14h
+outage 14h from 20:00 (x12)                  5.4957   4.7892   5.9019 |   0.4062   1.1126   0.4383 |    0.0332     0
+outage 14h from 14:00 (x12)                  6.0027   4.9797   6.0598 |   0.0571   1.0801   0.0611 |    0.0041     0
+outage 14h from 17:00 (x12)                  5.6635   4.7689   5.9001 |   0.2366   1.1312   0.2469 |    0.0191     0
+-- d.outage-72h
+outage 72h from 20:00 (x4)                   5.6756   4.6518   5.9875 |   0.3120   1.3357   0.3450 |    0.0761     0
+outage 72h from 14:00 (x4)                   5.7859   4.6291   5.8896 |   0.1037   1.2605   0.1451 |    0.0241     0
+outage 72h from 17:00 (x4)                   5.7779   4.6321   5.8981 |   0.1202   1.2660   0.1550 |    0.0282     0
+-- g.glitch
+glitch 25min from 07:35 (x12)                5.8535   5.8431   5.8642 |   0.0107   0.0211   0.0189 |    0.0003     0
+glitch 25min from 19:24 (x12)                5.8571   5.8468   5.8648 |   0.0077   0.0180   0.0189 |    0.0000     0
+glitch 110min from 07:35 (x12)               5.7553   5.7509   5.9114 |   0.1561   0.1605   0.1938 |    0.0124     0
+glitch 110min from 19:24 (x12)               5.5581   5.5871   5.8936 |   0.3354   0.3065   0.3766 |    0.0273     0
+glitch 13.9h from 07:35 (x12)                5.8742   5.3241   6.2380 |   0.3639   0.9139   0.4011 |    0.0297     0
+glitch 13.9h from 19:24 (x12)                5.5206   4.8014   5.9237 |   0.4032   1.1223   0.4320 |    0.0330     0
+-- e.low-load-week
+load x0.60, Dec week                         6.0820   6.0632   6.0913 |   0.0093   0.0281   0.0203 |         -     0
+-- e.low-load-run
+load x0.60, whole run                        9.7406   9.5249   9.8292 |   0.0886   0.3043   0.1497 |         -     0
+-- e.low-load-week
+load x0.45, Dec week                         6.1697   6.0977   6.1867 |   0.0170   0.0890   0.0256 |         -     0
+-- e.low-load-run
+load x0.45, whole run                       12.5719  10.8626  13.0637 |   0.4917   2.2011   0.6660 |         -     0
+-- e.low-load-week
+load x0.30, Dec week                         6.2145   5.9192   6.2630 |   0.0485   0.3437   0.0617 |         -     0
+-- e.low-load-run
+load x0.30, whole run                       15.9473   5.6758  18.4763 |   2.5290  12.8005   2.8914 |         -     0
+-- f.nan
+NaN load readings 12x4h (truth real)         5.8362   5.8259   5.8437 |   0.0075   0.0178   0.0188 |    0.0000     0
+NaN pv readings 12x4h (truth real)           5.8362   5.8259   5.8437 |   0.0075   0.0178   0.0188 |    0.0000     0
+NaN readings 12x4h (truth = outage)          5.7150   5.7044   5.9365 |   0.2215   0.2321   0.2717 |    0.0178     0
+
+family means:  clean 0.0075   dropped 0.0076   zero-pv 0.0074   zero-week 0.0680   outage-14h 0.2333   outage-1h 0.1305   outage-3h 0.1414   outage-72h 0.1786   low-load-run 1.0364   low-load-week 0.0249   nan 0.0788   glitch 0.2128
+  [PASS] no crash in any scenario (114 runs)                        
+  [PASS] no infraction in any scenario                              0 infractions
+  [PASS] clean folds: regret vs oracle                              mean 0.0075 points
+  [WARN] largest regret vs oracle                                   2.8914 points: load x0.30, whole run, fold A
+  [WARN] candidate never worse than no-guard by > 0.005             9 runs, worst -0.0713: outage  1h from 20:00 (x12) (fold A)
+
+====================================================================================================
+SUMMARY  C:\Users\alexv\Documents\Datathon-2026\agents\v1\agent.py
+====================================================================================================
+  scenarios  PASS   3  WARN  2  FAIL  0
+  WARN  scenarios / largest regret vs oracle: 2.8914 points: load x0.30, whole run, fold A
+  WARN  scenarios / candidate never worse than no-guard by > 0.005: 9 runs, worst -0.0713: outage  1h from 20:00 (x12) (fold A)
+
+RESULT: PASS   (0 FAIL, 2 WARN, 3 PASS)   146 s   details: C:\Users\alexv\Documents\Datathon-2026\experiments\02_stress\out\v1_agent
