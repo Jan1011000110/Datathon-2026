@@ -1,0 +1,58 @@
+loss vs each run's true RHO (1e-4 points) over 45 runs; true RHO range 0.569-0.641, mean 0.598, sd 0.020
+          mean  median    p90    max  runs>10 (0.001)
+rho=0.56  7.02    4.45  19.33  27.92               11
+rho=0.57  4.32    2.08  15.47  21.61                6
+rho=0.58  2.58    0.74  10.01  16.22                5
+rho=0.59  2.00    0.32   7.68  14.16                3
+rho=0.60  2.05    1.00   6.00  12.11                1
+rho=0.61  3.13    2.76   6.43  14.99                1
+rho=0.62  5.04    3.49  10.61  26.28                6
+rho=0.63  7.31    6.40  14.13  35.97               16
+
+v1_tv - v1 over 45 runs (1e-4 points): mean 0.095  min -0.023  max 0.555 ; runs better 17, equal 24, worse 4 ; hours changed max 5 ; infractions 0 ; worst single week -0.023
+run
+slide s=01    0.000
+slide s=02    0.000
+slide s=03    0.000
+slide s=04    0.000
+slide s=05    0.000
+slide s=06    0.000
+slide s=07    0.462
+slide s=08    0.533
+slide s=09    0.032
+slide s=10    0.009
+slide s=11   -0.010
+slide s=12   -0.013
+slide s=13   -0.018
+slide s=14    0.000
+slide s=15    0.000
+random 00     0.000
+random 01    -0.023
+random 02     0.060
+random 03     0.000
+random 04     0.000
+random 05     0.000
+random 06     0.490
+random 07     0.000
+random 08     0.050
+random 09     0.000
+random 10     0.000
+random 11     0.000
+random 12     0.262
+random 13     0.429
+random 14     0.034
+random 15     0.000
+random 16     0.000
+random 17     0.354
+random 18     0.000
+random 19     0.000
+random 20     0.532
+random 21     0.000
+random 22     0.000
+random 23     0.555
+random 24     0.000
+random 25     0.372
+random 26     0.057
+random 27     0.050
+random 28     0.000
+random 29     0.059

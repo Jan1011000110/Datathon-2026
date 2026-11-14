@@ -3,7 +3,7 @@
 Reads out/decomp_scores.csv (01_decompose.py) and out/rho_sweep.csv (06_rho.py); also re-runs
 the chain on 'patched' folds where the two meter anomalies are replaced by the load of the
 same hours one day earlier (the clean-data gap).
-Writes reports/03_gap/gap_waterfall.png, rho_loss.png and out/waterfall.csv, out/clean.csv
+Writes reports/03_gap/figs/gap_waterfall.png, rho_loss.png and out/waterfall.csv, out/clean.csv
 """
 import matplotlib
 matplotlib.use("Agg")
@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from lib import *
 
 OUT = Path(__file__).parent / "out"
-REP = ROOT / "reports" / "03_gap"
+REP = ROOT / "reports" / "03_gap" / "figs"
 REP.mkdir(parents=True, exist_ok=True)
 pd.set_option("display.width", 220)
 

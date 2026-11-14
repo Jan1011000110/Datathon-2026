@@ -58,6 +58,13 @@
     "losses_mwh": 106.113677,
     "losses_pct_of_campus_import": 1.115752,
     "throughput_pct_of_campus_import": 10.046282,
+    "co2_base_t_night_corrected": 748.799137,
+    "eur_base_night_corrected": 1290880.138133,
+    "energy_base_mwh_night_corrected": 8967.104391,
+    "co2_pct_night_corrected": 5.680287,
+    "eur_pct_night_corrected": 7.033497,
+    "score_equivalent_night_corrected": 6.08625,
+    "score_equivalent_official_baseline": 5.704464,
     "co2_saved_t_naive_365_over_281": 42.628156,
     "eur_saved_naive_365_over_281": 90795.078909
   },
@@ -81,6 +88,20 @@
     "hours_idle_pct": 48.650652,
     "hours_full_power_pct_of_active": 79.324285,
     "cycles_per_year": 503.294146
+  },
+  "meter_fault_check": {
+    "fault_hours": 15,
+    "co2_t_year_if_meter_had_worked": 42.683852,
+    "eur_year_if_meter_had_worked": 90846.307185,
+    "co2_lost_to_faults_pct": 0.352453,
+    "eur_lost_to_faults_pct": 0.05759
+  },
+  "public_leaderboard_cross_check": {
+    "note": "6.43-point entry in docs/WEBSITE_NOTES.md: 4,289.4 kg and 8,907.87 EUR on the public half; the number of public hours with meter data is unknown (840 to 1,008)",
+    "co2_t_year_if_1008h": 37.276929,
+    "co2_t_year_if_840h": 44.732314,
+    "eur_year_if_1008h": 77413.632143,
+    "eur_year_if_840h": 92896.358571
   },
   "monthly": [
     {

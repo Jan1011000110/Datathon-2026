@@ -69,6 +69,29 @@ def main() -> None:
     caps = pd.DataFrame(rows)
     ok = caps[caps["feasible"]]
 
+    # Robustness to the held night reading (the official 22:00-06:00 load is ~31 % too high, EDA):
+    # redo the peak comparison on daytime hours only, and relax the cap at night.
+    night = np.isin(idx.hour, C.NIGHT_HOURS)
+    day_base, day_grid = base[~night], grid[~night]
+    ym_day = ym[~night]
+    peak_base_day = day_base.groupby(ym_day).max()
+    peak_batt_day = day_grid.groupby(ym_day).max()
+    inc_day = (peak_batt_day - peak_base_day).to_numpy()
+    cap_day_only = np.where(night, np.inf, cap_hourly)
+    s_day = C.solve(prob, w, grid_cap=cap_day_only)
+    a_day, an_day = C.account(prob, s_day), C.annual_savings(prob, s_day)
+    daytime = {
+        "monthly_peak_no_battery_is_daytime_in_all_months": bool(np.allclose(peak_base_day.to_numpy(), peak_base_m.to_numpy())),
+        "monthly_peak_increase_kw_daytime_min": float(inc_day.min()), "monthly_peak_increase_kw_daytime_max": float(inc_day.max()),
+        "monthly_peak_increase_kw_daytime_mean": float(inc_day.mean()),
+        "monthly_peak_increase_kw_daytime": inc_day.round(1).tolist(),
+        "hours_above_monthly_peak_daytime": int(over[~night].sum()), "hours_above_monthly_peak_night": int(over[night].sum()),
+        "hours_above_monthly_peak_daytime_excl_nov": int(over[(~night) & (idx.month != 11)].sum()),
+        "cap_daytime_only_score_retained_pct": 100 * a_day["score"] / acc["score"],
+        "cap_daytime_only_co2_retained_pct": 100 * an_day["co2_t_per_year"] / ann["co2_t_per_year"],
+        "cap_daytime_only_eur_retained_pct": 100 * an_day["eur_per_year"] / ann["eur_per_year"],
+    }
+
     # when does the battery push the campus above its no-battery peak?
     hours_over = pd.Series(over, index=idx)
     charge_at_high_load = float(np.mean(sol["c"][prob.base > np.quantile(prob.base, 0.9)] > 1))
@@ -117,7 +140,7 @@ def main() -> None:
     ax2.set_ylabel("Saving kept (% of the uncapped optimum)")
     ax2.set_title("Shaving the peak as well: what it costs")
     C.footnote(fig, C.FOOT + "\nPeak caps assume the campus load is known in advance (our controller does not forecast "
-                             "load). Hourly means: sub-hourly peaks are higher.")
+                             "load). Hourly means: sub-hourly peaks are higher. Monthly peaks all fall in daytime hours.")
     C.save(fig, "a7_peak_import")
 
     stats = {
@@ -134,6 +157,7 @@ def main() -> None:
         "monthly": monthly.to_dict(orient="records"),
         "caps": caps.to_dict(orient="records"),
         "uncapped": {"score": acc["score"], **ann},
+        "daytime_only_check": daytime,
     }
     C.write_stats("a7_peak_import", stats)
     pd.set_option("display.width", 220)
@@ -141,6 +165,7 @@ def main() -> None:
     print(caps.round(2).to_string(index=False))
     print({k: v for k, v in stats.items() if not isinstance(v, (list, dict))})
     print("hours over by hour of day", stats["hours_over_by_hour_of_day"])
+    print("daytime check", daytime)
 
 
 if __name__ == "__main__":

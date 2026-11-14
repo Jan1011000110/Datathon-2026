@@ -39,6 +39,9 @@ This is the one place to see what I'm doing, what I've found and what's coming. 
 | F11 | **The two objectives partly conflict, and CO₂ dominates.** Price and CO₂ agree on the midday trough and evening peak but disagree on weekday nights (cheap but dirty). CO₂ alone gets 91% of the best score; price alone 73%. | `reports/01_eda/report.md` §6 | The battery is mostly a decarbonisation tool that also saves money. |
 | F12 | **A fixed timetable gets only 64% of the optimum** (charge 13–17 h, discharge 18–22 h scores 3.66). | `reports/01_eda/report.md` §9 | The value is in reading the day-ahead signals each day, which is what the optimiser does. |
 
+| F13 | **The whole gap to perfect foresight is accounted for, and almost all of it is meter faults.** In units of 0.0001 points on all train days: meter faults 69.7, wrong CO₂/price weighting 0.6, not seeing beyond 24 h 0.2, guard margin 0.0 (total 70.5). With the two faults patched out the total gap is 0.8. | `reports/03_gap/report.md` §1 | Nothing left to gain from forecasting, weighting or horizon. The CO₂/price ratio of 0.60 used in v1 is the most robust constant over 45 test-like runs. |
+| F14 | **The guard's one real cost is the hour the meter comes back.** On 18 June at 07:00 the load was back and it was a top hour, but v1 held because the last reading was 0. That single hour is 0.0186 of fold C's 0.0188 gap. | `reports/03_gap/report.md` §1(d) | The red-team agent is tuning this trade-off. It only matters if the hidden test has a fault. |
+
 Validation scores (all with 0 infractions):
 
 | Agent | Fold A | Fold B | Fold C | All train days |
@@ -175,7 +178,7 @@ Safety layers:
 |---|---|---|---|
 | EDA analyst | Coverage map, load/PV/CO₂/price profiles, do CO₂ and price agree, predictability beyond 24 h. Presentation-grade plots. | [`reports/01_eda/report.md`](01_eda/report.md), 21 figures | **done** |
 | Red-team | Fuzz the agent with malformed inputs; zero-load weeks, outages, dropped weeks, low-load weeks; tune the outage guard. | `reports/02_robustness/` | running |
-| Gap researcher | Break down the last 0.007 points of gap to the oracle and recover what can honestly be recovered. | `reports/03_gap/` | running |
+| Gap researcher | Break down the last 0.007 points of gap to the oracle and recover what can honestly be recovered. | [`reports/03_gap/report.md`](03_gap/report.md) | **done**: nothing honest is worth more than 0.001; keep v1 |
 | What-if analyst | Yearly tCO₂ and € saved, CO₂-vs-cost Pareto frontier, battery sizing (kWh and kW), efficiency. For the jury. | `reports/04_whatif/` | running |
 | Leaderboard scraper | Snapshot of the live leaderboard. | `reports/05_leaderboard/` | **done** (section 3) |
 
@@ -213,6 +216,7 @@ I report in chat when each one finishes and add its results here.
 - **14:10** Investigated the 6.44. First thought it was noise from scoring half the hours; then that it was free solar during meter faults (wrong: inverters read 0 in those hours); settled on "public half = whole weeks, energy carried across a week boundary" as the best-supported reading (section 3a).
 - **14:15** EDA subagent finished: 21 figures and a report (`01_eda/report.md`). New findings F9–F12. I saved its report text because subagents cannot write report files.
 - **14:20** Measured what the safety nets cost, after a question from the team (finding F8). The clamp margin withholds 0.059 kWh over a whole run; the load guard changes 1 action in 2,016 on a clean fold.
+- **14:30** Gap researcher finished (`03_gap/report.md`, findings F13–F14). It tried terminal values, forecasts of the next day and online estimates of the CO₂/price ratio: none gives a gain that holds across folds. Recommendation: keep v1 unchanged.
 
 ---
 

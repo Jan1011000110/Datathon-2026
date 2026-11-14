@@ -77,8 +77,33 @@ def main() -> None:
     year["losses_pct_of_campus_import"] = 100 * year["losses_mwh"] / year["energy_base_mwh"]
     year["throughput_pct_of_campus_import"] = 100 * year["discharged_mwh"] / year["energy_base_mwh"]
     naive = 365 / prob.days
+    # the official night load is held at the 22:00 reading and is too high (EDA): correct the baseline
+    over = C.BASELINE_OVERSTATED
+    year["co2_base_t_night_corrected"] = year["co2_base_t"] / (1 + over["co2"])
+    year["eur_base_night_corrected"] = year["eur_base"] / (1 + over["cost"])
+    year["energy_base_mwh_night_corrected"] = year["energy_base_mwh"] / (1 + over["energy"])
+    year["co2_pct_night_corrected"] = 100 * year["co2_saved_t"] / year["co2_base_t_night_corrected"]
+    year["eur_pct_night_corrected"] = 100 * year["eur_saved"] / year["eur_base_night_corrected"]
+    year["score_equivalent_night_corrected"] = (C.ALPHA * year["co2_pct_night_corrected"]
+                                                + (1 - C.ALPHA) * year["eur_pct_night_corrected"])
+    year["score_equivalent_official_baseline"] = C.ALPHA * year["co2_pct"] + (1 - C.ALPHA) * year["eur_pct"]
     year["co2_saved_t_naive_365_over_281"] = acc["co2_saved_kg"] * naive / 1000
     year["eur_saved_naive_365_over_281"] = acc["cost_saved_eur"] * naive
+
+    # robustness: the 15 meter-fault hours (load = PV = 0) give the battery nothing to displace.
+    # Replace them by the month / day-type / hour mean and re-solve.
+    df2 = prob.df.copy()
+    fault = df2["load_kw"] < 50
+    key = [df2.index.month, df2.index.day_of_week >= 5, df2.index.hour]
+    for col in ("load_kw", "pv_kw"):
+        df2.loc[fault, col] = df2[col].where(~fault).groupby(key).transform("mean")[fault]
+    prob2 = C.Problem(df2)
+    sol2 = C.solve(prob2, prob.weights())                 # same weights: only the fault hours change
+    ann2 = C.annual_savings(prob2, sol2)
+    fault_check = {"fault_hours": int(fault.sum()), "co2_t_year_if_meter_had_worked": ann2["co2_t_per_year"],
+                   "eur_year_if_meter_had_worked": ann2["eur_per_year"],
+                   "co2_lost_to_faults_pct": 100 * (ann2["co2_t_per_year"] / year["co2_saved_t"] - 1),
+                   "eur_lost_to_faults_pct": 100 * (ann2["eur_per_year"] / year["eur_saved"] - 1)}
 
     # signal levels seen by the battery (energy-weighted)
     sig = {
@@ -112,8 +137,9 @@ def main() -> None:
     fig.subplots_adjust(left=0.075, right=0.94, top=0.84, bottom=0.115, hspace=0.24)
     C.titled(fig, f"The battery avoids ≈{year['co2_saved_t']:.0f} t CO₂ and ≈{year['eur_saved'] / 1000:.0f} k€ a year: "
                   f"{year['co2_pct']:.1f} % of emissions, {year['eur_pct']:.1f} % of the bill",
-             f"Monthly saving scaled to whole months · campus baseline ≈{year['co2_base_t']:.0f} t CO₂ and "
-             f"≈{year['eur_base'] / 1e6:.2f} M€ a year · {acc['cycles_per_day']:.2f} equivalent full cycles per day")
+             f"Official baseline ≈{year['co2_base_t']:.0f} t CO₂ and ≈{year['eur_base'] / 1e6:.2f} M€ a year "
+             f"({year['co2_pct_night_corrected']:.1f} % and {year['eur_pct_night_corrected']:.1f} % once the overstated "
+             f"night load is corrected) · {acc['cycles_per_day']:.2f} full cycles a day")
     x = np.arange(12)
     labels = [C.MONTH_ABBR[m] for m in mon["m"]]
     for ax, col, color, unit, fmt in ((axes[0], "co2_saved_t", C.C_CO2, "t CO₂ avoided per month", "{:.1f} t"),
@@ -171,7 +197,12 @@ def main() -> None:
         "controller_gap_pct_of_oracle": 100 * (1 - ctrl["score"] / acc_free["score"]),
         "train_baseline": {"co2_kg": prob.co2_base, "cost_eur": prob.cost_base, "energy_kwh": prob.energy_base,
                            "kg_per_eur": prob.co2_base / prob.cost_base},
-        "year": year, "signals_seen": sig, "activity": active,
+        "year": year, "signals_seen": sig, "activity": active, "meter_fault_check": fault_check,
+        "public_leaderboard_cross_check": {
+            "note": "6.43-point entry in docs/WEBSITE_NOTES.md: 4,289.4 kg and 8,907.87 EUR on the public half; "
+                    "the number of public hours with meter data is unknown (840 to 1,008)",
+            "co2_t_year_if_1008h": 4289.4 / 1008 * 8760 / 1000, "co2_t_year_if_840h": 4289.4 / 840 * 8760 / 1000,
+            "eur_year_if_1008h": 8907.87 / 1008 * 8760, "eur_year_if_840h": 8907.87 / 840 * 8760},
         "monthly": mon.drop(columns="m").to_dict(orient="records"),
         "hour_month_mean_power_kw": {C.MONTH_ABBR[m]: hm.loc[m].round(1).tolist() for m in C.MONTH_ORDER},
         "hour_mean_power_kw": h["p"].groupby(idx.hour).mean().round(1).tolist(),
@@ -180,8 +211,8 @@ def main() -> None:
 
     pd.set_option("display.width", 200)
     print(mon.drop(columns="m").round(2).to_string(index=False))
-    for k in ("year", "signals_seen", "activity"):
-        print(k, {a: round(b, 3) for a, b in stats[k].items()})
+    for k in ("year", "signals_seen", "activity", "meter_fault_check", "public_leaderboard_cross_check"):
+        print(k, {a: (round(b, 3) if not isinstance(b, str) else b) for a, b in stats[k].items()})
     print("reference", {a: round(b, 4) for a, b in acc.items()})
     print("oracle   ", {a: round(b, 4) for a, b in acc_free.items()})
     print("controller", stats["controller_v1_on_train"], "gap pts", round(stats["controller_gap_points"], 4),

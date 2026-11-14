@@ -279,6 +279,10 @@ def suite(calendar="test", fold_names=("A", "B", "C"), kind="harness"):
             for h in hours:
                 add("outage %2dh from %02d:00 (x%d)" % (dur, h, len(weeks)), "d.outage-%dh" % dur, f,
                     outages(base, dur, h, weeks), len(weeks))
+        # g. realistic logger glitches: sub-hour timing (first / last hour partial), night freeze
+        for dur, lab in ((25 / 60, "25min"), (110 / 60, "110min"), (13.9, "13.9h")):
+            for st, sl in ((7.58, "07:35"), (19.4, "19:24")):
+                add("glitch %s from %s (x12)" % (lab, sl), "g.glitch", f, glitches_frozen(base, dur, st), 12)
         # e. low load
         for s in (0.6, 0.45, 0.3):
             add("load x%.2f, Dec week" % s, "e.low-load-week", f, scale_load(base, s, [3]))

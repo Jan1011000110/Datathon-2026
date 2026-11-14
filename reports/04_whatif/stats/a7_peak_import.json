@@ -257,5 +257,31 @@
     "score": 5.707071,
     "co2_t_per_year": 42.53394,
     "eur_per_year": 90794.018604
+  },
+  "daytime_only_check": {
+    "monthly_peak_no_battery_is_daytime_in_all_months": true,
+    "monthly_peak_increase_kw_daytime_min": 288.395833,
+    "monthly_peak_increase_kw_daytime_max": 500.0,
+    "monthly_peak_increase_kw_daytime_mean": 433.617569,
+    "monthly_peak_increase_kw_daytime": [
+      400.2,
+      500.0,
+      500.0,
+      500.0,
+      479.7,
+      378.0,
+      394.0,
+      407.3,
+      288.4,
+      500.0,
+      355.9,
+      500.0
+    ],
+    "hours_above_monthly_peak_daytime": 612,
+    "hours_above_monthly_peak_night": 100,
+    "hours_above_monthly_peak_daytime_excl_nov": 551,
+    "cap_daytime_only_score_retained_pct": 93.710056,
+    "cap_daytime_only_co2_retained_pct": 94.284511,
+    "cap_daytime_only_eur_retained_pct": 92.614635
   }
 }

@@ -16,6 +16,8 @@ Sections
                  starter_kit/environment.py, from the same state of charge)
   3 sequences   timestamp flavours, DST-like days, state poisoning, on a full real run
   4 scenarios   data-shape scenarios: candidate vs reference (no guard) vs oracle
+                (a clean, b dropped weeks, c zero weeks, d hour-aligned outages, g realistic
+                 logger glitches, e low load, f NaN readings)
   5 timing      wall time of a 2,016-step run, slowest step
   6 official    full runs through starter_kit CampusBatteryEnv == src.sim.simulate
   7 evaluator   what if the hidden evaluator's physics differ slightly (informational)
@@ -160,7 +162,7 @@ def real_obs(df, t, soc, ts=None):
     tl = t - 1 if t > 0 else t
     stamp = df.index[t] if ts is None else ts
     return {
-        "timestamp": stamp, "hour": int(df.index[t].hour), "day_of_week": int(df.index[t].dayofweek),
+        "timestamp": stamp, "hour": int(df.index[t].hour), "day_of_week": int(df.index[t].day_of_week),
         "soc_kwh": float(soc), "soc_pct": float(soc / CAP), "soc_percent": float(soc / CAP * 100),
         "preu_actual": float(df["precio_eur_per_kwh"].iloc[t]), "co2_actual": float(df["co2_kg_per_kwh"].iloc[t]),
         P: df["precio_eur_per_kwh"].iloc[t:h_end].tolist(), K: df["co2_kg_per_kwh"].iloc[t:h_end].tolist(),
@@ -408,7 +410,7 @@ class Poison:
 
 
 def section_sequences(R, mod, df):
-    head("3. SEQUENCES  (full 2,016-step run, fold B)")
+    head("3. SEQUENCES  (full 2,016-step run, fold C: contains the real 14 h outage, so the guard matters)")
     try:
         base = run(mod.BatteryAgent(), df)
     except Exception as e:
@@ -428,7 +430,8 @@ def section_sequences(R, mod, df):
             r = run(TsRewrite(mod.BatteryAgent(), fn), df)
             d = r["raw"] - base["raw"]
             st = "FAIL" if r["infractions"] else ("WARN" if abs(d) > 0.005 else "PASS")
-            R.add("sequences", "timestamp as %s" % name, st, "score %+.4f vs pd.Timestamp run, %d infr" % (d, r["infractions"]))
+            R.add("sequences", "timestamp as %s" % name, st, "score %+.4f vs pd.Timestamp run, %d infr%s" % (
+                d, r["infractions"], "  (the guard depends on the timestamp type)" if abs(d) > 0.005 else ""))
         except Exception as e:
             R.add("sequences", "timestamp as %s" % name, "FAIL", "%s: %s" % (type(e).__name__, str(e)[:90]))
     # DST-like days: a 23-hour day (02:00 missing) and a 25-hour day (02:00 twice)
@@ -627,7 +630,7 @@ def run_variant(agent, df, eta_c=ETA, eta_d=ETA, soc0=1000.0, cap=CAP, pmax=PMAX
     grid = np.zeros(n)
     for t in range(n):
         tl = t - 1 if t > 0 else t
-        obs = {"timestamp": df.index[t], "hour": int(df.index[t].hour), "day_of_week": int(df.index[t].dayofweek),
+        obs = {"timestamp": df.index[t], "hour": int(df.index[t].hour), "day_of_week": int(df.index[t].day_of_week),
                "soc_kwh": float(soc), "soc_pct": float(soc / cap), "soc_percent": float(soc / cap * 100),
                "preu_actual": pl[t], "co2_actual": cl[t], P: pl[t:t + 24], K: cl[t:t + 24],
                M: {"ultim_consum_kw": float(load[tl]), "ultima_solar_kw": float(pv[tl])}}
@@ -709,7 +712,7 @@ def main():
     if "fuzz" not in skip:
         section_fuzz(R, mod, F["B"])
     if "sequences" not in skip:
-        section_sequences(R, mod, F["B"])
+        section_sequences(R, mod, F["C"])
     if "scenarios" not in skip:
         section_scenarios(R, mod, ref_cls, ref_name, a.calendar, ("B",) if a.fast else ("A", "B", "C"), outdir)
     if "timing" not in skip:

@@ -56,6 +56,13 @@ SOC0_FRAC = 0.5
 ALPHA = 0.7       # weight on CO2 in the challenge score
 TIE = 1e-6        # throughput penalty, as a fraction of the mean weight (tie-breaker only)
 
+# Known bias of the official load (reports/01_eda, stats/q1_coverage.json): the meter is not polled
+# between 22:00 and 06:00, the 22:00 reading is held flat and overstates the real night load.
+# official baseline = true baseline x (1 + these). Savings in kg / EUR are unaffected (the real
+# night load is still above 500 kW); savings in % of the baseline are understated.
+BASELINE_OVERSTATED = {"energy": 0.0606, "co2": 0.0726, "cost": 0.0564}
+NIGHT_HOURS = (22, 23, 0, 1, 2, 3, 4, 5)
+
 MONTH_ORDER = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8]       # the competition year, Sep -> Aug
 MONTH_ABBR = {1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug",
               9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"}
