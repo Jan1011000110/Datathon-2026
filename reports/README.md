@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 17:46
+**Last updated:** Sat 14 Nov 2026, 17:51
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -15,7 +15,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 ## H1. Where we are
 
 1. **Ceiling on our folds: about 21 points** (22.44 / 21.42 / 19.92 with perfect foresight).
-2. **A naive legal agent scores about 19** (19.83 / 19.29 / 17.76, 0 infractions). It is being packaged for a first submission in this shift.
+2. **A first submission is ready: `submissions/h0/submission.zip`.** It is the naive legal agent: 19.84 / 19.30 / 17.90 on our folds, 0 infractions ([`16_h0/report.md`](16_h0/report.md)).
 3. **The gap is mostly the hour being decided:** the agent does not know the current hour's load, over-discharges, and the excess is thrown away.
 4. **Priorities:** load forecast (1.13 points at stake), price/CO₂ forecast (0.79), solar forecast (0.47), and a planner that knows its forecasts are uncertain.
 5. **Leaderboard (16:57):** SSA Gourmet 21.27, Low BaterIA 4.50. We have not submitted to hard mode yet.
@@ -27,14 +27,15 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Agent | A | B | C | Mean | Status |
 |---|---|---|---|---|---|
 | Perfect foresight (ceiling) | 22.44 | 21.42 | 19.92 | 21.26 | reference |
-| Naive agent, 10 % discharge haircut (`h0`) | 19.83 | 19.29 | 17.76 | 18.96 | being packaged |
+| **h0** (naive agent, packaged, 18 h horizon, end-of-run rule) | 19.84 | 19.30 | 17.90 | 19.01 | **ready to submit** |
+| Naive agent, 10 % discharge haircut (harness) | 19.83 | 19.29 | 17.76 | 18.96 | superseded by h0 |
 | Naive agent, no haircut | 19.70 | 19.10 | 17.64 | 18.81 | superseded |
 
 ## H3. Running now
 
 | Subagent | Task | Output | Status |
 |---|---|---|---|
-| Packager | Naive agent as a valid submission ZIP | `agents/h0/`, `submissions/h0/` | running since 17:19 |
+| Packager | Naive agent as a valid submission ZIP | `submissions/h0/submission.zip`, [`16_h0/report.md`](16_h0/report.md) | **done** 17:47 |
 | Load forecaster | Predict campus load, above all the current hour | `experiments/21_load/`, `11_load_forecast/` | running since 17:19 |
 | Solar forecaster | Predict solar ×12, current hour and next day | `experiments/22_solar/`, `12_solar_forecast/` | running since 17:19 |
 | Price/CO₂ forecaster | Predict the signal beyond the 3 known hours | `experiments/23_signal/`, `13_signal_forecast/` | running since 17:19 |
@@ -51,6 +52,8 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | T4 | Average-day forecast of load and solar (price/CO₂ known) | −1.46; of which current hour −1.07, later hours −0.34; load −1.13, solar −0.47 | the current hour's load is the first target |
 | T5 | Plain persistence for the current hour's net load | −1.86 | worse than the profile forecast |
 | T6 | Fixed 10 % haircut on discharge | +0.15 | keep until the planner handles uncertainty itself |
+| T7 | Planning horizon 36 / 24 / 18 / 12 h in the packaged agent | within 0.02 down to 18 h; 12 h loses 0.025 on fold A | ship 18 h: half the run time |
+| T8 | Empty the battery when the run is about to end (2 hours of notice from the shrinking lists) | +0.01 / +0.02 / +0.14 | kept; knowing the end earlier would be worth up to about 0.35 |
 
 ## H5. Findings
 
@@ -80,6 +83,8 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 - **17:24** Measured the value of the starting charge with perfect foresight: starting empty instead of full costs 0.30–0.43 points over a run, so one full battery is worth about 0.35 points (`experiments/25_integration/boundaries.py`). The optimum ends each test week with about 3,000 kWh stored, so the agent must keep planning across the three-week jump between weeks.
 - **17:25** Launched a sixth subagent: explainer figures for the jury (`15_hard_eda/`).
 - **17:26** Compared train with the two leaderboards: the ×12 solar lowers the public baseline by 16.1 % in CO₂ and 20.0 % in cost; train months predict 15.2 % and 18.4 %. Consistent. Reminder sent to the load and price/CO₂ agents: the hidden weeks include Christmas week and late July, when load is far from a normal week.
+- **17:47** Packager finished h0: passes `check_submission.py`, reproduces the harness to six decimals, survives malformed observations.
+- **17:50** My own check of h0: 17.90 on fold C in the organisers' environment, 0 infractions. Run time 15–33 s per 2,016 steps with the laptop busy (limit 60 s on a server of unknown speed).
 - **17:42** Analyst finished: `15_hard_eda/report.md` with six figures (HF6–HF9). I saved its report and softened two statements about the August test week that it had no data for.
 
 ---

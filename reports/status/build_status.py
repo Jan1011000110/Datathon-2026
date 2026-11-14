@@ -8,24 +8,25 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 DATA = {
-    "updated": "Sat 14 Nov 2026, 17:46",
+    "updated": "Sat 14 Nov 2026, 17:51",
     "ceiling": 21.26,
-    "best": {"name": "Naive agent h0", "score": 18.96, "note": "validation, mean of 3 folds, 0 infractions"},
-    "leaderboard": [("SSA Gourmet", "21.27"), ("Low BaterIA", "4.50"), ("Fa (us)", "not submitted yet")],
+    "best": {"name": "Naive agent h0", "score": 19.01, "note": "validation, mean of 3 folds, 0 infractions"},
+    "leaderboard": [("SSA Gourmet", "21.27"), ("Low BaterIA", "4.50"), ("Fa (us)", "h0 ready to submit")],
     "leaderboard_time": "16:57, public half of the hidden test",
     "now": [
         "Ceiling on our three test-like folds is about **21 points** (perfect foresight).",
-        "A naive legal agent scores about **19** with 0 infractions. It is being packaged for a first submission in this shift (until 21:00).",
+        "**h0 is ready to submit:** `submissions/h0/submission.zip`. Naive legal agent, 19.84 / 19.30 / 17.90 on our folds, 0 infractions, passes the validator. Run the hard-mode quick validation first.",
         "The gap is mostly the hour being decided: the agent does not know the current load, discharges too much, and the excess is thrown away.",
         "Six subagents are working on load, solar and price/CO₂ forecasts, the planner, the submission package, and explainer figures.",
     ],
     "scoreboard": [  # name, A, B, C, mean, status
         ("Perfect foresight (ceiling)", "22.44", "21.42", "19.92", "21.26", "reference"),
-        ("Naive agent, 10 % discharge haircut (h0)", "19.83", "19.29", "17.76", "18.96", "being packaged"),
+        ("h0: naive agent, packaged (`submissions/h0/submission.zip`)", "19.84", "19.30", "17.90", "19.01", "ready to submit"),
+        ("Naive agent, 10 % discharge haircut (harness)", "19.83", "19.29", "17.76", "18.96", "superseded by h0"),
         ("Naive agent, no haircut", "19.70", "19.10", "17.64", "18.81", "superseded"),
     ],
     "running": [  # who, task, state (running | done | queued | blocked), since/result
-        ("Packager", "Turn the naive agent into a valid submission ZIP", "running", "since 17:19"),
+        ("Packager", "Turn the naive agent into a valid submission ZIP", "done", "17:47: `submissions/h0/submission.zip`, report in `reports/16_h0/report.md`"),
         ("Load forecaster", "Predict campus load, above all for the current hour (1.13 pts at stake)", "running", "since 17:19"),
         ("Solar forecaster", "Predict solar ×12 for the current hour and next day (0.47 pts)", "running", "since 17:19"),
         ("Price/CO₂ forecaster", "Predict the signal beyond the 3 known hours (0.79 pts)", "running", "since 17:19"),
@@ -39,6 +40,8 @@ DATA = {
         ("Average-day forecast of load and solar", "−1.46 (current hour −1.07, later hours −0.34; load −1.13, solar −0.47)", "current hour's load is the first target"),
         ("Plain persistence for the current hour's net load", "−1.86", "worse than the profile"),
         ("Fixed 10 % haircut on discharge", "+0.15", "keep until the planner handles uncertainty"),
+        ("Planning horizon 36 / 24 / 18 / 12 h in the packaged agent", "within 0.02 down to 18 h; 12 h loses 0.025 on one fold", "ship 18 h (half the run time)"),
+        ("Empty the battery when the run is about to end (2 hours of notice)", "+0.01 / +0.02 / +0.14", "kept; earlier notice would be worth more"),
     ],
     "figures": [  # file under figs/, title, caption
         ("f1_week.png", "One week of hard mode under the best possible schedule",
@@ -53,6 +56,8 @@ DATA = {
          "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."),
     ],
     "log": [  # newest first
+        ("17:50", "Re-checked h0 myself: 17.90 on fold C in the organisers' environment, 0 infractions. Run time 15–33 s per 2,016 steps with the laptop busy; the server limit is 60 s."),
+        ("17:47", "Packager finished: `submissions/h0/submission.zip` passes the validator and reproduces the harness scores exactly."),
         ("17:42", "Analyst finished: six explainer figures and `reports/15_hard_eda/report.md`. Free solar is only 8 % of the ceiling; 87 % of discharge hours are limited by the load; 19 % of the discharge energy falls in hours where the load is known exactly."),
         ("17:26", "Leaderboard baselines agree with train: ×12 solar lowers the baseline by 16 % (CO₂) and 20 % (cost). Reminded the forecasters that hidden weeks include Christmas and late July."),
         ("17:25", "Launched a sixth subagent for explainer figures."),
@@ -70,6 +75,7 @@ DATA = {
         ("reports/README.md", "full work log (hard mode in Part I)"),
         ("reports/10_hard_mode/report.md", "first hard-mode report"),
         ("docs/NEW_RULES.md", "hard-mode rules"),
+        ("reports/16_h0/report.md", "the first submission: what it is, how it was verified"),
         ("reports/15_hard_eda/report.md", "what hard mode changes, six figures"),
         ("experiments/20_hard_baseline/", "scripts behind the numbers"),
     ],
