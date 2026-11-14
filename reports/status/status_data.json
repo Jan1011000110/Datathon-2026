@@ -1,9 +1,9 @@
 {
- "updated": "Sat 14 Nov 2026, 18:06",
+ "updated": "Sat 14 Nov 2026, 18:11",
  "ceiling": 21.26,
  "best": {
-  "name": "Best single improvement so far (load forecaster, rest naive; in the test harness, not yet packaged)",
-  "score": 19.56,
+  "name": "Combined agent: planner + load + solar + price/CO₂ forecasters (in the test harness, not yet packaged)",
+  "score": 19.99,
   "note": "validation, mean of 3 folds, 0 infractions; the ceiling is for the same folds"
  },
  "leaderboard": [
@@ -18,13 +18,16 @@
  ],
  "leaderboard_time": "17:58, public half of the hidden test. Estimated ceiling there: about 23.7 (the public test scores about 11 % higher than our folds for everyone)",
  "now": [
-  "**All four specialists have reported.** On its own, each adds to the naive agent (18.96): the load forecaster +0.60, the uncertainty-aware planner +0.56, the price/CO₂ forecaster +0.27, the solar forecaster +0.14.",
-  "**Now combining them** into one agent (integrator subagent), and packaging **h1** = h0's forecasts + the new planner (19.52 on our folds) for a submission before 21:00.",
+  "**First combined agent: 19.99** on our folds (21.14 / 20.26 / 18.57), 0 infractions. That is 94 % of the ceiling, which would be about 22.3 on the public test by the same scaling.",
+  "**What each piece adds once the planner handles uncertainty:** better load and solar forecasts +0.27, price/CO₂ forecaster +0.21. With a perfect price/CO₂ signal the same agent would score 20.71, so the signal beyond 3 hours is now the largest loss (0.72).",
+  "**Running:** the integrator is finishing its checks; two specialists are back on the signal (a better forecast for hours +3 to +11, and a planner that knows the signal forecast is uncertain); the packager is building **h1** = h0's forecasts + the new planner for this shift.",
   "**h0 is ready to submit:** `submissions/h0/submission.zip` (19.84 / 19.30 / 17.90 on our folds, 0 infractions). Run the hard-mode quick validation first.",
   "**Leaderboard:** the top two teams are at 23.2 and 23.1, about 98 % of the estimated public ceiling (23.7), not above it. By the same scaling h0 would land near 21.2."
  ],
  "scoreboard": [
   ["Perfect foresight (ceiling)", "22.44", "21.42", "19.92", "21.26", "reference"],
+  ["Combined: planner + load + solar + price/CO₂ forecasters", "21.14", "20.26", "18.57", "19.99", "harness; first result, checks in progress"],
+  ["Same with a perfect price/CO₂ signal (not legal; shows what the signal costs)", "", "", "", "20.71", "diagnostic"],
   ["Load forecaster, current hour at its 20 % quantile (rest naive)", "20.65", "19.87", "18.16", "19.56", "harness; being combined"],
   ["Uncertainty-aware planner (naive forecasts)", "20.58", "19.79", "18.21", "19.52", "harness; being packaged as h1"],
   ["Price/CO₂ forecaster (rest naive, 10 % haircut)", "20.17", "19.57", "17.96", "19.23", "harness; being combined"],
@@ -33,7 +36,9 @@
   ["Naive agent, no haircut", "19.70", "19.10", "17.64", "18.81", "superseded"]
  ],
  "running": [
-  ["Integrator", "Combine planner + load + solar + price/CO₂ forecasters into one agent, with proper net-load scenarios", "running", "since 18:03"],
+  ["Integrator", "Combine planner + load + solar + price/CO₂ forecasters into one agent, with proper net-load scenarios", "running", "first result 18:10: 19.99; sensitivity, run time and cross-checks due about 19:20"],
+  ["Planner (round 2)", "Make the plan aware that the price/CO₂ forecast is uncertain (scenario paths of the signal)", "running", "since 18:11"],
+  ["Price/CO₂ forecaster (round 2)", "Better forecast for hours +3 to +11: local weather, slope of the known hours, peak height", "running", "since 18:11"],
   ["Packager", "Package h1 = h0's forecasts + the new planner", "running", "since 18:00 (h0 done 17:47)"],
   ["Planner", "Fast optimiser that accounts for forecast uncertainty", "done", "17:56: +0.71 over trusting the forecast, 15–40× faster; `reports/14_planner/report.md`"],
   ["Load forecaster", "Predict campus load, above all for the current hour", "done", "18:00: error 38 → 20 kW, +0.60; `reports/11_load_forecast/report.md`"],
@@ -73,6 +78,9 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["18:11", "Sent two specialists back to the signal, now the largest loss: a better forecast for hours +3 to +11, and a planner that samples scenario paths of the signal."],
+  ["18:10", "First combined result: 19.99 (21.14 / 20.26 / 18.57), 0 infractions. Load + solar forecasts add 0.27 on top of the new planner, the price/CO₂ forecaster 0.21. Perfect signal would give 20.71."],
+  ["18:07", "Built a probe for the site's quick validation that reports the structure of the server's obs (`submissions/probe_obs/`)."],
   ["18:03", "Launched the integrator: combine planner, load, solar and price/CO₂ forecasters, with proper net-load scenarios."],
   ["18:03", "Price/CO₂ forecaster finished: +0.24 with net load known, +0.27 in the legal agent."],
   ["18:00", "Asked the packager for h1 = h0's forecasts + the new planner. Load forecaster finished: current-hour error 38 → 20 kW, legal agent 18.96 → 19.56."],

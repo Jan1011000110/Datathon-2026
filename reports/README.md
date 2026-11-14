@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 18:06
+**Last updated:** Sat 14 Nov 2026, 18:12
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -17,8 +17,9 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 1. **Ceiling on our folds: 21.26 points** (22.44 / 21.42 / 19.92 with perfect foresight). The public test scores about 11 % higher for everyone; the ceiling there is about 23.7 ([`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md)).
 2. **A first submission is ready: `submissions/h0/submission.zip`.** Naive legal agent: 19.84 / 19.30 / 17.90, 0 infractions ([`16_h0/report.md`](16_h0/report.md)).
 3. **All four specialists have reported.** On its own, each adds to the naive agent (18.96): load forecaster +0.60, uncertainty-aware planner +0.56, price/CO₂ forecaster +0.27, solar forecaster +0.14.
-4. **Now:** an integrator is combining them, and the packager is building **h1** = h0's forecasts + the new planner (19.52).
-5. **Leaderboard (17:58):** 13 teams; Low BaterIA 23.23 and SSA Gourmet 23.10, about 98 % of the estimated public ceiling. We have not submitted yet.
+4. **First combined agent: 19.99** (21.14 / 20.26 / 18.57), 0 infractions, 94 % of the ceiling. With a perfect price/CO₂ signal it would score 20.71, so the signal beyond 3 hours is now the largest loss (0.72).
+5. **Now:** the integrator is finishing its checks; two specialists are back on the signal; the packager is building **h1** = h0's forecasts + the new planner (19.52) for this shift.
+6. **Leaderboard (17:58):** 13 teams; Low BaterIA 23.23 and SSA Gourmet 23.10, about 98 % of the estimated public ceiling. We have not submitted yet.
 
 ![Where the score is lost](10_hard_mode/figs/losses.png)
 
@@ -27,6 +28,8 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Agent | A | B | C | Mean | Status |
 |---|---|---|---|---|---|
 | Perfect foresight (ceiling) | 22.44 | 21.42 | 19.92 | 21.26 | reference |
+| **Combined: planner + load + solar + price/CO₂ forecasters** | 21.14 | 20.26 | 18.57 | **19.99** | harness; first result 18:10 |
+| Same with a perfect price/CO₂ signal (diagnostic, not legal) | | | | 20.71 | shows what the signal costs |
 | Load forecaster, current hour at its 20 % quantile (rest naive) | 20.65 | 19.87 | 18.16 | 19.56 | harness; being combined |
 | Uncertainty-aware planner (naive forecasts) | 20.58 | 19.79 | 18.21 | 19.52 | harness; being packaged as h1 |
 | Price/CO₂ forecaster (rest naive, 10 % haircut) | 20.17 | 19.57 | 17.96 | 19.23 | harness; being combined |
@@ -45,7 +48,9 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Price/CO₂ forecaster | Predict the signal beyond the 3 known hours | [`13_signal_forecast/report.md`](13_signal_forecast/report.md), `experiments/23_signal/signal_fc.py` | **done** 18:03 |
 | Planner | Fast optimiser that handles forecast uncertainty | [`14_planner/report.md`](14_planner/report.md), `experiments/24_planner/planner.py` | **done** 17:56 |
 | Packager (second task) | Package h1 = h0's forecasts + the new planner | `agents/h1/`, `submissions/h1/` | running since 18:00 |
-| Integrator | Combine planner, load, solar and price/CO₂ forecasters, with proper net-load scenarios | `experiments/27_combined/`, `18_combined/` | running since 18:03 |
+| Integrator | Combine planner, load, solar and price/CO₂ forecasters, with proper net-load scenarios | `experiments/27_combined/`, `18_combined/` | first result 18:10 (19.99); full report due about 19:20 |
+| Planner (round 2) | Make the plan aware that the price/CO₂ forecast is uncertain | `experiments/28_signal_planning/`, `19_signal_planning/` | running since 18:11 |
+| Price/CO₂ forecaster (round 2) | Better forecast for hours +3 to +11 | `experiments/23_signal/`, `13_signal_forecast/` | running since 18:11 |
 | Analyst | Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from | [`15_hard_eda/report.md`](15_hard_eda/report.md), 6 figures | **done** 17:42 |
 
 ## H4. Tried so far
@@ -65,6 +70,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | T16 | Price/CO₂: ridge regression on raw past values | better accuracy but a worse score than the average-day forecast (it carries Sunday into Monday) | dropped |
 | T17 | Price/CO₂: ridge on differences from a month-blended average day | +0.24 with net load known, +0.27 in the legal agent (30 % of the 3-hour-window loss) | adopt |
 | T18 | Horizons beyond 24 h; a value for energy left at the end of the horizon | no change, in three separate studies | 24 h is enough |
+| T19 | First combination of all four pieces (net-load scenarios from the load and solar forecasters' own quantiles) | 19.99; on top of the new planner, load + solar forecasts add 0.27 and the price/CO₂ forecaster 0.21 | adopt; the pieces overlap, so the gains are smaller than each alone |
 | T9 | New solar forecaster: clear-sky envelope × clearness, plus night-time panel temperature | +0.06 (error −7 % for the current hour, −6 to −12 % later) | small; forecast accuracy is not what costs |
 | T10 | Plan the current hour on the 75th percentile of solar instead of the mean | +0.17 with perfect load; +0.14 in the fully legal agent | keep; the planner should do this with a percentile of net load |
 | T11 | Gradient boosting (LightGBM, 22 features) for solar | worse than the baseline (151 against 91 kW) and 1–3 ms per call | dropped |
@@ -105,6 +111,9 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 - **17:24** Measured the value of the starting charge with perfect foresight: starting empty instead of full costs 0.30–0.43 points over a run, so one full battery is worth about 0.35 points (`experiments/25_integration/boundaries.py`). The optimum ends each test week with about 3,000 kWh stored, so the agent must keep planning across the three-week jump between weeks.
 - **17:25** Launched a sixth subagent: explainer figures for the jury (`15_hard_eda/`).
 - **17:26** Compared train with the two leaderboards: the ×12 solar lowers the public baseline by 16.1 % in CO₂ and 20.0 % in cost; train months predict 15.2 % and 18.4 %. Consistent. Reminder sent to the load and price/CO₂ agents: the hidden weeks include Christmas week and late July, when load is far from a normal week.
+- **18:11** Sent two specialists back to the signal: a better forecast for hours +3 to +11, and a planner that samples scenario paths of the signal.
+- **18:10** First combined result from the integrator (T19): 19.99. Remaining gap to the ceiling 1.27, of which about 0.72 is the signal and 0.55 the net load.
+- **18:07** Built an obs-structure probe for the site's quick validation (`submissions/probe_obs/`), to be used only if the validation page shows error text.
 - **18:03** Price/CO₂ forecaster finished (T16–T17, HF14). Launched the integrator to combine all four pieces.
 - **18:00** Load forecaster finished (T14–T15, HF13). Asked the packager for h1 = h0's forecasts + the new planner.
 - **17:58** Leaderboard check at your request (HF15): 13 teams, top two at 23.23 and 23.10; they are at about 98 % of the estimated public ceiling, not above it. Possible explanations and what would settle it are in `17_hard_leaderboard/report.md`.
