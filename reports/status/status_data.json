@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 18:59",
+ "updated": "Sat 14 Nov 2026, 19:00",
  "ceiling": 21.26,
  "best": {
   "name": "h2: combined agent, packaged and cleared (`submissions/h2/submission.zip`)",
@@ -18,7 +18,8 @@
  ],
  "leaderboard_time": "17:58, public half of the hidden test. Estimated ceiling there: about 23.7 (the public test scores about 11 % higher than our folds for everyone)",
  "now": [
-  "**To do now, in the hard-mode tab (attempts expire at 21:00):** (1) `submissions/probe_h2/submission.zip` on the free quick validation only: it is h2 with a self-report of whether it built on the server and how fast it runs; (2) `submissions/h2/submission.zip` to the ranking; (3) optionally `submissions/h1/nov_fill/submission.zip` as a comparison point.",
+  "**To do now, in the hard-mode tab (attempts expire at 21:00): submit `submissions/h2/submission.zip` to the ranking.** Optionally `submissions/h1/nov_fill/submission.zip` as a comparison point.",
+  "**h2 is confirmed on the server** (probe on the free validation, 19:00): it built fully, 0 fallbacks, 1.4 ms per step (about 3 s for a full run), same numpy and pandas as ours. Every assumption checked holds: lists shrink only in the last two hours, the state of charge is unrounded, the night-time load is frozen, solar is ×12.",
   "**h2 = the combined agent, packaged and cleared: 20.11** on our folds (21.27 / 20.37 / 18.70), 0 infractions, about 5 s per run, falls back to h1's logic if anything fails on the server. That is 95 % of the ceiling, about 22.4 on the public test by the usual scaling.",
   "**h3 is being packaged** (target 19:50): h2 plus a second-round signal forecaster and a planner that doubts the signal forecast. Together +0.075 on our folds (20.19); 22 of 33 test-like weeks improve.",
   "**What is still missing** (about 1.1 points): the level of the price/CO₂ signal 3 to 8 hours ahead (about 0.5), which obs does not seem to contain, and the net load of the hour being decided (0.30), mostly on weekday mornings.",
@@ -82,6 +83,7 @@
   ["Modelling that load and solar errors are correlated (−0.31)", "−0.002", "dropped"],
   ["End of run: plan only the hours left when the lists shrink; and nothing after 31 Aug 2026 23:00", "+0.05 and +0.07", "adopt both; the second cannot hurt unless the run went past August"],
   ["Running LightGBM on the server for the load model", "a model string it cannot parse kills the Python process, which no fallback can catch", "replaced by walking the trees with numpy (bit-identical), rules-only as the fallback"],
+  ["Second probe: h2 itself on the 48 validation hours, reporting on itself", "built fully, 0 fallbacks, 1.4 ms per step, same library versions; lists shrink only in the last 2 hours, state of charge unrounded, night load frozen, solar ×12", "h2 confirmed on the server"],
   ["Probe on the free quick validation: what does the server's obs contain?", "exactly what the site documents: 3 values, six readings, 6,000 / 1,500, first hour 24 Sep 2025", "confirmed; \"the server sends more hours\" ruled out"],
   ["Signal forecaster round 2: bridge to the stored day after each week; night-time level from a per-hour model", "+0.045 (all folds positive)", "adopt in h3"],
   ["Signal forecaster: boosted second stage with weather and campus readings; per-hour models everywhere; level +3 %; spread ×0.85 / ×1.15", "better accuracy, no reliable score gain", "not adopted; accuracy has failed to convert to score three times"],
@@ -108,6 +110,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["19:00", "You ran the h2 probe on the free validation: h2 builds and runs on the server exactly as on our machine (0 fallbacks, 1.4 ms per step). Go for h2 on the ranking."],
   ["18:59", "Web check done: the price and CO₂ series are REE's public data, so the test weeks' true signal is obtainable. Our agents do not use it; recommended asking the organisers whether external data is allowed."],
   ["18:58", "Asked the packager for h3 (h2 + the two signal improvements, three-level fallback)."],
   ["18:55", "Integrator: the two signal improvements stack to +0.075 (20.19) and hold week by week. h2 cleared: packager's final pass clean, my own re-check of the 18:45 build clean."],

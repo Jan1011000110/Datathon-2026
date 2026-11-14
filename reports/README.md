@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 18:59
+**Last updated:** Sat 14 Nov 2026, 19:00
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -15,7 +15,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 ## H1. Where we are
 
 1. **Ceiling on our folds: 21.26 points** (22.44 / 21.42 / 19.92 with perfect foresight). The public test scores about 11 % higher for everyone; the ceiling there is about 23.7 ([`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md)).
-2. **h2 is cleared for submission:** `submissions/h2/submission.zip`, 21.27 / 20.37 / 18.70 (mean 20.11), 0 infractions, falls back to h1's logic on any failure ([`22_h2/report.md`](22_h2/report.md)). Run `submissions/probe_h2/submission.zip` on the free validation first. Also ready: **h1**: `submissions/h1/nov_fill/submission.zip`, 20.58 / 19.79 / 18.35, 0 infractions, under 1 s per run ([`20_h1/report.md`](20_h1/report.md)). Comparison point **h0**: `submissions/h0/submission.zip`, 19.84 / 19.30 / 17.90 ([`16_h0/report.md`](16_h0/report.md)).
+2. **h2 is cleared for submission and confirmed on the server:** `submissions/h2/submission.zip`, 21.27 / 20.37 / 18.70 (mean 20.11), 0 infractions, falls back to h1's logic on any failure ([`22_h2/report.md`](22_h2/report.md)). The h2 probe on the free validation (19:00) showed it builds fully there, with 0 fallbacks and 1.4 ms per step. Also ready: **h1**: `submissions/h1/nov_fill/submission.zip`, 20.58 / 19.79 / 18.35, 0 infractions, under 1 s per run ([`20_h1/report.md`](20_h1/report.md)). Comparison point **h0**: `submissions/h0/submission.zip`, 19.84 / 19.30 / 17.90 ([`16_h0/report.md`](16_h0/report.md)).
 3. **All four specialists have reported.** On its own, each adds to the naive agent (18.96): load forecaster +0.60, uncertainty-aware planner +0.56, price/CO₂ forecaster +0.27, solar forecaster +0.14.
 4. **Combined agent: 20.11** (21.27 / 20.37 / 18.70) with end-of-run handling, 0 infractions, 95 % of the ceiling ([`18_combined/report.md`](18_combined/report.md)). Still missing: the signal 3 to 11 hours ahead (0.54) and the net load of the current hour (0.30), mostly on weekday mornings.
 5. **The server's `obs` is confirmed** by our probe on the free validation (18:50): 3 price/CO₂ values, the six readings, battery 6,000 / 1,500, first hour 24 Sep 2025 00:00. Exactly as documented.
@@ -92,6 +92,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | T32 | Plan against 20 sampled error paths of the signal, half-and-half with the forecast, plus a mean correction from the last revealed error | +0.057; +0.04 to +0.05 when settings are chosen on other folds | small; candidate for h3 |
 | T33 | Averaging the first actions of the scenario plans | −0.26 | dropped |
 | T34 | Probe on the free validation: what does the server's obs contain? | exactly what the site documents | confirmed; "the server sends more" ruled out |
+| T35 | h2 probe on the free validation: does h2 build and run on the server, and do our assumptions about obs hold? | built fully, 0 fallbacks, 1.4 ms per step, same numpy and pandas; lists shrink only in the last 2 hours, state of charge unrounded, night load frozen, solar ×12 | h2 confirmed; every assumption checked holds |
 | T20 | A haircut on top of the planner's scenarios (2.5 / 5 / 10 %) | worse at every level (−0.03 to −0.35) | dropped: the scenarios already do that job |
 | T21 | Calendar that knows the next test week follows a month end | −0.08 / +0.18 / −0.05 by fold | off: 10 boundaries per fold is too few to tell |
 | T22 | November tables interpolated from October and December (train has no November) | +0.7 on a hidden month's week in a hide-one-month test; about +0.1 overall if the November week exists | adopt (h1's `nov_fill` variant) |
@@ -148,6 +149,7 @@ The red-team subagent was re-scoped accordingly at 18:29.
 
 ## H6. Log
 
+- **19:00** You ran the h2 probe on the free validation (T35): h2 builds and runs on the server exactly as on our machine. Go for h2 on the ranking.
 - **18:59** Web check finished: both signals are REE's public data (HF21). The test weeks' real values could therefore be embedded in an agent; ours do not, pending a ruling from the organisers.
 - **18:58** Asked the packager for h3 = h2 + round-2 signal forecaster + signal-aware planner (20.19 on the folds, +0.075), with fallbacks to h2's logic and then h1's.
 - **18:55** Saved the h2 and signal-round-2 reports. h2 is cleared: packager's final pass clean, and my own re-check of the 18:45 build (18.70 on fold C in the organisers' environment, 0 infractions, 0 fallbacks, 5.3 s per run).

@@ -227,6 +227,17 @@ We ran a probe agent on the site's free quick validation; the page shows the err
 - **Timestamp:** a pandas Timestamp. The first hour is 2025-09-24 00:00 (a Wednesday), so the first test week is 24–30 September 2025.
 - The quick validation runs 48 hours and displays the text of any exception.
 
+**Second probe, 19:00: h2 itself on the 48 validation hours.** The server's report:
+
+- **h2 built and ran as designed:** no build error, the load model in use, 0 steps handed to the fallback.
+- **Speed:** 1.4 ms per step on average, 1.9 ms at most; construction 0.04 s. About 3 s for a full run, against the 60 s limit.
+- **Libraries:** numpy 2.5.4 and pandas 3.1.1, the same as on our machine.
+- **List lengths over the run:** 3 for 46 hours, then 2, then 1. The lists shrink only in the last two hours of a run, as in the published environment.
+- **State of charge:** follows the published dynamics exactly (deviation 0 over 47 steps). It is not rounded, and none of h2's commands was clipped.
+- **Night-time load:** equal to the previous reading in 12 of 12 night hours, so the meter freeze holds in the test data.
+- **Solar ÷ irradiance:** median 1.67 over 17 sunlit hours (train: 1.64), so solar is ×12 and our mapping of the weather columns is right.
+- **Wind** is 0 in every hour; the panel is warmer than the air at midday in 10 of 10 hours; no unusable reading.
+
 ## 8. Open questions for the organisers
 
 1. Which ranking decides the prizes: hard mode, standard mode, or both? The site only calls the hard-mode ranking "independent".

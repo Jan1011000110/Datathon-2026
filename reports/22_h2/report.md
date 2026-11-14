@@ -66,6 +66,15 @@ All tested on fold B with 0 infractions. `BatteryAgent.fallbacks` counts the ste
 
 It reports counts, checks and timings; no price, CO₂, load or solar value. Locally it prints, for example: `build_error=''; load_mode='model'; fallbacks=0; ms_per_step mean=1.21; list_len=3x46,2,1; soc_max_dev_kwh=0.00e+00; night_load_same_as_previous=12/12; solar/irradiance median=1.67`. Rebuild it with `experiments/25_integration/build_probe_h2.py` after any change to h2.
 
+### Result on the server (19:00)
+
+`build_error=''; load_mode='model'; fallbacks=0; ms_per_step mean=1.41 median=1.51 max=1.9; init_s=0.04; numpy=2.5.4 pandas=3.1.1; list_len=3x46,2,1; soc_max_dev_kwh=0.00e+00 (n=47); ts_consecutive=True; solar/irradiance median=1.67 (n=17); night_load_same_as_previous=12/12; wind_nonzero=0; panel_warmer_than_air_midday=10/10; unusable_readings=0; commands charge/discharge/idle=18/18/12`
+
+- **h2 built fully on the server** and answered all 48 hours itself.
+- **The server is about as fast as our laptop** (1.4 ms per step against 1.2 here): a full run takes about 3 s.
+- **Same numpy and pandas versions** as ours.
+- **Every assumption checked holds:** lists shrink only in the last two hours, the state of charge is unrounded, the night-time load is frozen, solar is ×12.
+
 ## 7. Files
 
 - `agents/h2/build.py` (all settings in `CONFIG` at the top), `bundle.py`, `rt_main.py`, `rt_trees.py`, and generated runtime copies `rt_*.py`.
