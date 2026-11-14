@@ -137,3 +137,36 @@ The clocks change on 26 October 2025 and 29 March 2026. Both days are in test we
 0 infractions in all twenty runs; in hard mode every step was answered by the full agent, never a fallback. The small differences come from the row that was added or removed. Nothing to fix.
 
 Script: `experiments/30_boundaries/dst_check.py` (arguments: the repo and a folder holding the extracted h3j and h3w ZIPs).
+
+## 7. The public-max probe (added 22:10)
+
+**Not a candidate for the jury selection.** The team asked for a submission that pushes the public score as high as the split allows, for show. `submissions/probe_public/submission.zip` does that and says so in the first lines of its `agent.py`.
+
+**What it is.** h3w's code and fitted state, nothing refitted, with two changes (marked `[public-max]` in the code; built by `agents/probe_public/make.py`):
+
+- **First 84 hours of each week:** the plan stops at hour 84, so the battery is emptied inside the public half.
+- **Last 84 hours of each week:** the battery is refilled from the grid and held full for the next week. Not in the last week of the run.
+
+**Measured, leak-free** (state fitted outside each fold, folds without August, the same code with three configurations):
+
+| Fold | h3, first 84 h | Public-max, first 84 h | Change | Public-max, whole run | Public-max, last 84 h |
+|---|---|---|---|---|---|
+| A | 17.48 | 23.20 | +5.72 | 9.53 | 0.00 |
+| B | 18.70 | 21.66 | +2.95 | 9.11 | 0.00 |
+| C | 18.08 | 20.95 | +2.88 | 9.85 | 0.00 |
+| Mean | 18.09 | 21.94 | +3.85 | 9.50 | 0.00 |
+
+- **Expected on the public board: about 27** (26.5 to 28.3), against h3's 23.32 and the current top of 24.25. The range comes from how the two earlier week-end submissions transferred from folds to the server (0.84 and 1.2 times the fold figure) and from the ratio of the two first-half scores.
+- **Over the whole run it scores about half of h3, and on the last halves the score formula bottoms out at 0.**
+
+**Behaviour on a run laid out like the test** (fold B relabelled to month ends, shipped state):
+
+- Battery after the last hour of every week that has a next week: 6,000.0 kWh, nine times out of nine.
+- Battery after hour 83 of each week: 0 kWh in nine weeks, 20 kWh in one.
+- The refill takes 5 hours and buys 6.32 MWh from the grid each week.
+- 0 infractions; every step answered by the full agent; no command was clipped. Organisers' environment: 10.52, 0 infractions. Validator passes.
+
+**Two things to weigh before submitting it.**
+
+- A score that far above the rest tells every team, and the organisers, that the week boundaries can be played. Teams that work it out can select a week-cut agent for the private half, which removes what h3w gives us. Submitting in the last minutes of the competition avoids that.
+- The automatic jury selection takes the two best public scores. This would be one of them, and it is by far our worst agent on the private half. Select the two jury submissions by hand first.

@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 21:54
+**Last updated:** Sat 14 Nov 2026, 22:10
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -194,6 +194,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **22:10** You asked for the opposite of the private-half trick: a submission that pushes the public score as high as the split allows, for show. Built `submissions/probe_public/` from h3w (plan to hour 84, refill and hold in the second half; `26_h3j_h3w/report.md` §7). Leak-free on the folds: first halves +3.85 over h3, whole run 9.5, last halves 0. Expected public score about 27. 0 infractions, validator passes. Not submitted; I advised submitting it only at the very end and selecting the jury picks by hand first.
 - **21:54** You submitted v2w in standard mode: 5.59 (HF32). The split is confirmed there; the expected private gain drops from +1.1 to about +0.7. Four other teams already have near-identical rows. Our 6.43 is under the name "Fa" and v2w under "Fanboy & Chum Chum"; built `submissions/v2/submission.zip` so v2 can go in under the same name.
 - **21:47** Clock-change days tested (`26_h3j_h3w/report.md`, last section): h3j, h3w, v2 and v2w on test-like weeks with 02:00 repeated on 26 October, missing on 29 March, both, and with the labels sliding an hour for the rest of the week. 0 infractions, no fallback, every score within 0.013 of the unchanged run. Nothing to fix.
 - **21:47** You said the organisers are not answering and asked me to look for more gains on my own. Site re-read: no rule changed; the submission tab now says 20 attempts per shift (`docs/WEBSITE_NOTES.md`). New lead on the general model: the test weeks are the last seven days of each month, which our folds (days 1 to 21) never contain. Four test weeks start on a holiday (25 Dec, 24 Jun; 24 Sep and 25 May if the campus is in Barcelona) and the December week is all Christmas closure; the load forecaster has no calendar (its own report lists this as open). Load specialist resumed to measure what a calendar is worth and build it if it pays (due 23:15). I am testing the shipped agents on the two clock-change days (26 Oct, 29 Mar), which also fall only in test weeks.

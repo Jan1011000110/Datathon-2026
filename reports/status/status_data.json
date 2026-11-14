@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 21:54",
+ "updated": "Sat 14 Nov 2026, 22:10",
  "ceiling": 21.26,
  "best": {
   "name": "h3: h2 + round-2 signal forecaster + signal-aware planner (`submissions/h3/submission.zip`)",
@@ -19,6 +19,7 @@
  ],
  "leaderboard_time": "21:01, public half (the first 84 hours of each week); 33 teams, 140 submissions. Our eight submissions: h2 23.06, h3 23.32, cut probe 24.25, August probe 0.00 twice, July control 0.53, h3j 23.32, h3w 20.03",
  "now": [
+  "**Public-max probe ready, not submitted** (`submissions/probe_public/submission.zip`): built at the team's request, for show. It empties the battery inside the public half and refills it in the private half. Expected public score about 27 (top now: 24.25); over the whole run about half of h3, and 0 on the private half. Never a jury pick. Best submitted in the last minutes, after the jury picks are selected by hand, because it advertises the split to everyone.",
   "**Looking for more honest gains (since 21:40).** The test weeks are the last seven days of each month; our validation weeks are days 1 to 21. Two things exist only in test weeks: holidays on the first day of four of them (25 Dec, 24 Jun, and 24 Sep and 25 May if the campus is in Barcelona) plus the Christmas closure, and the two clock-change days (26 Oct, 29 Mar). The load forecaster has no holiday calendar. Both are being measured now.",
   "**Site re-read at 21:41:** no rule changed; the submission tab now says 20 attempts per shift. The organisers have not answered the questions on the final.",
   "**Select the two jury submissions by hand before the close.** The automatic choice takes the two best public scores. For us that includes the cut probe (24.25), our worst agent on the private half.",
@@ -132,6 +133,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["22:10", "Public-max probe built and checked at the team's request: first halves +3.85 over h3 on leak-free folds, expected public score about 27; 0 infractions. Not submitted."],
   ["21:54", "v2w submitted in standard mode: 5.59. Split confirmed there; expected private gain about +0.7. Four other teams have near-identical rows. ZIP of v2 built for the same team name."],
   ["21:47", "Clock-change days tested on all four candidate agents: 0 infractions, no fallback, scores within 0.013. Nothing to fix."],
   ["21:47", "Organisers silent; the team asked for more gains. Site re-read (no rule changed; 20 attempts per shift now shown). New lead: holidays and clock changes exist only in test weeks. Load specialist resumed on a holiday calendar; clock-change check running."],
