@@ -28,6 +28,8 @@ Both carry h3's forecasters, planner, fallback chain and 0.01 kW clamp. 66 of th
 
 **Verification.** Equal to `make_agent3` with the July end on every command of the three folds (state fitted outside the fold); with the August end it reproduces h3 exactly; organisers' environment 18.75 on fold C; validator passes; 80 single-observation checks, 0 failures.
 
+**Result on the server (20:58):** h3j scored **23.32** on the public leaderboard, with 13,281.5 kg of CO₂ avoided and 24,989.84 € saved: h3's row to the last digit, as predicted. So it is identical to h3 in every public hour, and the hours where it differs are not public.
+
 ## 2. h3w
 
 **What it is.** The plan stops at the last hour of each test week, so the battery is emptied before each week ends. Its `agent.py` says so in its first lines.

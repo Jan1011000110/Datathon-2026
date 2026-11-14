@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 20:57",
+ "updated": "Sat 14 Nov 2026, 20:58",
  "ceiling": 21.26,
  "best": {
   "name": "h3: h2 + round-2 signal forecaster + signal-aware planner (`submissions/h3/submission.zip`)",
@@ -20,7 +20,8 @@
  "leaderboard_time": "20:29, public half of the hidden test; 31 teams, 124 submissions, we are 12th. Public ceiling about 24.4 by our own calibration",
  "now": [
   "**Select the two jury submissions by hand before the close.** The automatic choice takes the two best public scores, and one of ours is the cut probe (24.25), our worst agent on the private half.",
-  "**Two candidates are cleared:** `submissions/h3j/submission.zip` (h3 with the run ending on 31 July: the honest candidate; same public score as h3, 0 to +0.4 on the private half) and `submissions/h3w/submission.zip` (every week its own run: about +2.1 to +2.7 on the private half, about −3 on the public board, −0.8 over the whole run). Submitting h3w is the team's decision; an agent must have been submitted to be selectable.",
+  "**h3j is submitted: 23.32, identical to h3's row to the last digit, as predicted.** It is h3 with the run ending on 31 July; its gain (0 to +0.4) lands in the private half. It replaces h3 as the honest candidate.",
+  "**Two candidates:** `submissions/h3j/submission.zip` (submitted, see above) and `submissions/h3w/submission.zip` (every week its own run: about +2.1 to +2.7 on the private half, about −3 on the public board, −0.8 over the whole run). Submitting h3w is the team's decision; an agent must have been submitted to be selectable.",
   "**What decides the final is partly unclear.** Written rules: the private half of the two selected submissions, plus the jury's judgement of the presentation. Unanswered: which mode counts (standard, hard or both), whether \"private\" is the hidden half alone or the whole test, and whether the better of the two picks counts. Questions for the organisers are in `docs/NEW_RULES.md` §8.",
   "**Known about the test (all confirmed on the server):** the first 84 hours of each week are public, the last 84 private; there is no August week, so the run ends on 31 July 2026; obs is exactly as documented.",
   "**On the board:** h3 at 23.32 (real), the cut probe at 24.25 (an artefact). We are about 12th of 31 on real scores, but the public board cannot be used to compare teams.",
@@ -28,7 +29,7 @@
  ],
  "scoreboard": [
   ["Perfect foresight (ceiling)", "22.44", "21.42", "19.92", "21.26", "reference"],
-  ["h3j: h3 with the run ending on 31 July (`submissions/h3j/submission.zip`)", "as h3", "as h3", "as h3", "20.19", "cleared 20:56; honest candidate; +0.03 / +0.20 / +0.07 when the folds are cut at July"],
+  ["h3j: h3 with the run ending on 31 July (`submissions/h3j/submission.zip`)", "as h3", "as h3", "as h3", "20.19", "submitted: 23.32 public, identical to h3; honest candidate; +0.03 / +0.20 / +0.07 when the folds are cut at July"],
   ["h3w: h3j with every week its own run (`submissions/h3w/submission.zip`)", "20.82", "19.51", "17.86", "19.40", "cleared 20:56; team decision. Last halves: 25.68 / 24.09 / 21.83 against h3's 23.09 / 20.43 / 18.96"],
   ["h3: h2 + round-2 signal forecaster + signal-aware planner, packaged (`submissions/h3/submission.zip`)", "21.33", "20.48", "18.77", "20.19", "submitted 20:13: 23.32 on the public test"],
   ["h2: combined agent + end-of-run handling, packaged (`submissions/h2/submission.zip`)", "21.27", "20.37", "18.70", "20.11", "submitted 19:01: 23.06 on the public test"],
@@ -126,6 +127,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["20:58", "h3j submitted: 23.32, identical to h3's row to the last digit, as predicted. It replaces h3 as the honest candidate."],
   ["20:57", "h3j and h3w cleared after my own check. Listed what is and is not known about how the final is scored; questions for the organisers added to the rules doc. Standard-mode cut analysis started."],
   ["20:50", "July control scored 0.53, so the August zero is real: the run ends on 31 July. h3j (h3 with that end date) becomes the honest candidate."],
   ["20:45", "Measured what the cut does to variants of h3: emptying the battery at each week's end is +3.0 on the last halves of our folds, −0.8 on the whole run. Both an honest fix (h3j, run ends 31 July) and that variant (h3w) are being packaged; submitting h3w is the team's decision."],

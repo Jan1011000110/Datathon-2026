@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 20:57
+**Last updated:** Sat 14 Nov 2026, 20:58
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -33,7 +33,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Agent | A | B | C | Mean | Status |
 |---|---|---|---|---|---|
 | Perfect foresight (ceiling) | 22.44 | 21.42 | 19.92 | 21.26 | reference |
-| **h3j** (h3 with the run ending on 31 July) | as h3 on these folds | | | | **cleared 20:56**; honest candidate |
+| **h3j** (h3 with the run ending on 31 July) | as h3 on these folds | | | | **submitted: 23.32 public**, identical to h3's row; honest candidate |
 | h3w (h3j with every week its own run) | 20.82 | 19.51 | 17.86 | 19.40 | cleared 20:56; team decision. Last 84 h of each week: 25.68 / 24.09 / 21.83 against h3's 23.09 / 20.43 / 18.96 |
 | **h3** (h2 + round-2 signal forecaster + signal-aware planner, packaged) | 21.33 | 20.48 | 18.77 | **20.19** | **submitted 20:13: 23.32 public** |
 | **h2** (combined agent + end-of-run handling, packaged) | 21.27 | 20.37 | 18.70 | **20.11** | **submitted 19:01: 23.06 public** |
@@ -190,6 +190,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **20:58** You submitted h3j: 23.32 public, 13,281.5 kg and 24,989.84 €, identical to h3's row to the last digit, as predicted. It replaces h3 as the honest candidate for the jury selection.
 - **20:57** `h3j` and `h3w` packaged (20:54) and re-checked by me: both differ from h3 only in configuration, 0 infractions, validator passes. You asked what decides the final: by the written rules the private half of the two selected submissions plus the jury's judgement; which mode counts, whether "private" is the hidden half alone, and whether the better of two picks counts are unanswered (questions added to `docs/NEW_RULES.md` §8). Started the same cut analysis for the standard-mode agent.
 - **20:50** July control: 0.53 (296.3 kg avoided). The August zero is real: the run ends on 31 July 2026 at 23:00. `h3j` (h3 with that end date) becomes the honest candidate in place of h3; its public score will not change, since the end of the run is in the private half.
 - **20:45** Measured "each week is its own run" on h3 (HF27). Asked the packager for `h3j` (run ends 31 July) and `h3w` (plan cut at every week's end), both verified, for the next shift. Whether `h3w` is submitted is the team's decision; I recommended telling the organisers about the cut either way.
