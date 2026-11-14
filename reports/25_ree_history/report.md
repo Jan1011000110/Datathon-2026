@@ -6,7 +6,8 @@
 
 - **No. The history does not give a gain we can rely on.** Inside the h3 stack the best variant scores +0.017 over h3 on the mean of the folds (−0.036 / +0.031 / +0.057 on A / B / C). Week by week it is better in 15 of 33 weeks and worse in 18.
 - **With net load known it is slightly negative** (−0.018).
-- **Not shipped.** h3's forecaster stays as it is.
+- **In the test's own layout** (one fold) it is +0.04 to +0.05, positive in 7 to 9 of 11 weeks, still within noise.
+- **Not shipped as it stands.** h3's forecaster stays as it is; section 5 says what building it as an extra candidate would take.
 - This was the team's decision to try: training on public data older than the competition's own.
 
 ## 2. What was downloaded
@@ -63,6 +64,17 @@ Closed loop on folds A, B, C; competition-span data fitted outside each fold.
 | Two years, weight 0.5 | h3 stack | 16 / 17 | +0.0012 |
 | Two years, model per hour everywhere | net load known | 11 / 22 | −0.0080 |
 
+**The same comparison in the test's own layout** (fold C with the competition-span data fitted on days 1–14 only, so nothing from after the week; 11 weeks; finished 20:14):
+
+| Forecaster | Harness | Weeks better / worse | Gain on the fold | t |
+|---|---|---|---|---|
+| Two years, full weight | net load known | 9 / 2 | +0.05 | 1.1 |
+| Two years, full weight | h3 stack | 7 / 4 | +0.05 | 0.5 |
+| Two years, weight 0.5 | net load known | 8 / 3 | +0.04 | 1.8 |
+| Two years, weight 0.5 | h3 stack | 7 / 4 | +0.05 | 0.5 |
+
+So in the layout closest to the real test the history is worth about +0.04 to +0.05 on this one fold, positive in most weeks but not distinguishable from noise (t between 0.5 and 1.8).
+
 Reading:
 
 - **The sign depends on the harness and the fold.** In the h3 stack the two test-like folds gain (+0.03, +0.06) and the cold-start fold loses; with net load known everything is within ±0.03 except the losses. Week by week it is a coin toss.
@@ -71,6 +83,8 @@ Reading:
 
 ## 5. Decision
 
-Not adopted. The gain is within noise, its sign is not stable, and shipping it would add a second round of packaging and an "outside data" line to explain to the jury for nothing measurable.
+Not adopted as it stands. Across all the evidence the history is weakly positive where the layout resembles the test (+0.03 on fold B, +0.06 on C, +0.05 on C in the test's layout) and negative on the cold-start fold, and no comparison reaches significance. A fair summary is "perhaps +0.03 to +0.05, perhaps nothing".
+
+It could still be built as a candidate if the team wants one: at run time the forecaster is h3's with different fitted coefficients, so the package would be h3 with part of its state file replaced. The cost is one more packaging round and a line in the presentation saying that the signal model was fitted on public data older than the competition's.
 
 Kept in the repo as a tested idea: the download script with its guard, the forecaster class, the evaluation.
