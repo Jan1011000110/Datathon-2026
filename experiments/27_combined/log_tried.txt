@@ -1,0 +1,10 @@
+fold                                                A       B       C    mean  spill_MWh  infr     sec
+config                                                                                                
+BEST (conv, independent)                       21.136  20.257  18.570  19.988      2.822     0   3.122
+conv, negative dependence 0.15                 21.136  20.253  18.570  19.986      2.727     0  10.708
+conv, negative dependence 0.30                 21.137  20.250  18.569  19.986      2.632     0  10.152
+conv, negative dependence 0.50                 21.139  20.248  18.567  19.985      2.495     0   9.961
+conv + mean-error correction of hours 12-35    21.134  20.257  18.570  19.987      2.827     0   2.465
+hybrid + mean-error correction of hours 12-35  21.133  20.227  18.566  19.975      2.817     0   1.424
+conv, nomodel load                             21.023  20.221  18.540  19.928      3.459     0   2.667
+conv, nomodel load, negative dependence 0.30   21.023  20.218  18.536  19.925      3.249     0   8.393

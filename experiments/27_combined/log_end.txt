@@ -1,0 +1,14 @@
+fold                                                                                                   A       B       C    mean  spill_MWh  infr    sec
+config                                                                                                                                                  
+fc | horizon never truncated                                                                      21.136  20.257  18.570  19.988      2.822     0  2.064
+fc | truncated when obs shows < 3 prices (legal)                                                  21.138  20.296  18.700  20.045      2.898     0  2.029
+fc | truncated at the true end of the run (diagnostic)                                            21.274  20.370  18.869  20.171      3.032     0  2.135
+fc | truncated at the calendar end of the fold (last fold day of Aug 2026, 23:00) + < 3 prices    21.274  20.370  18.700  20.115      2.951     0  2.063
+clim | horizon never truncated                                                                    20.922  19.983  18.428  19.778      2.224     0  2.365
+clim | truncated when obs shows < 3 prices (legal)                                                20.928  19.990  18.568  19.829      2.299     0  2.356
+clim | truncated at the true end of the run (diagnostic)                                          21.072  20.135  18.736  19.981      2.440     0  2.431
+clim | truncated at the calendar end of the fold (last fold day of Aug 2026, 23:00) + < 3 prices  21.072  20.135  18.568  19.925      2.352     0  2.406
+fc | no-LightGBM load, calendar end + < 3 prices                                                  21.164  20.333  18.656  20.051      3.604     0  2.723
+fc | no-LightGBM load, < 3 prices                                                                 21.024  20.261  18.656  19.980      3.541     0  3.177
+fc | hybrid, calendar end + < 3 prices                                                            21.269  20.329  18.695  20.098      2.952     0  2.579
+fc | hybrid, < 3 prices                                                                           21.134  20.258  18.695  20.029      2.893     0  4.026

@@ -1,9 +1,9 @@
 {
- "updated": "Sat 14 Nov 2026, 18:30",
+ "updated": "Sat 14 Nov 2026, 18:38",
  "ceiling": 21.26,
  "best": {
-  "name": "Combined agent: planner + load + solar + price/CO₂ forecasters (in the test harness, not yet packaged)",
-  "score": 19.99,
+  "name": "Combined agent: planner + load + solar + price/CO₂ forecasters + end-of-run handling (being packaged as h2)",
+  "score": 20.11,
   "note": "validation, mean of 3 folds, 0 infractions; the ceiling is for the same folds"
  },
  "leaderboard": [
@@ -18,17 +18,20 @@
  ],
  "leaderboard_time": "17:58, public half of the hidden test. Estimated ceiling there: about 23.7 (the public test scores about 11 % higher than our folds for everyone)",
  "now": [
-  "**First combined agent: 19.99** on our folds (21.14 / 20.26 / 18.57), 0 infractions. That is 94 % of the ceiling, which would be about 22.3 on the public test by the same scaling.",
-  "**What each piece adds once the planner handles uncertainty:** better load and solar forecasts +0.27, price/CO₂ forecaster +0.21. With a perfect price/CO₂ signal the same agent would score 20.71, so the signal beyond 3 hours is now the largest loss (0.72).",
-  "**Running:** the packager is turning the combined agent into **h2** (a first ZIP exists since 18:23 and matches the harness on fold A; the remaining checks are in progress, so do not submit it yet); the integrator is finishing sensitivity and run-time checks; two specialists are back on the signal; a red-team is checking h1 and h2 on the real test layout, holiday weeks and odd inputs.",
+  "**Combined agent: 20.11** on our folds (21.27 / 20.37 / 18.70), 0 infractions. That is 95 % of the ceiling, about 22.4 on the public test by the same scaling.",
+  "**What each piece adds:** planning with scenarios +0.31, price/CO₂ forecaster +0.21 to +0.24, load forecaster +0.19, end-of-run handling +0.13, solar forecaster +0.05. Every planner setting sits on a plateau.",
+  "**What is still missing** (about 1.15 points): the price/CO₂ signal 3 to 11 hours ahead (0.54) and the net load of the hour being decided (0.30), mostly on weekday mornings, where the agent holds back discharge because it cannot tell how much load there will be.",
+  "**h2 (the combined agent as a ZIP) passed every check on the previous settings at 18:36** and is being rebuilt with the final ones; I will re-check it and clear it for submission. Two specialists are on the signal; a red-team is checking h1 and h2 on the real test layout, holiday weeks and odd inputs.",
   "**Anomalies get little weight now.** The organisers' statement that nobody had reached the private maximum was wrong, so there is no evidence of bad data in the hidden test. We keep what is certain or free (no crashes or infractions, the real layout, holiday weeks, h2's fallback) and stop tuning guards for faults.",
   "**h1 is ready to submit and replaces h0 as the first choice:** `submissions/h1/nov_fill/submission.zip`. 20.58 / 19.79 / 18.35 on our folds, 0 infractions, under 1 second per run. Run the hard-mode quick validation first. h0 (`submissions/h0/submission.zip`, 19.01) is still worth one attempt as a comparison point.",
   "**Leaderboard:** the top two teams are at 23.2 and 23.1, about 98 % of the estimated public ceiling (23.7), not above it. By the same scaling h0 would land near 21.2."
  ],
  "scoreboard": [
   ["Perfect foresight (ceiling)", "22.44", "21.42", "19.92", "21.26", "reference"],
-  ["Combined: planner + load + solar + price/CO₂ forecasters", "21.14", "20.26", "18.57", "19.99", "harness; first result, checks in progress"],
-  ["Same with a perfect price/CO₂ signal (not legal; shows what the signal costs)", "", "", "", "20.71", "diagnostic"],
+  ["Combined + end-of-run handling (h2's final settings)", "21.27", "20.37", "18.70", "20.11", "being packaged as h2"],
+  ["Combined, end of run from the shrinking lists only", "21.14", "20.30", "18.70", "20.04", "h2 ZIP of 18:33 matches this exactly"],
+  ["Combined: planner + load + solar + price/CO₂ forecasters", "21.14", "20.26", "18.57", "19.99", "harness"],
+  ["Same with a perfect price/CO₂ signal (not legal; shows what the signal costs)", "21.77", "20.91", "19.45", "20.71", "diagnostic"],
   ["Load forecaster, current hour at its 20 % quantile (rest naive)", "20.65", "19.87", "18.16", "19.56", "harness; being combined"],
   ["h1: uncertainty-aware planner + naive forecasts, packaged (`submissions/h1/nov_fill/submission.zip`)", "20.58", "19.79", "18.35", "19.57", "ready to submit"],
   ["Price/CO₂ forecaster (rest naive, 10 % haircut)", "20.17", "19.57", "17.96", "19.23", "harness; being combined"],
@@ -37,10 +40,10 @@
   ["Naive agent, no haircut", "19.70", "19.10", "17.64", "18.81", "superseded"]
  ],
  "running": [
-  ["Integrator", "Combine planner + load + solar + price/CO₂ forecasters into one agent, with proper net-load scenarios", "running", "first result 18:10: 19.99; sensitivity, run time and cross-checks due about 19:20"],
+  ["Integrator", "Combine planner + load + solar + price/CO₂ forecasters into one agent, with proper net-load scenarios", "done", "18:36: 20.11 with end-of-run handling; ladder, calibration, sensitivity, gap analysis in `reports/18_combined/report.md`"],
   ["Planner (round 2)", "Make the plan aware that the price/CO₂ forecast is uncertain (scenario paths of the signal)", "running", "since 18:11"],
   ["Price/CO₂ forecaster (round 2)", "Better forecast for hours +3 to +11: local weather, slope of the known hours, peak height", "running", "since 18:11"],
-  ["Packager (h2)", "Package the combined agent, with a fallback to h1's logic if anything fails on the server", "running", "first ZIP 18:23, equals the harness on fold A; other folds, fuzz, fallbacks and timing in progress; target 19:45"],
+  ["Packager (h2)", "Package the combined agent, with a fallback to h1's logic if anything fails on the server", "running", "18:36: equals the harness on all three folds, passes validator, fuzz and fallback tests, 2.5–4.4 s per run; being rebuilt with the calendar end-of-run rule"],
   ["Red-team", "Check h1, the combined agent and h2 on the real test layout, holiday weeks, months missing from train and odd obs; faults only as a quick check", "running", "since 18:24; re-scoped 18:29"],
   ["Packager (h1)", "Package h1 = h0's forecasts + the new planner", "done", "18:11: `submissions/h1/`, identical to the harness, 0.4–0.7 s per run; `reports/20_h1/report.md`"],
   ["Planner", "Fast optimiser that accounts for forecast uncertainty", "done", "17:56: +0.71 over trusting the forecast, 15–40× faster; `reports/14_planner/report.md`"],
@@ -68,11 +71,19 @@
   ["Gradient boosting for solar (22 features)", "worse than the baseline (151 vs 91 kW) and slow", "dropped"],
   ["Planning horizon 36 / 24 / 18 / 12 h in the packaged agent", "within 0.02 down to 18 h; 12 h loses 0.025 on one fold", "h0 ships 18 h (half the run time)"],
   ["Empty the battery when the run is about to end (2 hours of notice)", "+0.01 / +0.02 / +0.14", "kept; earlier notice would be worth more"],
+  ["Combining all four pieces; net-load scenarios from the load and solar forecasters' own quantiles", "19.99; beats scenarios from past errors of the difference in 9 of 9 comparisons (+0.05)", "adopt"],
+  ["Quantile trick in a forecaster together with scenarios in the planner", "does not stack (19.72 with scenarios against 19.56 with the trick)", "scenarios only"],
+  ["Planner settings: 5–25 scenarios, 1–36 scenario hours, 24/36 h horizon, scenario width ×0.5–1.5", "all within 0.03 except one scenario hour (−0.06) or width off by 50 %", "keep 9 scenarios on 12 hours"],
+  ["Modelling that load and solar errors are correlated (−0.31)", "−0.002", "dropped"],
+  ["End of run: plan only the hours left when the lists shrink; and nothing after 31 Aug 2026 23:00", "+0.05 and +0.07", "adopt both; the second cannot hurt unless the run went past August"],
+  ["Running LightGBM on the server for the load model", "a model string it cannot parse kills the Python process, which no fallback can catch", "replaced by walking the trees with numpy (bit-identical), rules-only as the fallback"],
   ["A haircut on top of the planner's scenarios (2.5 / 5 / 10 %)", "worse at every level (−0.03 to −0.35)", "dropped: the scenarios already do that job"],
   ["Calendar that knows the next test week follows a month end", "−0.08 / +0.18 / −0.05 by fold", "off: 10 boundaries per fold is too few to tell"],
   ["November tables interpolated from October and December (train has no November)", "+0.7 on a hidden month's week in a hide-one-month test; about +0.1 overall if the November week exists", "adopt (the nov_fill variant)"]
  ],
  "figures": [
+  ["combined_knowledge.png", "What the combined agent is still missing", "Each grey bar is the legal agent plus one piece of perfect knowledge. The price/CO₂ signal 3 to 11 hours ahead is worth +0.55, the net load of the hour being decided +0.30, the end of the run +0.18."],
+  ["combined_ladder.png", "What each forecaster adds, with the uncertainty-aware planner", "Mean score of the three folds for each combination of load and solar forecasters, with the average-day signal (grey), our signal forecaster (blue) and a perfect signal (orange, not legal)."],
   ["planner_first_step.png", "Under uncertainty the best discharge is a quantile of the forecast", "Discharge one more kW only while the chance that it displaces grid import, times what it earns now, exceeds what the kWh is worth later. So the right haircut depends on the hour: almost none at 04:00 or 19:00, large at 13:00 when solar is uncertain."],
   ["load_error_by_hour.png", "The load model halves the error for the hour being decided", "Mean absolute error of the load forecast by hour. From 23:00 to 05:00 the meter is frozen and the model copies the last reading (error 0). 06:00, when the true reading returns, stays the hardest hour."],
   ["solar_loss_by_hour.png", "Solar errors cost score in the morning ramp", "Points lost against perfect solar knowledge, by hour. The loss is energy discharged past the real net load when solar is under-forecast. A better mean forecast recovers little; planning on a high solar percentile recovers three times as much."],
@@ -84,6 +95,8 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["18:37", "Sent h2's final settings to the packager (calendar end of run). Saved the integrator's report."],
+  ["18:36", "Integrator finished: 20.04 with the safe end-of-run rule, 20.11 with the calendar end; remaining gap split into signal 0.54, net load 0.55, end of run 0.18. h2 ZIP passes every check on the previous settings; LightGBM replaced by numpy tree-walking after the packager found a bad model string kills the process."],
   ["18:29", "You confirmed the organisers' statement about the private ranking was false. Anomalies down-weighted: red-team re-scoped, corrections written into the work log and the standard-mode edge report."],
   ["18:24", "Launched a red-team on h1, the combined agent and h2. h2 has a first working ZIP (18:23) that matches the harness on fold A; still being checked."],
   ["18:13", "h1 packaged and re-checked: 20.58 / 19.79 / 18.35, 0 infractions, 0.4 s per run, passes the validator. Recommended ZIP: `submissions/h1/nov_fill/submission.zip`."],
@@ -108,6 +121,7 @@
  ],
  "files": [
   ["reports/README.md", "full work log (hard mode in Part I)"],
+  ["reports/18_combined/report.md", "the combined agent: what each piece adds, scenarios, sensitivity, what is still missing"],
   ["reports/14_planner/report.md", "the uncertainty-aware planner and its decision rule"],
   ["reports/11_load_forecast/report.md", "load forecast, the meter's behaviour, holidays"],
   ["reports/13_signal_forecast/report.md", "price/CO₂ forecast beyond 3 hours"],

@@ -1,0 +1,20 @@
+fold                                              A       B       C    mean  spill_MWh  infr    sec
+config                                                                                             
+clim | load naive + solar naive | conv       20.560  19.774  18.203  19.512      4.793     0  2.289
+clim | load fc + solar naive | conv          20.865  19.934  18.347  19.715      2.670     0  2.159
+clim | load naive + solar fc | conv          20.605  19.814  18.278  19.565      4.304     0  2.059
+clim | load fc + solar fc | conv             20.922  19.983  18.428  19.778      2.224     0  2.007
+clim | load nomodel + solar fc | conv        20.788  19.952  18.401  19.714      2.844     0  2.068
+clim | load nomodel + solar naive | conv     20.742  19.908  18.328  19.659      3.235     0  2.095
+perfect | load naive + solar naive | conv    21.459  20.713  19.173  20.448      6.560     0  2.116
+perfect | load fc + solar naive | conv       21.694  20.879  19.346  20.639      4.530     0  2.076
+perfect | load naive + solar fc | conv       21.505  20.748  19.270  20.508      5.850     0  2.102
+perfect | load fc + solar fc | conv          21.770  20.907  19.450  20.709      3.664     0  2.044
+perfect | load nomodel + solar fc | conv     21.658  20.857  19.415  20.643      4.329     0  2.205
+perfect | load nomodel + solar naive | conv  21.594  20.839  19.312  20.582      5.097     0  2.448
+fc | load naive + solar naive | conv         20.860  20.066  18.307  19.744      5.122     0  2.336
+fc | load fc + solar naive | conv            21.104  20.214  18.477  19.932      3.259     0  2.118
+fc | load naive + solar fc | conv            20.895  20.116  18.400  19.803      4.652     0  2.060
+fc | load fc + solar fc | conv               21.136  20.257  18.570  19.988      2.822     0  2.139
+fc | load nomodel + solar fc | conv          21.023  20.221  18.540  19.928      3.459     0  2.000
+fc | load nomodel + solar naive | conv       20.996  20.187  18.459  19.880      3.764     0  1.731

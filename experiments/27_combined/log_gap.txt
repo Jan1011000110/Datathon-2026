@@ -1,0 +1,31 @@
+fold                                                                              A       B       C    mean  spill_MWh  infr    sec
+config                                                                                                                             
+ceiling: perfect signal + perfect net load, deterministic                    22.440  21.417  19.918  21.259      0.000     0  0.912
+fc | best net-load side (LoadFC + SolarFC, conv)                             21.136  20.257  18.570  19.988      2.822     0  4.627
+fc | + true net load for hours 0..0                                          21.489  20.506  18.881  20.292      0.397     0  4.455
+fc | + true net load for hours 0..1                                          21.536  20.563  18.916  20.339      0.360     0  4.784
+fc | + true net load for hours 0..2                                          21.604  20.635  18.947  20.395      0.245     0  4.720
+fc | + true net load for hours 0..5                                          21.662  20.739  19.001  20.467      0.000     0  4.303
+fc | + true net load for hours 0..11                                         21.669  20.768  19.042  20.493      0.000     0  3.668
+fc | + true net load for hours 0..35                                         21.669  20.774  19.050  20.498      0.000     0  3.493
+fc | true load (all hours) + SolarFC                                         21.427  20.584  18.870  20.293      1.848     0  3.149
+fc | LoadFC + true solar (all hours)                                         21.295  20.407  18.659  20.120      1.471     0  3.606
+perfect | best net-load side (LoadFC + SolarFC, conv)                        21.770  20.907  19.450  20.709      3.664     0  3.400
+perfect | + true net load for hours 0..0                                     22.160  21.137  19.779  21.025      0.561     0  3.701
+perfect | + true net load for hours 0..1                                     22.205  21.204  19.810  21.073      0.552     0  3.462
+perfect | + true net load for hours 0..2                                     22.262  21.264  19.842  21.123      0.485     0  3.586
+perfect | + true net load for hours 0..5                                     22.374  21.382  19.889  21.215      0.151     0  3.537
+perfect | + true net load for hours 0..11                                    22.426  21.416  19.906  21.249      0.113     0  3.445
+perfect | + true net load for hours 0..35                                    22.440  21.417  19.918  21.259      0.000     0  3.482
+perfect | true load (all hours) + SolarFC                                    22.150  21.221  19.728  21.033      1.960     0  3.357
+perfect | LoadFC + true solar (all hours)                                    21.934  21.069  19.563  20.855      2.144     0  3.784
+fc | best net-load side + true signal for hours 0..5                         21.410  20.585  18.921  20.305      2.818     0  3.825
+fc | true net load + true signal for hours 0..5                              21.959  21.121  19.387  20.823      0.000     0  3.529
+fc | best net-load side + true signal for hours 0..11                        21.661  20.795  19.142  20.533      3.109     0  3.685
+fc | true net load + true signal for hours 0..11                             22.272  21.288  19.598  21.053      0.000     0  3.107
+fc | best net-load side + true signal for hours 0..23                        21.631  20.804  19.152  20.529      3.457     0  3.233
+fc | true net load + true signal for hours 0..23                             22.285  21.299  19.611  21.065      0.000     0  3.710
+fc | true net load, all hours (signal forecast only)                         21.669  20.774  19.050  20.498      0.000     0  3.747
+fc | best net-load side, horizon cut at the true end of the run              21.274  20.370  18.869  20.171      3.032     0  3.878
+fc | true net load, all hours, horizon cut at the true end of the run        21.824  20.892  19.360  20.692      0.000     0  3.632
+fc | + true net load for hours 0..0, horizon cut at the true end of the run  21.633  20.616  19.182  20.477      0.397     0  3.381
