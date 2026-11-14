@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 18:55
+**Last updated:** Sat 14 Nov 2026, 18:59
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -57,7 +57,8 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Price/CO₂ forecaster (round 2) | Better forecast for hours +3 to +11 | `experiments/23_signal/signal_fc2.py`, [`19_signal_planning/report.md`](19_signal_planning/report.md) | **done** 18:44: +0.045 |
 | Planner (round 2) | Plan against scenario paths of the signal | `experiments/28_signal_planning/sigplan.py`, same report | **done** 18:46: +0.057 |
 | Integrator (second task) | Do the two signal improvements stack, and does the gain hold week by week? | `experiments/27_combined/combined3.py` | running since 18:48 |
-| Web check | Are the train price and CO₂ series REE's published data? Train days only | (report in chat) | running since 18:52 |
+| Web check | Are the train price and CO₂ series REE's published data? Train days only | [`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md) §5 | **done**: yes |
+| Packager (fourth task) | Package h3 = h2 + the two signal improvements | `agents/h3/`, `submissions/h3/` | running since 18:58 |
 | Red-team | Real test layout, holiday weeks, months missing from train, odd obs; faults as a quick check only | `experiments/29_stress_hard/`, `21_stress_hard/` | running since 18:24, re-scoped 18:29 |
 | Analyst | Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from | [`15_hard_eda/report.md`](15_hard_eda/report.md), 6 figures | **done** 17:42 |
 
@@ -117,6 +118,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | HF18 | What the planner pays for in the signal forecast is the level of the next six hours: true values in the wrong order recover everything, the right order with our values recovers nothing. Forecasts made at night carry 42 % of the loss. | `19_signal_planning/report.md` §2 |
 | HF19 | A LightGBM model text the library cannot parse kills the Python process instead of raising, so no fallback can catch it. h2 evaluates the trees with numpy. | `22_h2/report.md` §5 |
 | HF20 | Our agent with a perfect signal would sit at about 98 % of the ceiling, which is where the top two teams are. Consistent with them knowing the true signal beyond 3 hours; not proof. The server does not provide it. | `17_hard_leaderboard/report.md`, T34 |
+| HF21 | The price series is REE's published PVPC, hour for hour, and the CO₂ series is exactly 0.37 × the share of emitting generation from REE's published hourly series (checked on three train days). So the test weeks' true signal is public. We do not use it. | `17_hard_leaderboard/report.md` §5 |
 | HF12 | The right haircut is not a constant: discharge one more kW only while (chance it displaces import) × (what it earns now) exceeds what the kWh is worth later. Almost no haircut at 04:00 or 19:00, a large one at 13:00. | `14_planner/report.md` §2 |
 | HF13 | At 06:00 the load rises on weekdays (+383 kW on Mondays, +65 to +110 Tuesday–Friday) and falls on Saturdays (−188). 22:00 is the last reading taken, not an hourly mean. | `11_load_forecast/report.md` §2 |
 | HF14 | For price/CO₂, hours +3 to +5 carry two thirds of the forecast loss and +6 to +11 the rest; beyond +12 h is worth 0.01. Forecast accuracy is a poor guide to score. | `13_signal_forecast/report.md` §2 |
@@ -146,6 +148,8 @@ The red-team subagent was re-scoped accordingly at 18:29.
 
 ## H6. Log
 
+- **18:59** Web check finished: both signals are REE's public data (HF21). The test weeks' real values could therefore be embedded in an agent; ours do not, pending a ruling from the organisers.
+- **18:58** Asked the packager for h3 = h2 + round-2 signal forecaster + signal-aware planner (20.19 on the folds, +0.075), with fallbacks to h2's logic and then h1's.
 - **18:55** Saved the h2 and signal-round-2 reports. h2 is cleared: packager's final pass clean, and my own re-check of the 18:45 build (18.70 on fold C in the organisers' environment, 0 infractions, 0 fallbacks, 5.3 s per run).
 - **18:52** At your request, started a check of whether the train price and CO₂ series are REE's published data, on train days only. I will not put test-week values into an agent unless the organisers say external data is allowed.
 - **18:51** Built `submissions/probe_h2/`: h2 itself with a self-report for the free validation (did it build on the server, how fast is it, do our assumptions about obs hold).

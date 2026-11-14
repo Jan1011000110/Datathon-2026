@@ -71,7 +71,26 @@ Possible explanations for the top two, none confirmed:
 - ~~The server's `obs` carries more than the site documents.~~ **Ruled out at 18:50:** our probe on the free validation showed 3 values in each list and no extra keys.
 - **The ceiling estimate is a few percent low.**
 
-## 5. What would settle it
+## 5. Are the price and CO₂ series public? (checked 18:59, train days only)
+
+**Yes.** A subagent compared three train days (10 Sep 2025, 14 Jan 2026, 10 Jun 2026) with Red Eléctrica's open data API (REData, `apidatos.ree.es`, no token needed). No test-week value was requested or returned.
+
+| Our column | Published by REE? | Evidence |
+|---|---|---|
+| `precio_eur_per_kwh` | Yes, exactly | The "PVPC" series of the real-time market prices: 72 of 72 hours identical |
+| `gen_con_emisiones_mw`, `gen_sin_emisiones_mw` | Yes | The hourly peninsular series "with / without CO₂-eq emissions": 48 of 48 hours identical on the two 2026 days; 0.15 % off on the 2025 day, which REE revised three days ago |
+| `co2_kg_per_kwh` | Derived by the organisers | Exactly `0.37 × with / (with + without)` on all 6,768 train rows |
+
+What follows:
+
+- **The test weeks' true prices and CO₂ can be reconstructed by anyone** from the same public series. So a team can give its agent the real signal for every hour of the test.
+- **That would explain the top two scores.** Our own agent with a perfect signal sits at about 98 % of the ceiling, which is where they are. This is circumstantial; we have not seen their code.
+- **We have not done it and the agents in this repo do not do it.** The rules describe the run as sequential "to guarantee the absence of future-information leakage", hard mode says the hours beyond +2 must be forecast with models trained on `data/train/`, and every submission is archived for the jury's code audit.
+- **The decision is the team's, and the clean way to take it is to ask the organisers** whether external public data is allowed. If yes, we add it. If no, they will want to know it is possible.
+
+One legitimate by-product: the CO₂ signal is a fixed 0.37 times the share of emitting generation. That is worth stating in the presentation, and it means the "CO₂" the battery chases is really the share of gas and other emitting plants in the mix.
+
+## 6. What would settle it
 
 - **A probe (done, 18:50).** The free quick validation displays error text; the server sends exactly what is documented.
 - **Update, 18:46:** our own agent with a perfect signal scores 20.71 on the folds, 20.84 with the end of the run known. That is 98 % of the ceiling, about 23.2 on the public test, which is where the top two teams are. This is consistent with them knowing the true signal beyond 3 hours. It is not proof.

@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 18:57",
+ "updated": "Sat 14 Nov 2026, 18:59",
  "ceiling": 21.26,
  "best": {
   "name": "h2: combined agent, packaged and cleared (`submissions/h2/submission.zip`)",
@@ -18,15 +18,14 @@
  ],
  "leaderboard_time": "17:58, public half of the hidden test. Estimated ceiling there: about 23.7 (the public test scores about 11 % higher than our folds for everyone)",
  "now": [
-  "**Combined agent: 20.11** on our folds (21.27 / 20.37 / 18.70), 0 infractions. That is 95 % of the ceiling, about 22.4 on the public test by the same scaling.",
-  "**What each piece adds:** planning with scenarios +0.31, price/CO₂ forecaster +0.21 to +0.24, load forecaster +0.19, end-of-run handling +0.13, solar forecaster +0.05. Every planner setting sits on a plateau.",
-  "**What is still missing** (about 1.15 points): the price/CO₂ signal 3 to 11 hours ahead (0.54) and the net load of the hour being decided (0.30), mostly on weekday mornings, where the agent holds back discharge because it cannot tell how much load there will be.",
-  "**h2 is cleared for submission: `submissions/h2/submission.zip`.** It gives the same command as the test harness in every hour of all three folds, 0 infractions, about 5 s per run, and falls back to h1's logic if anything fails on the server. First run `submissions/probe_h2/submission.zip` on the free quick validation (never the ranking): it is h2 with a self-report of whether it built on the server and how fast it runs there.",
-  "**The server's obs is confirmed** by our first probe (18:50): 3 price/CO₂ values, the six readings, battery 6,000 / 1,500, first hour 24 Sep 2025. Exactly as documented, so the top teams are not getting extra hours from the server.",
-  "**h3 is being packaged:** h2 plus a second-round signal forecaster and a planner that doubts the signal forecast. Together they add 0.075 on our folds (20.19); 22 of 33 test-like weeks improve. Target 19:50.",
-  "**Anomalies get little weight now.** The organisers' statement that nobody had reached the private maximum was wrong, so there is no evidence of bad data in the hidden test. We keep what is certain or free (no crashes or infractions, the real layout, holiday weeks, h2's fallback) and stop tuning guards for faults.",
-  "**h1 is ready to submit and replaces h0 as the first choice:** `submissions/h1/nov_fill/submission.zip`. 20.58 / 19.79 / 18.35 on our folds, 0 infractions, under 1 second per run. Run the hard-mode quick validation first. h0 (`submissions/h0/submission.zip`, 19.01) is still worth one attempt as a comparison point.",
-  "**Leaderboard:** the top two teams are at 23.2 and 23.1, about 98 % of the estimated public ceiling (23.7), not above it. By the same scaling h0 would land near 21.2."
+  "**To do now, in the hard-mode tab (attempts expire at 21:00):** (1) `submissions/probe_h2/submission.zip` on the free quick validation only: it is h2 with a self-report of whether it built on the server and how fast it runs; (2) `submissions/h2/submission.zip` to the ranking; (3) optionally `submissions/h1/nov_fill/submission.zip` as a comparison point.",
+  "**h2 = the combined agent, packaged and cleared: 20.11** on our folds (21.27 / 20.37 / 18.70), 0 infractions, about 5 s per run, falls back to h1's logic if anything fails on the server. That is 95 % of the ceiling, about 22.4 on the public test by the usual scaling.",
+  "**h3 is being packaged** (target 19:50): h2 plus a second-round signal forecaster and a planner that doubts the signal forecast. Together +0.075 on our folds (20.19); 22 of 33 test-like weeks improve.",
+  "**What is still missing** (about 1.1 points): the level of the price/CO₂ signal 3 to 8 hours ahead (about 0.5), which obs does not seem to contain, and the net load of the hour being decided (0.30), mostly on weekday mornings.",
+  "**The server's obs is confirmed** by our probe (18:50): 3 price/CO₂ values, the six readings, battery 6,000 / 1,500, first hour 24 Sep 2025. Exactly as documented.",
+  "**Both signals are public data** (checked on three train days): the price is REE's published PVPC hour for hour, and the CO₂ column is exactly 0.37 × the share of emitting generation REE publishes. So the test weeks' true signal could be embedded in an agent, and our agent with a perfect signal would sit where the top two teams are (about 98 % of the ceiling). Our agents do not do this; whether it is allowed is a question for the organisers.",
+  "**Anomalies get little weight now.** The organisers' statement that nobody had reached the private maximum was wrong. We keep what is certain or free (no crashes or infractions, the real layout, holiday weeks, fallbacks) and stop tuning guards for faults.",
+  "**Leaderboard (17:58):** top two at 23.2 and 23.1, four teams at 22.0–22.3, five at 21.0–21.8. Estimated public ceiling 23.7."
  ],
  "scoreboard": [
   ["Perfect foresight (ceiling)", "22.44", "21.42", "19.92", "21.26", "reference"],
@@ -45,7 +44,7 @@
  "running": [
   ["Integrator", "Combine planner + load + solar + price/CO₂ forecasters into one agent, with proper net-load scenarios", "done", "18:36: 20.11 with end-of-run handling; ladder, calibration, sensitivity, gap analysis in `reports/18_combined/report.md`"],
   ["Packager (h3)", "Package h2 + round-2 signal forecaster + signal-aware planner, with fallbacks to h2's logic and then h1's", "running", "since 18:58; target 19:50"],
-  ["Web check", "Are the train price and CO₂ series REE's published data? Train days only; no test-week value is fetched", "running", "since 18:52"],
+  ["Web check", "Are the train price and CO₂ series REE's published data? Train days only; no test-week value was fetched", "done", "18:59: yes. Price identical to REE's PVPC on 72 of 72 hours; CO₂ = 0.37 × REE's emitting share on all 6,768 rows; `reports/17_hard_leaderboard/report.md` §5"],
   ["Integrator (round 2)", "Do the two signal improvements stack, and does the gain hold week by week?", "done", "18:55: yes, +0.075 together (20.19); 22 of 33 weeks improve; worst week −0.009"],
   ["Planner (round 2)", "Make the plan aware that the price/CO₂ forecast is uncertain (scenario paths of the signal)", "done", "18:46: +0.057, about +0.045 with settings chosen on other folds; `reports/19_signal_planning/report.md`"],
   ["Price/CO₂ forecaster (round 2)", "Better forecast for hours +3 to +11", "done", "18:44: +0.045; the planner needs the level of the next six hours, which obs does not seem to contain"],
@@ -109,6 +108,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["18:59", "Web check done: the price and CO₂ series are REE's public data, so the test weeks' true signal is obtainable. Our agents do not use it; recommended asking the organisers whether external data is allowed."],
   ["18:58", "Asked the packager for h3 (h2 + the two signal improvements, three-level fallback)."],
   ["18:55", "Integrator: the two signal improvements stack to +0.075 (20.19) and hold week by week. h2 cleared: packager's final pass clean, my own re-check of the 18:45 build clean."],
   ["18:52", "At your request, started a check of whether the train price and CO₂ series are REE's published data (train days only). I will not put test-week values into an agent unless the organisers allow external data."],
