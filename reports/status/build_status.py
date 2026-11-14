@@ -8,7 +8,7 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 DATA = {
-    "updated": "Sat 14 Nov 2026, 17:27",
+    "updated": "Sat 14 Nov 2026, 17:46",
     "ceiling": 21.26,
     "best": {"name": "Naive agent h0", "score": 18.96, "note": "validation, mean of 3 folds, 0 infractions"},
     "leaderboard": [("SSA Gourmet", "21.27"), ("Low BaterIA", "4.50"), ("Fa (us)", "not submitted yet")],
@@ -30,7 +30,7 @@ DATA = {
         ("Solar forecaster", "Predict solar ×12 for the current hour and next day (0.47 pts)", "running", "since 17:19"),
         ("Price/CO₂ forecaster", "Predict the signal beyond the 3 known hours (0.79 pts)", "running", "since 17:19"),
         ("Planner", "Fast optimiser that accounts for forecast uncertainty", "running", "since 17:19"),
-        ("Analyst", "Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from", "running", "since 17:25"),
+        ("Analyst", "Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from", "done", "6 figures and a report at 17:42: `reports/15_hard_eda/report.md`"),
     ],
     "tried": [  # what, result, verdict
         ("Perfect-foresight ceiling on 3 folds", "21.26 mean", "reference"),
@@ -41,10 +41,19 @@ DATA = {
         ("Fixed 10 % haircut on discharge", "+0.15", "keep until the planner handles uncertainty"),
     ],
     "figures": [  # file under figs/, title, caption
+        ("f1_week.png", "One week of hard mode under the best possible schedule",
+         "8–14 May, train data. The battery fills at the midday trough of the score signal and on free solar surplus, and empties in the evening and before the morning ramp. The discharge (green) stops at the campus's net load (black line) in almost every hour."),
+        ("f4_value_sources.png", "Where the 21 points come from",
+         "Tripling the battery takes the ceiling from 5.9 to 16.5. Solar ×12 adds 3.0 only because the no-battery baseline shrinks. Storing free surplus adds 1.7 (8 %)."),
+        ("f3_discharge_limit.png", "The load, not the inverter, limits the discharge",
+         "In 87 % of the best schedule's discharge hours the battery covers the whole campus and stops. That is why the agent has to know the current hour's load."),
+        ("f5_night_freeze.png", "The meter is frozen at night",
+         "From 23:00 to 05:00 the recorded load repeats the last reading, so the next hour is known exactly (19 % of the discharge energy). The largest discharges fall in the evening and at 06:00–08:00, where the load moves most."),
         ("losses.png", "Where the score is lost",
          "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."),
     ],
     "log": [  # newest first
+        ("17:42", "Analyst finished: six explainer figures and `reports/15_hard_eda/report.md`. Free solar is only 8 % of the ceiling; 87 % of discharge hours are limited by the load; 19 % of the discharge energy falls in hours where the load is known exactly."),
         ("17:26", "Leaderboard baselines agree with train: ×12 solar lowers the baseline by 16 % (CO₂) and 20 % (cost). Reminded the forecasters that hidden weeks include Christmas and late July."),
         ("17:25", "Launched a sixth subagent for explainer figures."),
         ("17:24", "One full battery is worth about 0.35 points; the optimum carries about 3,000 kWh across each week boundary."),
@@ -61,6 +70,7 @@ DATA = {
         ("reports/README.md", "full work log (hard mode in Part I)"),
         ("reports/10_hard_mode/report.md", "first hard-mode report"),
         ("docs/NEW_RULES.md", "hard-mode rules"),
+        ("reports/15_hard_eda/report.md", "what hard mode changes, six figures"),
         ("experiments/20_hard_baseline/", "scripts behind the numbers"),
     ],
 }
