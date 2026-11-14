@@ -1,6 +1,6 @@
 # Is there any real edge left?
 
-**State: Sat 14 Nov, 15:55.** Written for the team to read after lunch. It replaces what I said in chat before 15:30, where I changed my mind more than once; this is where the evidence ended up.
+**State: Sat 14 Nov, 15:25.** Written for the team to read after lunch. It replaces what I said in chat earlier this afternoon, where I changed my mind more than once; this is where the evidence ended up.
 
 ## The short answer
 

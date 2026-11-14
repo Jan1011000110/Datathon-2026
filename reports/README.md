@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 15:55
+**Last updated:** Sat 14 Nov 2026, 15:25
 
 ---
 
@@ -222,10 +222,10 @@ I report in chat when each one finishes and add its results here.
 - **14:45** Leaderboard snapshot 3: 22 teams, 17 at 6.43, a second entry above the pack (Prueba_1, ≈ 6.443).
 - **14:50** What-if analyst finished: `04_whatif/report.md` with 8 figures (yearly savings 42.5 t CO₂ and 91 k€; the battery is energy-limited; 70/30 costs 20.5 k€ a year against cost-only). Parked for the presentation.
 - **15:00** Brute-force check of the ceiling done (`experiments/12_ceiling_check/`): exhaustive search never beats the LP.
-- **15:20** Wrote `06_edge/report.md`. Prepared two diagnostic submissions in `submissions/`.
-- **15:35** Simulated which explanation reproduces the leaderboard pattern (`experiments/13_fault_luck/which_mechanism.py`). A meter glitch: 0.8% of cases. Public half = first 84 h of each week, scored out of one continuous run: 77%. Measured how leaky that split is (`split_leak.py`).
-- **15:45** Red-team agent finished: `02_robustness/report.md`, v1.1 candidate, reusable stress harness.
-- **15:55** Rewrote `06_edge/report.md` around the split finding. Section 3a above is superseded by it.
+- **15:05** Wrote `06_edge/report.md`. Prepared two diagnostic submissions in `submissions/`.
+- **15:12** Simulated which explanation reproduces the leaderboard pattern (`experiments/13_fault_luck/which_mechanism.py`). A meter glitch: 0.8% of cases. Public half = first 84 h of each week, scored out of one continuous run: 77%. Measured how leaky that split is (`split_leak.py`).
+- **15:15** Red-team agent finished: `02_robustness/report.md`, v1.1 candidate, reusable stress harness.
+- **15:22** Rewrote `06_edge/report.md` around the split finding. Section 3a above is superseded by it.
 
 ---
 
