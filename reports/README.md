@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 14:00
+**Last updated:** Sat 14 Nov 2026, 14:05
 
 ---
 
@@ -123,6 +123,7 @@ I report in chat when each one finishes and add its results here.
 - **13:53** Measured the zero-load-week scenario (F4): no guard −0.5 to −0.9 points; v1 recovers most. Sent the red-team agent an idea for the rest (use the calendar: a dead week ends at the month boundary).
 - **13:55** Leaderboard scrape done: seven teams tied at 6.43, all the same optimum (section 3). Reconstructed the public baseline and the unrounded scores.
 - **13:58** Added the one-week figure (`00_overview/figs/week_v1.png`).
+- **14:05** Tried to infer how many usable weeks the hidden test has (`experiments/08_test_composition/`). The battery's savings per hour don't depend on campus load, so I compared the leaderboard's savings with what train data predicts. Result: 12 clean weeks over-predicts the public savings by 13–18%; 11 weeks (no November) by 6–10%; 10 weeks under-predicts CO₂ by 13%. **Inconclusive** between "November dropped" and "November present with zero load, where the plain optimisers waste energy". Only a submission of v1 can settle it.
 
 ---
 
