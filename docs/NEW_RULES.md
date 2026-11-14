@@ -216,11 +216,23 @@ These are our own numbers, from the official hourly train table (5,993 hours) wi
 
 ---
 
-## 7. Open questions for the organisers
+## 7. Confirmed on the server (probe, 2026-11-14 18:50)
+
+We ran a probe agent on the site's free quick validation; the page shows the error text an agent raises. In hard mode the server's `obs` has:
+
+- **Keys:** `timestamp, hour, day_of_week, soc_kwh, soc_pct, soc_percent, cap_max_kwh, power_max_kw, preu_actual, co2_actual, preus_properes_24h, co2_properes_24h, noves_dades_5min`. Nothing else.
+- **Lookahead:** both lists have 3 values, and the first equals the current hour's value.
+- **Readings:** `ultim_consum_kw, ultima_solar_kw, irradiancia_wm2, temp_ambient_c, temp_panel_c, vent_ms`, all finite floats.
+- **Battery:** `cap_max_kwh` = 6000.0, `power_max_kw` = 1500.0, starting `soc_kwh` = 3000.0.
+- **Timestamp:** a pandas Timestamp. The first hour is 2025-09-24 00:00 (a Wednesday), so the first test week is 24–30 September 2025.
+- The quick validation runs 48 hours and displays the text of any exception.
+
+## 8. Open questions for the organisers
 
 1. Which ranking decides the prizes: hard mode, standard mode, or both? The site only calls the hard-mode ranking "independent".
 2. How many hard-mode submissions per shift?
 3. Does hard mode have its own "2 submissions for the jury" selection?
 4. Is the penalty per infraction still −0.20 in hard mode?
-5. Which `meteo.csv` columns and what aggregation feed the four weather keys? Can they be missing or NaN?
+5. Which `meteo.csv` columns and what aggregation feed the four weather keys? (The keys exist and are numeric: confirmed in §7.)
 6. Does the standard-mode server now send `cap_max_kwh` and `power_max_kw` too?
+7. Is shipping external public data (for example REE's published prices and CO₂) inside a submission allowed?

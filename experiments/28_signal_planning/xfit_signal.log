@@ -1,0 +1,22 @@
+C:\Users\alexv\Documents\Datathon-2026\experiments\28_signal_planning\xfit_signal.py:43: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  out["dow"].append(dfb.index.dayofweek.to_numpy())
+C:\Users\alexv\Documents\Datathon-2026\experiments\28_signal_planning\xfit_signal.py:43: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  out["dow"].append(dfb.index.dayofweek.to_numpy())
+C:\Users\alexv\Documents\Datathon-2026\experiments\28_signal_planning\xfit_signal.py:43: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  out["dow"].append(dfb.index.dayofweek.to_numpy())
+C:\Users\alexv\Documents\Datathon-2026\experiments\28_signal_planning\xfit_signal.py:43: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  out["dow"].append(dfb.index.dayofweek.to_numpy())
+C:\Users\alexv\Documents\Datathon-2026\experiments\28_signal_planning\xfit_signal.py:43: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  out["dow"].append(dfb.index.dayofweek.to_numpy())
+C:\Users\alexv\Documents\Datathon-2026\experiments\28_signal_planning\xfit_signal.py:43: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  out["dow"].append(dfb.index.dayofweek.to_numpy())
+C:\Users\alexv\Documents\Datathon-2026\experiments\28_signal_planning\xfit_signal.py:43: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  out["dow"].append(dfb.index.dayofweek.to_numpy())
+C:\Users\alexv\Documents\Datathon-2026\experiments\28_signal_planning\xfit_signal.py:43: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  out["dow"].append(dfb.index.dayofweek.to_numpy())
+C:\Users\alexv\Documents\Datathon-2026\experiments\28_signal_planning\xfit_signal.py:43: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  out["dow"].append(dfb.index.dayofweek.to_numpy())
+A: 4032 origins, 4.3 s
+B: 4056 origins, 4.2 s
+C: 4056 origins, 3.7 s
+ALL: 6072 origins, 6.9 s

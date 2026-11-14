@@ -1,0 +1,158 @@
+"""
+experiments/23_signal/signal_fc2.py
+Round 2 of the signal forecaster. Same interface and same base model as signal_fc.SignalForecaster
+(which is left untouched), plus:
+
+* bridge=True  "Bridge" at the end of a 7-day block. The day after every test week (the 1st of the next
+  month) is a train day, so its price and CO2 are in the store. In the last day of a block the forecast
+  no longer has to extrapolate: the base model's error on the first stored hours after the block
+  (known before they happen) is carried back to the hours in between. The weight rho[k, g] (k = hours
+  ahead, g = hours between the target and the end of the block) is fitted on the train rows by
+  regressing the base model's error at k on its mean error at k+g .. k+g+2.
+  Only train rows are read: the hours after a test week that are in data/train.
+* night=True   Forecasts made at night (22:00 to 03:59). Truth-substitution showed that these are the
+  forecasts the planner pays most for, and that at night almost all of the value is in the LEVEL (mean)
+  of hours +3..+8. A model fitted per hour of day predicts that level about 10 % better at night than
+  the single model, so at night the mean of hours +3..+8 is the average of the two models' means
+  (night_w = 0.5); the shape stays the single model's. By day nothing changes.
+* up=0.0       Optional multiplicative shift of the forecast hours (+3 on): w * (1 + up). Not recommended.
+
+    fc = SignalForecaster2(fit_df, kappa)       # bridge and night on, up = 0
+    w = fc.predict(obs, hist, H)
+
+The error structure changes only in the last ~24 hours of each block (smaller, less correlated errors
+for k <= KB). Everything else is identical to round 1.
+"""
+import numpy as np
+
+from signal_fc import BACK, BEST, KAPPA_DEFAULT, SignalFC
+
+ALT = dict(variant="AH12", use_lw=False, ridge=0.03, interp=True, kmax=12)   # per-hour-of-day model, near horizons
+NIGHT = (22, 3)  # forecasts made from 22:00 to 03:59 take the level of hours +3..+8 from both models
+NW = (3, 9)      # the window whose mean is averaged
+KB = 14          # the bridge corrects horizons 3..KB
+GMAX = 24        # ... for targets at most GMAX hours before the end of the block
+NU = 3           # stored hours after the block used to measure the base model's error
+
+
+class SignalForecaster2(SignalFC):
+    def __init__(self, fit_df=None, kappa=KAPPA_DEFAULT, bridge=True, night=True, night_w=0.5, up=0.0,
+                 rho_scale=1.0, **kw):
+        self.bridge, self.up, self.rho_scale = bridge, up, rho_scale
+        self.night, self.night_w = night, night_w
+        self.alt = None
+        super().__init__(fit_df, kappa, **{**BEST, **kw})
+
+    def fit(self, fit_df, kappa=None):
+        super().fit(fit_df, kappa)
+        if self.bridge:
+            self._fit_bridge()
+        if self.night:                            # second opinion on the level: one model per hour of day
+            self.alt = SignalFC(fit_df, self.kappa, **ALT)
+        return self
+
+    def _base_all(self):
+        """Base forecasts at every calendar origin with a complete window: {signal: (n, K)}."""
+        O = np.arange(BACK + 2, self.n - self.kmax - 2)
+        out = {}
+        for name in "cp":
+            o2 = "p" if name == "c" else "c"
+            g, Pm = self._feats(self.S0[name], self.CL[name], self.CL[name], O, False,
+                                self.S0[o2] if self.cross else None, self.CL[o2])
+            A, B, c0, _ = self.coef[(name, False)]
+            Y = c0[0][None, :] + g @ A[0].T + (Pm * B[0][None]).sum(2) + self.CL[name][O[:, None] + self.ks[None, :]]
+            F = np.full((self.n, len(self.ks)), np.nan)
+            F[O] = Y
+            out[name] = (O, F)
+        return out
+
+    def _fit_bridge(self):
+        self.rho = {}
+        self.bridge_r2 = {}
+        for name, (O, F) in self._base_all().items():
+            R = self.S0[name][O[:, None] + self.ks[None, :]] - F[O]            # errors, column j <-> k = j + 3
+            rho = np.zeros((KB + 1, GMAX + 1))
+            r2 = np.zeros((KB + 1, GMAX + 1))
+            for k in range(3, KB + 1):
+                rk = R[:, k - 3]
+                for g in range(1, GMAX + 1):
+                    j0 = k + g - 3
+                    u = R[:, j0:j0 + NU].mean(1)
+                    ok = np.isfinite(rk) & np.isfinite(u)
+                    if ok.sum() < 200:
+                        continue
+                    b = float(rk[ok] @ u[ok] / max(u[ok] @ u[ok], 1e-18))
+                    rho[k, g] = b
+                    r2[k, g] = 1.0 - float(np.mean((rk[ok] - b * u[ok]) ** 2) / np.mean(rk[ok] ** 2))
+            self.rho[name], self.bridge_r2[name] = rho, r2
+
+    def _from(self, o):
+        c, p = super()._from(o)
+        if self.bridge and not getattr(self, "_cont", False) and o == self._last_i:
+            r = self._b1 - o                                                  # rows left in the block
+            if 4 <= r <= self.kmax - NU:
+                for name, f in (("c", c), ("p", p)):
+                    fut = self.S[name][self._b1:self._b1 + NU]
+                    if not np.isfinite(fut).all():
+                        continue
+                    u = float(np.mean(fut - f[r - 3:r - 3 + NU]))
+                    for k in range(3, min(KB, r - 1) + 1):
+                        g = r - k
+                        if g <= GMAX:
+                            f[k - 3] += self.rho_scale * self.rho[name][k, g] * u
+                c = np.maximum(c, self._floor("c"))
+                p = np.maximum(p, self._floor("p"))
+        return c, p
+
+    def predict_parts(self, obs, hist, H):
+        c, p = super().predict_parts(obs, hist, H)
+        if self.night and self.alt is not None:
+            h = obs["timestamp"].hour
+            ok = (h >= NIGHT[0] or h <= NIGHT[1]) and H >= NW[1] and getattr(self, "_b1", None) is not None
+            if ok and (getattr(self, "_cont", False) or self._b1 - self._last_i >= NW[1]):
+                self.alt.S = self.S                               # same calendar, same store: nothing to replay
+                ca, pa = self.alt._from(self._last_i)             # hours +3 .. +12
+                s = slice(NW[0], NW[1])
+                n = NW[1] - NW[0]
+                c[s] += self.night_w * (ca[:n].mean() - c[s].mean())
+                p[s] += self.night_w * (pa[:n].mean() - p[s].mean())
+                c[s] = np.maximum(c[s], self._floor("c"))
+                p[s] = np.maximum(p[s], self._floor("p"))
+        if self.up:
+            c[3:] *= 1.0 + self.up
+            p[3:] *= 1.0 + self.up
+        return c, p
+
+    # ------------------------------------------------------------------ packaging
+    def to_npz(self, path):
+        super().to_npz(path)
+        z = np.load(path, allow_pickle=False)
+        d = {k: z[k] for k in z.files}
+        d["meta2"] = np.array([float(self.bridge), self.up, self.rho_scale])
+        if self.bridge:
+            d["rho_c"], d["rho_p"] = self.rho["c"], self.rho["p"]
+        d["meta3"] = np.array([float(self.night), self.night_w])
+        np.savez_compressed(path, **d)
+        if self.night:
+            self.alt.to_npz(str(path) + ".alt.npz")       # the per-hour model: a second file next to the first
+
+    @classmethod
+    def from_npz(cls, path):
+        base = SignalFC.from_npz(path)
+        z = np.load(path, allow_pickle=False)
+        m, m3 = z["meta2"], z["meta3"]
+        self = cls(None, kappa=base.kappa, bridge=bool(m[0]), up=float(m[1]), rho_scale=float(m[2]),
+                   night=bool(m3[0]), night_w=float(m3[1]))
+        keep = {k: getattr(self, k) for k in ("bridge", "up", "rho_scale", "night", "night_w")}
+        self.__dict__.update(base.__dict__)
+        self.__dict__.update(keep)
+        if self.bridge:
+            self.rho = {"c": z["rho_c"], "p": z["rho_p"]}
+        self.alt = SignalFC.from_npz(str(path) + ".alt.npz") if self.night else None
+        self.reset()
+        return self
+
+    def reset(self):
+        super().reset()
+        if getattr(self, "alt", None) is not None:
+            self.alt.reset()

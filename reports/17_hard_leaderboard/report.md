@@ -68,11 +68,12 @@ Possible explanations for the top two, none confirmed:
 
 - **Better forecasting and planning than we have built so far.**
 - **Real market data.** The prices and CO₂ of the test weeks are public (REE). An agent could carry them and look them up by timestamp. I consider that test leakage and have not done it. Whether it is allowed is a question for the organisers.
-- **The server's `obs` carries more than the site documents.**
+- ~~The server's `obs` carries more than the site documents.~~ **Ruled out at 18:50:** our probe on the free validation showed 3 values in each list and no extra keys.
 - **The ceiling estimate is a few percent low.**
 
 ## 5. What would settle it
 
-- **A probe.** If the site's free quick validation displays error text, an agent can report which keys and how many values the server really sends.
+- **A probe (done, 18:50).** The free quick validation displays error text; the server sends exactly what is documented.
+- **Update, 18:46:** our own agent with a perfect signal scores 20.71 on the folds, 20.84 with the end of the run known. That is 98 % of the ceiling, about 23.2 on the public test, which is where the top two teams are. This is consistent with them knowing the true signal beyond 3 hours. It is not proof.
 - **A question to the organisers:** is shipping external public data allowed?
 - **Our own first submission,** which calibrates folds against the public test.
