@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 19:37",
+ "updated": "Sat 14 Nov 2026, 20:14",
  "ceiling": 21.26,
  "best": {
   "name": "h3: h2 + round-2 signal forecaster + signal-aware planner, packaged and cleared (`submissions/h3/submission.zip`)",
@@ -24,7 +24,7 @@
   "**Correction:** I predicted 22.4 for h2 and a public ceiling of 23.7, and on that basis wrote that the top teams were where our agent would land with the true price/CO₂ signal. The measured ratio (1.147, not 1.114) puts the ceiling near 24.4 and that inference is withdrawn: nothing in the scores requires anyone to use real market data.",
   "**Where the 0.1–0.4 above us could come from:** (1) the two things we know we lose: the signal forecast 3 to 11 hours ahead (about 0.6 public points) and the current hour's net load (0.35); (2) how the public half is cut: if it is an 84-hour split of each week, each MWh more carried across the cut moves +1.4 points onto one half and −1.7 off the other with no real gain, so 0.40 could be 0.3 MWh of charge at the cut. The cut is unknown.",
   "**Week boundaries are not a real lever** (study finished 19:36): with perfect information beyond every week's end h2 gains about 0.01, and 69 boundary rules gave nothing. So h3 ships as it is, and the two jury submissions should be chosen on whole-run fold scores, not on public differences under about 0.5.",
-  "**Running:** the signal specialist is testing whether older REE history (up to 31 Aug 2025 only, by your decision) improves the forecast inside the h3 stack. First number about 20:15.",
+  "**Older REE history does not help** (tested 20:13): +0.017 in the h3 stack, −0.018 with net load known, better in 15 of 33 weeks and worse in 18. Not shipped. Nothing is running now.",
   "**Confirmed on the server:** obs is exactly as documented; h2 builds fully there, 1.4 ms per step, same library versions.",
   "**Anomalies get little weight now.** We keep what is certain or free and stop tuning guards for faults."
  ],
@@ -44,7 +44,7 @@
  ],
  "running": [
   ["Integrator", "Combine planner + load + solar + price/CO₂ forecasters into one agent, with proper net-load scenarios", "done", "18:36: 20.11 with end-of-run handling; ladder, calibration, sensitivity, gap analysis in `reports/18_combined/report.md`"],
-  ["Price/CO₂ forecaster (round 3)", "Does older REE history (up to 31 Aug 2025 only) improve the signal forecast inside the h3 stack?", "running", "since 19:22; first number about 20:15"],
+  ["Price/CO₂ forecaster (round 3)", "Does older REE history (up to 31 Aug 2025 only) improve the signal forecast inside the h3 stack?", "done", "20:13: no reliable gain (+0.017, sign unstable); not shipped; `reports/25_ree_history/report.md`"],
   ["Boundary study", "What h2 carries across week jumps against the optimum; a better rule for the last hours of a week; how the cut of the public half moves the leaderboard number", "done", "19:36: boundaries cost about 0.01; no rule helps; an 84-hour cut would move ±1.4 points per MWh between halves; `reports/23_boundaries/report.md`"],
   ["Packager (h3)", "Package h2 + round-2 signal forecaster + signal-aware planner, with fallbacks to h2's logic and then h1's", "done", "19:04: identical to the harness on all three folds, three fallback levels tested, 3–4 s per run; `reports/24_h3/report.md`"],
   ["Web check", "Are the train price and CO₂ series REE's published data? Train days only; no test-week value was fetched", "done", "18:59: yes. Price identical to REE's PVPC on 72 of 72 hours; CO₂ = 0.37 × REE's emitting share on all 6,768 rows; `reports/17_hard_leaderboard/report.md` §5"],
@@ -88,6 +88,7 @@
   ["Second probe: h2 itself on the 48 validation hours, reporting on itself", "built fully, 0 fallbacks, 1.4 ms per step, same library versions; lists shrink only in the last 2 hours, state of charge unrounded, night load frozen, solar ×12", "h2 confirmed on the server"],
   ["69 rules for the last hours of a week (value or floor on the energy held, rescaled signal beyond the jump, and others)", "best +0.004; every rule chosen on two folds loses on the third; ceiling with perfect information about 0.01", "none adopted"],
   ["How the cut of the public half interacts with charge carried across it", "84-hour cut: +1.4 points per MWh on one half, −1.7 on the other, 0 on the whole run; alternate days or random hours: 0", "do not chase public differences under 0.5; jury picks on whole-run scores"],
+  ["Fitting the signal forecaster on two more years of REE history (nothing dated after 31 Aug 2025)", "+0.017 in the h3 stack (−0.04 / +0.03 / +0.06 by fold), −0.018 with net load known; better in 15 of 33 weeks", "not adopted: within noise"],
   ["Red-team, about 600 runs: odd obs, the real layout, clock changes, low-load weeks, months missing from train", "no crash, bad value or infraction in any plausible case; a low-load week costs 0.1–0.2, a missing month 0.00–0.02 for h2", "nothing further to fix"],
   ["Holiday calendar for the load forecaster; h1 answering the first hours after a week jump", "+0.01 at best, −0.05 to −0.08 if wrong; −0.03 to −0.23", "not adopted"],
   ["Probe on the free quick validation: what does the server's obs contain?", "exactly what the site documents: 3 values, six readings, 6,000 / 1,500, first hour 24 Sep 2025", "confirmed; \"the server sends more hours\" ruled out"],
@@ -117,6 +118,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["20:14", "Older REE history tested as extra training data for the signal forecaster: no reliable gain, not shipped. You ran the download; nothing dated after 31 Aug 2025 was fetched."],
   ["19:37", "Boundary study finished: no boundary rule helps the whole run; under an 84-hour cut the public number moves by ±1.4 points per MWh of charge at the cut with no real gain. Jury submissions will be chosen on whole-run fold scores."],
   ["19:22", "By your decision, older REE history (nothing after 31 Aug 2025) is being tested as extra training data for the signal forecaster. I declined to hide real test-week values in a .pkl."],
   ["19:13", "h2's public score is 23.06 (we are Fanboy & Chum Chum, 10th). My ceiling estimate was too low; the inference about the top teams using the true signal is withdrawn. h3 cleared after my own re-check; probe_h3 built; week-boundary study launched."],
@@ -158,6 +160,7 @@
  "files": [
   ["reports/README.md", "full work log (hard mode in Part I)"],
   ["reports/21_stress_hard/report.md", "red-team: what h1 and h2 do under odd inputs, the real layout, holiday weeks, missing months"],
+  ["reports/25_ree_history/report.md", "older REE history as training data: what was downloaded, the guard, why it did not help"],
   ["reports/23_boundaries/report.md", "week boundaries and the cut of the public half: what is real and what only moves points between halves"],
   ["reports/24_h3/report.md", "h3: what it adds to h2, how it was verified, the three-level safety net"],
   ["reports/22_h2/report.md", "h2: the combined agent packaged, how it was verified, the safety net, the server probe"],

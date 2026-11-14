@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 19:37
+**Last updated:** Sat 14 Nov 2026, 20:14
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -62,7 +62,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Web check | Are the train price and CO₂ series REE's published data? Train days only | [`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md) §5 | **done**: yes |
 | Packager (fourth task) | Package h3 = h2 + the two signal improvements | `submissions/h3/`, [`24_h3/report.md`](24_h3/report.md) | **done** 19:04 |
 | Boundary study | What h2 carries across week jumps against the optimum; a better rule for the last hours of a week; how the cut of the public half moves the leaderboard number | [`23_boundaries/report.md`](23_boundaries/report.md) | **done** 19:36 |
-| Price/CO₂ forecaster (round 3) | Does older REE history (up to 31 Aug 2025 only) improve the signal forecast? | `experiments/23_signal/signal_fc3.py`, `data/external/ree_history/` | running since 19:22 |
+| Price/CO₂ forecaster (round 3) | Does older REE history (up to 31 Aug 2025 only) improve the signal forecast? | [`25_ree_history/report.md`](25_ree_history/report.md) | **done** 20:13: no reliable gain, not shipped |
 | Red-team | Real test layout, holiday weeks, months missing from train, odd obs; faults as a quick check only | [`21_stress_hard/report.md`](21_stress_hard/report.md) | **done** 19:05 |
 | Analyst | Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from | [`15_hard_eda/report.md`](15_hard_eda/report.md), 6 figures | **done** 17:42 |
 
@@ -100,6 +100,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | T36 | Red-team, about 600 runs on h1 and h2: odd obs, real layout, clock changes, low-load weeks, months missing from train | no crash, no bad value, no infraction in any plausible case; a low-load week costs 0.1–0.2, a missing month 0.00–0.02 for h2 | nothing further to fix |
 | T37 | Holiday calendar for the load forecaster; h1 answering the first hours after a week jump | +0.01 at best and −0.05 to −0.08 if wrong; −0.03 to −0.23 | not adopted |
 | T38 | 69 rules for the last hours of a week (value or floor on the energy held, signal beyond the jump rescaled, stored day weighted more, right calendar day for the load) | best +0.004; every rule chosen on two folds loses on the third | none adopted; the ceiling is about 0.01 |
+| T39 | Fitting the signal forecaster on two more years of REE history (1 Sep 2023 to 31 Aug 2025; nothing later was downloaded) | +0.017 in the h3 stack (−0.04 / +0.03 / +0.06 by fold), −0.018 with net load known; better in 15 of 33 weeks, worse in 18 | not adopted: within noise |
 | T20 | A haircut on top of the planner's scenarios (2.5 / 5 / 10 %) | worse at every level (−0.03 to −0.35) | dropped: the scenarios already do that job |
 | T21 | Calendar that knows the next test week follows a month end | −0.08 / +0.18 / −0.05 by fold | off: 10 boundaries per fold is too few to tell |
 | T22 | November tables interpolated from October and December (train has no November) | +0.7 on a hidden month's week in a hide-one-month test; about +0.1 overall if the November week exists | adopt (h1's `nov_fill` variant) |
@@ -131,6 +132,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | HF22 | ~~Much of h2's remaining loss sits on the first day of each week.~~ Superseded by HF24: an accounting effect. | `23_boundaries/report.md` §2 |
 | HF24 | Week boundaries cost h2 about 0.01 on the whole run. Where it arrives low it had sold the energy the evening before, so the last day of the previous week shows a negative regret that offsets the first day's. | `23_boundaries/report.md` §2 |
 | HF25 | With an 84-hour cut of each week, charge carried across the cut moves points between the public and private halves without changing the whole run: +1.4 per MWh on one half, −1.7 on the other. No boundary rule is good for both halves. Under alternate days or random hours the effect is zero. | `23_boundaries/report.md` §4 |
+| HF26 | More history does not help the signal forecast. Its weak point is the level of the next six hours on a given day; more past years sharpen the average relationship but say nothing about today. Better accuracy failed to convert to score for the fourth time. | `25_ree_history/report.md` |
 | HF12 | The right haircut is not a constant: discharge one more kW only while (chance it displaces import) × (what it earns now) exceeds what the kWh is worth later. Almost no haircut at 04:00 or 19:00, a large one at 13:00. | `14_planner/report.md` §2 |
 | HF13 | At 06:00 the load rises on weekdays (+383 kW on Mondays, +65 to +110 Tuesday–Friday) and falls on Saturdays (−188). 22:00 is the last reading taken, not an hourly mean. | `11_load_forecast/report.md` §2 |
 | HF14 | For price/CO₂, hours +3 to +5 carry two thirds of the forecast loss and +6 to +11 the rest; beyond +12 h is worth 0.01. Forecast accuracy is a poor guide to score. | `13_signal_forecast/report.md` §2 |
@@ -182,6 +184,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **20:14** Older REE history tested (T39, HF26): no reliable gain, not shipped. The permission system had refused the subagent's download, so you ran the script yourself; I fixed its date guard, which was refusing a legitimate last row of August 2025.
 - **19:37** Boundary study finished (T38, HF24–HF25). No boundary rule; the cut of the public half can move leaderboard numbers by more than the whole top band without any real gain. Decision: jury submissions are chosen on whole-run fold scores.
 - **19:22** You decided that older REE history is legitimate training data. The signal specialist is downloading it (nothing dated after 31 Aug 2025; guard in the code) and testing it inside the h3 stack. You also settled that any run-time use of `data/train/` is fine. I declined to hide real test-week values in a `.pkl`.
 - **19:13** You told me we are Fanboy & Chum Chum and that the 23.06 is h2. My ceiling estimate was too low and the inference about the top teams is withdrawn (H8). h3 re-checked and cleared; built `submissions/probe_h3/`. Launched the week-boundary study.
