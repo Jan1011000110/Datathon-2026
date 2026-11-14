@@ -1,4 +1,4 @@
-# Usage: .venv/Scripts/python.exe experiments/25_integration/build_probe_h2.py
+# Usage: .venv/Scripts/python.exe experiments/25_integration/build_probe_h2.py [h2|h3]
 """Builds submissions/probe_h2/submission.zip: the h2 agent, unchanged, inside a wrapper that lets it
 play the site's free 48-hour quick validation and then stops on purpose with a report in the error
 text. For "Validacio Rapida Mode Dificil" ONLY; never submit it to the ranking (it fails on purpose).
@@ -12,8 +12,9 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SRC = ROOT / "submissions" / "h2"
-OUT = ROOT / "submissions" / "probe_h2"
+NAME = sys.argv[1] if len(sys.argv) > 1 else "h2"
+SRC = ROOT / "submissions" / NAME
+OUT = ROOT / "submissions" / ("probe_" + NAME)
 
 WRAPPER = r'''
 
@@ -116,6 +117,7 @@ class BatteryAgent:
             "build_error=%r" % (getattr(a, "build_error", "?"),),
             "load_mode=%r" % (getattr(a, "load_mode", "?"),),
             "fallbacks=%r" % (getattr(a, "fallbacks", "?"),),
+            "answered=%r" % (getattr(a, "answered", "n/a"),),
             "last_error=%r" % (getattr(a, "last_error", "?"),),
             "list_len(value x steps)=" + ",".join(out),
             "soc_max_dev_kwh=%.2e (n=%d)" % (self.soc_dev, self.soc_n),
@@ -127,7 +129,7 @@ class BatteryAgent:
             "unusable_readings=%d" % self.bad_readings,
             "commands charge/discharge/idle=%d/%d/%d" % tuple(self.cmd),
         ] + self.notes
-        return "H2-PROBE >>> " + "; ".join(parts) + " <<<"
+        return "AGENT-PROBE >>> " + "; ".join(parts) + " <<<"
 
     def act(self, obs: dict) -> float:
         self.n += 1
@@ -150,12 +152,13 @@ class BatteryAgent:
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     src = (SRC / "agent.py").read_text(encoding="utf-8")
-    assert src.rstrip().endswith('BatteryAgent = _rt_main["BatteryAgent"]'), "h2 bundle layout changed"
+    assert src.rstrip().endswith('BatteryAgent = _rt_main["BatteryAgent"]'), "bundle layout changed"
     (OUT / "agent.py").write_text(src.rstrip() + WRAPPER, encoding="utf-8", newline="\n")
-    shutil.copyfile(SRC / "h2_state.npz", OUT / "h2_state.npz")
+    state = NAME + "_state.npz"
+    shutil.copyfile(SRC / state, OUT / state)
     with zipfile.ZipFile(OUT / "submission.zip", "w", zipfile.ZIP_DEFLATED) as z:
         z.write(OUT / "agent.py", "agent.py")
-        z.write(OUT / "h2_state.npz", "h2_state.npz")
+        z.write(OUT / state, state)
     sys.path.insert(0, str(ROOT / "starter_kit"))
     import check_submission as cs
     print("AST check:", cs.check_ast(OUT / "agent.py") or "clean")

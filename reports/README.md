@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 19:08
+**Last updated:** Sat 14 Nov 2026, 19:13
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -15,13 +15,14 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 ## H1. Where we are
 
 1. **Ceiling on our folds: 21.26 points** (22.44 / 21.42 / 19.92 with perfect foresight). The public test scores about 11 % higher for everyone; the ceiling there is about 23.7 ([`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md)).
-2. **h2 is cleared for submission and confirmed on the server:** `submissions/h2/submission.zip`, 21.27 / 20.37 / 18.70 (mean 20.11), 0 infractions, falls back to h1's logic on any failure ([`22_h2/report.md`](22_h2/report.md)). The h2 probe on the free validation (19:00) showed it builds fully there, with 0 fallbacks and 1.4 ms per step. Also ready: **h1**: `submissions/h1/nov_fill/submission.zip`, 20.58 / 19.79 / 18.35, 0 infractions, under 1 s per run ([`20_h1/report.md`](20_h1/report.md)). Comparison point **h0**: `submissions/h0/submission.zip`, 19.84 / 19.30 / 17.90 ([`16_h0/report.md`](16_h0/report.md)).
-3. **All four specialists have reported.** On its own, each adds to the naive agent (18.96): load forecaster +0.60, uncertainty-aware planner +0.56, price/CO₂ forecaster +0.27, solar forecaster +0.14.
-4. **Combined agent: 20.11** (21.27 / 20.37 / 18.70) with end-of-run handling, 0 infractions, 95 % of the ceiling ([`18_combined/report.md`](18_combined/report.md)). Still missing: the signal 3 to 11 hours ahead (0.54) and the net load of the current hour (0.30), mostly on weekday mornings.
-5. **The server's `obs` is confirmed** by our probe on the free validation (18:50): 3 price/CO₂ values, the six readings, battery 6,000 / 1,500, first hour 24 Sep 2025 00:00. Exactly as documented.
-6. **The signal side is levelling off.** A second-round forecaster adds 0.045 and a planner that doubts the signal forecast 0.057 ([`19_signal_planning/report.md`](19_signal_planning/report.md)); whether they stack is being measured (that would be h3). About 0.5 points remain lost to the level of the signal 3 to 8 hours ahead.
-7. **Anomalies get little weight now.** The organisers' 16:00 statement that nobody had reached the maximum on the private ranking was wrong (confirmed by the team at 18:27): it had been reached. There is no evidence of bad data in the hidden test. See H7.
-8. **Leaderboard (19:07):** 25 teams; ten of them between 23.06 and 23.46 (SSA Gourmet first), which is where our own agent lands when given the true signal. h2 would land near 22.4 by the usual scaling. We have not submitted yet ([`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md) §6).
+2. **h2 is on the public leaderboard at 23.06** (team Fanboy & Chum Chum, 10th of 25, 0.40 behind the leader). I had predicted 22.4; see H8 for what that corrects. **h3 is cleared:** `submissions/h3/submission.zip`, 21.33 / 20.48 / 18.77 on our folds (20.19), about 23.15 expected ([`24_h3/report.md`](24_h3/report.md)).
+3. **h2, packaged and confirmed on the server:** `submissions/h2/submission.zip`, 21.27 / 20.37 / 18.70 (mean 20.11), 0 infractions, falls back to h1's logic on any failure ([`22_h2/report.md`](22_h2/report.md)). The h2 probe on the free validation (19:00) showed it builds fully there, with 0 fallbacks and 1.4 ms per step. Also ready: **h1**: `submissions/h1/nov_fill/submission.zip`, 20.58 / 19.79 / 18.35, 0 infractions, under 1 s per run ([`20_h1/report.md`](20_h1/report.md)). Comparison point **h0**: `submissions/h0/submission.zip`, 19.84 / 19.30 / 17.90 ([`16_h0/report.md`](16_h0/report.md)).
+4. **All four specialists have reported.** On its own, each adds to the naive agent (18.96): load forecaster +0.60, uncertainty-aware planner +0.56, price/CO₂ forecaster +0.27, solar forecaster +0.14.
+5. **Combined agent: 20.11** (21.27 / 20.37 / 18.70) with end-of-run handling, 0 infractions, 95 % of the ceiling ([`18_combined/report.md`](18_combined/report.md)). Still missing: the signal 3 to 11 hours ahead (0.54) and the net load of the current hour (0.30), mostly on weekday mornings.
+6. **The server's `obs` is confirmed** by our probe on the free validation (18:50): 3 price/CO₂ values, the six readings, battery 6,000 / 1,500, first hour 24 Sep 2025 00:00. Exactly as documented.
+7. **The signal side is levelling off.** A second-round forecaster adds 0.045 and a planner that doubts the signal forecast 0.057 ([`19_signal_planning/report.md`](19_signal_planning/report.md)); whether they stack is being measured (that would be h3). About 0.5 points remain lost to the level of the signal 3 to 8 hours ahead.
+8. **Anomalies get little weight now.** The organisers' 16:00 statement that nobody had reached the maximum on the private ranking was wrong (confirmed by the team at 18:27): it had been reached. There is no evidence of bad data in the hidden test. See H7.
+9. **Leaderboard (19:07):** 25 teams; ten of them between 23.06 and 23.46 (SSA Gourmet first). The tenth is us ([`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md) §6).
 
 ![Where the score is lost](10_hard_mode/figs/losses.png)
 
@@ -30,7 +31,8 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Agent | A | B | C | Mean | Status |
 |---|---|---|---|---|---|
 | Perfect foresight (ceiling) | 22.44 | 21.42 | 19.92 | 21.26 | reference |
-| **h2** (combined agent + end-of-run handling, packaged) | 21.27 | 20.37 | 18.70 | **20.11** | **ready to submit** |
+| **h3** (h2 + round-2 signal forecaster + signal-aware planner, packaged) | 21.33 | 20.48 | 18.77 | **20.19** | **ready to submit** |
+| **h2** (combined agent + end-of-run handling, packaged) | 21.27 | 20.37 | 18.70 | **20.11** | **submitted 19:01: 23.06 public** |
 | Combined, end of run from the shrinking lists only | 21.14 | 20.30 | 18.70 | 20.04 | h2 ZIP of 18:33 matches this exactly |
 | Combined: planner + load + solar + price/CO₂ forecasters | 21.14 | 20.26 | 18.57 | 19.99 | harness |
 | Same with a perfect price/CO₂ signal (diagnostic, not legal) | 21.77 | 20.91 | 19.45 | 20.71 | shows what the signal costs |
@@ -58,7 +60,8 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Planner (round 2) | Plan against scenario paths of the signal | `experiments/28_signal_planning/sigplan.py`, same report | **done** 18:46: +0.057 |
 | Integrator (second task) | Do the two signal improvements stack, and does the gain hold week by week? | `experiments/27_combined/combined3.py` | running since 18:48 |
 | Web check | Are the train price and CO₂ series REE's published data? Train days only | [`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md) §5 | **done**: yes |
-| Packager (fourth task) | Package h3 = h2 + the two signal improvements | `agents/h3/`, `submissions/h3/` | running since 18:58 |
+| Packager (fourth task) | Package h3 = h2 + the two signal improvements | `submissions/h3/`, [`24_h3/report.md`](24_h3/report.md) | **done** 19:04 |
+| Boundary study | What h2 carries across week jumps against the optimum; a better rule for the last hours of a week; how the cut of the public half moves the leaderboard number | `experiments/30_boundaries/`, `23_boundaries/` | running since 19:10 |
 | Red-team | Real test layout, holiday weeks, months missing from train, odd obs; faults as a quick check only | [`21_stress_hard/report.md`](21_stress_hard/report.md) | **done** 19:05 |
 | Analyst | Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from | [`15_hard_eda/report.md`](15_hard_eda/report.md), 6 figures | **done** 17:42 |
 
@@ -120,13 +123,14 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | HF17 | For the signal nothing beyond 11 hours ahead matters; hours 3–5 are worth 0.32 and 6–11 another 0.23. | `18_combined/report.md` §6 |
 | HF18 | What the planner pays for in the signal forecast is the level of the next six hours: true values in the wrong order recover everything, the right order with our values recovers nothing. Forecasts made at night carry 42 % of the loss. | `19_signal_planning/report.md` §2 |
 | HF19 | A LightGBM model text the library cannot parse kills the Python process instead of raising, so no fallback can catch it. h2 evaluates the trees with numpy. | `22_h2/report.md` §5 |
-| HF20 | Our agent with a perfect signal would sit at about 98 % of the ceiling, which is where the top two teams are. Consistent with them knowing the true signal beyond 3 hours; not proof. The server does not provide it. | `17_hard_leaderboard/report.md`, T34 |
+| HF20 | ~~Our agent with a perfect signal would sit where the top two teams are.~~ **Withdrawn at 19:13:** that used a fold-to-public ratio of 1.114; h2's measured ratio is 1.147, which puts our agent with a perfect signal above the whole board. No evidence that any team uses real market data. | H8 |
+| HF23 | The public test scores 14.7 % higher than our folds for h2 (23.06 against 20.11). Standard mode's ratio was 9.5 %. | H8 |
 | HF21 | The price series is REE's published PVPC, hour for hour, and the CO₂ series is exactly 0.37 × the share of emitting generation from REE's published hourly series (checked on three train days). So the test weeks' true signal is public. We do not use it. | `17_hard_leaderboard/report.md` §5 |
 | HF22 | Much of h2's remaining loss sits on the first day of each week (75 % / 50 % / 11 % of its regret on folds A / B / C): price/CO₂ timing across the three-week jump, not load errors. | `21_stress_hard/report.md` §5.1 |
 | HF12 | The right haircut is not a constant: discharge one more kW only while (chance it displaces import) × (what it earns now) exceeds what the kWh is worth later. Almost no haircut at 04:00 or 19:00, a large one at 13:00. | `14_planner/report.md` §2 |
 | HF13 | At 06:00 the load rises on weekdays (+383 kW on Mondays, +65 to +110 Tuesday–Friday) and falls on Saturdays (−188). 22:00 is the last reading taken, not an hourly mean. | `11_load_forecast/report.md` §2 |
 | HF14 | For price/CO₂, hours +3 to +5 carry two thirds of the forecast loss and +6 to +11 the rest; beyond +12 h is worth 0.01. Forecast accuracy is a poor guide to score. | `13_signal_forecast/report.md` §2 |
-| HF15 | The public test scores about 11 % higher than our folds; estimated public ceiling 23.7. The top two teams are at about 98 % of it. | `17_hard_leaderboard/report.md` |
+| HF15 | ~~The public test scores about 11 % higher than our folds; estimated public ceiling 23.7.~~ Superseded by HF23: ratio 1.147, ceiling about 24.4. | H8 |
 | HF10 | Solar errors cost score only when solar is under-forecast (the agent then discharges past the real net load), and almost only between 07:00 and 13:00. | `12_solar_forecast/report.md` §4 |
 | HF11 | A panel colder than the air before dawn announces a clear day (correlation −0.56 over 250 days). Irradiance adds nothing beyond last hour's output (correlation 0.995). Wind is always 0 in the data. | `12_solar_forecast/report.md` §5–6 |
 | HF9 | The cheapest hour of the day is at midday on 83 % of days; in February it is at night on 71 % of days. | `15_hard_eda/report.md` §7 |
@@ -150,8 +154,32 @@ What we no longer spend time on:
 
 The red-team subagent was re-scoped accordingly at 18:29.
 
+## H8. Our first public score and what it changes (19:13)
+
+**h2 scored 23.06 on the public leaderboard** (team Fanboy & Chum Chum: CO₂ −21.80 %, cost −26.00 %, 0 infractions; submitted 19:01). 10th of 25, 0.40 behind the leader.
+
+| | On our folds | Public |
+|---|---|---|
+| h2 | 20.11 | **23.06** (measured) |
+| Ratio | | 1.147 |
+| h3 | 20.19 | about 23.15 (predicted) |
+| Ceiling | 21.26 | about 24.4 (predicted) |
+
+**I had this wrong.** I predicted about 22.4 for h2 and a public ceiling of 23.7, from standard mode's ratio of 1.114. On that basis I wrote that the top teams sat where our agent would land with the true signal and that real market data was the most likely explanation. With the measured ratio that reasoning collapses: our agent with the true signal would score about 23.9, above the whole board. **The inference is withdrawn.** The correction heads `17_hard_leaderboard/report.md`.
+
+Where the nine teams above us could get their 0.07 to 0.40, in the order I would bet on:
+
+1. **The two things we know we still lose.** Scaled to the public test: the signal forecast 3 to 11 hours ahead costs us about 0.6, the current hour's net load about 0.35.
+2. **Charge carried into each week.** Much of h2's remaining loss sits on the first day of each week (HF22). Each MWh in the battery at the start of a week is worth about 0.2 public points, and there are 12 weeks.
+3. **How the public half is cut.** If it is the first half of each week, charge carried in from the previous week's hidden hours counts for free on the public score, and the effect reverses on the private half.
+4. **Real signal data.** Possible, no longer needed to explain anything.
+
+A study of points 2 and 3 is running (`experiments/30_boundaries/`).
+
 ## H6. Log
 
+- **19:13** You told me we are Fanboy & Chum Chum and that the 23.06 is h2. My ceiling estimate was too low and the inference about the top teams is withdrawn (H8). h3 re-checked and cleared; built `submissions/probe_h3/`. Launched the week-boundary study.
+- **19:04** h3 packaged: equals the harness on every command of the three folds, three-level fallback tested.
 - **19:08** Leaderboard check at your request: ten teams in a 0.4-point band at 23.1–23.5. The band matches our agent with the true signal (about 23.2 to 23.6 scaled), and the signal is public, so that is the most likely source of the gap; the alternative is that the public test is easier than we assume, which our first h2 submission will settle.
 - **19:05** h3's first ZIP equals the harness on all three folds (21.326 / 20.475 / 18.769), three-level fallback tested; remaining checks running.
 - **19:08** Red-team finished (T36–T37, HF22): about 600 runs, nothing left to fix in h1 or h2. Its two remaining worries (state of charge rounded to whole kWh, short lists mid-run) are things the second probe shows the server does not do.

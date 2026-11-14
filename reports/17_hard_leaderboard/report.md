@@ -2,6 +2,14 @@
 
 **Written:** Sat 14 Nov 2026, 18:06. Raw data: `hard_leaderboard_20261114_1758.csv` (the site's own CSV export). Script: `experiments/25_integration/public_ceiling.py`.
 
+> **Correction, Sat 14 Nov, 19:13. Read this first.** Our own h2 scored **23.06** on the public leaderboard (team Fanboy & Chum Chum, 10th of 25). I had predicted about 22.4 from the fold-to-public ratio of standard mode (1.114). The real ratio for h2 is 1.147, so:
+>
+> - **The public ceiling is about 24.4, not 23.7.** Every "share of the ceiling" figure below is too high by about 3 percentage points: the leader (23.46) is at about 96 %, we are at about 95 %.
+> - **The inference in sections 4 and 6 is withdrawn.** I argued that the top band was where our agent would land with the true price/CO₂ signal, and that this was the most likely source of the gap. With the right scale our agent with the true signal would score about 23.9, above everyone on the board. Nothing in the scores requires any team to be using real market data, and I have no evidence that any does.
+> - **What stands:** the measurements (who scored what), the fact that the signal is public (section 5), and the alternative I listed in section 6, which turned out to be the right one.
+>
+> A current reading of the gap is in the work log, `reports/README.md`, section H8.
+
 ## 1. Summary
 
 - **13 teams, 22 submissions. The top two are at 23.23 and 23.10.**
