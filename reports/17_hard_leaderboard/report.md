@@ -90,7 +90,7 @@ What follows:
 
 One legitimate by-product: the CO₂ signal is a fixed 0.37 times the share of emitting generation. That is worth stating in the presentation, and it means the "CO₂" the battery chases is really the share of gas and other emitting plants in the mix.
 
-## 7. Snapshot at 19:07: ten teams between 23.06 and 23.46
+## 6. Snapshot at 19:07: ten teams between 23.06 and 23.46
 
 Raw data: `hard_leaderboard_20261114_1907.csv`. 25 teams, 66 submissions. We are not on it yet.
 
@@ -131,7 +131,7 @@ So the most likely source of the difference is the real price and CO₂ of the t
 
 **The alternative we cannot yet exclude:** the public test may be easier than our folds by more than the 11 % we assume. Then the ceiling would be higher than 23.7, those teams would be at about 95 % like us, and h2 would score with them. Our first h2 submission settles this: about 22.4 means the gap is real; 23 or more means we were wrong about the ceiling.
 
-## 6. What would settle it
+## 7. What would settle it
 
 - **A probe (done, 18:50).** The free quick validation displays error text; the server sends exactly what is documented.
 - **Update, 18:46:** our own agent with a perfect signal scores 20.71 on the folds, 20.84 with the end of the run known. That is 98 % of the ceiling, about 23.2 on the public test, which is where the top two teams are. This is consistent with them knowing the true signal beyond 3 hours. It is not proof.

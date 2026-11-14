@@ -21,7 +21,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 5. **The server's `obs` is confirmed** by our probe on the free validation (18:50): 3 price/CO₂ values, the six readings, battery 6,000 / 1,500, first hour 24 Sep 2025 00:00. Exactly as documented.
 6. **The signal side is levelling off.** A second-round forecaster adds 0.045 and a planner that doubts the signal forecast 0.057 ([`19_signal_planning/report.md`](19_signal_planning/report.md)); whether they stack is being measured (that would be h3). About 0.5 points remain lost to the level of the signal 3 to 8 hours ahead.
 7. **Anomalies get little weight now.** The organisers' 16:00 statement that nobody had reached the maximum on the private ranking was wrong (confirmed by the team at 18:27): it had been reached. There is no evidence of bad data in the hidden test. See H7.
-8. **Leaderboard (19:07):** 25 teams; ten of them between 23.06 and 23.46 (SSA Gourmet first), which is where our own agent lands when given the true signal. h2 would land near 22.4 by the usual scaling. We have not submitted yet ([`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md) §7).
+8. **Leaderboard (19:07):** 25 teams; ten of them between 23.06 and 23.46 (SSA Gourmet first), which is where our own agent lands when given the true signal. h2 would land near 22.4 by the usual scaling. We have not submitted yet ([`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md) §6).
 
 ![Where the score is lost](10_hard_mode/figs/losses.png)
 
