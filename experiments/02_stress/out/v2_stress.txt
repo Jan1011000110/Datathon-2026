@@ -1,0 +1,152 @@
+stress.py  candidate = C:\Users\alexv\Documents\Datathon-2026\agents\v2\agent.py   calendar = test   2026-11-14 16:01
+
+====================================================================================================
+1. PACKAGING
+====================================================================================================
+  [PASS] AST security scan (check_submission.check_ast)             
+  [PASS] imports                                                    ['numpy']
+  [PASS] check_submission.py on the bare agent.py                   exit 0
+  [PASS] check_submission.py on a zip (agent.py at the root)        exit 0, zip 4.4 KB, aux files []
+  [PASS] size under the 25 MB limit                                 11.6 KB
+
+====================================================================================================
+2. INTERFACE FUZZ  (official physics, starter_kit/environment.py)
+====================================================================================================
+  [PASS] no exception on any adversarial obs (660 calls)            
+  [PASS] return is always a finite int/float (660 calls)            
+  [PASS] no infraction on any adversarial obs (660 calls)           
+  [PASS] agent keeps working after a bad obs (660 calls)            
+  [PASS] SOC at / next to the limits and lattice points (9828 cases 
+  [INFO] SOC outside the range by more than the env tolerance (1e-6 128 of 208 cases give an infraction (state unreachable in the official env)
+
+====================================================================================================
+3. SEQUENCES  (full 2,016-step run, fold C: contains the real 14 h outage, so the guard matters)
+====================================================================================================
+  [PASS] timestamp as str 'Y-m-d H:M:S'                             score +0.0000 vs pd.Timestamp run, 0 infr
+  [PASS] timestamp as str ISO 'T'                                   score +0.0000 vs pd.Timestamp run, 0 infr
+  [PASS] timestamp as datetime.datetime                             score +0.0000 vs pd.Timestamp run, 0 infr
+  [PASS] timestamp as np.datetime64                                 score +0.0000 vs pd.Timestamp run, 0 infr
+  [PASS] timestamp as tz-aware (UTC)                                score +0.0000 vs pd.Timestamp run, 0 infr
+  [PASS] timestamp as None                                          score +0.0000 vs pd.Timestamp run, 0 infr
+  [PASS] timestamp as missing                                       score +0.0000 vs pd.Timestamp run, 0 infr
+  [PASS] timestamp as constant (repeating)                          score +0.0000 vs pd.Timestamp run, 0 infr
+  [WARN] timestamp as going backwards                               score -0.0306 vs pd.Timestamp run, 0 infr  (the guard depends on the timestamp type)
+  [PASS] timestamp as int epoch seconds                             score +0.0000 vs pd.Timestamp run, 0 infr
+  [PASS] timestamp as random type each step                         score +0.0000 vs pd.Timestamp run, 0 infr
+  [PASS] DST-like days (one hour missing, one duplicated)           regret vs oracle 0.0194, 0 infr
+  [PASS] one hour without price (NaN)                               score -0.0009 vs clean run, 0 infr
+  [PASS] three separate hours without price (NaN)                   score +0.0000 vs clean run, 0 infr
+  [PASS] 49 garbage calls interleaved in a real run                 score +0.0000 vs clean run, 0 infr, 0 garbage calls raised
+  [PASS] deterministic (two runs, same actions)                     
+
+====================================================================================================
+4. DATA-SHAPE SCENARIOS  (score in points, unclamped; regret = oracle - agent; mean of folds A,B,C)
+====================================================================================================
+scenario                                      agent       v1   oracle |   regret ref.regr    worst | extra/evt  infr
+-- a.clean
+clean                                        5.8360   5.8362   5.8437 |   0.0077   0.0075   0.0194 |         -     0
+-- b.dropped
+drop Nov week                                5.9465   5.9467   5.9549 |   0.0084   0.0082   0.0212 |         -     0
+drop Aug week                                5.4028   5.4030   5.4100 |   0.0072   0.0070   0.0208 |         -     0
+drop Nov+Aug weeks                           5.4787   5.4789   5.4866 |   0.0079   0.0077   0.0229 |         -     0
+-- c.zero-week
+zero load+pv week: first/Sep                 5.8659   5.8180   5.8812 |   0.0153   0.0632   0.0248 |    0.0076     0
+zero load+pv week: Nov                       5.9852   5.9665   6.0024 |   0.0172   0.0359   0.0266 |    0.0095     0
+zero load+pv week: Mar                       5.7651   5.7568   5.7853 |   0.0202   0.0285   0.0320 |    0.0126     0
+zero load+pv week: last/Aug                  5.2816   5.2980   5.4100 |   0.1284   0.1120   0.1617 |    0.1207     0
+zero load week (pv real): Nov                5.9957   5.9676   6.0678 |   0.0721   0.1002   0.0895 |    0.0645     0
+-- c.zero-pv
+zero pv week: Aug                            5.8271   5.8273   5.8347 |   0.0076   0.0074   0.0194 |         -     0
+zero pv whole run                            5.7454   5.7456   5.7529 |   0.0075   0.0073   0.0191 |         -     0
+-- d.outage-1h
+outage  1h from 20:00 (x12)                  5.5076   5.5078   5.8519 |   0.3443   0.3441   0.3930 |    0.0281     0
+outage  1h from 14:00 (x12)                  5.8620   5.8622   5.8697 |   0.0078   0.0076   0.0195 |    0.0000     0
+outage  1h from 17:00 (x12)                  5.8375   5.8377   5.8775 |   0.0399   0.0398   0.0638 |    0.0027     0
+-- d.outage-3h
+outage  3h from 20:00 (x12)                  5.5346   5.5348   5.8442 |   0.3095   0.3093   0.3534 |    0.0252     0
+outage  3h from 14:00 (x12)                  5.9136   5.9138   5.9272 |   0.0135   0.0133   0.0197 |    0.0005     0
+outage  3h from 17:00 (x12)                  5.8052   5.8054   5.9070 |   0.1018   0.1017   0.1324 |    0.0078     0
+-- d.outage-14h
+outage 14h from 20:00 (x12)                  5.4900   5.4957   5.9019 |   0.4119   0.4062   0.4436 |    0.0337     0
+outage 14h from 14:00 (x12)                  6.0026   6.0027   6.0598 |   0.0572   0.0571   0.0607 |    0.0041     0
+outage 14h from 17:00 (x12)                  5.6633   5.6635   5.9001 |   0.2368   0.2366   0.2475 |    0.0191     0
+-- d.outage-72h
+outage 72h from 20:00 (x4)                   5.7438   5.6756   5.9875 |   0.2437   0.3120   0.3249 |    0.0590     0
+outage 72h from 14:00 (x4)                   5.7859   5.7859   5.8896 |   0.1037   0.1037   0.1451 |    0.0240     0
+outage 72h from 17:00 (x4)                   5.7818   5.7779   5.8981 |   0.1163   0.1202   0.1502 |    0.0271     0
+-- g.glitch
+glitch 25min from 07:35 (x12)                5.8192   5.8535   5.8642 |   0.0450   0.0107   0.0494 |    0.0031     0
+glitch 25min from 19:24 (x12)                5.8054   5.8571   5.8648 |   0.0594   0.0077   0.0693 |    0.0043     0
+glitch 110min from 07:35 (x12)               5.8702   5.7553   5.9114 |   0.0411   0.1561   0.0484 |    0.0028     0
+glitch 110min from 19:24 (x12)               5.7942   5.5581   5.8936 |   0.0994   0.3354   0.1134 |    0.0076     0
+glitch 13.9h from 07:35 (x12)                6.0811   5.8742   6.2380 |   0.1569   0.3639   0.1935 |    0.0124     0
+glitch 13.9h from 19:24 (x12)                5.6763   5.5206   5.9237 |   0.2474   0.4032   0.2849 |    0.0200     0
+-- e.low-load-week
+load x0.60, Dec week                         6.0818   6.0820   6.0913 |   0.0095   0.0093   0.0208 |         -     0
+-- e.low-load-run
+load x0.60, whole run                        9.7486   9.7406   9.8292 |   0.0806   0.0886   0.1248 |         -     0
+-- e.low-load-week
+load x0.45, Dec week                         6.1704   6.1697   6.1867 |   0.0164   0.0170   0.0259 |         -     0
+-- e.low-load-run
+load x0.45, whole run                       12.7616  12.5719  13.0637 |   0.3020   0.4917   0.3465 |         -     0
+-- e.low-load-week
+load x0.30, Dec week                         6.2285   6.2145   6.2630 |   0.0345   0.0485   0.0392 |         -     0
+-- e.low-load-run
+load x0.30, whole run                       17.4445  15.9473  18.4763 |   1.0318   2.5290   1.1025 |         -     0
+-- f.nan
+NaN load readings 12x4h (truth real)         5.8360   5.8362   5.8437 |   0.0077   0.0075   0.0194 |    0.0000     0
+NaN pv readings 12x4h (truth real)           5.8360   5.8362   5.8437 |   0.0077   0.0075   0.0194 |    0.0000     0
+NaN readings 12x4h (truth = outage)          5.7148   5.7150   5.9365 |   0.2217   0.2215   0.2717 |    0.0178     0
+
+family means:  clean 0.0077   dropped 0.0078   zero-pv 0.0076   zero-week 0.0506   outage-14h 0.2353   outage-1h 0.1307   outage-3h 0.1416   outage-72h 0.1546   low-load-run 0.4715   low-load-week 0.0201   nan 0.0790   glitch 0.1082
+  [PASS] no crash in any scenario (114 runs)                        
+  [PASS] no infraction in any scenario                              0 infractions
+  [PASS] clean folds: regret vs oracle                              mean 0.0077 points
+  [WARN] largest regret vs oracle                                   1.1025 points: load x0.30, whole run, fold A
+  [WARN] candidate never worse than v1 by > 0.005                   11 runs, worst -0.0583: glitch 25min from 19:24 (x12) (fold A)
+
+====================================================================================================
+5. TIMING
+====================================================================================================
+  [PASS] 2,016-step run: time spent inside act()                    0.226 s total, 0.112 ms/step mean, p99 0.216 ms, slowest step 0.505 ms (limit: 60 s per run)
+  [PASS] import + BatteryAgent()                                    import 0.7 ms (modules already warm), init 0.00 ms
+  [PASS] cold start: fresh interpreter, import + 2,016 steps        0.31 s
+
+====================================================================================================
+6. OFFICIAL ENVIRONMENT  (starter_kit CampusBatteryEnv, full runs)
+====================================================================================================
+  [PASS] fold A                                                     official 5.96 (co2 5.51%, cost 7.02%, infr 0) | src.sim 5.9613 (5.509%, 7.018%, infr 0)
+  [PASS] fold B                                                     official 5.78 (co2 5.47%, cost 6.50%, infr 0) | src.sim 5.7794 (5.472%, 6.497%, infr 0)
+  [PASS] fold C (real 14 h outage)                                  official 5.77 (co2 5.43%, cost 6.55%, infr 0) | src.sim 5.7674 (5.430%, 6.554%, infr 0)
+  [PASS] fold A, Nov+Aug dropped                                    official 5.55 (co2 4.98%, cost 6.87%, infr 0) | src.sim 5.5491 (4.984%, 6.869%, infr 0)
+
+====================================================================================================
+7. WHAT IF THE HIDDEN EVALUATOR DIFFERS FROM environment.py?  (informational, fold B)
+====================================================================================================
+  [PASS] official physics (control)                                 score 5.7794 before penalties, 0 infractions (0.0 points)
+  [WARN] one-way efficiency 0.9487 (4 decimals, as starter agent.py score 5.7798 before penalties, 101 infractions (20.2 points)
+  [WARN] one-way efficiency 0.95                                    score 5.8066 before penalties, 101 infractions (20.2 points)
+  [PASS] all the loss on charge (0.9 / 1.0)                         score 5.9286 before penalties, 0 infractions (0.0 points)
+  [WARN] all the loss on discharge (1.0 / 0.9)                      score 5.5218 before penalties, 197 infractions (39.4 points)
+  [PASS] no SOC tolerance (0 instead of 1e-6)                       score 5.7794 before penalties, 0 infractions (0.0 points)
+  [PASS] run starts empty (SOC 0)                                   score 5.7240 before penalties, 0 infractions (0.0 points)
+  [PASS] run starts full (SOC 2000)                                 score 5.8340 before penalties, 0 infractions (0.0 points)
+
+====================================================================================================
+SUMMARY  C:\Users\alexv\Documents\Datathon-2026\agents\v2\agent.py
+====================================================================================================
+  packaging  PASS   5  WARN  0  FAIL  0
+  fuzz       PASS   5  WARN  0  FAIL  0
+  sequences  PASS  15  WARN  1  FAIL  0
+  scenarios  PASS   3  WARN  2  FAIL  0
+  timing     PASS   3  WARN  0  FAIL  0
+  official   PASS   4  WARN  0  FAIL  0
+  evaluator  PASS   5  WARN  3  FAIL  0
+  WARN  sequences / timestamp as going backwards: score -0.0306 vs pd.Timestamp run, 0 infr  (the guard depends on the timestamp type)
+  WARN  scenarios / largest regret vs oracle: 1.1025 points: load x0.30, whole run, fold A
+  WARN  scenarios / candidate never worse than v1 by > 0.005: 11 runs, worst -0.0583: glitch 25min from 19:24 (x12) (fold A)
+  WARN  evaluator / one-way efficiency 0.9487 (4 decimals, as starter agent.py): score 5.7798 before penalties, 101 infractions (20.2 points)
+  WARN  evaluator / one-way efficiency 0.95: score 5.8066 before penalties, 101 infractions (20.2 points)
+  WARN  evaluator / all the loss on discharge (1.0 / 0.9): score 5.5218 before penalties, 197 infractions (39.4 points)
+
+RESULT: PASS   (0 FAIL, 6 WARN, 40 PASS)   116 s   details: C:\Users\alexv\Documents\Datathon-2026\experiments\02_stress\out\v2_agent
