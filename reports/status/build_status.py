@@ -8,7 +8,7 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 DATA = {
-    "updated": "Sat 14 Nov 2026, 17:34",
+    "updated": "Sat 14 Nov 2026, 17:27",
     "ceiling": 21.26,
     "best": {"name": "Naive agent h0", "score": 18.96, "note": "validation, mean of 3 folds, 0 infractions"},
     "leaderboard": [("SSA Gourmet", "21.27"), ("Low BaterIA", "4.50"), ("Fa (us)", "not submitted yet")],
@@ -30,7 +30,7 @@ DATA = {
         ("Solar forecaster", "Predict solar ×12 for the current hour and next day (0.47 pts)", "running", "since 17:19"),
         ("Price/CO₂ forecaster", "Predict the signal beyond the 3 known hours (0.79 pts)", "running", "since 17:19"),
         ("Planner", "Fast optimiser that accounts for forecast uncertainty", "running", "since 17:19"),
-        ("Analyst", "Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from", "running", "since 17:28"),
+        ("Analyst", "Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from", "running", "since 17:25"),
     ],
     "tried": [  # what, result, verdict
         ("Perfect-foresight ceiling on 3 folds", "21.26 mean", "reference"),
@@ -45,9 +45,9 @@ DATA = {
          "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."),
     ],
     "log": [  # newest first
-        ("17:33", "Leaderboard baselines agree with train: ×12 solar lowers the baseline by 16 % (CO₂) and 20 % (cost). Reminded the forecasters that hidden weeks include Christmas and late July."),
-        ("17:28", "Launched a sixth subagent for explainer figures."),
-        ("17:27", "One full battery is worth about 0.35 points; the optimum carries about 3,000 kWh across each week boundary."),
+        ("17:26", "Leaderboard baselines agree with train: ×12 solar lowers the baseline by 16 % (CO₂) and 20 % (cost). Reminded the forecasters that hidden weeks include Christmas and late July."),
+        ("17:25", "Launched a sixth subagent for explainer figures."),
+        ("17:24", "One full battery is worth about 0.35 points; the optimum carries about 3,000 kWh across each week boundary."),
         ("17:24", "Status board published."),
         ("17:22", "Wrote `reports/10_hard_mode/report.md` and the hard-mode section of the work log."),
         ("17:19", "Launched five subagents."),
