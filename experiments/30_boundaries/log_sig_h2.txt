@@ -1,0 +1,26 @@
+=== sig on h2
+fold                                                                  A       B       C    mean     dA     dB     dC   gain  infr  spill
+config                                                                                                                                  
+base                                                             21.274  20.370  18.700  20.115  0.000  0.000  0.000  0.000     0  2.951
+signal beyond the jump x0.9                                      21.248  20.327  18.700  20.092 -0.026 -0.043 -0.000 -0.023     0  2.980
+profile net + signal beyond the jump x0.9                        21.239  20.333  18.700  20.091 -0.035 -0.037 -0.000 -0.024     0  2.976
+signal beyond the jump x0.95                                     21.253  20.352  18.700  20.102 -0.021 -0.018 -0.000 -0.013     0  2.958
+profile net + signal beyond the jump x0.95                       21.245  20.352  18.701  20.099 -0.030 -0.018  0.000 -0.016     0  2.955
+signal beyond the jump x1.03                                     21.291  20.361  18.699  20.117  0.016 -0.009 -0.001  0.002     0  2.965
+profile net + signal beyond the jump x1.03                       21.266  20.361  18.696  20.107 -0.009 -0.009 -0.005 -0.008     0  2.962
+signal beyond the jump x1.06                                     21.302  20.353  18.698  20.118  0.027 -0.017 -0.002  0.003     0  2.963
+profile net + signal beyond the jump x1.06                       21.282  20.353  18.697  20.111  0.008 -0.017 -0.003 -0.004     0  2.959
+signal beyond the jump x1.1                                      21.306  20.353  18.692  20.117  0.031 -0.017 -0.008  0.002     0  2.954
+profile net + signal beyond the jump x1.1                        21.298  20.353  18.696  20.116  0.023 -0.017 -0.004  0.001     0  2.952
+signal beyond the jump x1.15                                     21.319  20.355  18.662  20.112  0.045 -0.015 -0.039 -0.003     0  2.954
+profile net + signal beyond the jump x1.15                       21.307  20.355  18.673  20.112  0.032 -0.015 -0.027 -0.003     0  2.950
+signal beyond the jump x1.2                                      21.326  20.350  18.658  20.111  0.052 -0.020 -0.042 -0.004     0  2.952
+profile net + signal beyond the jump x1.2                        21.326  20.351  18.658  20.112  0.051 -0.019 -0.043 -0.003     0  2.952
+signal beyond the jump: 0.25 on the stored day before the block  21.274  20.370  18.701  20.115  0.000  0.000  0.000  0.000     0  2.951
+profile net + signal: 0.25 on the stored day before the block    21.262  20.370  18.700  20.111 -0.012  0.000 -0.001 -0.004     0  2.976
+signal beyond the jump: 0.5 on the stored day before the block   21.274  20.371  18.682  20.109  0.000  0.001 -0.018 -0.006     0  2.951
+profile net + signal: 0.5 on the stored day before the block     21.262  20.370  18.701  20.111 -0.012  0.000  0.000 -0.004     0  2.948
+signal beyond the jump: 0.75 on the stored day before the block  21.274  20.356  18.674  20.101  0.000 -0.014 -0.026 -0.014     0  2.951
+profile net + signal: 0.75 on the stored day before the block    21.262  20.366  18.675  20.101 -0.012 -0.004 -0.026 -0.014     0  2.948
+signal beyond the jump: 1.0 on the stored day before the block   21.274  20.357  18.645  20.092  0.000 -0.013 -0.055 -0.023     0  2.951
+profile net + signal: 1.0 on the stored day before the block     21.262  20.357  18.661  20.093 -0.012 -0.013 -0.040 -0.022     0  2.948

@@ -1,0 +1,24 @@
+=== net on h2
+fold                                                          A      B       C    mean     dA   dB     dC   gain  infr  spill
+config                                                                                                                       
+base                                                     21.274  20.37  18.700  20.115  0.000  0.0  0.000  0.000     0  2.951
+profile net: load 1 same-type days, solar 3 days         21.258  20.37  18.698  20.109 -0.017 -0.0 -0.003 -0.006     0  2.983
+profile net: load 1 same-type days, solar 7 days         21.258  20.37  18.698  20.109 -0.017 -0.0 -0.002 -0.006     0  2.983
+profile net: load 1 same-type days, solar 14 days        21.257  20.37  18.698  20.108 -0.017 -0.0 -0.002 -0.007     0  2.983
+profile net: load 2 same-type days, solar 3 days         21.258  20.37  18.698  20.109 -0.016  0.0 -0.002 -0.006     0  2.983
+profile net: load 2 same-type days, solar 7 days         21.258  20.37  18.698  20.109 -0.016  0.0 -0.002 -0.006     0  2.983
+profile net: load 2 same-type days, solar 14 days        21.258  20.37  18.698  20.109 -0.016  0.0 -0.002 -0.006     0  2.983
+profile net: load 3 same-type days, solar 3 days         21.262  20.37  18.698  20.110 -0.012  0.0 -0.002 -0.005     0  2.976
+profile net: load 3 same-type days, solar 7 days         21.262  20.37  18.698  20.110 -0.012  0.0 -0.002 -0.005     0  2.976
+profile net: load 3 same-type days, solar 14 days        21.262  20.37  18.698  20.110 -0.012  0.0 -0.002 -0.005     0  2.976
+profile net: load 5 same-type days, solar 3 days         21.263  20.37  18.698  20.110 -0.011  0.0 -0.003 -0.005     0  2.976
+profile net: load 5 same-type days, solar 7 days         21.263  20.37  18.698  20.110 -0.012  0.0 -0.002 -0.005     0  2.976
+profile net: load 5 same-type days, solar 14 days        21.263  20.37  18.698  20.110 -0.012  0.0 -0.002 -0.005     0  2.976
+profile net: load 8 same-type days, solar 3 days         21.263  20.37  18.698  20.110 -0.012 -0.0 -0.002 -0.005     0  2.976
+profile net: load 8 same-type days, solar 7 days         21.262  20.37  18.698  20.110 -0.012 -0.0 -0.002 -0.005     0  2.976
+profile net: load 8 same-type days, solar 14 days        21.262  20.37  18.698  20.110 -0.012 -0.0 -0.002 -0.005     0  2.976
+profile net (3, 7), scenario width beyond the jump x0.0  21.265  20.37  18.697  20.111 -0.009  0.0 -0.004 -0.004     0  2.976
+profile net (3, 7), scenario width beyond the jump x0.5  21.264  20.37  18.697  20.110 -0.011  0.0 -0.003 -0.005     0  2.976
+profile net (3, 7), scenario width beyond the jump x1.5  21.260  20.37  18.698  20.110 -0.014 -0.0 -0.002 -0.005     0  2.976
+profile net (3, 7), scenario width beyond the jump x2.0  21.260  20.37  18.703  20.111 -0.015 -0.0  0.002 -0.004     0  2.948
+profile net (3, 7), scenario width beyond the jump x3.0  21.257  20.37  18.701  20.110 -0.017 -0.0  0.001 -0.005     0  2.948

@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 19:13",
+ "updated": "Sat 14 Nov 2026, 19:37",
  "ceiling": 21.26,
  "best": {
   "name": "h3: h2 + round-2 signal forecaster + signal-aware planner, packaged and cleared (`submissions/h3/submission.zip`)",
@@ -22,8 +22,9 @@
   "**h2 is on the public leaderboard at 23.06: 10th of 25, 0.40 behind the leader.** Nine teams sit within that 0.40.",
   "**To do now (attempts expire at 21:00):** `submissions/probe_h3/submission.zip` on the free quick validation only, then `submissions/h3/submission.zip` to the ranking. h3 is h2 plus two improvements on the signal: 20.19 on our folds (+0.075), about 23.15 expected.",
   "**Correction:** I predicted 22.4 for h2 and a public ceiling of 23.7, and on that basis wrote that the top teams were where our agent would land with the true price/CO₂ signal. The measured ratio (1.147, not 1.114) puts the ceiling near 24.4 and that inference is withdrawn: nothing in the scores requires anyone to use real market data.",
-  "**Where the 0.1–0.4 above us could come from:** (1) the signal forecast 3 to 11 hours ahead (about 0.6 public points lost by us) and the current hour's net load (0.35); (2) how much charge the agent carries into each week (each MWh at a week start is worth about 0.2 public points, 12 weeks); (3) how the public half is cut.",
-  "**Running:** a study of the week boundaries: what h2 carries across each jump against the optimum, whether a better rule for the last hours of a week helps the whole-run score, and how much each way of cutting the public half moves the leaderboard number. First answer about 19:50.",
+  "**Where the 0.1–0.4 above us could come from:** (1) the two things we know we lose: the signal forecast 3 to 11 hours ahead (about 0.6 public points) and the current hour's net load (0.35); (2) how the public half is cut: if it is an 84-hour split of each week, each MWh more carried across the cut moves +1.4 points onto one half and −1.7 off the other with no real gain, so 0.40 could be 0.3 MWh of charge at the cut. The cut is unknown.",
+  "**Week boundaries are not a real lever** (study finished 19:36): with perfect information beyond every week's end h2 gains about 0.01, and 69 boundary rules gave nothing. So h3 ships as it is, and the two jury submissions should be chosen on whole-run fold scores, not on public differences under about 0.5.",
+  "**Running:** the signal specialist is testing whether older REE history (up to 31 Aug 2025 only, by your decision) improves the forecast inside the h3 stack. First number about 20:15.",
   "**Confirmed on the server:** obs is exactly as documented; h2 builds fully there, 1.4 ms per step, same library versions.",
   "**Anomalies get little weight now.** We keep what is certain or free and stop tuning guards for faults."
  ],
@@ -43,7 +44,8 @@
  ],
  "running": [
   ["Integrator", "Combine planner + load + solar + price/CO₂ forecasters into one agent, with proper net-load scenarios", "done", "18:36: 20.11 with end-of-run handling; ladder, calibration, sensitivity, gap analysis in `reports/18_combined/report.md`"],
-  ["Boundary study", "What h2 carries across week jumps against the optimum; a better rule for the last hours of a week; how the cut of the public half moves the leaderboard number", "running", "since 19:10; first answer about 19:50"],
+  ["Price/CO₂ forecaster (round 3)", "Does older REE history (up to 31 Aug 2025 only) improve the signal forecast inside the h3 stack?", "running", "since 19:22; first number about 20:15"],
+  ["Boundary study", "What h2 carries across week jumps against the optimum; a better rule for the last hours of a week; how the cut of the public half moves the leaderboard number", "done", "19:36: boundaries cost about 0.01; no rule helps; an 84-hour cut would move ±1.4 points per MWh between halves; `reports/23_boundaries/report.md`"],
   ["Packager (h3)", "Package h2 + round-2 signal forecaster + signal-aware planner, with fallbacks to h2's logic and then h1's", "done", "19:04: identical to the harness on all three folds, three fallback levels tested, 3–4 s per run; `reports/24_h3/report.md`"],
   ["Web check", "Are the train price and CO₂ series REE's published data? Train days only; no test-week value was fetched", "done", "18:59: yes. Price identical to REE's PVPC on 72 of 72 hours; CO₂ = 0.37 × REE's emitting share on all 6,768 rows; `reports/17_hard_leaderboard/report.md` §5"],
   ["Integrator (round 2)", "Do the two signal improvements stack, and does the gain hold week by week?", "done", "18:55: yes, +0.075 together (20.19); 22 of 33 weeks improve; worst week −0.009"],
@@ -84,6 +86,8 @@
   ["End of run: plan only the hours left when the lists shrink; and nothing after 31 Aug 2026 23:00", "+0.05 and +0.07", "adopt both; the second cannot hurt unless the run went past August"],
   ["Running LightGBM on the server for the load model", "a model string it cannot parse kills the Python process, which no fallback can catch", "replaced by walking the trees with numpy (bit-identical), rules-only as the fallback"],
   ["Second probe: h2 itself on the 48 validation hours, reporting on itself", "built fully, 0 fallbacks, 1.4 ms per step, same library versions; lists shrink only in the last 2 hours, state of charge unrounded, night load frozen, solar ×12", "h2 confirmed on the server"],
+  ["69 rules for the last hours of a week (value or floor on the energy held, rescaled signal beyond the jump, and others)", "best +0.004; every rule chosen on two folds loses on the third; ceiling with perfect information about 0.01", "none adopted"],
+  ["How the cut of the public half interacts with charge carried across it", "84-hour cut: +1.4 points per MWh on one half, −1.7 on the other, 0 on the whole run; alternate days or random hours: 0", "do not chase public differences under 0.5; jury picks on whole-run scores"],
   ["Red-team, about 600 runs: odd obs, the real layout, clock changes, low-load weeks, months missing from train", "no crash, bad value or infraction in any plausible case; a low-load week costs 0.1–0.2, a missing month 0.00–0.02 for h2", "nothing further to fix"],
   ["Holiday calendar for the load forecaster; h1 answering the first hours after a week jump", "+0.01 at best, −0.05 to −0.08 if wrong; −0.03 to −0.23", "not adopted"],
   ["Probe on the free quick validation: what does the server's obs contain?", "exactly what the site documents: 3 values, six readings, 6,000 / 1,500, first hour 24 Sep 2025", "confirmed; \"the server sends more hours\" ruled out"],
@@ -99,6 +103,7 @@
   ["November tables interpolated from October and December (train has no November)", "+0.7 on a hidden month's week in a hide-one-month test; about +0.1 overall if the November week exists", "adopt (the nov_fill variant)"]
  ],
  "figures": [
+  ["boundary_transfer.png", "If the public half is an 84-hour cut, charge carried into a week only moves points between the halves", "Each dot is one variant of h2. Holding more charge at the end of each week raises the score on the first half of the week and lowers it on the last half by about as much; the whole-run score (black) does not move. So leaderboard differences of a few tenths can be charge at the cut, not a better agent."],
   ["combined_knowledge.png", "What the combined agent is still missing", "Each grey bar is the legal agent plus one piece of perfect knowledge. The price/CO₂ signal 3 to 11 hours ahead is worth +0.55, the net load of the hour being decided +0.30, the end of the run +0.18."],
   ["combined_ladder.png", "What each forecaster adds, with the uncertainty-aware planner", "Mean score of the three folds for each combination of load and solar forecasters, with the average-day signal (grey), our signal forecaster (blue) and a perfect signal (orange, not legal)."],
   ["planner_first_step.png", "Under uncertainty the best discharge is a quantile of the forecast", "Discharge one more kW only while the chance that it displaces grid import, times what it earns now, exceeds what the kWh is worth later. So the right haircut depends on the hour: almost none at 04:00 or 19:00, large at 13:00 when solar is uncertain."],
@@ -112,6 +117,8 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["19:37", "Boundary study finished: no boundary rule helps the whole run; under an 84-hour cut the public number moves by ±1.4 points per MWh of charge at the cut with no real gain. Jury submissions will be chosen on whole-run fold scores."],
+  ["19:22", "By your decision, older REE history (nothing after 31 Aug 2025) is being tested as extra training data for the signal forecaster. I declined to hide real test-week values in a .pkl."],
   ["19:13", "h2's public score is 23.06 (we are Fanboy & Chum Chum, 10th). My ceiling estimate was too low; the inference about the top teams using the true signal is withdrawn. h3 cleared after my own re-check; probe_h3 built; week-boundary study launched."],
   ["19:08", "Leaderboard check: ten teams at 23.06–23.46, the band our agent reaches with the true signal. h3's first ZIP equals the harness on all three folds; final checks running."],
   ["19:08", "Red-team finished: nothing left to fix in h1 or h2. A low-load week costs 0.1–0.2 points, a month missing from train 0.00–0.02 for h2. Much of h2's remaining loss sits on the first day of each week."],
@@ -151,6 +158,7 @@
  "files": [
   ["reports/README.md", "full work log (hard mode in Part I)"],
   ["reports/21_stress_hard/report.md", "red-team: what h1 and h2 do under odd inputs, the real layout, holiday weeks, missing months"],
+  ["reports/23_boundaries/report.md", "week boundaries and the cut of the public half: what is real and what only moves points between halves"],
   ["reports/24_h3/report.md", "h3: what it adds to h2, how it was verified, the three-level safety net"],
   ["reports/22_h2/report.md", "h2: the combined agent packaged, how it was verified, the safety net, the server probe"],
   ["reports/19_signal_planning/report.md", "second round on the signal: what the planner needs, forecaster v2, planning against signal scenarios"],

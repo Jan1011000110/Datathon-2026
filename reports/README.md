@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 19:13
+**Last updated:** Sat 14 Nov 2026, 19:37
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -61,7 +61,8 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | Integrator (second task) | Do the two signal improvements stack, and does the gain hold week by week? | `experiments/27_combined/combined3.py` | running since 18:48 |
 | Web check | Are the train price and CO₂ series REE's published data? Train days only | [`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md) §5 | **done**: yes |
 | Packager (fourth task) | Package h3 = h2 + the two signal improvements | `submissions/h3/`, [`24_h3/report.md`](24_h3/report.md) | **done** 19:04 |
-| Boundary study | What h2 carries across week jumps against the optimum; a better rule for the last hours of a week; how the cut of the public half moves the leaderboard number | `experiments/30_boundaries/`, `23_boundaries/` | running since 19:10 |
+| Boundary study | What h2 carries across week jumps against the optimum; a better rule for the last hours of a week; how the cut of the public half moves the leaderboard number | [`23_boundaries/report.md`](23_boundaries/report.md) | **done** 19:36 |
+| Price/CO₂ forecaster (round 3) | Does older REE history (up to 31 Aug 2025 only) improve the signal forecast? | `experiments/23_signal/signal_fc3.py`, `data/external/ree_history/` | running since 19:22 |
 | Red-team | Real test layout, holiday weeks, months missing from train, odd obs; faults as a quick check only | [`21_stress_hard/report.md`](21_stress_hard/report.md) | **done** 19:05 |
 | Analyst | Explainer figures for the jury: a week of hard mode, what ×12 solar does, where the points come from | [`15_hard_eda/report.md`](15_hard_eda/report.md), 6 figures | **done** 17:42 |
 
@@ -98,6 +99,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | T35 | h2 probe on the free validation: does h2 build and run on the server, and do our assumptions about obs hold? | built fully, 0 fallbacks, 1.4 ms per step, same numpy and pandas; lists shrink only in the last 2 hours, state of charge unrounded, night load frozen, solar ×12 | h2 confirmed; every assumption checked holds |
 | T36 | Red-team, about 600 runs on h1 and h2: odd obs, real layout, clock changes, low-load weeks, months missing from train | no crash, no bad value, no infraction in any plausible case; a low-load week costs 0.1–0.2, a missing month 0.00–0.02 for h2 | nothing further to fix |
 | T37 | Holiday calendar for the load forecaster; h1 answering the first hours after a week jump | +0.01 at best and −0.05 to −0.08 if wrong; −0.03 to −0.23 | not adopted |
+| T38 | 69 rules for the last hours of a week (value or floor on the energy held, signal beyond the jump rescaled, stored day weighted more, right calendar day for the load) | best +0.004; every rule chosen on two folds loses on the third | none adopted; the ceiling is about 0.01 |
 | T20 | A haircut on top of the planner's scenarios (2.5 / 5 / 10 %) | worse at every level (−0.03 to −0.35) | dropped: the scenarios already do that job |
 | T21 | Calendar that knows the next test week follows a month end | −0.08 / +0.18 / −0.05 by fold | off: 10 boundaries per fold is too few to tell |
 | T22 | November tables interpolated from October and December (train has no November) | +0.7 on a hidden month's week in a hide-one-month test; about +0.1 overall if the November week exists | adopt (h1's `nov_fill` variant) |
@@ -126,7 +128,9 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | HF20 | ~~Our agent with a perfect signal would sit where the top two teams are.~~ **Withdrawn at 19:13:** that used a fold-to-public ratio of 1.114; h2's measured ratio is 1.147, which puts our agent with a perfect signal above the whole board. No evidence that any team uses real market data. | H8 |
 | HF23 | The public test scores 14.7 % higher than our folds for h2 (23.06 against 20.11). Standard mode's ratio was 9.5 %. | H8 |
 | HF21 | The price series is REE's published PVPC, hour for hour, and the CO₂ series is exactly 0.37 × the share of emitting generation from REE's published hourly series (checked on three train days). So the test weeks' true signal is public. We do not use it. | `17_hard_leaderboard/report.md` §5 |
-| HF22 | Much of h2's remaining loss sits on the first day of each week (75 % / 50 % / 11 % of its regret on folds A / B / C): price/CO₂ timing across the three-week jump, not load errors. | `21_stress_hard/report.md` §5.1 |
+| HF22 | ~~Much of h2's remaining loss sits on the first day of each week.~~ Superseded by HF24: an accounting effect. | `23_boundaries/report.md` §2 |
+| HF24 | Week boundaries cost h2 about 0.01 on the whole run. Where it arrives low it had sold the energy the evening before, so the last day of the previous week shows a negative regret that offsets the first day's. | `23_boundaries/report.md` §2 |
+| HF25 | With an 84-hour cut of each week, charge carried across the cut moves points between the public and private halves without changing the whole run: +1.4 per MWh on one half, −1.7 on the other. No boundary rule is good for both halves. Under alternate days or random hours the effect is zero. | `23_boundaries/report.md` §4 |
 | HF12 | The right haircut is not a constant: discharge one more kW only while (chance it displaces import) × (what it earns now) exceeds what the kWh is worth later. Almost no haircut at 04:00 or 19:00, a large one at 13:00. | `14_planner/report.md` §2 |
 | HF13 | At 06:00 the load rises on weekdays (+383 kW on Mondays, +65 to +110 Tuesday–Friday) and falls on Saturdays (−188). 22:00 is the last reading taken, not an hourly mean. | `11_load_forecast/report.md` §2 |
 | HF14 | For price/CO₂, hours +3 to +5 carry two thirds of the forecast loss and +6 to +11 the rest; beyond +12 h is worth 0.01. Forecast accuracy is a poor guide to score. | `13_signal_forecast/report.md` §2 |
@@ -170,14 +174,16 @@ The red-team subagent was re-scoped accordingly at 18:29.
 Where the nine teams above us could get their 0.07 to 0.40, in the order I would bet on:
 
 1. **The two things we know we still lose.** Scaled to the public test: the signal forecast 3 to 11 hours ahead costs us about 0.6, the current hour's net load about 0.35.
-2. **Charge carried into each week.** Much of h2's remaining loss sits on the first day of each week (HF22). Each MWh in the battery at the start of a week is worth about 0.2 public points, and there are 12 weeks.
-3. **How the public half is cut.** If it is the first half of each week, charge carried in from the previous week's hidden hours counts for free on the public score, and the effect reverses on the private half.
+2. ~~Charge carried into each week.~~ **Ruled out at 19:36** as a real lever: with perfect information beyond every week's end h2 gains about 0.01 on the test-like folds, and the red-team's first-day regret was an accounting effect (HF24).
+3. **How the public half is cut.** Measured at 19:36: if the cut is an 84-hour split of each week, each MWh more carried into every week moves +1.4 points onto one half and −1.7 off the other, with no change on the whole run. The 0.40 above us would then be about 0.3 MWh of charge at the cut, worth nothing real. If the cut is alternate days or random hours, the effect is zero. The cut is unknown ([`23_boundaries/report.md`](23_boundaries/report.md)).
 4. **Real signal data.** Possible, no longer needed to explain anything.
 
-A study of points 2 and 3 is running (`experiments/30_boundaries/`).
+The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/report.md). Consequence: choose the two jury submissions on whole-run fold scores, not on public differences under about 0.5.
 
 ## H6. Log
 
+- **19:37** Boundary study finished (T38, HF24–HF25). No boundary rule; the cut of the public half can move leaderboard numbers by more than the whole top band without any real gain. Decision: jury submissions are chosen on whole-run fold scores.
+- **19:22** You decided that older REE history is legitimate training data. The signal specialist is downloading it (nothing dated after 31 Aug 2025; guard in the code) and testing it inside the h3 stack. You also settled that any run-time use of `data/train/` is fine. I declined to hide real test-week values in a `.pkl`.
 - **19:13** You told me we are Fanboy & Chum Chum and that the 23.06 is h2. My ceiling estimate was too low and the inference about the top teams is withdrawn (H8). h3 re-checked and cleared; built `submissions/probe_h3/`. Launched the week-boundary study.
 - **19:04** h3 packaged: equals the harness on every command of the three folds, three-level fallback tested.
 - **19:08** Leaderboard check at your request: ten teams in a 0.4-point band at 23.1–23.5. The band matches our agent with the true signal (about 23.2 to 23.6 scaled), and the signal is public, so that is the most likely source of the gap; the alternative is that the public test is easier than we assume, which our first h2 submission will settle.
