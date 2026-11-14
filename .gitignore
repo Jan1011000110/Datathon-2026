@@ -1,2 +1,8 @@
 *.DS_Store
 *.csv
+
+# Claude branch additions
+.venv/
+data/processed/
+__pycache__/
+*.pyc
