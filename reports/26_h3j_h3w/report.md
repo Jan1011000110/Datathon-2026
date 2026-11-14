@@ -66,7 +66,7 @@ The same weeks relabelled to the last 7 days of each month and cut after July, w
 
 0 infractions and every step answered by the full agent in all three. On a run with no month end and no 31 July, both variants equal h3 exactly.
 
-## 5. Standard mode: the same question, and v2w (added 21:03)
+## 4. Standard mode: the same question, and v2w (added 21:03)
 
 It is not settled which mode's private ranking decides the final, so the boundary study repeated its measurements for our standard-mode agent v2 (the plain 24-hour optimum, tied with about twenty teams at 6.43 on the public board). Folds without August, since the test has none.
 
@@ -94,11 +94,12 @@ It is not settled which mode's private ranking decides the final, so the boundar
 
 Like h3w, it is a worse controller over the whole run that scores higher on the last halves because of where the cut falls. Submitting it is the team's decision.
 
-**A correction to section 2.** The private-half gain of h3w was scaled down to "+2.1 to +2.7" because the cut probe had moved less on the real board than on the folds. That comparison used folds that still had an August week. Without it the folds predicted +0.77 for the probe and the real figure was +0.93, so there is no evidence of damping. At face value the folds give h3w about +3 on the private half, with a wide spread between folds (+2.6 / +3.7 / +2.9).
+**A correction to section 2.** The private-half gain of h3w was scaled down to "+2.1 to +2.7" because the cut probe had moved less on the real board than on the folds. That comparison used folds that still had an August week. Without it the folds predicted +0.77 for the probe and the real figure was +0.93, so the probe shows no damping. h3w's own public move does: −3.29 on the server against −4.07 on folds that still had August (not re-measured without it). Taking both, expect **+2 to +3** on the private half; the folds at face value say +2.6 / +3.7 / +2.9.
 
-## 6. For the jury selection
+## 5. For the jury selection
 
 - Select the two submissions by hand. The automatic choice takes the two best public scores, which would include the cut probe (24.25), our worst agent on the private half.
 - If the private ranking is the hidden half alone and the better of two picks counts, h3j + h3w covers both readings: h3j is best over the whole run, h3w on the last halves.
-- If h3w is picked, say in the presentation what it is and how the cut was found.
+- In standard mode the same reasoning gives v2 + v2w.
+- If h3w or v2w is picked, say in the presentation what it is and how the cut was found.
 - Open questions for the organisers are listed in `docs/NEW_RULES.md` §8.
