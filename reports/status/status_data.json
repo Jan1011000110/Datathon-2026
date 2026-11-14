@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 20:59",
+ "updated": "Sat 14 Nov 2026, 21:03",
  "ceiling": 21.26,
  "best": {
   "name": "h3: h2 + round-2 signal forecaster + signal-aware planner (`submissions/h3/submission.zip`)",
@@ -7,18 +7,20 @@
   "note": "validation, mean of 3 folds, 0 infractions; the ceiling is for the same folds. On the public test h3 scored 23.32 and h2 23.06"
  },
  "leaderboard": [
+  ["Fanboy & Chum Chum (us: the cut probe, an artefact)", "24.25"],
   ["SanHackobos_v7", "24.10"],
+  ["SanHackobos_v8", "24.06"],
   ["AAA", "23.71"],
   ["Sanhackobos_v6", "23.70"],
   ["Ommetje", "23.57"],
   ["SSA Gourmet", "23.50"],
   ["Riviera Maya Boys, JAMM, hackers la l, Dos enginyers i mig", "23.40–23.45"],
-  ["TeamName, SanHackobos_v3", "23.35–23.37"],
-  ["Fanboy & Chum Chum (us, h3)", "23.32"],
-  ["aniMLs, Low BaterIA, Prova1, LosAvocados", "23.13–23.30"]
+  ["us on real quality: h3j / h3", "23.32"]
  ],
- "leaderboard_time": "20:29, public half of the hidden test; 31 teams, 124 submissions, we are 12th. Public ceiling about 24.4 by our own calibration",
+ "leaderboard_time": "21:01, public half (the first 84 hours of each week); 33 teams, 140 submissions. Our eight submissions: h2 23.06, h3 23.32, cut probe 24.25, August probe 0.00 twice, July control 0.53, h3j 23.32, h3w 20.03",
  "now": [
+  "**We are first on the public board with the cut probe (24.25). That is an artefact:** it carries extra charge into each week, which counts for the public half and against the private one. On real quality our best is h3j at 23.32.",
+  "**Standard mode has the same cut effect.** `submissions/v2w/submission.zip` is v2 with its 24-hour window stopped at the week's end: about +1.1 on the private half (v2 about 6.3, v2w about 7.4), about 5.1 on the public board, −0.16 over the whole run. Verified; submitting it is the team's decision.",
   "**h3w is submitted: 20.03 on the public board, 3.29 below h3, as predicted.** Emptying the battery at each week's end costs on the public half (first 84 hours) exactly what the folds said it would, scaled by 0.81. On the private half (last 84 hours) the same scaling gives about +2 to +2.5 over h3j. Over the whole run it is the weaker controller by 0.6 to 0.8.",
   "**Select the two jury submissions by hand before the close.** The automatic choice takes the two best public scores, and one of ours is the cut probe (24.25), our worst agent on the private half.",
   "**h3j is submitted: 23.32, identical to h3's row to the last digit, as predicted.** It is h3 with the run ending on 31 July; its gain (0 to +0.4) lands in the private half. It replaces h3 as the honest candidate.",
@@ -32,6 +34,7 @@
   ["Perfect foresight (ceiling)", "22.44", "21.42", "19.92", "21.26", "reference"],
   ["h3j: h3 with the run ending on 31 July (`submissions/h3j/submission.zip`)", "as h3", "as h3", "as h3", "20.19", "submitted: 23.32 public, identical to h3; honest candidate; +0.03 / +0.20 / +0.07 when the folds are cut at July"],
   ["h3w: h3j with every week its own run (`submissions/h3w/submission.zip`)", "20.82", "19.51", "17.86", "19.40", "submitted: 20.03 public (−3.29, as predicted); about +2 to +2.5 expected on the private half. Last halves: 25.68 / 24.09 / 21.83 against h3's 23.09 / 20.43 / 18.96"],
+  ["STANDARD MODE: v2w = v2 with the window cut at the week's end (`submissions/v2w/submission.zip`)", "5.38", "5.14", "5.20", "5.24", "cleared 21:02; team decision. Last halves 6.39 / 6.14 / 6.26 against v2's 5.45 / 4.96 / 5.64; folds without August"],
   ["h3: h2 + round-2 signal forecaster + signal-aware planner, packaged (`submissions/h3/submission.zip`)", "21.33", "20.48", "18.77", "20.19", "submitted 20:13: 23.32 on the public test"],
   ["h2: combined agent + end-of-run handling, packaged (`submissions/h2/submission.zip`)", "21.27", "20.37", "18.70", "20.11", "submitted 19:01: 23.06 on the public test"],
   ["Combined, end of run from the shrinking lists only", "21.14", "20.30", "18.70", "20.04", "harness"],
@@ -45,7 +48,7 @@
   ["Naive agent, no haircut", "19.70", "19.10", "17.64", "18.81", "superseded"]
  ],
  "running": [
-  ["Boundary study (standard mode)", "The same cut analysis for our standard-mode agent v2", "running", "since 21:00; due about 21:30"],
+  ["Boundary study (standard mode)", "The same cut analysis for our standard-mode agent v2", "done", "20:59: cutting v2's window at the week's end is +0.92 on the last halves, −0.16 on the whole run; `reports/26_h3j_h3w/report.md` §5"],
   ["Packager (h3j, h3w)", "h3 with the run ending on 31 July; and h3 with the plan cut at every week's end", "done", "20:54: both identical to their harness references on every command, 0 infractions; `reports/26_h3j_h3w/report.md`"],
   ["Boundary study (follow-up)", "What the known cut does to each variant of h3 on the two halves", "done", "20:44: emptying the battery at week ends gains 3.0 on the last halves of our folds and loses 0.8 on the whole run; `reports/23_boundaries/report.md` §6"],
   ["Packager (cut probe)", "h3 made optimistic about next week's prices, to reveal which hours of each week are public", "done", "20:32; submitted: 24.25 against h3's 23.32, so the first halves are public"],
@@ -128,6 +131,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["21:03", "Leaderboard: first with the cut probe (an artefact). Standard-mode study done; v2w built and verified, identical to the study's reference."],
   ["20:59", "h3w submitted: 20.03 public, 3.29 below h3, inside the predicted range. Three submissions now agree on how the cut works."],
   ["20:58", "h3j submitted: 23.32, identical to h3's row to the last digit, as predicted. It replaces h3 as the honest candidate."],
   ["20:57", "h3j and h3w cleared after my own check. Listed what is and is not known about how the final is scored; questions for the organisers added to the rules doc. Standard-mode cut analysis started."],

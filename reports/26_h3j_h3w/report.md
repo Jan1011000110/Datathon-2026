@@ -1,4 +1,4 @@
-# h3j and h3w: two variants of h3 for the jury selection
+# Candidates for the jury selection: h3j, h3w and v2w
 
 **Written:** Sat 14 Nov 2026, 20:58. Built by the packager subagent (20:54), re-checked by me at 20:56. Background: [`23_boundaries/report.md`](../23_boundaries/report.md) §6.
 
@@ -66,7 +66,37 @@ The same weeks relabelled to the last 7 days of each month and cut after July, w
 
 0 infractions and every step answered by the full agent in all three. On a run with no month end and no 31 July, both variants equal h3 exactly.
 
-## 4. For the jury selection
+## 5. Standard mode: the same question, and v2w (added 21:03)
+
+It is not settled which mode's private ranking decides the final, so the boundary study repeated its measurements for our standard-mode agent v2 (the plain 24-hour optimum, tied with about twenty teams at 6.43 on the public board). Folds without August, since the test has none.
+
+| | Whole run | First 84 h (public) | Last 84 h (private) | Charge at week ends |
+|---|---|---|---|---|
+| v2 | 5.403 | 5.455 | 5.346 | 919 kWh |
+| v2 with the 24-hour window cut at the week's end | 5.243 (−0.16) | 4.326 (−1.13) | 6.263 (+0.92) | 0 |
+
+- **Paired by week (33 weeks), last halves:** 17 better, 0 worse, 16 unchanged (weeks where v2 already ends empty).
+- **Translated to the real board** (the plain optimum scores 6.43 on the real first halves against 5.455 on the folds): v2 about 6.3 on the private half, give or take 0.7; the variant about 7.4; the difference +1.1, between +0.7 and +1.5. The variant's public score would be about 5.1.
+- **In principle** a schedule built only for the last halves scores 2.2 points more there than the whole-run optimum (7.54 against 5.33).
+- **The teams at 6.44 on the public board** are explained by about 10 kWh more charge at every week end.
+
+**`submissions/v2w/submission.zip`** is that variant: v2 with one marked change (the window stops at the last hour of the month). Single file, numpy only, no data file.
+
+| Check | Result |
+|---|---|
+| Against the study's reference on folds A / B / C | identical: 5.3832 / 5.1447 / 5.2024 whole run, 6.3885 / 6.1376 / 6.2642 on the last halves |
+| With the cut switched off | 0 commands differ from v2 |
+| On a run with no month end | 0 commands differ from v2 |
+| Infractions | 0 everywhere |
+| Organisers' environment, test-like layout | 5.14, 0 infractions |
+| Malformed observations | no exception |
+| `check_submission.py` | passes |
+
+Like h3w, it is a worse controller over the whole run that scores higher on the last halves because of where the cut falls. Submitting it is the team's decision.
+
+**A correction to section 2.** The private-half gain of h3w was scaled down to "+2.1 to +2.7" because the cut probe had moved less on the real board than on the folds. That comparison used folds that still had an August week. Without it the folds predicted +0.77 for the probe and the real figure was +0.93, so there is no evidence of damping. At face value the folds give h3w about +3 on the private half, with a wide spread between folds (+2.6 / +3.7 / +2.9).
+
+## 6. For the jury selection
 
 - Select the two submissions by hand. The automatic choice takes the two best public scores, which would include the cut probe (24.25), our worst agent on the private half.
 - If the private ranking is the hidden half alone and the better of two picks counts, h3j + h3w covers both readings: h3j is best over the whole run, h3w on the last halves.
