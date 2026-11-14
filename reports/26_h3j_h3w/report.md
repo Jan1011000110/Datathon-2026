@@ -103,3 +103,19 @@ Like h3w, it is a worse controller over the whole run that scores higher on the 
 - In standard mode the same reasoning gives v2 + v2w.
 - If h3w or v2w is picked, say in the presentation what it is and how the cut was found.
 - Open questions for the organisers are listed in `docs/NEW_RULES.md` §8.
+
+## 6. Clock-change days (added 21:47)
+
+The clocks change on 26 October 2025 and 29 March 2026. Both days are in test weeks and neither is in the training days, so we cannot know how the organisers' timestamps handle them. Test: fold B relabelled to the test's layout, with the timestamps changed four ways. The data are the same in every run, so the score should barely move; what matters is that nothing breaks.
+
+| Timestamps | h3j | h3w | v2 | v2w |
+|---|---|---|---|---|
+| Unchanged | 17.391 | 16.496 | 5.349 | 5.145 |
+| 26 Oct: 02:00 twice (one extra row) | −0.012 | −0.012 | −0.003 | −0.003 |
+| 29 Mar: 02:00 missing (one row less) | +0.013 | +0.012 | +0.002 | +0.002 |
+| Both | 0.000 | 0.000 | −0.001 | −0.001 |
+| Stress: labels slide an hour for the rest of the week | −0.007 | +0.001 | 0.000 | +0.005 |
+
+0 infractions in all twenty runs; in hard mode every step was answered by the full agent, never a fallback. The small differences come from the row that was added or removed. Nothing to fix.
+
+Script: `experiments/30_boundaries/dst_check.py` (arguments: the repo and a folder holding the extracted h3j and h3w ZIPs).
