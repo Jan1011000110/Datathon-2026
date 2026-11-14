@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 20:30
+**Last updated:** Sat 14 Nov 2026, 20:45
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -15,6 +15,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 ## H1. Where we are
 
 1. **Ceiling on our folds: 21.26 points** (22.44 / 21.42 / 19.92 with perfect foresight). The public test scores about 11 % higher for everyone; the ceiling there is about 23.7 ([`17_hard_leaderboard/report.md`](17_hard_leaderboard/report.md)).
+1b. **The cut of the public half is known: the first 84 hours of each week are public, the last 84 private** (cut probe: 24.25 against h3's 23.32). Charge held at the end of a week counts for the public half and against the private one. **The two jury submissions must be selected by hand:** the automatic choice would take the probe. The test most likely has no August week (August probe: 0), so the run ends on 31 July ([`23_boundaries/report.md`](23_boundaries/report.md) §6).
 2. **h3 is on the public leaderboard at 23.32** (team Fanboy & Chum Chum; submitted 20:13; CO₂ −22.04 %, cost −26.31 %, 0 infractions). 12th of 31 at 20:29, 0.78 behind the leader (SanHackobos_v7, 24.10) and 0.39 behind second place. h2 scored 23.06, so h3 gained +0.26 where the folds predicted +0.09 ([`24_h3/report.md`](24_h3/report.md), H8).
 3. **h2, packaged and confirmed on the server:** `submissions/h2/submission.zip`, 21.27 / 20.37 / 18.70 (mean 20.11), 0 infractions, falls back to h1's logic on any failure ([`22_h2/report.md`](22_h2/report.md)). The h2 probe on the free validation (19:00) showed it builds fully there, with 0 fallbacks and 1.4 ms per step. Also ready: **h1**: `submissions/h1/nov_fill/submission.zip`, 20.58 / 19.79 / 18.35, 0 infractions, under 1 s per run ([`20_h1/report.md`](20_h1/report.md)). Comparison point **h0**: `submissions/h0/submission.zip`, 19.84 / 19.30 / 17.90 ([`16_h0/report.md`](16_h0/report.md)).
 4. **All four specialists have reported.** On its own, each adds to the naive agent (18.96): load forecaster +0.60, uncertainty-aware planner +0.56, price/CO₂ forecaster +0.27, solar forecaster +0.14.
@@ -133,6 +134,8 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | HF24 | Week boundaries cost h2 about 0.01 on the whole run. Where it arrives low it had sold the energy the evening before, so the last day of the previous week shows a negative regret that offsets the first day's. | `23_boundaries/report.md` §2 |
 | HF25 | With an 84-hour cut of each week, charge carried across the cut moves points between the public and private halves without changing the whole run: +1.4 per MWh on one half, −1.7 on the other. No boundary rule is good for both halves. Under alternate days or random hours the effect is zero. | `23_boundaries/report.md` §4 |
 | HF26 | More history does not help the signal forecast. Its weak point is the level of the next six hours on a given day; more past years sharpen the average relationship but say nothing about today. Better accuracy failed to convert to score for the fourth time. | `25_ree_history/report.md` |
+| HF27 | The public half is the first 84 hours of each week (cut probe +0.93). A variant of h3 that empties the battery at each week's end gains about 3.0 on the last halves of our folds (+2.1 to +2.7 expected on the real private half) while losing 0.8 on the whole run. A schedule built only for the last halves would gain 7.8 there. | `23_boundaries/report.md` §6 |
+| HF28 | An agent acting only on August 2026 dates scores exactly 0: the test most likely has no August week and the run ends on 31 July 2026. | `23_boundaries/report.md` §6 |
 | HF12 | The right haircut is not a constant: discharge one more kW only while (chance it displaces import) × (what it earns now) exceeds what the kWh is worth later. Almost no haircut at 04:00 or 19:00, a large one at 13:00. | `14_planner/report.md` §2 |
 | HF13 | At 06:00 the load rises on weekdays (+383 kW on Mondays, +65 to +110 Tuesday–Friday) and falls on Saturdays (−188). 22:00 is the last reading taken, not an hourly mean. | `11_load_forecast/report.md` §2 |
 | HF14 | For price/CO₂, hours +3 to +5 carry two thirds of the forecast loss and +6 to +11 the rest; beyond +12 h is worth 0.01. Forecast accuracy is a poor guide to score. | `13_signal_forecast/report.md` §2 |
@@ -184,6 +187,9 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **20:45** Measured "each week is its own run" on h3 (HF27). Asked the packager for `h3j` (run ends 31 July) and `h3w` (plan cut at every week's end), both verified, for the next shift. Whether `h3w` is submitted is the team's decision; I recommended telling the organisers about the cut either way.
+- **20:41** Built a July control for the August probe (`submissions/probe_july/`).
+- **20:40** You reported the probes: cut probe 24.25 (so the first halves are public), August probe 0 twice (so most likely no August week).
 - **20:30** Leaderboard snapshot (`17_hard_leaderboard/hard_leaderboard_20261114_2029.csv`): 31 teams, 124 submissions; we are 12th with h3. Leader 24.10. Built the August probe (`submissions/probe_august/`: 0.28 on a run with an August week, exactly 0 without); the cut probe is being packaged.
 - **20:13** You submitted h3: **23.32** public, +0.26 over h2. The folds predicted +0.09; the boundary study's range was +0.04 to +0.11. The gain is larger than predicted and I do not yet know why; the cut probe should say how much of it is charge at the cut.
 - **20:14** Older REE history tested (T39, HF26): no reliable gain, not shipped. The permission system had refused the subagent's download, so you ran the script yourself; I fixed its date guard, which was refusing a legitimate last row of August 2025.

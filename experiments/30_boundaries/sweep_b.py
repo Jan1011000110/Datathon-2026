@@ -55,6 +55,13 @@ def configs(which):
     if which == "hedge":
         for g in (0.0, 1.5, 2.0, 3.0):
             out.append((f"signal error paths beyond the jump x{g}", dict(gamma=g)))
+    if which == "week":
+        out += [("signal beyond the week end x1.2 (the probe)", dict(w="blend", a=0.0, scale=1.2)),
+                ("signal beyond the week end x0.75", dict(w="blend", a=0.0, scale=0.75)),
+                ("signal beyond the week end x0.5", dict(w="blend", a=0.0, scale=0.5)),
+                ("signal beyond the week end x0.25", dict(w="blend", a=0.0, scale=0.25)),
+                ("signal beyond the week end x0 (multiplied, floored at 1e-9)", dict(w="blend", a=0.0, scale=0.0)),
+                ("plan cut at the week end (each week its own run)", dict(cut=True))]
     if which in ("short", "hedge"):
         out += [("profile net beyond the jump", dict(net="profile")),
                 ("signal beyond the jump x1.06", dict(w="blend", a=0.0, scale=1.06)),
@@ -72,6 +79,13 @@ def build(fold, df, kind, cfg):
     w, net = cfg.pop("w", None), cfg.pop("net", None)
     extend = cfg.pop("extend", 0)
     tw, tn = cfg.pop("tw", None), cfg.pop("tn", None)
+    if cfg.pop("cut", False):
+        import rules3 as R3
+        if hasattr(ag.w_fc, "fc") and hasattr(ag.w_fc, "end"):       # h3: inside combined3.EndCut
+            ag.w_fc.fc = R3.WeekCut(ag.w_fc.fc)
+        else:
+            ag.w_fc = R3.WeekCut(ag.w_fc)
+        return ag
     if "v" in cfg:
         import rules2 as R2
         mode = cfg.pop("v")

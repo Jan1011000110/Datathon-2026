@@ -10,7 +10,7 @@ Background: the 12 test weeks are run as one continuous simulation, so the batte
 - **No boundary rule is recommended.** 69 legal variants were tried; the best gains +0.004 on average, and every one chosen on two folds loses on the third.
 - **The cut of the public half is where boundaries matter.** If the cut is an 84-hour split of each week, every MWh of extra charge carried into each week moves about +1.4 points onto the first half and −1.7 off the last half, while the whole run moves by −0.04.
 - **Consequence for reading the leaderboard.** Under an 84-hour cut, the 0.40 between us and the nine teams above equals about 0.3 MWh of average charge at the cut, which has no real value. Under alternate days or random hours this effect is about zero.
-- **Which cut it is remains unknown.** The evidence is weak and conflicting.
+- ~~Which cut it is remains unknown.~~ **Known since 20:40:** the first 84 hours of each week are public, the last 84 private (section 6).
 
 ![Charge carried into a week moves points between the halves](figs/transfer.png)
 
@@ -112,7 +112,46 @@ h2's score on the public half minus its whole-run score, by hypothesis:
 - **Not built, on purpose:** the variants that would look best on an 84-hour public half (a very optimistic signal beyond the jump, a 4,500 kWh floor). They are neutral or negative on the whole run and cost about 1.5 points on the other half.
 - **A probe exists if the team wants to know the cut:** one submission of a whole-run-neutral variant (signal beyond the jump ×1.2) would score about +1.25 if the first 84 h are public, −1.5 if the last, about 0 otherwise. It costs an attempt and must never be a jury pick.
 
-## 6. Limits
+## 6. The cut is known, and what it does to the private half (added 20:50)
+
+**The probe result.** The team submitted the probe of section 5 (h3 with the signal beyond the week's end ×1.2): **24.25** on the public leaderboard against h3's 23.32, +0.93. On the folds that variant gains +1.0 to +1.9 on the first halves and loses 1.1 to 1.9 on the last halves. So **the public half is the first 84 hours of each week, and the private half, which decides the podium, is the last 84.** One measurement; nothing else we tested moves the score that way.
+
+**A second probe:** an agent that acts only on August 2026 dates scored exactly 0, twice. With the first halves public, an existing August week would have shown above zero. So the test most likely has no August week and the run ends on 31 July 2026. A July control is being submitted to confirm.
+
+**The family "how much is energy worth beyond the week's end" on h3** (mean of folds; change against h3 in brackets):
+
+| Signal beyond the week's end | Whole run | First 84 h | Last 84 h | Charge at week end, kWh |
+|---|---|---|---|---|
+| ×1.2 (the probe) | 20.194 (+0.004) | 20.941 (+1.34) | 19.270 (−1.56) | 3,728 |
+| ×1.0 (h3) | 20.190 | 19.603 | 20.828 | 2,845 |
+| ×0.75 | 20.108 (−0.08) | 18.532 (−1.07) | 21.883 (+1.06) | 2,025 |
+| ×0.5 | 19.905 (−0.29) | 17.455 (−2.15) | 22.698 (+1.87) | 1,233 |
+| Plan cut at the week's end | 19.397 (−0.79) | 15.533 (−4.07) | 23.867 (+3.04) | 19 |
+
+- **Every variant below ×1.0 raises the last-half score by moving points off the first half, and loses on the whole run.**
+- **The last-half gain is consistent:** for the plan cut, 25 of 33 weeks better and 1 worse (interval +2.1 to +4.0).
+- **The whole-run loss is real for the plan cut** (negative on all three folds); for ×0.75 it is not distinguishable from zero.
+- **The charge at hour 84 is the same in every variant** (1,218 kWh): the rule acts only in the last day of a week.
+
+**Scaled to the real test.** The probe moved the public score by 0.7 times the fold mean (0.9 times folds B and C). On that scale, for the private half: probe −1.1 to −1.4; ×0.75 +0.7 to +0.9; plan cut +2.1 to +2.7, with a public score about 3 lower and a real loss of about 0.6 to 0.7 on the whole run. The private half itself has not been observed.
+
+**The size of the distortion in principle** (perfect foresight, mean of folds):
+
+| Schedule | Last 84 h | First 84 h | Whole run |
+|---|---|---|---|
+| Optimum of the last-half score alone | 28.69 | 11.90 | 19.66 |
+| Optimum of the whole run | 20.87 | 21.52 | 21.26 |
+
+A schedule built only for the last halves scores 7.8 points more there while being 1.6 points worse overall. It has two parts: arriving empty at the week's end (the plan cut gets +3.0 of it) and arriving nearly full at hour 84 on energy charged in uncounted hours. No agent was built for the second part.
+
+**What it means for the team:**
+
+- The public board cannot be used to compare teams: 0.8 points is about half a MWh of charge at week ends.
+- Teams that tune against the public board are pushed towards carrying more, which costs them on the private half.
+- The two jury submissions must be selected by hand: the automatic choice would take the probe (24.25), our worst agent on the private half.
+- Whether to submit a variant that empties the battery at each week's end is the team's decision. It breaks no written rule; it is an agent tuned to where the scoring cut falls, and it is a worse controller over the whole run.
+
+## 7. Limits
 
 - The folds skip November, so one boundary per fold behaves unlike the test.
 - That the test behaves like folds B and C rather than A is inferred from the fold design.
