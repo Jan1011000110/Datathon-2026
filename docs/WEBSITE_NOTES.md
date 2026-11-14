@@ -156,3 +156,13 @@ Note: `starter_kit/agent.py` uses `eta = 0.9487` and no `eps`. The version above
 1. Download the participant ZIP from the *Dades del Campus* tab.
 2. Open `starter_kit/tutorial.ipynb`.
 3. On the *Lliurament* tab, run **Validació Ràpida** with the template `agent.py`.
+
+## Site re-read, Sat 14 Nov 2026, 21:41
+
+Every tab was read again and compared with the earlier dumps.
+
+- **No rule text changed** in the rules, hard-mode or FAQ tabs.
+- **Submission tab:** the line on the quota now reads "màxim 20 lliuraments per equip en aquest torn" (it said 10 at 21:01). The rules tab still says 10 per shift. Not tested.
+- **FAQ, unchanged, the two sentences that bear on the final:** the ranking seen during the Datathon "correspon al 50% públic de cada setmana de test", the other 50 % stays hidden until the verdict; and the two selected submissions "seran les úniques considerades pel jurat per al rànquing privat secret que decidirà el podi final".
+- **Rules tab, unchanged:** "el jurat valorarà de forma decisiva la presentació final, la claredat del raonament tècnic, l'anàlisi de les dades i la justificació".
+- Nothing on the site says which mode's private ranking counts.

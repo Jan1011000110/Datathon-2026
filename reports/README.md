@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 21:06
+**Last updated:** Sat 14 Nov 2026, 21:47
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -192,6 +192,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **21:47** You said the organisers are not answering and asked me to look for more gains on my own. Site re-read: no rule changed; the submission tab now says 20 attempts per shift (`docs/WEBSITE_NOTES.md`). New lead on the general model: the test weeks are the last seven days of each month, which our folds (days 1 to 21) never contain. Four test weeks start on a holiday (25 Dec, 24 Jun; 24 Sep and 25 May if the campus is in Barcelona) and the December week is all Christmas closure; the load forecaster has no calendar (its own report lists this as open). Load specialist resumed to measure what a calendar is worth and build it if it pays (due 23:15). I am testing the shipped agents on the two clock-change days (26 Oct, 29 Mar), which also fall only in test weeks.
 - **21:06** Read the 21:01 leaderboard rows: the cut probe is +564.5 kg and +874 € over h3 on the public half; three other teams (JAMM, EquipB, Low BaterIA) have a submission that looks like h3w's row, which is suggestive only (`17_hard_leaderboard/report.md`, last section).
 - **21:03** Leaderboard at 21:01: we are first with the cut probe (24.25), which is an artefact; h3j at 23.32 is 13th of the board's rows (10th if the four SanHackobos entries are one team). Standard-mode study done (HF30); built and verified `submissions/v2w/` (v2 with the window cut at the week's end), identical to the study's reference. Expected private gain of h3w restated as +2 to +3: the probe shows no damping once August is removed from the folds, h3w's own public move still does.
 - **20:59** You submitted h3w: 20.03 public, 3.29 below h3, inside the predicted range (HF29). Expected on the private half: about +2 to +2.5 over h3j. Jury selection still to be made by hand; I advise h3j + h3w if the private ranking is the hidden half alone, never the cut probe.

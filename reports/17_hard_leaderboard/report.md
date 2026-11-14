@@ -155,3 +155,12 @@ File: `hard_leaderboard_20261114_2101.csv`.
 - **Our rows against h3:** h2 −0.24 pp CO₂, −0.31 pp cost; h3w −3.50 pp CO₂ (−2,110.2 kg), −2.80 pp cost (−2,658.70 €).
 - **Public-half baseline implied by our rows:** about 60,260 kg of CO₂ and 94,980 €.
 - **Other teams.** Three have a submission with the same fingerprint as h3w (about 3 points below their own best, and the cost-to-CO₂ ratio up from the usual 1.19 to 1.24–1.29; h3w's is 1.27): JAMM 19.08 at 18:14, EquipB 20.15 at 18:50, Low BaterIA 20.73 at 20:59 (local time). This is suggestive only: an ordinary regression can look the same, and nothing here shows what those agents do.
+
+## Snapshot 21:41, both modes (added 21:47)
+
+Files: `hard_leaderboard_20261114_2141.csv`, `std_leaderboard_20261114_2141.csv`.
+
+- **Hard mode:** 35 team names, 156 submissions. Top unchanged (our cut probe 24.25, SanHackobos_v7 24.10). New since 21:01: TeamName2 at 23.71 (the same row as AAA), JAMM up to 23.53, aniMLs 23.39, ASCII 23.34.
+- **Standard mode:** 38 team names, 178 submissions. Best scores: 7 teams at 6.44, 26 at 6.43 (ours, "Fa", among them: CO₂ 5.96 %, cost 7.52 %, 4,282.5 kg, 8,934.63 €). The 6.44s differ from 6.43 in the third decimal.
+- **Standard-mode baseline of the public half implied by our row:** about 71,850 kg and 118,810 €.
+- **Standard-mode submissions well below a team's own 6.43:** four teams at 5.54 to 5.59 (Dos enginyers i mig, Manguihackers, EquipB, GOLDEN) and Aston_Villanew at 4.72 twice. Our week-cut variant v2w is expected at about 5.1 (4.8 to 5.4). None of these can be identified from the board.

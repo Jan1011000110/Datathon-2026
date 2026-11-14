@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 21:06",
+ "updated": "Sat 14 Nov 2026, 21:47",
  "ceiling": 21.26,
  "best": {
   "name": "h3: h2 + round-2 signal forecaster + signal-aware planner (`submissions/h3/submission.zip`)",
@@ -19,6 +19,8 @@
  ],
  "leaderboard_time": "21:01, public half (the first 84 hours of each week); 33 teams, 140 submissions. Our eight submissions: h2 23.06, h3 23.32, cut probe 24.25, August probe 0.00 twice, July control 0.53, h3j 23.32, h3w 20.03",
  "now": [
+  "**Looking for more honest gains (since 21:40).** The test weeks are the last seven days of each month; our validation weeks are days 1 to 21. Two things exist only in test weeks: holidays on the first day of four of them (25 Dec, 24 Jun, and 24 Sep and 25 May if the campus is in Barcelona) plus the Christmas closure, and the two clock-change days (26 Oct, 29 Mar). The load forecaster has no holiday calendar. Both are being measured now.",
+  "**Site re-read at 21:41:** no rule changed; the submission tab now says 20 attempts per shift. The organisers have not answered the questions on the final.",
   "**Select the two jury submissions by hand before the close.** The automatic choice takes the two best public scores. For us that includes the cut probe (24.25), our worst agent on the private half.",
   "**Hard mode, submitted and selectable:** h3j at 23.32 (h3 with the run ending on 31 July; the honest candidate) and h3w at 20.03 (every week its own run; expect +2 to +3 over h3j on the private half, and −0.8 over the whole run).",
   "**We are first on the public board with the cut probe (24.25). That is an artefact:** it carries extra charge into each week, which counts for the public half and against the private one. On real quality h3j at 23.32 is 13th of the board's rows, 10th if the four SanHackobos entries are one team.",
@@ -45,6 +47,8 @@
   ["Naive agent, no haircut", "19.70", "19.10", "17.64", "18.81", "superseded"]
  ],
  "running": [
+  ["Load specialist: holiday calendar", "What knowing the holidays in advance is worth inside h3 (upper bound first), then a calendar in the load forecaster if it pays", "running", "since 21:40; due 23:15"],
+  ["Clock-change check (me)", "h3j, h3w, v2 and v2w on test-like weeks with a repeated and a missing 02:00", "running", "since 21:47"],
   ["Boundary study (standard mode)", "The same cut analysis for our standard-mode agent v2", "done", "20:59: cutting v2's window at the week's end is +0.92 on the last halves, −0.16 on the whole run; `reports/26_h3j_h3w/report.md` §4"],
   ["Packager (h3j, h3w)", "h3 with the run ending on 31 July; and h3 with the plan cut at every week's end", "done", "20:54: both identical to their harness references on every command, 0 infractions; `reports/26_h3j_h3w/report.md`"],
   ["Boundary study (follow-up)", "What the known cut does to each variant of h3 on the two halves", "done", "20:44: emptying the battery at week ends gains 3.0 on the last halves of our folds and loses 0.8 on the whole run; `reports/23_boundaries/report.md` §6"],
@@ -128,6 +132,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["21:47", "Organisers silent; the team asked for more gains. Site re-read (no rule changed; 20 attempts per shift now shown). New lead: holidays and clock changes exist only in test weeks. Load specialist resumed on a holiday calendar; clock-change check running."],
   ["21:06", "Read the 21:01 leaderboard rows: cut probe +564.5 kg and +874 € over h3 on the public half; three other teams have a submission that looks like h3w (suggestive only). Board tidied: both hard-mode candidates are submitted."],
   ["21:03", "Leaderboard: first with the cut probe (an artefact). Standard-mode study done; v2w built and verified, identical to the study's reference."],
   ["20:59", "h3w submitted: 20.03 public, 3.29 below h3, inside the predicted range. Three submissions now agree on how the cut works."],
