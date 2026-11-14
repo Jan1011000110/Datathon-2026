@@ -1,0 +1,227 @@
+C:\Users\alexv\Documents\Datathon-2026\experiments\21_load\cal_phase2.py:29: Pandas4Warning: Timestamp.dayofweek is deprecated and will be removed in a future version. Use Timestamp.day_of_week instead.
+  if d.dayofweek >= 5:
+C:\Users\alexv\Documents\Datathon-2026\experiments\21_load\cal_phase2.py:29: Pandas4Warning: Timestamp.dayofweek is deprecated and will be removed in a future version. Use Timestamp.day_of_week instead.
+  if d.dayofweek >= 5:
+C:\Users\alexv\Documents\Datathon-2026\experiments\21_load\cal_phase2.py:29: Pandas4Warning: Timestamp.dayofweek is deprecated and will be removed in a future version. Use Timestamp.day_of_week instead.
+  if d.dayofweek >= 5:
+fold B done in 83 s
+fold C done in 83 s
+fold A done in 84 s
+== priors fitted outside each fold; bit-identity without calendar ==
+A priors {'closure': 0.475, 'holiday': 0.982, 'local': 0.982} days per kind {'holiday': 2, 'closure': 1} dropped ['holyweek'] | no calendar == cached h3 tape: True
+B priors {'closure': 0.601, 'holiday': 0.911, 'holyweek': 0.456, 'local': 0.911} days per kind {'closure': 3, 'holiday': 5, 'holyweek': 2} dropped [] | no calendar == cached h3 tape: True
+C priors {'closure': 0.635, 'holiday': 0.947, 'holyweek': 0.489, 'local': 0.947} days per kind {'holiday': 7, 'closure': 3, 'holyweek': 2} dropped [] | no calendar == cached h3 tape: True
+
+== whole run, public half (first 84 h of each week), private half (last 84 h): score and gain over h3 ==
+
+whole:
+fold                  A        B        C     mean      dA      dB      dC   dmean
+run                                                                               
+h3              19.4247  18.5127  18.5562  18.8312  0.0000  0.0000  0.0000  0.0000
+cal_b1          19.4543  18.5362  18.5605  18.8503  0.0296  0.0235  0.0043  0.0191
+cal_b05         19.4554  18.5330  18.5605  18.8496  0.0307  0.0202  0.0043  0.0184
+cal_b0          19.4553  18.5208  18.5605  18.8456  0.0306  0.0081  0.0043  0.0143
+cal_b1_noclean  19.4349  18.5390  18.5562  18.8434  0.0102  0.0262  0.0000  0.0121
+cal_half        19.4476  18.5213  18.5605  18.8431  0.0229  0.0086  0.0043  0.0119
+cal_holonly     19.4347  18.5356  18.5605  18.8436  0.0100  0.0229  0.0043  0.0124
+cal_noclosure   19.4347  18.5379  18.5605  18.8444  0.0100  0.0252  0.0043  0.0132
+cal_hw          19.4496  18.5362  18.5605  18.8488  0.0249  0.0235  0.0043  0.0176
+cal_allprior    19.4563  18.5357  18.5605  18.8508  0.0316  0.0230  0.0043  0.0196
+cal_min         19.4247  18.5434  18.5605  18.8429  0.0000  0.0307  0.0043  0.0117
+cal_first       19.4128  18.5382  18.5605  18.8372 -0.0119  0.0255  0.0043  0.0060
+
+public:
+fold                  A        B        C     mean      dA      dB      dC   dmean
+run                                                                               
+h3              17.4785  18.7028  18.0565  18.0793  0.0000  0.0000  0.0000  0.0000
+cal_b1          17.4848  18.7737  18.0640  18.1075  0.0063  0.0709  0.0075  0.0282
+cal_b05         17.4887  18.7683  18.0640  18.1070  0.0102  0.0655  0.0075  0.0278
+cal_b0          17.4881  18.7460  18.0640  18.0994  0.0096  0.0432  0.0075  0.0201
+cal_b1_noclean  17.4960  18.7636  18.0565  18.1054  0.0175  0.0608  0.0000  0.0261
+cal_half        17.4780  18.7441  18.0640  18.0954 -0.0005  0.0413  0.0075  0.0161
+cal_holonly     17.4732  18.7711  18.0640  18.1028 -0.0053  0.0683  0.0075  0.0235
+cal_noclosure   17.4732  18.7755  18.0640  18.1042 -0.0053  0.0727  0.0075  0.0250
+cal_hw          17.4755  18.7737  18.0640  18.1044 -0.0030  0.0709  0.0075  0.0251
+cal_allprior    17.4829  18.7728  18.0640  18.1066  0.0044  0.0700  0.0075  0.0273
+cal_min         17.4785  18.7855  18.0640  18.1093  0.0000  0.0827  0.0075  0.0301
+cal_first       17.4615  18.7748  18.0640  18.1001 -0.0170  0.0720  0.0075  0.0208
+
+private:
+fold                  A        B        C     mean      dA      dB   dC   dmean
+run                                                                            
+h3              21.5434  18.3029  19.1411  19.6625  0.0000  0.0000  0.0  0.0000
+cal_b1          21.5988  18.2735  19.1411  19.6711  0.0554 -0.0294  0.0  0.0087
+cal_b05         21.5969  18.2727  19.1411  19.6702  0.0535 -0.0303  0.0  0.0077
+cal_b0          21.5974  18.2718  19.1411  19.6701  0.0540 -0.0311  0.0  0.0076
+cal_b1_noclean  21.5457  18.2907  19.1411  19.6592  0.0023 -0.0123  0.0 -0.0033
+cal_half        21.5921  18.2747  19.1411  19.6693  0.0487 -0.0282  0.0  0.0068
+cal_holonly     21.5703  18.2753  19.1411  19.6622  0.0270 -0.0276  0.0 -0.0002
+cal_noclosure   21.5703  18.2753  19.1411  19.6622  0.0270 -0.0276  0.0 -0.0002
+cal_hw          21.5990  18.2735  19.1411  19.6712  0.0556 -0.0294  0.0  0.0087
+cal_allprior    21.6047  18.2735  19.1411  19.6731  0.0613 -0.0294  0.0  0.0106
+cal_min         21.5434  18.2761  19.1411  19.6535  0.0000 -0.0268  0.0 -0.0089
+cal_first       21.5374  18.2765  19.1411  19.6517 -0.0060 -0.0265  0.0 -0.0108
+
+infractions: {'cal_allprior': 0, 'cal_b0': 0, 'cal_b05': 0, 'cal_b1': 0, 'cal_b1_noclean': 0, 'cal_first': 0, 'cal_half': 0, 'cal_holonly': 0, 'cal_hw': 0, 'cal_min': 0, 'cal_noclosure': 0, 'h3': 0} | wrong-entry runs: 0
+forecast rows that differ from LoadFC: {'cal_b1': {'A': 485, 'B': 460, 'C': 78}, 'cal_b05': {'A': 485, 'B': 460, 'C': 78}, 'cal_b0': {'A': 485, 'B': 460, 'C': 78}, 'cal_b1_noclean': {'A': 381, 'B': 137, 'C': 0}, 'cal_half': {'A': 485, 'B': 460, 'C': 78}, 'cal_holonly': {'A': 485, 'B': 458, 'C': 78}, 'cal_noclosure': {'A': 485, 'B': 458, 'C': 78}, 'cal_hw': {'A': 505, 'B': 460, 'C': 78}, 'cal_allprior': {'A': 505, 'B': 460, 'C': 78}, 'cal_min': {'A': 0, 'B': 124, 'C': 78}, 'cal_first': {'A': 348, 'B': 256, 'C': 78}}
+  fold A days with any changed forecast (cal_b1): ['2025-12-06', '2025-12-07', '2026-01-01', '2026-01-02', '2026-01-03', '2026-01-04', '2026-01-05', '2026-01-06', '2026-01-07', '2026-04-01', '2026-04-02', '2026-04-03', '2026-04-04', '2026-04-05', '2026-04-06', '2026-04-07', '2026-05-01', '2026-05-02', '2026-05-03', '2026-05-04', '2026-05-05', '2026-05-06', '2026-05-07']
+  fold B days with any changed forecast (cal_b1): ['2025-09-09', '2025-09-10', '2025-09-11', '2025-09-12', '2025-09-13', '2025-09-14', '2025-12-08', '2025-12-09', '2025-12-10', '2025-12-11', '2025-12-12', '2025-12-13', '2026-01-08', '2026-01-09', '2026-01-10', '2026-01-11', '2026-01-12', '2026-01-13', '2026-04-08', '2026-04-09', '2026-04-10', '2026-04-11', '2026-05-08']
+  fold C days with any changed forecast (cal_b1): ['2025-09-15', '2025-09-16', '2025-09-17', '2025-09-18']
+
+== cal_b1: gain over h3 by week (fold-score points) ==
+     wk fold     pts     pub    priv       kg      eur
+2025-12    A  0.0011  0.0000  0.0011   1.3107   1.8766
+2026-01    A  0.0107 -0.0077  0.0184  15.8267   8.2308
+2026-04    A  0.0137  0.0060  0.0077   8.0254  59.6827
+2026-05    A  0.0042  0.0049 -0.0007   2.9840  16.4359
+2026-06    A -0.0002 -0.0002  0.0000  -0.1926  -0.2734
+2025-09    B  0.0307  0.0434 -0.0127  51.8646  23.8564
+2025-12    B -0.0052 -0.0054  0.0002 -29.7398  75.7622
+2026-01    B -0.0020 -0.0006 -0.0014  -4.8933   4.0253
+2026-04    B -0.0000 -0.0000  0.0000   2.9881 -11.4651
+2026-05    B -0.0000 -0.0000  0.0000   0.0001  -0.0032
+2025-09    C  0.0043  0.0043  0.0000   7.3099   6.2445
+weeks changed 11 of 30; better 6, worse 5; sum 0.0574 (public-half hours 0.0448, private-half hours 0.0125)
+
+== cal_half: gain over h3 by week (fold-score points) ==
+     wk fold     pts     pub    priv       kg      eur
+2025-12    A  0.0011  0.0000  0.0011   1.3107   1.8766
+2026-01    A  0.0064 -0.0112  0.0176   3.6835  28.3103
+2026-04    A  0.0092  0.0039  0.0053   6.8877  34.0244
+2026-05    A  0.0063  0.0070 -0.0007   6.1992  17.3743
+2026-06    A -0.0002 -0.0002  0.0000  -0.1926  -0.2734
+2025-09    B  0.0158  0.0279 -0.0121  26.3203  13.7172
+2025-12    B -0.0052 -0.0054  0.0002 -29.7498  75.7794
+2026-01    B -0.0020 -0.0006 -0.0014  -4.8933   4.0253
+2026-04    B -0.0000 -0.0000  0.0000   2.9881 -11.4651
+2026-05    B -0.0000 -0.0000  0.0000   0.0001  -0.0032
+2025-09    C  0.0043  0.0043  0.0000   7.3099   6.2445
+weeks changed 11 of 30; better 6, worse 5; sum 0.0357 (public-half hours 0.0258, private-half hours 0.0099)
+
+== cal_hw: gain over h3 by week (fold-score points) ==
+     wk fold     pts     pub    priv       kg      eur
+2025-12    A  0.0011  0.0000  0.0011   1.3107   1.8766
+2026-01    A  0.0107 -0.0077  0.0184  15.8267   8.2308
+2026-04    A  0.0090  0.0013  0.0078   6.3089  35.1643
+2026-05    A  0.0042  0.0049 -0.0007   2.9840  16.4359
+2026-06    A -0.0002 -0.0002  0.0000  -0.1926  -0.2734
+2025-09    B  0.0307  0.0434 -0.0127  51.8646  23.8564
+2025-12    B -0.0052 -0.0054  0.0002 -29.7398  75.7622
+2026-01    B -0.0020 -0.0006 -0.0014  -4.8933   4.0253
+2026-04    B -0.0000 -0.0000  0.0000   2.9881 -11.4651
+2026-05    B -0.0000 -0.0000  0.0000   0.0001  -0.0032
+2025-09    C  0.0043  0.0043  0.0000   7.3099   6.2445C:\Users\alexv\Documents\Datathon-2026\experiments\21_load\cal_phase2.py:181: Pandas4Warning: Timestamp.dayofweek is deprecated and will be removed in a future version. Use Timestamp.day_of_week instead.
+  if not a.any() or d.dayofweek >= 5:
+C:\Users\alexv\Documents\Datathon-2026\experiments\21_load\cal_phase2.py:181: Pandas4Warning: Timestamp.dayofweek is deprecated and will be removed in a future version. Use Timestamp.day_of_week instead.
+  if not a.any() or d.dayofweek >= 5:
+C:\Users\alexv\Documents\Datathon-2026\experiments\21_load\cal_phase2.py:200: Pandas4Warning: Timestamp.dayofweek is deprecated and will be removed in a future version. Use Timestamp.day_of_week instead.
+  if a_.any() and d.dayofweek < 5:
+C:\Users\alexv\Documents\Datathon-2026\experiments\21_load\cal_phase2.py:200: Pandas4Warning: Timestamp.dayofweek is deprecated and will be removed in a future version. Use Timestamp.day_of_week instead.
+  if a_.any() and d.dayofweek < 5:
+
+weeks changed 11 of 30; better 6, worse 5; sum 0.0527 (public-half hours 0.0400, private-half hours 0.0126)
+
+== cal_min: gain over h3 by week (fold-score points) ==
+     wk fold    pts    pub    priv      kg     eur
+2025-09    B 0.0307 0.0434 -0.0127 51.8646 23.8564
+2025-09    C 0.0043 0.0043  0.0000  7.3099  6.2445
+weeks changed 2 of 30; better 2, worse 0; sum 0.0350 (public-half hours 0.0477, private-half hours -0.0127)
+
+== cal_first: gain over h3 by week (fold-score points) ==
+     wk fold     pts     pub    priv       kg     eur
+2025-12    A  0.0011  0.0000  0.0011   1.3107  1.8766
+2026-01    A -0.0170 -0.0138 -0.0032 -32.9210 18.5530
+2026-05    A  0.0042  0.0049 -0.0007   2.9840 16.4359
+2026-06    A -0.0002 -0.0002  0.0000  -0.1926 -0.2734
+2025-09    B  0.0307  0.0434 -0.0127  51.8646 23.8564
+2025-12    B -0.0052 -0.0054  0.0002 -29.7398 75.7622
+2026-05    B -0.0000 -0.0000  0.0000   0.0001 -0.0032
+2025-09    C  0.0043  0.0043  0.0000   7.3099  6.2445
+weeks changed 8 of 30; better 4, worse 4; sum 0.0179 (public-half hours 0.0332, private-half hours -0.0153)
+
+== gain over h3 by calendar day in the folds (D = that day, D+1 = the day after; fold-score points, kg, EUR) ==
+                                       pts_D                                                                                                           pts_D1                                                                                                         
+run                                   cal_b1 cal_b05  cal_b0 cal_b1_noclean cal_half cal_holonly cal_noclosure  cal_hw cal_allprior cal_min cal_first  cal_b1 cal_b05  cal_b0 cal_b1_noclean cal_half cal_holonly cal_noclosure  cal_hw cal_allprior cal_min cal_first
+fold day        dow kind     half                                                                                                                                                                                                                                     
+A    2026-01-01 Thu holiday  public   0.0019  0.0024  0.0022         0.0019   0.0007      0.0021        0.0021  0.0019       0.0017  0.0000    0.0021 -0.0095 -0.0078 -0.0070        -0.0012  -0.0118     -0.0158       -0.0158 -0.0095      -0.0061  0.0000   -0.0158
+     2026-01-02 Fri closure  public  -0.0095 -0.0078 -0.0070        -0.0012  -0.0118     -0.0158       -0.0158 -0.0095      -0.0061  0.0000   -0.0158  0.0000  0.0000  0.0000        -0.0000   0.0000      0.0000        0.0000  0.0000       0.0000  0.0000    0.0000
+     2026-01-05 Mon closure  private -0.0051 -0.0058 -0.0065        -0.0016  -0.0061     -0.0023       -0.0023 -0.0051      -0.0021  0.0000   -0.0023 -0.0586 -0.0610 -0.0619        -0.0001  -0.0586     -0.0001       -0.0001 -0.0586      -0.0585  0.0000    0.0001
+     2026-01-06 Tue holiday  private -0.0586 -0.0610 -0.0619        -0.0001  -0.0586     -0.0001       -0.0001 -0.0586      -0.0585  0.0000    0.0001  0.0821  0.0846  0.0856         0.0001   0.0823      0.0074        0.0074  0.0821       0.0821  0.0000   -0.0009
+     2026-04-01 Wed holyweek public   0.0000  0.0000  0.0000         0.0000   0.0000      0.0000        0.0000 -0.0033      -0.0033  0.0000    0.0000  0.0382  0.0382  0.0382         0.0382   0.0114      0.0382        0.0382  0.0370       0.0311  0.0000    0.0000
+     2026-04-02 Thu holyweek public   0.0382  0.0382  0.0382         0.0382   0.0114      0.0382        0.0382  0.0370       0.0311  0.0000    0.0000 -0.0355 -0.0343 -0.0331        -0.0355  -0.0105     -0.0355       -0.0355 -0.0341      -0.0278  0.0000    0.0000
+     2026-04-03 Fri holiday  public  -0.0355 -0.0343 -0.0331        -0.0355  -0.0105     -0.0355       -0.0355 -0.0341      -0.0278  0.0000    0.0000  0.0034  0.0017  0.0001         0.0034   0.0030      0.0034        0.0034  0.0017       0.0016  0.0000    0.0000
+     2026-04-06 Mon holiday  private -0.0011 -0.0011 -0.0007         0.0003  -0.0036     -0.0011       -0.0011 -0.0015      -0.0018  0.0000    0.0000  0.0088  0.0086  0.0090         0.0013   0.0089      0.0088        0.0088  0.0092       0.0092  0.0000    0.0000
+     2026-05-01 Fri holiday  public  -0.0011 -0.0002 -0.0004        -0.0011   0.0010     -0.0011       -0.0011 -0.0011      -0.0008  0.0000   -0.0011  0.0009  0.0005  0.0000         0.0009   0.0009      0.0009        0.0009  0.0009       0.0009  0.0000    0.0009
+B    2025-09-11 Thu holiday  public  -0.0089 -0.0123 -0.0245         0.0310  -0.0236     -0.0089       -0.0074 -0.0089      -0.0094 -0.0089   -0.0089  0.0396  0.0398  0.0400         0.0069   0.0394      0.0395        0.0395  0.0396       0.0396  0.0396    0.0396
+     2025-12-08 Mon holiday  public   0.0000 -0.0006 -0.0013         0.0000   0.0000      0.0000        0.0000  0.0000       0.0001  0.0000    0.0000 -0.0101 -0.0095 -0.0088        -0.0117  -0.0101     -0.0101       -0.0101 -0.0101      -0.0101  0.0000   -0.0101
+== value of the prior alone: cal_b1 against cal_blind (same clean references, calendar days start at index 0), by week ==
+   A 2026-01-01 Thu holiday   D +0.0023  D+1 -0.0002
+   A 2026-01-02 Fri closure   D -0.0002  D+1 +0.0000
+   A 2026-01-05 Mon closure   D +0.0007  D+1 +0.0011
+   A 2026-01-06 Tue holiday   D +0.0011  D+1 -0.0004
+   A 2026-04-01 Wed holyweek  D +0.0270  D+1 +0.0124
+   A 2026-04-02 Thu holyweek  D +0.0124  D+1 -0.0301
+   A 2026-04-03 Fri holiday   D -0.0301  D+1 -0.0047
+   A 2026-04-06 Mon holiday   D +0.0180  D+1 -0.0005
+   A 2026-05-01 Fri holiday   D -0.0005  D+1 -0.0000
+   B 2025-09-11 Thu holiday   D +0.0290  D+1 +0.0004
+   B 2025-12-08 Mon holiday   D +0.0000  D+1 -0.0000
+     wk fold     pts      kg      eur
+2025-12    A  0.0011  1.3107   1.8766
+2026-01    A  0.0034 14.8523 -36.8207
+2026-04    A  0.0221 22.2566  58.5070
+2026-05    A -0.0005 -1.7164   3.3195
+2025-09    B  0.0294 42.9777  48.2088
+2025-12    B  0.0000  0.0200  -0.0344
+cal_blind against h3 (whole run): {'A': 0.0035, 'B': -0.0059, 'C': 0.0043}
+
+== cost of a wrong entry: normal weekdays declared 'local' holidays (loss against cal of the same blend, D and D+1) ==
+                    n  mean_pts  median_pts   worst    best  share_worse  mean_kg  mean_eur
+where blend trust                                                                          
+mid   0     0.5    26   -0.0042     -0.0012 -0.0316  0.0096       0.7308  -3.7939  -15.4715
+            1.0    26   -0.0088     -0.0052 -0.0542  0.0066       0.8077  -5.4450  -41.3431
+      1     0.5    26   -0.0044     -0.0016 -0.0291  0.0090       0.8077  -3.2715  -18.5718
+            1.0    26   -0.0106     -0.0077 -0.0680  0.0067       0.8846  -6.3996  -50.8147
+ws    0     0.5    17   -0.0020     -0.0010 -0.0112  0.0071       0.6471  -1.5714   -8.6119
+            1.0    17   -0.0063     -0.0047 -0.0197  0.0122       0.8235  -3.8895  -29.6344
+      1     0.5    17   -0.0022     -0.0016 -0.0113  0.0062       0.6471  -1.7903   -9.2933
+            1.0    17   -0.0076     -0.0047 -0.0201  0.0120       0.8235  -5.1447  -34.4416
+
+elsewhere (knock-on outside D, D+1), sum over folds:
+where  blend  trust
+mid    0      0.5      0.0565
+              1.0      0.0650
+       1      0.5      0.0565
+              1.0      0.0650
+ws     0      0.5      0.0018
+              1.0      0.0018
+       1      0.5      0.0018
+              1.0      0.0018
+
+per wrong entry, week starts, blend 1, trust 1 and 0.5:
+trust                   1.0     0.5
+fold day        dow                
+A    2025-09-01 Mon -0.0018  0.0023
+     2025-10-01 Wed -0.0043  0.0062
+     2025-12-01 Mon -0.0078 -0.0045
+     2026-06-01 Mon -0.0201 -0.0086
+     2026-07-01 Wed -0.0186 -0.0078
+B    2025-10-08 Wed -0.0046 -0.0011
+     2026-05-08 Fri -0.0046 -0.0016
+     2026-06-08 Mon -0.0121 -0.0038
+     2026-07-08 Wed -0.0047 -0.0030
+C    2025-09-15 Mon -0.0195 -0.0088
+     2025-10-15 Wed -0.0029  0.0001
+     2025-12-15 Mon -0.0171 -0.0005
+     2026-01-15 Thu  0.0120  0.0060
+     2026-04-15 Wed -0.0184 -0.0113
+     2026-05-15 Fri  0.0039  0.0019
+     2026-06-15 Mon  0.0010  0.0023
+     2026-07-15 Wed -0.0100 -0.0057
+by season (week starts, blend 1):
+               size    mean     min     max
+season  trust                              
+May-Sep 0.5      10 -0.0033 -0.0088  0.0023
+        1.0      10 -0.0086 -0.0201  0.0039
+Oct-Apr 0.5       7 -0.0007 -0.0113  0.0062
+        1.0       7 -0.0061 -0.0184  0.0120

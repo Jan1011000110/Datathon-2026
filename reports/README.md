@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 22:10
+**Last updated:** Sat 14 Nov 2026, 22:12
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -143,6 +143,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | HF30 | Standard mode has the same cut effect: v2 with its window stopped at the week's end gains +0.92 on the last halves of our folds (about +1.1 on the real private half) and loses 0.16 on the whole run. The twenty teams tied at 6.43 should all land near 6.3 on the private half. | `26_h3j_h3w/report.md` §4 |
 | HF31 | The clock-change days (26 Oct, 29 Mar), which occur only in test weeks, are harmless for the shipped agents: a repeated or missing 02:00 changes no score by more than 0.013, with 0 infractions and no fallback. | `26_h3j_h3w/report.md` §6 |
 | HF32 | Standard mode has the same public/private split: v2w scored 5.59 against v2's 6.43. The effect on the server is 0.63 times the fold figure there (0.81 for h3w in hard mode), so expect about +0.7 on the standard private half and about +2.5 on the hard one. Four other teams have a standard-mode submission within 0.4 % of v2w's row, the first at 14:04. | `26_h3j_h3w/report.md` §4 |
+| HF33 | A holiday calendar is worth about +0.03 over the whole run and 0 on the private half. National holidays are billed like weekends, so the signal is flat, h3 charges nothing at night, and nothing is lost; only a regional holiday billed as a weekday (11 Sep in the folds, 24 Jun in the test) shows a gain. Perfect load knowledge is worth only +0.19 in the h3 stack. | `27_holiday_calendar/report.md` |
 | HF12 | The right haircut is not a constant: discharge one more kW only while (chance it displaces import) × (what it earns now) exceeds what the kWh is worth later. Almost no haircut at 04:00 or 19:00, a large one at 13:00. | `14_planner/report.md` §2 |
 | HF13 | At 06:00 the load rises on weekdays (+383 kW on Mondays, +65 to +110 Tuesday–Friday) and falls on Saturdays (−188). 22:00 is the last reading taken, not an hourly mean. | `11_load_forecast/report.md` §2 |
 | HF14 | For price/CO₂, hours +3 to +5 carry two thirds of the forecast loss and +6 to +11 the rest; beyond +12 h is worth 0.01. Forecast accuracy is a poor guide to score. | `13_signal_forecast/report.md` §2 |
@@ -194,6 +195,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **22:12** Holiday-calendar study back ([`27_holiday_calendar/report.md`](27_holiday_calendar/report.md), HF33): about +0.03 over the whole run, +0.07 on the public half, 0 on the private half, resting on one comparable day. National holidays are billed like weekends, so the signal is flat and h3 buys nothing at night: there is nothing to get wrong. Not packaged. Both leads from the difference between test weeks and folds are now closed (holidays, clock changes).
 - **22:10** You asked for the opposite of the private-half trick: a submission that pushes the public score as high as the split allows, for show. Built `submissions/probe_public/` from h3w (plan to hour 84, refill and hold in the second half; `26_h3j_h3w/report.md` §7). Leak-free on the folds: first halves +3.85 over h3, whole run 9.5, last halves 0. Expected public score about 27. 0 infractions, validator passes. Not submitted; I advised submitting it only at the very end and selecting the jury picks by hand first.
 - **21:54** You submitted v2w in standard mode: 5.59 (HF32). The split is confirmed there; the expected private gain drops from +1.1 to about +0.7. Four other teams already have near-identical rows. Our 6.43 is under the name "Fa" and v2w under "Fanboy & Chum Chum"; built `submissions/v2/submission.zip` so v2 can go in under the same name.
 - **21:47** Clock-change days tested (`26_h3j_h3w/report.md`, last section): h3j, h3w, v2 and v2w on test-like weeks with 02:00 repeated on 26 October, missing on 29 March, both, and with the labels sliding an hour for the rest of the week. 0 infractions, no fallback, every score within 0.013 of the unchanged run. Nothing to fix.
