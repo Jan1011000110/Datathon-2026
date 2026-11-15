@@ -11,7 +11,7 @@
 <p class="label">Result</p><p class="strong">Error: 91 → 85 kW. LightGBM was worse here (151 kW)</p></div>
 <div class="col"><h3>Price and CO₂ after 3 h</h3>
 <p class="label">Model</p><p class="s">Ridge regression, one model per hour ahead. It predicts the difference from a typical day.</p>
-<p class="label">Features</p><p class="s">The last 48 hours of the signal, the last 12 of the other one, and the typical value for that month, day type and hour.</p>
+<p class="label">Features</p><p class="s">The last 48 hours of the signal and the last 12 of the other one, both as differences from the typical day (by month, day type and hour).</p>
 <p class="label">Result</p><p class="strong">CO₂ error 3 hours ahead: 7.8 → 4.6 g/kWh</p></div>
 </div>
 <aside>(about 30 s) For the campus demand we use LightGBM with 28 features: hour and weekday, the last readings, the same hour yesterday and last week, temperature and a holiday indicator, plus a few rules because the meter doesn't update at night. This cut the error in half. For solar we use ridge regression on how clear the sky is. LightGBM was worse there. For price and CO2, ridge regression on the last 48 hours.</aside>
