@@ -24,7 +24,7 @@ Slides: [slides.pdf](slides.pdf) (or open `slides.html` locally to see slides an
 
 ## 6. How we decide what the battery does
 
-(about 30 s) Deciding what the battery does is a linear program: we minimise what we import from the grid in the next 36 hours, with the 70/30 weights of the score. We started with scipy's solver and then wrote our own with dynamic programming. It doesn't discretise the battery level, so the result is exactly the same, about twenty times faster. That speed lets us plan for about twenty possible futures every hour and not just one forecast. That was our biggest improvement, 0.71 points.
+(about 30 s) Deciding what the battery does is a linear program: we minimise what we import from the grid in the next 36 hours, with the 70/30 weights of the score. We started with scipy's solver and then wrote our own with dynamic programming. It doesn't discretise the battery level, so the result is exactly the same, about twenty times faster. And we don't plan on a single forecast. For demand and solar we plan on several possible values, because if we discharge more than the campus uses, the rest is given away. That was our biggest improvement, 0.71 points.
 
 ## 7. What came from us, not from the model
 
