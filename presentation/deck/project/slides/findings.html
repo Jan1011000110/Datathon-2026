@@ -1,5 +1,5 @@
 <section id="findings" data-transition="fade">
-<h2>Backup: things we saw in the data</h2>
+<h2>Things we saw in the data</h2>
 <div class="grid3">
 <div class="col"><h3>The load meter stops at night</h3><p class="s">From 23:00 to 05:00 the reading repeats, so we know the night demand exactly. At 06:00 it jumps, for example +383 kW on Mondays.</p></div>
 <div class="col"><h3>Cold panels mean a sunny day</h3><p class="s">If the panels are colder than the air before sunrise, the sky is clear (correlation −0.56). We use it in the solar model.</p></div>
@@ -8,5 +8,5 @@
 <div class="col"><h3>Better forecast, same score</h3><p class="s">Four times we made the price and CO₂ forecast more accurate and the score did not change. What matters is the average level of the next hours.</p></div>
 <div class="col"><h3>No test week in August</h3><p class="s">An agent that only acts in August got exactly 0. In July it got 0.53. So the test ends on 31 July.</p></div>
 </div>
-<aside>Backup slide, for questions. Things we found in the data. The load meter is not read between eleven at night and five in the morning, so the night demand is known, and at six it jumps. If the solar panels are colder than the air before sunrise, the sky is clear and the day will be sunny. The battery is bigger than what the campus can use: in 87 percent of the hours we discharge, the limit is the demand. Because of that, predicting too little sun costs us and predicting too much almost doesn't. For price and CO2, a more accurate forecast did not improve the score four times. And an agent that only acts in August got zero, so there is no August week in the test.</aside>
+<aside>(about 20 s) Some things we saw in the data. The load meter stops at night, so the night demand is known. Cold panels before sunrise mean a sunny day. And the battery is bigger than what the campus can use, so discharging too much is wasted.</aside>
 </section>

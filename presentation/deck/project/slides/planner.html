@@ -14,5 +14,5 @@
 <div class="col"><p class="stat-num">+0.71</p><p class="s">points from planning with uncertain demand and solar. It was our biggest improvement.</p></div>
 </div>
 </div>
-<aside>(about 30 s) Deciding what the battery does is a linear program: we minimise what we import from the grid in the next 36 hours, with the 70/30 weights of the score. We started with scipy's solver and then wrote our own with dynamic programming. It doesn't discretise the battery level, so the result is exactly the same, about twenty times faster. And we don't plan on a single forecast. For demand and solar we plan on several possible values, because if we discharge more than the campus uses, the rest is given away. That was our biggest improvement, 0.71 points.</aside>
+<aside>(about 30 s) Deciding what the battery does is a linear program: minimise what we import from the grid in the next 36 hours, with the 70/30 weights of the score. We wrote our own solver with dynamic programming: same result as scipy's LP solver, about twenty times faster. And we don't plan on a single forecast. For demand and solar we plan on several possible values. That was our biggest improvement, 0.71 points.</aside>
 </section>

@@ -1,5 +1,5 @@
 <section id="rule" data-transition="fade">
-<h2>Backup: how much to discharge</h2>
+<h2>How much to discharge</h2>
 <div class="fig-row">
 <img class="fig" src="/_blob/fce1805c60e33f64c1ae9aaa02235231" alt="Left: chance that the d-th kW of discharge still displaces import, on a weekday at 13:00, with three example discharge levels. Right: optimal discharge relative to the point forecast at 04:00, 13:00 and 19:00, against the value of keeping the energy for later." style="width:1060px;height:567px">
 <div class="rule-col">
@@ -10,5 +10,5 @@
 <p class="s">At night the demand is stable and we discharge what we forecast. At 13:00 solar is uncertain, so it can be much less or much more.</p>
 </div>
 </div>
-<aside>Backup slide, for questions. This is the rule that comes out of the optimiser for the current hour. We discharge one more kilowatt only if what it earns now, times the chance that the campus really uses it, is more than what that energy is worth later. The left plot is a weekday at one in the afternoon, where the forecast is 443 kilowatts. If the energy is worth almost the same later, we only discharge 214, the part we are almost sure will be used. If it's worth much less later, we discharge 523. The right plot shows that at night we just discharge the forecast, and at midday it depends a lot.</aside>
+<aside>(about 20 s) This is the rule the optimiser follows. It discharges one more kilowatt only if what it earns now, times the chance that the campus really uses it, is more than what the energy is worth later. So at midday, when solar is uncertain, it is more careful.</aside>
 </section>

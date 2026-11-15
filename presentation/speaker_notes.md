@@ -12,11 +12,11 @@ Slides: [slides.pdf](slides.pdf) (or open `slides.html` locally to see slides an
 
 ## 3. How good can an agent be?
 
-(about 30 s) The first thing we did was check how good an agent can be. An optimiser that knows the whole future gets 21.26 points on our validation weeks. We measured every version of our agent against that. The first one lost 2.45 points and the final one loses 1.07, so we get 95 percent. Most of what we lose is from not knowing price and CO2 after three hours.
+(about 20 s) First we checked how good an agent can be. An optimiser that knows the whole future gets 21.26 points on our validation weeks. Our first version lost 2.45 points against that and the final one loses 1.07, so we get 95 percent. What we lose is mostly from not knowing price and CO2 after three hours.
 
 ## 4. How the agent works
 
-(about 30 s) This is what the agent does every hour. It predicts the campus demand, the solar and the price and CO2. Then it finds the best plan for the next 36 hours, but it only does the first hour and repeats everything the next hour. Finally it clips the action so it never breaks a battery limit. We tested changes on held-out weeks, like the real test.
+(about 20 s) This is what the agent does every hour. It predicts the campus demand, the solar and the price and CO2. Then it finds the best plan for the next 36 hours, does only the first hour, and repeats. Finally it clips the action so it never breaks a battery limit.
 
 ## 5. What we predict and how
 
@@ -24,32 +24,32 @@ Slides: [slides.pdf](slides.pdf) (or open `slides.html` locally to see slides an
 
 ## 6. How we decide what the battery does
 
-(about 30 s) Deciding what the battery does is a linear program: we minimise what we import from the grid in the next 36 hours, with the 70/30 weights of the score. We started with scipy's solver and then wrote our own with dynamic programming. It doesn't discretise the battery level, so the result is exactly the same, about twenty times faster. And we don't plan on a single forecast. For demand and solar we plan on several possible values, because if we discharge more than the campus uses, the rest is given away. That was our biggest improvement, 0.71 points.
+(about 30 s) Deciding what the battery does is a linear program: minimise what we import from the grid in the next 36 hours, with the 70/30 weights of the score. We wrote our own solver with dynamic programming: same result as scipy's LP solver, about twenty times faster. And we don't plan on a single forecast. For demand and solar we plan on several possible values. That was our biggest improvement, 0.71 points.
 
-## 7. What came from us, not from the model
+## 7. How much to discharge
 
-(about 35 s) Two things came from us and not from the model. First, holidays. The model handled holidays in general but not the ones only Barcelona has, and they aren't in the training data, so validation said it wasn't worth it. We know the campus closes on those days, so we added three dates and gained 0.23 on the public leaderboard. Second, the public and private split. We didn't find the answer ourselves, but we decided it was the important question and used submissions to test it.
+(about 20 s) This is the rule the optimiser follows. It discharges one more kilowatt only if what it earns now, times the chance that the campus really uses it, is more than what the energy is worth later. So at midday, when solar is uncertain, it is more careful.
 
-## 8. Public and private leaderboard
+## 8. Things we saw in the data
 
-(about 35 s) The public leaderboard is the first half of each test week and the private one is the second half. But it's one simulation with one battery, so energy charged in the public half can be used in the private half. We selected two agents. h4 is general and ignores this. h3p fills the battery just before the private half and uses everything before the week ends, and the code says so. Also, price and CO2 are public data from Red Eléctrica. We told the organisers and didn't use it.
+(about 20 s) Some things we saw in the data. The load meter stops at night, so the night demand is known. Cold panels before sunrise mean a sunny day. And the battery is bigger than what the campus can use, so discharging too much is wasted.
 
-## 9. Summary
+## 9. What came from us, not from the model
+
+(about 20 s) Two things came from us and not from the model. First, the Barcelona holidays: the model handled holidays in general but not the local ones, and validation couldn't see them. Second, the public and private split. We didn't find the answer ourselves, but we decided it was the important question and used submissions to test it.
+
+## 10. The Barcelona holidays
+
+(about 20 s) The holidays in more detail. Three test weeks start on a holiday. The campus uses half the energy but the price looks like a normal weekday, so the agent bought energy for a closed campus. Adding three dates gave 0.23 on the public leaderboard. It's a public gain, not why we're first.
+
+## 11. Predicted and real scores
+
+(about 10 s) Before each submission we wrote down the score we expected. Here are six examples, and only one was off, by half a point. So we knew where the points came from.
+
+## 12. Public and private leaderboard
+
+(about 30 s) The public leaderboard is the first half of each test week and the private one is the second half. But it's one simulation with one battery, so energy charged in the public half can be used in the private half. h4 is our general agent and ignores this. h3p fills the battery just before the private half, and the code says so. Also, price and CO2 are public data. We told the organisers and didn't use it.
+
+## 13. Summary
 
 (about 20 s) To sum up: we get 95 percent of the best possible score seeing only three hours. On the public test that's 22 percent less CO2 and 26 percent less cost, with no infractions. What's left to improve is the price and CO2 forecast. Thanks! Any questions?
-
-## 10. Backup: how much to discharge
-
-Backup slide, for questions. This is the rule that comes out of the optimiser for the current hour. We discharge one more kilowatt only if what it earns now, times the chance that the campus really uses it, is more than what that energy is worth later. The left plot is a weekday at one in the afternoon, where the forecast is 443 kilowatts. If the energy is worth almost the same later, we only discharge 214, the part we are almost sure will be used. If it's worth much less later, we discharge 523. The right plot shows that at night we just discharge the forecast, and at midday it depends a lot.
-
-## 11. Backup: things we saw in the data
-
-Backup slide, for questions. Things we found in the data. The load meter is not read between eleven at night and five in the morning, so the night demand is known, and at six it jumps. If the solar panels are colder than the air before sunrise, the sky is clear and the day will be sunny. The battery is bigger than what the campus can use: in 87 percent of the hours we discharge, the limit is the demand. Because of that, predicting too little sun costs us and predicting too much almost doesn't. For price and CO2, a more accurate forecast did not improve the score four times. And an agent that only acts in August got zero, so there is no August week in the test.
-
-## 12. Backup: the Barcelona holidays
-
-Backup slide, for questions. Our validation weeks are days 1 to 21 of each month, but the test weeks are the last seven days. Three of those test weeks start on a holiday: La Mercè on 24 September, Segona Pasqua on 25 May and Sant Joan on 24 June. On a holiday the campus uses about half the energy, but the electricity price looks like a normal weekday. So the agent bought cheap energy at night for the morning, and then the campus was closed. We added the three dates to the demand model. We predicted plus 0.20 and got plus 0.23 on the public leaderboard. This is a public gain: the three holidays are in the first half of their week, so the private score is the same with or without them.
-
-## 13. Backup: predicted and real scores
-
-Backup slide, for questions. We didn't tune against the leaderboard. Before each submission we wrote down the score we expected. Here are six examples. Only one was off, v2w, by half a point. The low public scores of h3w and h3p are on purpose: those agents give up the public half to do better in the private half.
