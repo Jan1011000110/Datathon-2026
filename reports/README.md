@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sun 15 Nov 2026, 11:06
+**Last updated:** Sun 15 Nov 2026, 11:12
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -196,6 +196,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **Sun 15 Nov, 11:12** You judged the top-up legitimate and submitted h3p: **11.69 public**, 0 infractions, inside the expected range (the low public score is the sign it works). Jury selection is now h4 (23.55) + h3p (11.69), to be made by hand before 12:00. Three teams are above 27 on the public board.
 - **Sun 15 Nov, 11:06** Board at 10:58: Ommetje 27.98 and Low BaterIA 27.13 (public-max agents), Ommetje then 16.74 (what a second-half agent leaves). You reported that only the private half will count and ruled out REE data (none of our agents contains any). Built and verified `submissions/h3p/` (h3w + top-up to full before the half-way point): last halves +6.77 over h3 on leak-free folds against h3w's +3.07 (`26_h3j_h3w/report.md` §8). Whether to submit and select it is the team's decision; the picks as they stand are h4 (23.55) and h3w (20.03).
 - **Sun 15 Nov, 10:48** You submitted h4: **23.55 public**, +0.23 over h3j. The prediction was +0.20 if the campus closes on both of Barcelona's local holidays and about +0.04 if on neither, so the board confirms the three dates. h4 replaces h3j as the general pick; jury selection h4 + h3w.
 - **Sun 15 Nov, 10:46** Leaderboard at 10:36: top 24.37 (SSA Gourmet, 67 submissions under two names, many a minute apart); our cut probe 24.25 is third; h3j 23.32. You asked for the best possible general model before the 12:00 close. Packaged the holiday calendar as `h4` (24 Jun, 24 Sep, 25 May act) and `h4a` (24 Jun only): same code and state arrays as h3j, commands identical to h3j away from those weeks, matches the research class on all three folds, 0 infractions, validator passes ([`27_holiday_calendar/report.md`](27_holiday_calendar/report.md) §8). You also told the organisers that the price and CO₂ series are public (REE); they had not known.

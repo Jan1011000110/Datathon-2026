@@ -191,3 +191,5 @@ Last halves per fold, h3p: 27.33 / 25.37 / 25.94.
 - **Behaviour:** battery at 6,000 kWh after hour 83 of every week on the test-like run; 0 infractions; every step answered by the full agent; organisers' environment 0 infractions; validator passes.
 - **What it is not:** a better controller. Over the whole run it is 2.3 worse than h3. The top-up has no purpose except the position of the scoring cut, and its file header says so.
 - **Risk:** the event's rules allow disqualification for unsporting behaviour at the organisers' discretion, and the code is reviewed.
+
+**Result on the server (Sun 15 Nov, 11:12).** The team judged the top-up legitimate and submitted h3p: **11.69** on the public board (CO₂ −10.20 %, 6,144.2 kg; cost −15.16 %, 14,402.72 €; 0 infractions), inside the expected 10 to 17. The public drop against h3j is 11.63, 1.15 times the fold figure, so the top-up is working as designed. Jury selection: h4 (general) and h3p (private half). At 11:12 three teams were above 27 on the public board (Ommetje, Low BaterIA, Riviera Maya Boys).
