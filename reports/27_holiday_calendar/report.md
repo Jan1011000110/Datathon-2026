@@ -89,3 +89,22 @@ Not packaged. The gain is about +0.03 over the whole run and zero on the private
 If it were ever wanted: the packaged agent would need five methods from `cal_fc.py` in the run-time load module, the calendar as constants, and three numbers of state (priors 0.935 / 0.624 / 0.456). Reference scores for a packager are in the specialist's log.
 
 One useful by-product: **perfect knowledge of the load is worth only about +0.19 in the h3 stack.** The rest of the 1.07 between h3 and the perfect-foresight ceiling is the price and CO₂ signal and the solar output.
+
+## 8. Packaged after all, on the last morning (Sun 15 Nov, 10:46)
+
+With 80 minutes left the team asked for the best general model we could ship. The calendar is the only measured, unshipped, honest gain, so it was packaged as two candidates that differ only in which dates act:
+
+| File | Dates that act |
+|---|---|
+| `submissions/h4/submission.zip` | 24 June 2026 (Sant Joan), 24 September 2025 and 25 May 2026 (Barcelona's local holidays) |
+| `submissions/h4a/submission.zip` | 24 June 2026 only |
+
+Checks (packager, then repeated by me on the shipped ZIPs):
+
+- **Same state as h3j:** 66 of 67 arrays identical; only the configuration differs.
+- **Calendar off:** 0 commands differ from the shipped h3j on folds A, B, C.
+- **The port matches the research class:** 19.4247 / 18.5434 / 18.5605 with only 11 September active and 19.4543 / 18.5362 / 18.5605 with the full calendar, the specialist's numbers to four decimals, 0 commands differing.
+- **On a run laid out like the test:** h4 differs from h3j in 161 commands, all in the September, May and June weeks; h4a in 55, all in the June week. 0 infractions, every step answered by the full agent. Organisers' environment: 0 infractions. Validator passes.
+- **If the calendar code fails,** the agent falls back as before with 0 infractions.
+
+Expected on the public board against h3j's 23.32: h4a about +0.07; h4 about +0.14 more if the campus closes on both local holidays, about −0.03 if on neither. All three dates are in the public half, so the board measures the whole effect.

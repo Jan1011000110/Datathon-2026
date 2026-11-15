@@ -1,5 +1,5 @@
 {
- "updated": "Sat 14 Nov 2026, 23:27",
+ "updated": "Sun 15 Nov 2026, 10:46",
  "ceiling": 21.26,
  "best": {
   "name": "h3: h2 + round-2 signal forecaster + signal-aware planner (`submissions/h3/submission.zip`)",
@@ -19,6 +19,8 @@
  ],
  "leaderboard_time": "21:01, public half (the first 84 hours of each week); 33 teams, 140 submissions. Our eight submissions: h2 23.06, h3 23.32, cut probe 24.25, August probe 0.00 twice, July control 0.53, h3j 23.32, h3w 20.03",
  "now": [
+  "**Sunday 10:46: h4 and h4a are cleared, submit both in hard mode.** They are h3j plus a holiday calendar in the load forecaster (h4: 24 June, 24 September, 25 May; h4a: 24 June only). Identical to h3j away from those weeks. Expected public: h4a about 23.39; h4 about 23.5 if the campus closes on Barcelona's local holidays. Whichever beats 23.32 replaces h3j as the general pick.",
+  "**Leaderboard 10:36:** top 24.37 (SSA Gourmet, 67 submissions, many a minute apart: tuning on the public half); our cut probe 24.25 is third; h3j 23.32. The gap is the size of the carry effect.",
   "**Deadline: Sunday 15 November, 12:00 (last call for submissions), from the event site's schedule.** Demos at 14:00, jury at 17:00, prizes at 17:30. The challenge site itself gives no closing time. Plan: jury picks h3j (general) and h3w (private half), selected by hand tonight; they can be changed until the close.",
   "**Public-max probe built but I now advise against submitting it** (`submissions/probe_public/submission.zip`, expected about 27 public). The event's rules allow disqualification for unsporting behaviour at the organisers' discretion. Its measured numbers can be shown in the demo instead, as evidence of how the split behaves.",
   "**Two honest leads tested and closed (21:40 to 22:15).** The test weeks are the last seven days of each month and contain things our validation weeks never do. Holidays: a calendar is worth about +0.03 over the whole run and nothing on the private half, so it is not shipped. Clock-change days: all four agents are unaffected. Nothing is running.",
@@ -134,6 +136,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["Sun 10:46", "Holiday calendar packaged as h4 and h4a and verified by me: same state as h3j, identical commands away from the holiday weeks, 0 infractions. Leaderboard top 24.37. Organisers told that the price and CO₂ series are public."],
   ["23:27", "Deadline found on the event site: Sunday 12:00, last call for submissions; demos 14:00. Event rules read: disqualification possible for unsporting behaviour. Advice on the public-max probe changed to: do not submit."],
   ["22:12", "Holiday-calendar study back: about +0.03 over the whole run, 0 on the private half. Not shipped. Both test-week leads closed."],
   ["22:10", "Public-max probe built and checked at the team's request: first halves +3.85 over h3 on leak-free folds, expected public score about 27; 0 infractions. Not submitted."],

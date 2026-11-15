@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sat 14 Nov 2026, 23:27
+**Last updated:** Sun 15 Nov 2026, 10:46
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -195,6 +195,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **Sun 15 Nov, 10:46** Leaderboard at 10:36: top 24.37 (SSA Gourmet, 67 submissions under two names, many a minute apart); our cut probe 24.25 is third; h3j 23.32. You asked for the best possible general model before the 12:00 close. Packaged the holiday calendar as `h4` (24 Jun, 24 Sep, 25 May act) and `h4a` (24 Jun only): same code and state arrays as h3j, commands identical to h3j away from those weeks, matches the research class on all three folds, 0 infractions, validator passes ([`27_holiday_calendar/report.md`](27_holiday_calendar/report.md) §8). You also told the organisers that the price and CO₂ series are public (REE); they had not known.
 - **23:27** You asked for the submission deadline. The challenge site gives none; the event site's schedule says **Sunday 12:00, "Últim avís per a les entregues"**, then demos at 14:00 and the jury at 17:00 (`docs/WEBSITE_NOTES.md`, last section). The event's rules allow disqualification for "comportaments antiesportius" at the organisers' discretion, which changes my advice on the public-max probe: I now advise against submitting it. You plan to select h3j (general) and h3w (private half); I agree.
 - **22:12** Holiday-calendar study back ([`27_holiday_calendar/report.md`](27_holiday_calendar/report.md), HF33): about +0.03 over the whole run, +0.07 on the public half, 0 on the private half, resting on one comparable day. National holidays are billed like weekends, so the signal is flat and h3 buys nothing at night: there is nothing to get wrong. Not packaged. Both leads from the difference between test weeks and folds are now closed (holidays, clock changes).
 - **22:10** You asked for the opposite of the private-half trick: a submission that pushes the public score as high as the split allows, for show. Built `submissions/probe_public/` from h3w (plan to hour 84, refill and hold in the second half; `26_h3j_h3w/report.md` §7). Leak-free on the folds: first halves +3.85 over h3, whole run 9.5, last halves 0. Expected public score about 27. 0 infractions, validator passes. Not submitted; I advised submitting it only at the very end and selecting the jury picks by hand first.
