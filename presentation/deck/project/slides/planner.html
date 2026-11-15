@@ -1,18 +1,17 @@
-<section id="planner" class="tint" data-transition="fade">
-<p class="eyebrow">HOW THE BATTERY IS ALLOCATED</p>
-<h2>A linear programme, solved as an exact DP</h2>
-<div class="split-wide">
-<div class="col-main">
-<p class="para"><b>Objective.</b> Minimise grid import over the next 36 hours, each kWh weighted by w = CO₂ + 0.27 × price. Limits: 1,500 kW, 6,000 kWh, 95 % efficiency each way. Energy sent to the grid earns nothing.</p>
-<p class="para"><b>Solver.</b> The value of stored energy is convex and piecewise linear, so we keep only its slope: a sorted list of (value per kWh, width). One hour back in time is a merge of two sorted lists. No grid over the state of charge.</p>
-<p class="para"><b>Uncertainty.</b> The load and solar error distributions are combined into 9 equally likely net-load scenarios for each of the next 12 hours. The value of stored energy is averaged half-and-half between the signal forecast and 20 sampled error paths.</p>
-<p class="para"><b>Control.</b> Re-planned every hour with the newest readings; only the first command is applied.</p>
+<section id="planner" data-transition="fade">
+<h2>Is it an LP? Yes. We just solve it faster</h2>
+<div class="two">
+<div class="side-wide">
+<p class="p"><b>What we minimise.</b> Grid import over the next 36 hours, each kWh weighted by w = CO₂ + 0.27 × price. Limits: 1,500 kW, 6,000 kWh, 95 % efficiency each way. Energy sent to the grid earns nothing.</p>
+<p class="p"><b>How we solve it.</b> The value of stored energy is convex and piecewise linear, so we only keep its slope: a sorted list of (value per kWh, width). Going one hour back in time is a merge of two sorted lists. No grid over the state of charge.</p>
+<p class="p"><b>Uncertainty.</b> The load and solar error distributions are combined into 9 equally likely net-load scenarios for each of the next 12 hours. The value of stored energy is averaged half-and-half between the signal forecast and 20 sampled error paths.</p>
+<p class="p"><b>Control.</b> We re-plan every hour with the newest readings and only apply the first command.</p>
 </div>
-<div class="col-side">
-<div class="stat"><p class="stat-num">5e-12</p><p class="stat-lbl">largest gap to scipy’s linear programme, on 4,500 test cases</p></div>
-<div class="stat"><p class="stat-num">0.16 ms</p><p class="stat-lbl">per plan with scenarios, against 3.1 ms for the linear programme</p></div>
-<div class="stat"><p class="stat-num">+0.71</p><p class="stat-lbl">points from planning on the distribution, with the same forecasts (18.81 → 19.52)</p></div>
+<div class="side-narrow">
+<div class="col"><p class="stat-num">5e-12</p><p class="s">largest gap to scipy’s linear programme, on 4,500 test cases</p></div>
+<div class="col"><p class="stat-num">0.16 ms</p><p class="s">per plan with scenarios, against 3.1 ms for the linear programme</p></div>
+<div class="col"><p class="stat-num">+0.71</p><p class="s">points from planning on the distribution with the same forecasts (18.81 → 19.52)</p></div>
 </div>
 </div>
-<aside>How is the battery allocated? It is a linear programme: minimise the grid import of the next 36 hours, each kilowatt-hour weighted by the score signal, which is CO2 plus 0.27 times the price, subject to the power, capacity and efficiency limits. We started with scipy's LP solver and then replaced it. The value of the energy in the battery is a convex, piecewise-linear function of the state of charge, so it is enough to keep its slope, a short sorted list. Going one hour back in time is a merge of two sorted lists. That is an exact dynamic programme: it matches the LP to eleven decimal places on 4,500 cases and is about twenty times faster, with numpy only. The speed is what lets us plan under uncertainty: nine scenarios of net load for each of the next twelve hours, built from the error distributions of the load and solar forecasters, and twenty error paths of the price and CO2 signal sampled from held-out weeks. Planning on the distribution instead of the point forecast was the largest single gain, 0.71 points with the same forecasts.</aside>
+<aside>So how do we decide what the battery does? It is a linear programme: minimise the grid import over the next 36 hours, each kilowatt-hour weighted by the score signal, CO2 plus 0.27 times the price, with the power, capacity and efficiency limits. We started with scipy's LP solver. Then we noticed the value of the energy in the battery is a convex, piecewise-linear function of the state of charge, so you only need its slope, which is a short sorted list, and going back one hour is just merging two sorted lists. That's an exact dynamic programme. Same answer as the LP to eleven decimals on 4,500 cases, about twenty times faster, numpy only. And the speed is the point: it lets us plan under uncertainty. Nine scenarios of net load for each of the next twelve hours, and twenty error paths of the price and CO2 signal taken from held-out weeks. Planning on the distribution instead of the single forecast was our biggest single gain: 0.71 points, with exactly the same forecasts.</aside>
 </section>

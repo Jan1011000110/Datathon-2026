@@ -1,15 +1,14 @@
-<section id="predictions" class="tint" data-transition="fade">
-<p class="eyebrow">UNDERSTANDING, NOT TRIAL AND ERROR</p>
-<h2>We predicted each score before submitting</h2>
+<section id="predictions" data-transition="fade">
+<h2>We called our scores before submitting</h2>
 <table>
-<tr><th style="width:20%;text-align:left">Submission</th><th style="width:42%;text-align:left">What it changes</th><th style="width:20%;text-align:left">Predicted</th><th style="width:18%;text-align:left">Server</th></tr>
-<tr class="rowtint"><td>h3j</td><td>plan ends on 31 July (no August week)</td><td>same as h3: 23.32</td><td>23.32</td></tr>
-<tr><td>h4</td><td>holiday calendar</td><td>+0.20</td><td>+0.23</td></tr>
-<tr class="rowtint"><td>h3w</td><td>each test week planned as its own run</td><td>19 to 20</td><td>20.03</td></tr>
+<tr><th style="width:20%">Submission</th><th style="width:42%">What it changes</th><th style="width:20%">We predicted</th><th style="width:18%">Server said</th></tr>
+<tr><td>h3j</td><td>plan ends on 31 July (no August week)</td><td>same as h3: 23.32</td><td>23.32</td></tr>
+<tr><td>h4</td><td>the holiday calendar</td><td>+0.20</td><td>+0.23</td></tr>
+<tr><td>h3w</td><td>each test week planned as its own run</td><td>19 to 20</td><td>20.03</td></tr>
 <tr><td>h3p</td><td>top-up before the half-way point</td><td>10 to 17</td><td>11.69</td></tr>
-<tr class="rowtint"><td>v2p (standard)</td><td>the same top-up, in standard mode</td><td>3 to 4.5</td><td>3.24</td></tr>
+<tr><td>v2p (standard)</td><td>the same top-up, in standard mode</td><td>3 to 4.5</td><td>3.24</td></tr>
 <tr><td>v2w (standard)</td><td>each test week planned as its own run</td><td>about 5.1</td><td>5.59</td></tr>
 </table>
-<p class="note">One miss, v2w, by half a point. Predicting a score in advance is how we knew where the points come from.</p>
-<aside>We did not tune against the leaderboard. For each submission we wrote down what we expected before sending it. Six examples are on the slide. The first row came from two probes: an agent that acts only in August scored exactly zero, so the test has no August week and the plan should end on 31 July. The public score did not change, as predicted, because the last hours of the run are private. The one miss is v2w, by half a point, and we say so. The two rows about the half-way point are explained on the next slide.</aside>
+<p class="note">One miss: v2w, by half a point. If you can predict your score before you submit, you know where the points come from.</p>
+<aside>We didn't tune against the leaderboard. Before each submission we wrote down what we expected, then sent it. Six examples here. The first row comes from two probes: an agent that only acts in August scored exactly zero, so there's no August week and the plan should end on 31 July. The public score didn't change, as predicted, because the last hours of the run are in the private half. One miss, v2w, by half a point, and we'd rather show it than hide it. The low numbers in the middle are on purpose; that's the next slide.</aside>
 </section>

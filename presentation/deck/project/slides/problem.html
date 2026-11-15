@@ -1,12 +1,11 @@
 <section id="problem" data-transition="fade">
-<p class="eyebrow">THE PROBLEM</p>
-<h2>Decide every hour, see three hours ahead</h2>
-<div class="cards">
-<div class="card"><p class="num">6 MWh</p><p class="lbl">Battery of 6,000 kWh, up to 1,500 kW in or out, 90 % round-trip efficiency.</p></div>
-<div class="card"><p class="num">3 h</p><p class="lbl">Price and CO₂ are known for this hour and the next two. Standard mode shows 24.</p></div>
-<div class="card"><p class="num">×12</p><p class="lbl">Solar output is twelve times the real plant’s, so the campus often has surplus.</p></div>
-<div class="card"><p class="num">70/30</p><p class="lbl">Score: 70 % CO₂ avoided, 30 % bill saved, minus 0.20 per hour that breaks a limit.</p></div>
+<h2>Decide every hour, see 3 hours ahead</h2>
+<div class="cols">
+<div class="col"><p class="big">6 MWh</p><p class="s">The battery: 6,000 kWh, up to 1,500 kW in or out, 90 % round-trip efficiency.</p></div>
+<div class="col"><p class="big">3 h</p><p class="s">We know price and CO₂ for this hour and the next two. Standard mode shows 24.</p></div>
+<div class="col"><p class="big">×12</p><p class="s">The solar plant is scaled up 12 times, so the campus often has more sun than it can use.</p></div>
+<div class="col"><p class="big">70/30</p><p class="s">Score = 70 % CO₂ avoided + 30 % bill saved, minus 0.20 for every hour that breaks a limit.</p></div>
 </div>
-<p class="lead">Everything beyond three hours has to be forecast: price, CO₂, the campus load and the solar output.</p>
-<aside>Hard mode changes the problem. In standard mode the agent sees 24 hours of price and CO2, and a plain optimiser is almost perfect: more than 30 teams are tied there. In hard mode it sees three hours, the battery is three times larger, and the solar plant is twelve times larger, so the campus is often in surplus. The agent has to forecast four things and decide under uncertainty.</aside>
+<p class="sub">Everything past 3 hours we have to guess: price, CO₂, how much the campus will draw and how much sun there’ll be.</p>
+<aside>Quick recap of hard mode, because it's a different problem from the standard one. In standard mode you see 24 hours of price and CO2, a plain optimiser is basically perfect, and more than 30 teams are tied. In hard mode you see three hours. The battery is three times bigger and the solar plant twelve times bigger, so the campus is often in surplus. So we have to guess four things and decide anyway.</aside>
 </section>

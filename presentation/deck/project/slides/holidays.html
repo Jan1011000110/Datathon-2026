@@ -1,19 +1,20 @@
 <section id="holidays" data-transition="fade">
-<p class="eyebrow">A DOMAIN INSIGHT, CONFIRMED ON THE SERVER</p>
-<h2>The test weeks start on holidays</h2>
-<div class="split">
-<div class="colx">
+<h2>How three Barcelona holidays fooled the agent</h2>
+<div class="two">
+<div class="side">
 <ul>
-<li>The test weeks are the last seven days of each month. Our validation weeks are days 1 to 21.</li>
-<li>Three test weeks start on a holiday: La Mercè, Pentecost Monday and Sant Joan.</li>
+<li>The test weeks are the last seven days of each month. Our validation weeks are days 1 to 21, so they never see a month end.</li>
+<li>Three test weeks start on a holiday: La Mercè, Whit Monday and Sant Joan.</li>
 <li>On a holiday the campus draws about half its usual load.</li>
-<li>Prices keep their weekday pattern on those days, so the agent bought energy overnight for a load that never came.</li>
+<li>But prices keep their weekday shape on those days, so the agent was buying energy overnight for a campus that never showed up.</li>
 </ul>
 </div>
-<div class="colx">
-<div class="card"><p class="step">PREDICTED +0.20</p><p class="hero">+0.23</p><p class="hero-cap">on the public board, from 23.32 to 23.55, with three dates typed into the load forecaster.</p></div>
+<div class="side">
+<p class="label">We predicted +0.20. The server said</p>
+<p class="hero">+0.23</p>
+<p class="hero-cap">on the public board, 23.32 → 23.55, from three dates typed into the load forecaster.</p>
 </div>
 </div>
-<p class="note">Away from those three weeks the agent’s commands are identical to before, so nothing else could have changed the score.</p>
-<aside>This is the result we are proudest of. Our validation weeks are days 1 to 21 of each month, but the test weeks are the last seven days. Looking at the calendar, three test weeks start on a holiday: La Mercè on 24 September, Pentecost Monday on 25 May and Sant Joan on 24 June. In the training data the campus draws about half its usual load on holidays. On these regional and local holidays the price keeps its weekday shape, so the agent charged overnight for a working day that never came. We typed three dates into the load forecaster, predicted a gain of 0.20 from our validation, and the server gave 0.23. It also told us something we could not check from the data: the campus does close on Barcelona's local holidays.</aside>
+<p class="note">Outside those three weeks the agent’s commands are identical to before, so nothing else can explain the jump.</p>
+<aside>Here's the holiday one in detail, because it's the result we like most. Our validation weeks are days 1 to 21 of each month, but the test weeks are the last seven days. And if you look at a calendar, three of those test weeks start on a holiday: La Mercè on 24 September, Whit Monday on 25 May and Sant Joan on 24 June. On a holiday the campus uses about half the usual energy. But on these local and regional holidays the electricity price keeps its normal weekday shape. So the agent did the sensible weekday thing: buy cheap energy overnight for the morning. And then nobody came. We typed the three dates into the load forecaster, predicted plus 0.20, and the server gave plus 0.23. It also told us something we couldn't check from the data: yes, the campus really closes on Barcelona's local holidays.</aside>
 </section>

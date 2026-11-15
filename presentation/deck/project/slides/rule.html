@@ -1,15 +1,14 @@
 <section id="rule" data-transition="fade">
-<p class="eyebrow">THE DECISION RULE</p>
-<h2>Discharge up to a quantile of the forecast</h2>
+<h2>Don’t discharge what the campus won’t use</h2>
 <div class="fig-row">
 <img class="fig" src="/_blob/fce1805c60e33f64c1ae9aaa02235231" alt="Left: chance that the d-th kW of discharge still displaces import, on a weekday at 13:00, with three example discharge levels. Right: optimal discharge relative to the point forecast at 04:00, 13:00 and 19:00, against the value of keeping the energy for later." style="width:1060px;height:567px">
 <div class="rule-col">
-<p class="res">Discharge the d-th kW only if</p>
+<p class="strong">Discharge the d-th kW only if</p>
 <p class="formula">w · η · P(net load &gt; d) &gt; v</p>
-<p class="txt-s"><b>w</b> this hour’s signal · <b>η</b> one-way efficiency · <b>v</b> what a stored kWh is worth after this hour, from the plan.</p>
-<p class="txt-s">At 04:00 and 19:00 the load is steady and the answer stays within a few percent of the forecast.</p>
-<p class="txt-s">At 13:00, with solar uncertain, it ranges from 0 to 2 times the forecast. A fixed 10 % haircut cannot do both.</p>
+<p class="s"><b>w</b> this hour’s signal · <b>η</b> one-way efficiency · <b>v</b> what a stored kWh is worth after this hour, from the plan.</p>
+<p class="s">At 04:00 and 19:00 the load is steady, so the answer stays within a few percent of the forecast.</p>
+<p class="s">At 13:00 nobody knows how much sun there’ll be, and it ranges from 0 to 2 times the forecast. A fixed 10 % safety margin can’t do both.</p>
 </div>
 </div>
-<aside>This is the rule the plan produces for the hour being decided. Discharge one more kilowatt only if what it earns now, times the chance that the campus actually uses it, is more than what that energy is worth later. The left plot is a weekday at one in the afternoon. The point forecast of net load is 443 kilowatts. If a stored kilowatt-hour is worth 90 percent as much later, the agent discharges only 214, the part that is almost certain to be used. If it is worth only 25 percent later, it discharges 523, beyond the forecast. The right plot shows why a fixed safety margin is wrong: at four in the morning or seven in the evening the load is steady and the best discharge is the forecast itself; at one in the afternoon, when solar is uncertain, it goes from zero to twice the forecast. Charging is the mirror image.</aside>
+<aside>This is the rule that comes out of the plan for the hour we're deciding. Discharge one more kilowatt only if what it earns now, times the chance the campus actually uses it, beats what that energy is worth later. Left plot: a weekday at one in the afternoon, forecast net load 443 kilowatts. If a stored kilowatt-hour is worth 90 percent as much later, we only discharge 214, the part we're almost sure will be used. If it's worth 25 percent later, we discharge 523, more than the forecast. Right plot: why a fixed safety margin is the wrong tool. At four in the morning or seven in the evening the load is steady and the best move is just the forecast. At one in the afternoon, with the sun uncertain, it goes anywhere from zero to twice the forecast. Charging works the same way, mirrored.</aside>
 </section>

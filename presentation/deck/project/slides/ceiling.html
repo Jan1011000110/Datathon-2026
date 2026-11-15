@@ -1,20 +1,19 @@
 <section id="ceiling" data-transition="fade">
-<p class="eyebrow">HOW GOOD CAN ANYONE BE?</p>
-<h2>We measured the ceiling first</h2>
-<div class="split">
-<div class="colx">
+<h2>First question: how good can anyone get?</h2>
+<div class="two">
+<div class="side">
 <p class="hero">95 %</p>
-<p class="hero-cap">of what an agent with perfect foresight scores on our validation weeks: 20.19 of 21.26 points.</p>
-<p class="hero-cap">The ceiling is a linear program that knows every future price, load and solar value.</p>
+<p class="hero-cap">That’s how much of the perfect-foresight score we reach on our validation weeks: 20.19 out of 21.26 points.</p>
+<p class="hero-cap">The ceiling is a linear programme that cheats: it knows every future price, load and solar value.</p>
 </div>
-<div class="colx">
-<p class="bars-title">Points lost against perfect foresight (lower is better)</p>
+<div class="side">
+<p class="bars-title">Points lost against the ceiling (lower is better)</p>
 <div class="bar-row"><p class="bar-cap">Plain planner, naive forecasts</p><div class="bar-line"><div class="bar" style="width:640px"></div><p class="bar-val">2.45</p></div></div>
-<div class="bar-row"><p class="bar-cap">Planner that accounts for its own uncertainty</p><div class="bar-line"><div class="bar" style="width:441px"></div><p class="bar-val">1.69</p></div></div>
-<div class="bar-row"><p class="bar-cap">+ forecasters for load, solar, price and CO₂</p><div class="bar-line"><div class="bar" style="width:300px"></div><p class="bar-val">1.15</p></div></div>
+<div class="bar-row"><p class="bar-cap">Planner that knows its forecasts are uncertain</p><div class="bar-line"><div class="bar" style="width:441px"></div><p class="bar-val">1.69</p></div></div>
+<div class="bar-row"><p class="bar-cap">+ real forecasters for load, solar, price and CO₂</p><div class="bar-line"><div class="bar" style="width:300px"></div><p class="bar-val">1.15</p></div></div>
 <div class="bar-row"><p class="bar-cap">+ planning over several possible futures of the signal</p><div class="bar-line"><div class="bar-best" style="width:279px"></div><p class="bar-val">1.07</p></div></div>
 </div>
 </div>
-<p class="note">With a perfect price and CO₂ forecast the same planner would reach about 20.8. Perfect knowledge of the campus load would add only 0.19.</p>
-<aside>Before building anything clever we asked how good any agent can be. A linear program with perfect foresight gives the ceiling: 21.26 points on our validation weeks, which are days 1 to 21 of each month, with every model fitted outside the week it is tested on. Then each step of our agent is measured as points lost against that ceiling. The first plain planner loses 2.45. The final agent loses 1.07, so it captures 95 percent. We also know what is left: about half a point is the price and CO2 signal beyond three hours, and perfect load knowledge would add only 0.19.</aside>
+<p class="note">What’s left is mostly price and CO₂ beyond 3 hours: with a perfect forecast of those we’d reach about 20.8. Knowing the campus load perfectly would only add 0.19.</p>
+<aside>Before building anything clever we wanted to know what the maximum is. So we wrote a linear programme that cheats: it knows the whole future. That gives 21.26 points on our validation weeks. Everything after that we measured as points lost against that ceiling. Our first planner lost 2.45. The final agent loses 1.07, so it gets 95 percent. And we know where the rest is: it's mostly the price and CO2 signal beyond three hours. Knowing the load perfectly would only give 0.19 more, so we stopped polishing the load forecast.</aside>
 </section>
