@@ -1,17 +1,18 @@
 <section id="planner" data-transition="fade">
-<h2>Is it an LP? Yes. We just solve it faster</h2>
+<h2>How we decide what the battery does</h2>
 <div class="two">
 <div class="side-wide">
-<p class="p"><b>What we minimise.</b> Grid import over the next 36 hours, each kWh weighted by w = CO₂ + 0.27 × price. Limits: 1,500 kW, 6,000 kWh, 95 % efficiency each way. Energy sent to the grid earns nothing.</p>
-<p class="p"><b>How we solve it.</b> The value of stored energy is convex and piecewise linear, so we only keep its slope: a sorted list of (value per kWh, width). Going one hour back in time is a merge of two sorted lists. No grid over the state of charge.</p>
-<p class="p"><b>Uncertainty.</b> The load and solar error distributions are combined into 9 equally likely net-load scenarios for each of the next 12 hours. The value of stored energy is averaged half-and-half between the signal forecast and 20 sampled error paths.</p>
-<p class="p"><b>Control.</b> We re-plan every hour with the newest readings and only apply the first command.</p>
+<ul class="ul-m">
+<li>It is a linear program: minimise what we import from the grid in the next 36 hours, counting CO₂ and price with the 70/30 weights of the score.</li>
+<li>We started with scipy’s LP solver. Then we wrote our own solver with dynamic programming. It does not discretise the battery level, so the result is exactly the same.</li>
+<li>It is fast enough to plan for about 20 possible futures every hour. A full run takes a few seconds (the limit is 1 minute).</li>
+<li>Planning for several futures matters because if we discharge more than the campus uses, the rest is given away for free.</li>
+</ul>
 </div>
 <div class="side-narrow">
-<div class="col"><p class="stat-num">5e-12</p><p class="s">largest gap to scipy’s linear programme, on 4,500 test cases</p></div>
-<div class="col"><p class="stat-num">0.16 ms</p><p class="s">per plan with scenarios, against 3.1 ms for the linear programme</p></div>
-<div class="col"><p class="stat-num">+0.71</p><p class="s">points from planning on the distribution with the same forecasts (18.81 → 19.52)</p></div>
+<div class="col"><p class="stat-num">20×</p><p class="s">faster than the LP solver, same result</p></div>
+<div class="col"><p class="stat-num">+0.71</p><p class="s">points from planning for several futures. It was our biggest improvement.</p></div>
 </div>
 </div>
-<aside>(about 35 s) So is it a linear programme? Yes: minimise grid import over 36 hours, weighted by CO2 plus 0.27 times price. But we solve it as an exact dynamic programme: the value of stored energy is piecewise linear, so going one hour back is just merging two sorted lists. Same answer as scipy to eleven decimals, twenty times faster. That speed lets us plan on scenarios instead of one forecast, which was our biggest gain: 0.71 points with the same forecasts.</aside>
+<aside>(about 30 s) Deciding what the battery does is a linear program: we minimise what we import from the grid in the next 36 hours, with the 70/30 weights of the score. We started with scipy's solver and then wrote our own with dynamic programming. It doesn't discretise the battery level, so the result is exactly the same, about twenty times faster. That speed lets us plan for about twenty possible futures every hour and not just one forecast. That was our biggest improvement, 0.71 points.</aside>
 </section>

@@ -1,13 +1,19 @@
 <section id="insights" data-transition="fade">
 <h2>What came from us, not from the model</h2>
 <div class="cols">
-<div class="col"><h3>Barcelona’s own holidays</h3><p class="p">The model treated holidays in general and skipped the ones only Barcelona has. Validation couldn’t see them either: none falls in the training days, so the numbers said a calendar wasn’t worth shipping. We knew the campus shuts for La Mercè and Whit Monday. Three dates typed in: +0.23 on the public board.</p></div>
-<div class="col"><h3>Chasing the public/private split</h3><p class="p">Scores on the board kept moving without better models. We didn’t crack it ourselves, but we decided that was the question that mattered and put the work there: probes instead of tuning. The answer: the public board is the first 84 hours of each test week, the private ranking the last 84.</p></div>
+<div class="col"><h3>Barcelona holidays</h3>
+<ul class="ul-m">
+<li>The model handled holidays in general, but not the ones that only Barcelona has.</li>
+<li>They are not in the training data, so validation said it was not worth adding them.</li>
+<li>We know the campus closes on those days. We added La Mercè, Segona Pasqua and Sant Joan.</li>
+<li>+0.23 on the public leaderboard.</li>
+</ul></div>
+<div class="col"><h3>The public / private split</h3>
+<ul class="ul-m">
+<li>Scores on the leaderboard were changing without the models getting better.</li>
+<li>We did not find the reason ourselves, but we decided it was the important question and used our submissions to test it.</li>
+<li>Public is the first half of each test week, private is the second half.</li>
+</ul></div>
 </div>
-<div class="cols" style="margin-top:40px">
-<div class="col-thin"><p class="strong">Is the signal just public data?</p><p class="s">We asked for the check. Price and CO₂ are Red Eléctrica’s published series. We told the organisers and didn’t use it.</p></div>
-<div class="col-thin"><p class="strong">Don’t build on a rumour</p><p class="s">We had planned around broken sensors in the test after a remark from the organisers. We checked it, it was wrong, and we dropped that track.</p></div>
-<div class="col-thin"><p class="strong">What counts as fair</p><p class="s">Real test-week values inside the agent: no. Topping the battery up before the private half: yes, and the code says so in its first lines.</p></div>
-</div>
-<aside>(about 35 s) Now what came from us and not from the model. One: holidays. The model handled holidays in general and skipped Barcelona's own, and validation couldn't see them because none is in the training days. We knew the campus closes for La Mercè and Whit Monday, typed in three dates, and got 0.23 on the public board. Two: the split between the public and the private test. We didn't crack it ourselves, but we decided it was the question that mattered and spent our submissions on probes instead of tuning.</aside>
+<aside>(about 35 s) Two things came from us and not from the model. First, holidays. The model handled holidays in general but not the ones only Barcelona has, and they aren't in the training data, so validation said it wasn't worth it. We know the campus closes on those days, so we added three dates and gained 0.23 on the public leaderboard. Second, the public and private split. We didn't find the answer ourselves, but we decided it was the important question and used submissions to test it.</aside>
 </section>

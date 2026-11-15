@@ -62,3 +62,14 @@ ul { font-size: 29px; line-height: 1.45; color: #333333; }
 table { width: 100%; font-size: 27px; color: #1A1A1A; margin-top: 44px; border: none; border-collapse: collapse; }
 th { text-align: left; font-weight: 700; padding: 12px 16px 12px 0; border: none; border-bottom: 3px solid #1A1A1A; }
 td { text-align: left; padding: 12px 16px 12px 0; border: none; border-bottom: 1px solid #C9C9C4; }
+
+/* bullet lists inside columns */
+.ul-m { font-size: 28px; line-height: 1.5; color: #333333; padding-left: 32px; }
+
+/* the two halves of a test week */
+.week { display: flex; flex-direction: row; margin-top: 48px; }
+.half { flex: 1; padding: 24px 32px; border: 3px solid #1A1A1A; display: flex; flex-direction: column; gap: 6px; }
+.half-pub { background: #EFEFEC; }
+.half-pri { background: #DCE8F8; border-left: none; }
+.half-ttl { font-size: 30px; font-weight: 700; color: #1A1A1A; }
+.half-txt { font-size: 24px; line-height: 1.4; color: #333333; }

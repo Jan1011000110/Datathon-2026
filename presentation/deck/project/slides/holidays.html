@@ -1,20 +1,20 @@
 <section id="holidays" data-transition="fade">
-<h2>How three Barcelona holidays fooled the agent</h2>
+<h2>Backup: the Barcelona holidays</h2>
 <div class="two">
 <div class="side">
 <ul>
-<li>The test weeks are the last seven days of each month. Our validation weeks are days 1 to 21, so they never see a month end.</li>
-<li>Three test weeks start on a holiday: La Mercè, Whit Monday and Sant Joan.</li>
-<li>On a holiday the campus draws about half its usual load.</li>
-<li>But prices keep their weekday shape on those days, so the agent was buying energy overnight for a campus that never showed up.</li>
+<li>The test weeks are the last 7 days of each month. Our validation weeks are days 1 to 21.</li>
+<li>Three test weeks start on a holiday: La Mercè, Segona Pasqua and Sant Joan.</li>
+<li>On a holiday the campus uses about half the energy.</li>
+<li>But the price looks like a normal weekday, so the agent bought energy at night for a campus that was closed.</li>
 </ul>
 </div>
 <div class="side">
-<p class="label">We predicted +0.20. The public board said</p>
+<p class="label">We predicted +0.20. On the public leaderboard:</p>
 <p class="hero">+0.23</p>
-<p class="hero-cap">on the public board, 23.32 → 23.55, from three dates typed into the load forecaster.</p>
+<p class="hero-cap">from 23.32 to 23.55, by adding three dates to the demand model.</p>
 </div>
 </div>
-<p class="note">Outside those three weeks the agent’s commands are identical to before, so nothing else can explain the jump. This is not why we’re first: all three holidays fall in the public half of their week, so the final private score is 19.74 with or without the calendar.</p>
-<aside>Backup slide, for questions. Here's the holiday one in detail, because it's the result we like most. Our validation weeks are days 1 to 21 of each month, but the test weeks are the last seven days. And if you look at a calendar, three of those test weeks start on a holiday: La Mercè on 24 September, Whit Monday on 25 May and Sant Joan on 24 June. On a holiday the campus uses about half the usual energy. But on these local and regional holidays the electricity price keeps its normal weekday shape. So the agent did the sensible weekday thing: buy cheap energy overnight for the morning. And then nobody came. We typed the three dates into the load forecaster, predicted plus 0.20, and the server gave plus 0.23. It also told us something we couldn't check from the data: yes, the campus really closes on Barcelona's local holidays. To be straight about it: this is a gain on the public board, not the reason we're first. All three holidays fall in the first half of their week, so on the final private ranking this agent scores exactly the same as the one without the calendar, 19.74. It's here because it's a good example of something the data couldn't tell us and we could.</aside>
+<p class="note">This is not why we are first. The three holidays are in the public half of their week, so the private score is 19.74 with or without them.</p>
+<aside>Backup slide, for questions. Our validation weeks are days 1 to 21 of each month, but the test weeks are the last seven days. Three of those test weeks start on a holiday: La Mercè on 24 September, Segona Pasqua on 25 May and Sant Joan on 24 June. On a holiday the campus uses about half the energy, but the electricity price looks like a normal weekday. So the agent bought cheap energy at night for the morning, and then the campus was closed. We added the three dates to the demand model. We predicted plus 0.20 and got plus 0.23 on the public leaderboard. This is a public gain: the three holidays are in the first half of their week, so the private score is the same with or without them.</aside>
 </section>

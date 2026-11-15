@@ -1,15 +1,14 @@
 <section id="agent" data-transition="fade">
-<h2>What the agent does every hour</h2>
+<h2>How the agent works</h2>
 <div class="cols">
-<div class="col"><h3>1. Forecast</h3><p class="p">Campus load, solar output, and price and CO₂ past the 3 hours we’re given. Each forecast comes with error quantiles measured on weeks it never trained on.</p></div>
-<div class="col"><h3>2. Plan</h3><p class="p">An exact dynamic programme over the next 36 hours, on 9 net-load scenarios and 20 error paths of the signal. We re-plan every hour and only apply the first command.</p></div>
-<div class="col"><h3>3. Don’t break anything</h3><p class="p">The command is clamped 0.01 kW inside the battery’s limits. If something crashes, the previous agent takes over, then a table look-up agent, then 0 kW.</p></div>
+<div class="col"><h3>1. Predict</h3><p class="p">Campus demand, solar, and price and CO₂ after the 3 hours we are given.</p></div>
+<div class="col"><h3>2. Optimise</h3><p class="p">Find the best charge and discharge plan for the next 36 hours. Do only the first hour, then repeat.</p></div>
+<div class="col"><h3>3. Stay inside the limits</h3><p class="p">Clip the action to what the battery can do. If something fails, a simpler agent takes over.</p></div>
 </div>
 <div class="facts">
-<div class="factbox"><p class="fact-strong">0 infractions</p><p class="fact">in every submission</p></div>
-<div class="factbox"><p class="fact-strong">3 folds, closed loop</p><p class="fact">days 1–7, 8–14 and 15–21 of each month; models fitted outside the fold</p></div>
-<div class="factbox"><p class="fact-strong">No ML library at run time</p><p class="fact">the boosted trees are walked in numpy</p></div>
-<div class="factbox"><p class="fact-strong">Trained on data/train only</p><p class="fact">no outside data in any submission</p></div>
+<div class="factbox"><p class="fact-strong">0 infractions</p><p class="fact">in all our submissions</p></div>
+<div class="factbox"><p class="fact-strong">Validation like the test</p><p class="fact">one week per month held out, 3 folds</p></div>
+<div class="factbox"><p class="fact-strong">Trained on data/train only</p><p class="fact">no external data</p></div>
 </div>
-<aside>(about 25 s) Every hour the agent does three things. It forecasts load, sun, and price and CO2, each with its error distribution. It plans 36 hours ahead with an exact dynamic programme over many possible futures and applies only the first command. And it never breaks a limit: the command is clamped, with three fallbacks behind it. We judged everything closed-loop on three validation folds.</aside>
+<aside>(about 30 s) This is what the agent does every hour. It predicts the campus demand, the solar and the price and CO2. Then it finds the best plan for the next 36 hours, but it only does the first hour and repeats everything the next hour. Finally it clips the action so it never breaks a battery limit. We tested changes on held-out weeks, like the real test.</aside>
 </section>

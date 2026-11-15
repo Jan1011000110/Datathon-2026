@@ -1,18 +1,18 @@
 <section id="forecasts" data-transition="fade">
-<h2>Three forecasters, nothing fancy</h2>
+<h2>What we predict and how</h2>
 <div class="cols">
-<div class="col"><h3>Campus load</h3>
-<p class="label">Model</p><p class="s">Rules for the meter first, then LightGBM (300 trees, 15 leaves, Huber loss) on the change from the last reading.</p>
-<p class="label">28 inputs</p><p class="s">Hour and weekday; the last three readings; the same hour yesterday and last week; the mean of the last 3 days of the same type; a holiday index from today’s readings; temperature.</p>
-<p class="label">Result</p><p class="strong">Error for the hour we’re deciding: 38 → 20 kW</p></div>
-<div class="col"><h3>Solar output</h3>
-<p class="label">Model</p><p class="s">Clear-sky envelope (90th percentile of train output, ±12 days) × clearness. One ridge regression per horizon predicts the clearness.</p>
-<p class="label">Inputs</p><p class="s">Clearness of the last hour, of today so far, of yesterday and of the same hour on the last day seen; panel minus air temperature.</p>
-<p class="label">Result</p><p class="strong">91 → 85 kW. We tried LightGBM here too: 151 kW, so we threw it out</p></div>
-<div class="col"><h3>Price and CO₂, +3 to +36 h</h3>
-<p class="label">Model</p><p class="s">One ridge regression per horizon and per signal, on the difference from an average day (month, day type, hour).</p>
-<p class="label">Inputs</p><p class="s">The last 48 known differences, the other signal’s last 12, the average-day value at the target hour. Nudged every hour by the newest error we see.</p>
-<p class="label">Result</p><p class="strong">CO₂ error at +3 h: 7.8 → 4.6 g/kWh. Price: 1.18 → 0.74 c€/kWh</p></div>
+<div class="col"><h3>Campus demand</h3>
+<p class="label">Model</p><p class="s">LightGBM (300 trees) plus a few rules for the meter. It predicts the change from the last reading.</p>
+<p class="label">Features (28)</p><p class="s">Hour, weekday, last 3 readings, same hour yesterday and last week, average of the last 3 similar days, temperature, a holiday indicator.</p>
+<p class="label">Result</p><p class="strong">Error for the current hour: 38 → 20 kW</p></div>
+<div class="col"><h3>Solar</h3>
+<p class="label">Model</p><p class="s">Ridge regression. It predicts how clear the sky is, compared to a clear-sky curve for that date.</p>
+<p class="label">Features</p><p class="s">Clearness in the last hour, today so far and yesterday. Panel temperature minus air temperature.</p>
+<p class="label">Result</p><p class="strong">Error: 91 → 85 kW. LightGBM was worse here (151 kW)</p></div>
+<div class="col"><h3>Price and CO₂ after 3 h</h3>
+<p class="label">Model</p><p class="s">Ridge regression, one model per hour ahead. It predicts the difference from a typical day.</p>
+<p class="label">Features</p><p class="s">The last 48 hours of the signal, the last 12 of the other one, and the typical value for that month, day type and hour.</p>
+<p class="label">Result</p><p class="strong">CO₂ error 3 hours ahead: 7.8 → 4.6 g/kWh</p></div>
 </div>
-<aside>(about 35 s) The forecasters are simple on purpose. Load: rules for the meter, which freezes at night and jumps at six, plus a small LightGBM on 28 inputs like the last readings, the same hour yesterday and last week, and a holiday index. That halves the error, from 38 to 20 kilowatts. Solar: a clear-sky curve times a clearness factor from ridge regression; LightGBM was worse there, so we dropped it. Price and CO2: ridge regression on the difference from an average day.</aside>
+<aside>(about 30 s) For the campus demand we use LightGBM with 28 features: hour and weekday, the last readings, the same hour yesterday and last week, temperature and a holiday indicator, plus a few rules because the meter doesn't update at night. This cut the error in half. For solar we use ridge regression on how clear the sky is. LightGBM was worse there. For price and CO2, ridge regression on the last 48 hours.</aside>
 </section>

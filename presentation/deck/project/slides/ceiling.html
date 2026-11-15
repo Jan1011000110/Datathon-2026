@@ -1,19 +1,19 @@
 <section id="ceiling" data-transition="fade">
-<h2>First question: how good can anyone get?</h2>
+<h2>How good can an agent be?</h2>
 <div class="two">
 <div class="side">
 <p class="hero">95 %</p>
-<p class="hero-cap">That’s how much of the perfect-foresight score we reach on our validation weeks: 20.19 out of 21.26 points.</p>
-<p class="hero-cap">The ceiling is a linear programme that cheats: it knows every future price, load and solar value.</p>
+<p class="hero-cap">of the best possible score on our validation weeks (20.19 out of 21.26 points).</p>
+<p class="hero-cap">Best possible means an optimiser that already knows the whole future.</p>
 </div>
 <div class="side">
-<p class="bars-title">Points lost against the ceiling (lower is better)</p>
-<div class="bar-row"><p class="bar-cap">Plain planner, naive forecasts</p><div class="bar-line"><div class="bar" style="width:640px"></div><p class="bar-val">2.45</p></div></div>
-<div class="bar-row"><p class="bar-cap">Planner that knows its forecasts are uncertain</p><div class="bar-line"><div class="bar" style="width:441px"></div><p class="bar-val">1.69</p></div></div>
-<div class="bar-row"><p class="bar-cap">+ real forecasters for load, solar, price and CO₂</p><div class="bar-line"><div class="bar" style="width:300px"></div><p class="bar-val">1.15</p></div></div>
-<div class="bar-row"><p class="bar-cap">+ planning over several possible futures of the signal</p><div class="bar-line"><div class="bar-best" style="width:279px"></div><p class="bar-val">1.07</p></div></div>
+<p class="bars-title">Points lost compared to the best possible</p>
+<div class="bar-row"><p class="bar-cap">Simple optimiser with average-day forecasts</p><div class="bar-line"><div class="bar" style="width:640px"></div><p class="bar-val">2.45</p></div></div>
+<div class="bar-row"><p class="bar-cap">+ taking into account that forecasts can be wrong</p><div class="bar-line"><div class="bar" style="width:441px"></div><p class="bar-val">1.69</p></div></div>
+<div class="bar-row"><p class="bar-cap">+ our forecasting models</p><div class="bar-line"><div class="bar" style="width:300px"></div><p class="bar-val">1.15</p></div></div>
+<div class="bar-row"><p class="bar-cap">+ the same for price and CO₂</p><div class="bar-line"><div class="bar-best" style="width:279px"></div><p class="bar-val">1.07</p></div></div>
 </div>
 </div>
-<p class="note">What’s left is mostly price and CO₂ beyond 3 hours: with a perfect forecast of those we’d reach about 20.8. Knowing the campus load perfectly would only add 0.19.</p>
-<aside>(about 20 s) First we asked how good anyone can get. A linear programme that knows the whole future scores 21.26 on our validation weeks. Everything else is measured as points lost against that. Our first planner lost 2.45; the final agent loses 1.07, so 95 percent. What's left is mostly price and CO2 beyond three hours.</aside>
+<p class="note">Most of what we still lose is because we don’t know price and CO₂ after the first 3 hours.</p>
+<aside>(about 30 s) The first thing we did was check how good an agent can be. An optimiser that knows the whole future gets 21.26 points on our validation weeks. We measured every version of our agent against that. The first one lost 2.45 points and the final one loses 1.07, so we get 95 percent. Most of what we lose is from not knowing price and CO2 after three hours.</aside>
 </section>
