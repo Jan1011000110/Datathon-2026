@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sun 15 Nov 2026, 11:37
+**Last updated:** Sun 15 Nov 2026, 11:46
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -196,6 +196,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **Sun 15 Nov, 11:46** After the laptop shut down: committed the last untracked files (`CLAUDE.md`, `experiments/21_load/cal_p*.pkl`) at your request. The deck had survived: all nine slides were published and identical to `presentation/deck/`. Rendered every slide at 1920×1080 in headless Chrome: no overflow or clipping. One flaw fixed and republished: "0 infractions" broke onto two lines on slide 4 (`.fact-strong` now `white-space: nowrap` in `deck.css`).
 - **Sun 15 Nov, 11:37** You selected the four agents and asked for the presentation. Built a nine-slide deck (English, about five minutes, speaker notes on every slide): https://claude.ai/artifact/K1K7bfnRnnmuwn5crBoB8G ; source in `presentation/deck/`.
 - **Sun 15 Nov, 11:30** Standard mode, under "Fanboy & Chum Chum": v2 6.43 and v2p **3.24**, both 0 infractions, both as expected. Final state: hard mode h4 (23.55) + h3p (11.69); standard mode v2 (6.43) + v2p (3.24). Selection by hand before 12:00 is the team's last step. I told the team there is no further model change that can be verified in the time left.
 - **Sun 15 Nov, 11:18** Built and verified `submissions/v2p/` for standard mode (v2w + top-up before the half-way point): last halves 7.535 on the folds, the perfect-foresight maximum, against 5.346 for v2 (`26_h3j_h3w/report.md` §9). No team shows a split-aware submission on the standard board. Offered to the team as cover in case standard mode counts.

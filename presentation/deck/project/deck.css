@@ -62,7 +62,7 @@ h3 { font-family: 'Space Grotesk', Arial, sans-serif; font-size: 34px; font-weig
 .arr { display: flex; flex-direction: column; justify-content: center; }
 .facts { display: flex; flex-direction: row; gap: 56px; margin-top: 44px; }
 .fact { font-size: 28px; line-height: 1.35; color: #3D4A63; }
-.fact-strong { font-family: 'Space Grotesk', Arial, sans-serif; font-size: 40px; font-weight: 600; color: #14213D; }
+.fact-strong { font-family: 'Space Grotesk', Arial, sans-serif; font-size: 40px; font-weight: 600; color: #14213D; white-space: nowrap; }
 .factbox { display: flex; flex-direction: column; gap: 6px; }
 
 /* lists and tables */
