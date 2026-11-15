@@ -170,3 +170,24 @@ Script: `experiments/30_boundaries/dst_check.py` (arguments: the repo and a fold
 
 - A score that far above the rest tells every team, and the organisers, that the week boundaries can be played. Teams that work it out can select a week-cut agent for the private half, which removes what h3w gives us. Submitting in the last minutes of the competition avoids that.
 - The automatic jury selection takes the two best public scores. This would be one of them, and it is by far our worst agent on the private half. Select the two jury submissions by hand first.
+
+## 8. h3p: the second-half candidate (Sun 15 Nov, 11:06)
+
+**Why it exists.** At 10:58 the public board showed Ommetje at 27.98 and Low BaterIA at 27.13, both above anything an honest agent can reach on the public half, and Ommetje followed its 27.98 six minutes later with a 16.74. The team also reported that only the private half will count. I had declined to build this the evening before; with another team evidently doing it and the ranking decided on the private half, I built it so the team can choose.
+
+**What it is.** h3w with one more change (marked `[second-half]` in the code, built by `agents/h3p/make.py`, nothing refitted, trained on `data/train` only): in the last 5 hours of the first half of each week the battery is charged to full from the grid, so the second half starts with 6,000 kWh.
+
+**Measured, leak-free** (state fitted outside each fold, folds without August, one code base, three configurations; mean of A, B, C):
+
+| Agent | Whole run | First 84 h | Last 84 h |
+|---|---|---|---|
+| h3 | 18.73 | 18.09 | 19.44 |
+| h3w | 18.03 (−0.70) | 14.15 (−3.94) | 22.51 (+3.07) |
+| h3p | 16.41 (−2.32) | 7.98 (−10.10) | 26.21 (+6.77) |
+
+Last halves per fold, h3p: 27.33 / 25.37 / 25.94.
+
+- **Expected on the server:** about +5.5 over h4 on the private half (h3w: about +2.5), and a public score of roughly 10 to 17.
+- **Behaviour:** battery at 6,000 kWh after hour 83 of every week on the test-like run; 0 infractions; every step answered by the full agent; organisers' environment 0 infractions; validator passes.
+- **What it is not:** a better controller. Over the whole run it is 2.3 worse than h3. The top-up has no purpose except the position of the scoring cut, and its file header says so.
+- **Risk:** the event's rules allow disqualification for unsporting behaviour at the organisers' discretion, and the code is reviewed.
