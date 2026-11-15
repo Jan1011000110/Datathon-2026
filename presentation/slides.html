@@ -250,22 +250,7 @@ td { text-align: left; padding: 12px 16px 12px 0; border: none; border-bottom: 1
 <aside>(about 20 s) The holidays in more detail. Three test weeks start on a holiday. The campus uses half the energy but the price looks like a normal weekday, so the agent bought energy for a closed campus. Adding three dates gave 0.23 on the public leaderboard. It's a public gain, not why we're first.</aside>
 </section></div>
 <div class="notes"><b>10. The Barcelona holidays.</b> (about 20 s) The holidays in more detail. Three test weeks start on a holiday. The campus uses half the energy but the price looks like a normal weekday, so the agent bought energy for a closed campus. Adding three dates gave 0.23 on the public leaderboard. It&#x27;s a public gain, not why we&#x27;re first.</div>
-<div class="wrap" id="slide-11"><section id="predictions" data-transition="fade">
-<h2>Predicted and real scores</h2>
-<table>
-<tr><th style="width:20%">Submission</th><th style="width:42%">What it changes</th><th style="width:20%">We predicted</th><th style="width:18%">Public score</th></tr>
-<tr><td>h3j</td><td>plan ends on 31 July (no August week)</td><td>same as h3: 23.32</td><td>23.32</td></tr>
-<tr><td>h4</td><td>Barcelona holidays</td><td>+0.20</td><td>+0.23</td></tr>
-<tr><td>h3w</td><td>uses all the energy before each week ends</td><td>19 to 20</td><td>20.03</td></tr>
-<tr><td>h3p</td><td>also fills the battery before the private half</td><td>10 to 17</td><td>11.69</td></tr>
-<tr><td>v2p (standard)</td><td>the same as h3p, in standard mode</td><td>3 to 4.5</td><td>3.24</td></tr>
-<tr><td>v2w (standard)</td><td>the same as h3w, in standard mode</td><td>about 5.1</td><td>5.59</td></tr>
-</table>
-<p class="note">Before each submission we wrote down the score we expected. One miss: v2w, by half a point.</p>
-<aside>(about 10 s) Before each submission we wrote down the score we expected. Here are six examples, and only one was off, by half a point. So we knew where the points came from.</aside>
-</section></div>
-<div class="notes"><b>11. Predicted and real scores.</b> (about 10 s) Before each submission we wrote down the score we expected. Here are six examples, and only one was off, by half a point. So we knew where the points came from.</div>
-<div class="wrap" id="slide-12"><section id="evaluation" data-transition="fade">
+<div class="wrap" id="slide-11"><section id="evaluation" data-transition="fade">
 <h2>Public and private leaderboard</h2>
 <div class="week">
 <div class="half half-pub"><p class="half-ttl">Public: first 84 hours of each test week</p><p class="half-txt">what everyone saw during the Datathon</p></div>
@@ -290,8 +275,8 @@ td { text-align: left; padding: 12px 16px 12px 0; border: none; border-bottom: 1
 </div>
 <aside>(about 30 s) The public leaderboard is the first half of each test week and the private one is the second half. But it's one simulation with one battery, so energy charged in the public half can be used in the private half. h4 is our general agent and ignores this. h3p fills the battery just before the private half, and the code says so. Also, price and CO2 are public data. We told the organisers and didn't use it.</aside>
 </section></div>
-<div class="notes"><b>12. Public and private leaderboard.</b> (about 30 s) The public leaderboard is the first half of each test week and the private one is the second half. But it&#x27;s one simulation with one battery, so energy charged in the public half can be used in the private half. h4 is our general agent and ignores this. h3p fills the battery just before the private half, and the code says so. Also, price and CO2 are public data. We told the organisers and didn&#x27;t use it.</div>
-<div class="wrap" id="slide-13"><section id="close">
+<div class="notes"><b>11. Public and private leaderboard.</b> (about 30 s) The public leaderboard is the first half of each test week and the private one is the second half. But it&#x27;s one simulation with one battery, so energy charged in the public half can be used in the private half. h4 is our general agent and ignores this. h3p fills the battery just before the private half, and the code says so. Also, price and CO2 are public data. We told the organisers and didn&#x27;t use it.</div>
+<div class="wrap" id="slide-12"><section id="close">
 <h2>Summary</h2>
 <div class="cols">
 <div class="col"><p class="big">95 %</p><p class="p">of the best possible score, seeing only 3 hours ahead.</p></div>
@@ -300,4 +285,4 @@ td { text-align: left; padding: 12px 16px 12px 0; border: none; border-bottom: 1
 </div>
 <aside>(about 20 s) To sum up: we get 95 percent of the best possible score seeing only three hours. On the public test that's 22 percent less CO2 and 26 percent less cost, with no infractions. What's left to improve is the price and CO2 forecast. Thanks! Any questions?</aside>
 </section></div>
-<div class="notes"><b>13. Summary.</b> (about 20 s) To sum up: we get 95 percent of the best possible score seeing only three hours. On the public test that&#x27;s 22 percent less CO2 and 26 percent less cost, with no infractions. What&#x27;s left to improve is the price and CO2 forecast. Thanks! Any questions?</div><script>const fit=()=>document.documentElement.style.setProperty('--s',Math.min(1,(document.documentElement.clientWidth-48)/1920));fit();addEventListener('resize',fit);</script></body></html>
+<div class="notes"><b>12. Summary.</b> (about 20 s) To sum up: we get 95 percent of the best possible score seeing only three hours. On the public test that&#x27;s 22 percent less CO2 and 26 percent less cost, with no infractions. What&#x27;s left to improve is the price and CO2 forecast. Thanks! Any questions?</div><script>const fit=()=>document.documentElement.style.setProperty('--s',Math.min(1,(document.documentElement.clientWidth-48)/1920));fit();addEventListener('resize',fit);</script></body></html>

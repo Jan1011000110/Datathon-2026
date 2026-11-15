@@ -42,14 +42,10 @@ Slides: [slides.pdf](slides.pdf) (or open `slides.html` locally to see slides an
 
 (about 20 s) The holidays in more detail. Three test weeks start on a holiday. The campus uses half the energy but the price looks like a normal weekday, so the agent bought energy for a closed campus. Adding three dates gave 0.23 on the public leaderboard. It's a public gain, not why we're first.
 
-## 11. Predicted and real scores
-
-(about 10 s) Before each submission we wrote down the score we expected. Here are six examples, and only one was off, by half a point. So we knew where the points came from.
-
-## 12. Public and private leaderboard
+## 11. Public and private leaderboard
 
 (about 30 s) The public leaderboard is the first half of each test week and the private one is the second half. But it's one simulation with one battery, so energy charged in the public half can be used in the private half. h4 is our general agent and ignores this. h3p fills the battery just before the private half, and the code says so. Also, price and CO2 are public data. We told the organisers and didn't use it.
 
-## 13. Summary
+## 12. Summary
 
 (about 20 s) To sum up: we get 95 percent of the best possible score seeing only three hours. On the public test that's 22 percent less CO2 and 26 percent less cost, with no infractions. What's left to improve is the price and CO2 forecast. Thanks! Any questions?
