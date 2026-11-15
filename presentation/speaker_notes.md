@@ -36,7 +36,7 @@ Slides: [slides.pdf](slides.pdf) (or open `slides.html` locally to see slides an
 
 ## 9. What came from us, not from the model
 
-(about 20 s) Two things came from us and not from the model. First, the Barcelona holidays: the model handled holidays in general but not the local ones, and validation couldn't see them. Second, the public and private split. We didn't find the answer ourselves, but we decided it was the important question and used submissions to test it.
+(about 30 s) Some things came from us and not from the model. The Barcelona holidays: the model only handled holidays in general. The public and private split: we didn't find the answer ourselves, but we decided it was the important question. We also had a wrong idea, that the private test had corrupted data. We tested it and dropped it. And we kept questioning the model: why ridge regression, why 36 hours, what each feature does.
 
 ## 10. The Barcelona holidays
 
