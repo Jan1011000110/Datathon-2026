@@ -108,3 +108,5 @@ Checks (packager, then repeated by me on the shipped ZIPs):
 - **If the calendar code fails,** the agent falls back as before with 0 infractions.
 
 Expected on the public board against h3j's 23.32: h4a about +0.07; h4 about +0.14 more if the campus closes on both local holidays, about −0.03 if on neither. All three dates are in the public half, so the board measures the whole effect.
+
+**Result on the server (Sun 15 Nov, 10:48).** h4 scored **23.55** on the public board, +0.23 over h3j's 23.32. The prediction was +0.20 if the campus closes on both local holidays and about +0.04 if on neither, so the three dates are confirmed. h4 is now the team's general pick for the jury, next to h3w.

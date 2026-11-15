@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sun 15 Nov 2026, 10:46
+**Last updated:** Sun 15 Nov 2026, 10:48
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -144,6 +144,7 @@ Rules: [`docs/NEW_RULES.md`](../docs/NEW_RULES.md). First report: [`10_hard_mode
 | HF31 | The clock-change days (26 Oct, 29 Mar), which occur only in test weeks, are harmless for the shipped agents: a repeated or missing 02:00 changes no score by more than 0.013, with 0 infractions and no fallback. | `26_h3j_h3w/report.md` §6 |
 | HF32 | Standard mode has the same public/private split: v2w scored 5.59 against v2's 6.43. The effect on the server is 0.63 times the fold figure there (0.81 for h3w in hard mode), so expect about +0.7 on the standard private half and about +2.5 on the hard one. Four other teams have a standard-mode submission within 0.4 % of v2w's row, the first at 14:04. | `26_h3j_h3w/report.md` §4 |
 | HF33 | A holiday calendar is worth about +0.03 over the whole run and 0 on the private half. National holidays are billed like weekends, so the signal is flat, h3 charges nothing at night, and nothing is lost; only a regional holiday billed as a weekday (11 Sep in the folds, 24 Jun in the test) shows a gain. Perfect load knowledge is worth only +0.19 in the h3 stack. | `27_holiday_calendar/report.md` |
+| HF34 | The holiday calendar works on the server: h4 scored 23.55 against h3j's 23.32 (+0.23; predicted +0.20 if 24 Sep and 25 May are real closures, +0.04 if not). The campus does close on Barcelona's local holidays. | `27_holiday_calendar/report.md` §8 |
 | HF12 | The right haircut is not a constant: discharge one more kW only while (chance it displaces import) × (what it earns now) exceeds what the kWh is worth later. Almost no haircut at 04:00 or 19:00, a large one at 13:00. | `14_planner/report.md` §2 |
 | HF13 | At 06:00 the load rises on weekdays (+383 kW on Mondays, +65 to +110 Tuesday–Friday) and falls on Saturdays (−188). 22:00 is the last reading taken, not an hourly mean. | `11_load_forecast/report.md` §2 |
 | HF14 | For price/CO₂, hours +3 to +5 carry two thirds of the forecast loss and +6 to +11 the rest; beyond +12 h is worth 0.01. Forecast accuracy is a poor guide to score. | `13_signal_forecast/report.md` §2 |
@@ -195,6 +196,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **Sun 15 Nov, 10:48** You submitted h4: **23.55 public**, +0.23 over h3j. The prediction was +0.20 if the campus closes on both of Barcelona's local holidays and about +0.04 if on neither, so the board confirms the three dates. h4 replaces h3j as the general pick; jury selection h4 + h3w.
 - **Sun 15 Nov, 10:46** Leaderboard at 10:36: top 24.37 (SSA Gourmet, 67 submissions under two names, many a minute apart); our cut probe 24.25 is third; h3j 23.32. You asked for the best possible general model before the 12:00 close. Packaged the holiday calendar as `h4` (24 Jun, 24 Sep, 25 May act) and `h4a` (24 Jun only): same code and state arrays as h3j, commands identical to h3j away from those weeks, matches the research class on all three folds, 0 infractions, validator passes ([`27_holiday_calendar/report.md`](27_holiday_calendar/report.md) §8). You also told the organisers that the price and CO₂ series are public (REE); they had not known.
 - **23:27** You asked for the submission deadline. The challenge site gives none; the event site's schedule says **Sunday 12:00, "Últim avís per a les entregues"**, then demos at 14:00 and the jury at 17:00 (`docs/WEBSITE_NOTES.md`, last section). The event's rules allow disqualification for "comportaments antiesportius" at the organisers' discretion, which changes my advice on the public-max probe: I now advise against submitting it. You plan to select h3j (general) and h3w (private half); I agree.
 - **22:12** Holiday-calendar study back ([`27_holiday_calendar/report.md`](27_holiday_calendar/report.md), HF33): about +0.03 over the whole run, +0.07 on the public half, 0 on the private half, resting on one comparable day. National holidays are billed like weekends, so the signal is flat and h3 buys nothing at night: there is nothing to get wrong. Not packaged. Both leads from the difference between test weeks and folds are now closed (holidays, clock changes).
