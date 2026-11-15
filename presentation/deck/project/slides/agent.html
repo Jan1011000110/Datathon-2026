@@ -2,17 +2,17 @@
 <p class="eyebrow">HOW IT WORKS</p>
 <h2>How the agent decides each hour</h2>
 <div class="flow">
-<div class="card"><p class="step">1 · FORECAST</p><h3>What it cannot see</h3><p class="txt">Price and CO₂ beyond three hours, the campus load and the solar output. Each forecast carries its own error distribution, measured on held-out weeks.</p></div>
+<div class="card"><p class="step">1 · FORECAST</p><h3>Three forecasters</h3><p class="txt">Campus load, solar output, and price and CO₂ beyond the three known hours. Each returns quantiles measured on held-out weeks, not only a point.</p></div>
 <div class="arr"><x-shape kind="arrow-right" style="width:56px;height:28px;background:#B8501A"></x-shape></div>
-<div class="card"><p class="step">2 · PLAN</p><h3>What a stored kWh is worth</h3><p class="txt">An exact dynamic program over the next 36 hours and several possible futures. It discharges the next kW only if that is worth more now than later.</p></div>
+<div class="card"><p class="step">2 · PLAN</p><h3>Exact dynamic programme</h3><p class="txt">36 hours ahead, on 9 net-load scenarios and 20 error paths of the signal. Re-run every hour; only the first command is applied.</p></div>
 <div class="arr"><x-shape kind="arrow-right" style="width:56px;height:28px;background:#B8501A"></x-shape></div>
-<div class="card"><p class="step">3 · ACT SAFELY</p><h3>Never break a limit</h3><p class="txt">The command is clamped to what the battery can physically do. If anything fails, two simpler agents stand behind it, then 0 kW.</p></div>
+<div class="card"><p class="step">3 · ACT SAFELY</p><h3>Never break a limit</h3><p class="txt">The command is clamped 0.01 kW inside the battery’s limits. Behind the agent stand its previous version, a table look-up agent, then 0 kW.</p></div>
 </div>
 <div class="facts">
 <div class="factbox"><p class="fact-strong">0 infractions</p><p class="fact">in every submission</p></div>
-<div class="factbox"><p class="fact-strong">≈ 1.4 ms</p><p class="fact">per decision on the server</p></div>
-<div class="factbox"><p class="fact-strong">No ML library at run time</p><p class="fact">the boosted trees are evaluated in numpy</p></div>
+<div class="factbox"><p class="fact-strong">3 folds, closed loop</p><p class="fact">days 1–7, 8–14 and 15–21 of each month; models fitted outside the fold</p></div>
+<div class="factbox"><p class="fact-strong">No ML library at run time</p><p class="fact">the boosted trees are walked in numpy</p></div>
 <div class="factbox"><p class="fact-strong">Fitted on data/train</p><p class="fact">no outside data in any submission</p></div>
 </div>
-<aside>Each hour the agent does three things. It forecasts what it cannot see, and each forecast comes with an error distribution measured on weeks the model did not train on. It then plans: an exact dynamic program gives the value of one more kilowatt-hour in the battery, over 36 hours and several possible futures. The rule is simple: discharge the next kilowatt only if it is worth more now than later, taking into account the chance that the campus cannot use it. Finally it acts safely: the command is clamped to the physical limits, and if any part fails, two simpler agents stand behind it. We had zero infractions in every submission. The run-time code uses numpy and pandas only.</aside>
+<aside>This is the whole agent on one slide; the next three slides open each box. Every hour it forecasts three things: the campus load, the solar output, and the price and CO2 beyond the three hours it is given. Each forecast comes with quantiles measured on weeks the model did not train on. Then it plans: an exact dynamic programme over the next 36 hours, run on nine scenarios of net load and twenty error paths of the signal. It is model predictive control: we re-plan every hour and apply only the first command. Finally the command is clamped just inside the physical limits, and if any part fails there are three levels behind it: the previous agent, a simple table-based agent, and zero. We judged every change by the closed-loop score on three validation folds, days 1 to 7, 8 to 14 and 15 to 21 of each month, with every model fitted outside the fold it is scored on.</aside>
 </section>

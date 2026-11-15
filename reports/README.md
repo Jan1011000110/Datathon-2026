@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sun 15 Nov 2026, 11:46
+**Last updated:** Sun 15 Nov 2026, 12:02
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -196,6 +196,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **Sun 15 Nov, 12:02** You found the deck vague: no word on features, models or how the battery is allocated, and you wanted a slide of the insights. Rebuilt it as twelve slides. New: `forecasts` (the three models, their inputs and errors), `planner` (the linear programme solved as an exact dynamic programme, scenarios, speed), `rule` (the decision rule with the figure from `14_planner`), `insights` (eight findings; replaces `data`). `agent` now names the planner, the scenario counts, the fallback levels and the folds. Every number on the new slides is taken from reports 11 to 14, 18 and 19 or from `agents/h4/build.py`. Rendered and checked at 1920×1080; published as version 7 of the same link. Earlier at your request: branch pushed to GitHub and `main` fast-forwarded to it.
 - **Sun 15 Nov, 11:46** After the laptop shut down: committed the last untracked files (`CLAUDE.md`, `experiments/21_load/cal_p*.pkl`) at your request. The deck had survived: all nine slides were published and identical to `presentation/deck/`. Rendered every slide at 1920×1080 in headless Chrome: no overflow or clipping. One flaw fixed and republished: "0 infractions" broke onto two lines on slide 4 (`.fact-strong` now `white-space: nowrap` in `deck.css`).
 - **Sun 15 Nov, 11:37** You selected the four agents and asked for the presentation. Built a nine-slide deck (English, about five minutes, speaker notes on every slide): https://claude.ai/artifact/K1K7bfnRnnmuwn5crBoB8G ; source in `presentation/deck/`.
 - **Sun 15 Nov, 11:30** Standard mode, under "Fanboy & Chum Chum": v2 6.43 and v2p **3.24**, both 0 infractions, both as expected. Final state: hard mode h4 (23.55) + h3p (11.69); standard mode v2 (6.43) + v2p (3.24). Selection by hand before 12:00 is the team's last step. I told the team there is no further model change that can be verified in the time left.

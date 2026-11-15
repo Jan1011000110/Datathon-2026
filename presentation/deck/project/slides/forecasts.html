@@ -1,0 +1,19 @@
+<section id="forecasts" data-transition="fade">
+<p class="eyebrow">WHAT WE PREDICT AND HOW</p>
+<h2>Three forecasters, three simple models</h2>
+<div class="spec-row">
+<div class="spec"><h3>Campus load</h3>
+<p class="kv">MODEL</p><p class="txt-s">Rules for the meter, then LightGBM (300 trees, 15 leaves, Huber loss) on the change from the last reading.</p>
+<p class="kv">28 INPUTS</p><p class="txt-s">Hour and weekday; the last three readings; the same hour yesterday and last week; the mean of the last 3 days of the same type; a holiday index from today’s readings; temperature.</p>
+<p class="kv">RESULT</p><p class="res">Error for the hour being decided: 38 → 20 kW</p></div>
+<div class="spec"><h3>Solar output</h3>
+<p class="kv">MODEL</p><p class="txt-s">Clear-sky envelope (90th percentile of train output, ±12 days) × clearness. One ridge regression per horizon predicts the clearness.</p>
+<p class="kv">INPUTS</p><p class="txt-s">Clearness of the last hour, of today so far, of yesterday and of the same hour on the last day seen; panel minus air temperature.</p>
+<p class="kv">RESULT</p><p class="res">91 → 85 kW. LightGBM with 22 inputs was worse (151 kW) and was dropped</p></div>
+<div class="spec"><h3>Price and CO₂, +3 to +36 h</h3>
+<p class="kv">MODEL</p><p class="txt-s">One ridge regression per horizon and per signal, on the difference from an average day (month, day type, hour).</p>
+<p class="kv">INPUTS</p><p class="txt-s">The last 48 known differences, the other signal’s last 12, the average-day value at the target hour. Shifted each hour by the newest revealed error.</p>
+<p class="kv">RESULT</p><p class="res">CO₂ error at +3 h: 7.8 → 4.6 g/kWh. Price: 1.18 → 0.74 c€/kWh</p></div>
+</div>
+<aside>Here is what we predict and with what. The campus load uses rules first, because the meter has regimes: it does not update at night, and at six in the morning it jumps by an amount that depends on the weekday. On top of the rules, a LightGBM model with 300 small trees and 28 inputs predicts the change from the last reading: the hour and weekday, the last three readings, the same hour yesterday and last week, a reference built from the last three days of the same type, a holiday index estimated from today's readings, and the temperature. That halves the error for the hour being decided, from 38 to 20 kilowatts. Solar is physical: a clear-sky envelope for each day of the year and hour, times a clearness factor predicted by a ridge regression. We tried LightGBM there too and it was clearly worse, so we dropped it. Price and CO2 beyond three hours use one ridge regression per horizon, on the difference from an average day, fed with the last 48 known differences. All errors on this slide are measured on validation weeks with the models fitted outside them; the starting point in each case is an average-profile forecast.</aside>
+</section>
