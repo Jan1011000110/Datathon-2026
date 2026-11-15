@@ -211,3 +211,5 @@ Folds A, B, C of the filled table, without August:
 - Battery at 2,000 kWh at the half-way point of every week; 0 infractions; organisers' environment 0 infractions; validator passes.
 - **Standard board at 11:18:** no team shows a split-aware submission there today (nothing above 6.62, no new low scores). The activity is all in hard mode.
 - To be selectable together, v2 and v2p must be under one team name: our 6.43 is under "Fa", v2w under "Fanboy & Chum Chum".
+
+**Result on the server (Sun 15 Nov, 11:30).** Under the name "Fanboy & Chum Chum" the team submitted v2 (**6.43**, the same row as the earlier one under "Fa") and v2p (**3.24**: CO₂ −2.65 %, 1,901.9 kg; cost −4.63 %, 5,502.11 €; 0 infractions), inside the expected 3 to 4.5. The public drop is 3.19 against 3.05 on the folds, so expect about +2.3 over v2 on the private half. No other team shows a split-aware submission on the standard board.
