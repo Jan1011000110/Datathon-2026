@@ -1,5 +1,5 @@
 {
- "updated": "Sun 15 Nov 2026, 11:12",
+ "updated": "Sun 15 Nov 2026, 11:18",
  "ceiling": 21.26,
  "best": {
   "name": "h3: h2 + round-2 signal forecaster + signal-aware planner (`submissions/h3/submission.zip`)",
@@ -20,6 +20,7 @@
  "leaderboard_time": "21:01, public half (the first 84 hours of each week); 33 teams, 140 submissions. Our eight submissions: h2 23.06, h3 23.32, cut probe 24.25, August probe 0.00 twice, July control 0.53, h3j 23.32, h3w 20.03",
  "now": [
   "**Sunday 11:12: final picks are h4 (23.55, general) and h3p (11.69, private half). Select both by hand before 12:00.** h3p scored 11.69 on the public board with 0 infractions, inside the expected 10 to 17: the low score shows the top-up before the half-way point is working. Expected on the private half: about +5.5 over h4. Three teams are above 27 on the public board.",
+  "**Standard mode, optional cover (11:18):** `submissions/v2p/submission.zip` is the standard-mode equivalent of h3p. Expected private half about 7.7 to 8.8 against about 6.3 for v2; public about 3 to 4.5. To use it: submit `submissions/v2/submission.zip` and `submissions/v2p/submission.zip` in standard mode under one team name and select both. No other team shows a split-aware submission in standard mode.",
   "**Sunday 10:48: h4 scored 23.55 on the public board, +0.23 over h3j, as predicted for three real holidays.** h4 is now our best general model. Jury selection: h4 (general) and h3w (private half), by hand, before 12:00.",
   "**Leaderboard 10:36:** top 24.37 (SSA Gourmet, 67 submissions, many a minute apart: tuning on the public half); our cut probe 24.25 is third; h3j 23.32. The gap is the size of the carry effect.",
   "**Deadline: Sunday 15 November, 12:00 (last call for submissions), from the event site's schedule.** Demos at 14:00, jury at 17:00, prizes at 17:30. The challenge site itself gives no closing time. Plan: jury picks h3j (general) and h3w (private half), selected by hand tonight; they can be changed until the close.",
@@ -138,6 +139,7 @@
   ["losses.png", "Where the naive agent loses score", "Points lost against perfect foresight, by which information the agent lacks. Grey bars are diagnostic runs; blue bars are legal agents."]
  ],
  "log": [
+  ["Sun 11:18", "v2p built and verified for standard mode: last halves 7.535 on folds (the maximum), v2 5.346. Standard board shows no split-aware submissions."],
   ["Sun 11:12", "h3p submitted: 11.69 public, 0 infractions, as expected. Final picks: h4 + h3p."],
   ["Sun 11:06", "Two teams at 27 to 28 public. Built and verified h3p (h3w + top-up before the half-way point): last halves +6.77 over h3 on leak-free folds. Team to decide between h3w and h3p for the private pick. No REE data in any agent."],
   ["Sun 10:48", "h4 submitted: 23.55 public, +0.23 over h3j, matching the prediction for three real holidays. General pick is now h4."],

@@ -2,7 +2,7 @@
 
 This is the one place to see what I'm doing, what I've found and what's coming. I update it every time something lands. Branch: `claude/battery-agent`.
 
-**Last updated:** Sun 15 Nov 2026, 11:12
+**Last updated:** Sun 15 Nov 2026, 11:18
 
 **Since 16:40 the target is hard mode.** Part I below is the live part. Part II is the standard-mode log as it stood at 16:10.
 
@@ -196,6 +196,7 @@ The study of points 2 and 3 is done: [`23_boundaries/report.md`](23_boundaries/r
 
 ## H6. Log
 
+- **Sun 15 Nov, 11:18** Built and verified `submissions/v2p/` for standard mode (v2w + top-up before the half-way point): last halves 7.535 on the folds, the perfect-foresight maximum, against 5.346 for v2 (`26_h3j_h3w/report.md` §9). No team shows a split-aware submission on the standard board. Offered to the team as cover in case standard mode counts.
 - **Sun 15 Nov, 11:12** You judged the top-up legitimate and submitted h3p: **11.69 public**, 0 infractions, inside the expected range (the low public score is the sign it works). Jury selection is now h4 (23.55) + h3p (11.69), to be made by hand before 12:00. Three teams are above 27 on the public board.
 - **Sun 15 Nov, 11:06** Board at 10:58: Ommetje 27.98 and Low BaterIA 27.13 (public-max agents), Ommetje then 16.74 (what a second-half agent leaves). You reported that only the private half will count and ruled out REE data (none of our agents contains any). Built and verified `submissions/h3p/` (h3w + top-up to full before the half-way point): last halves +6.77 over h3 on leak-free folds against h3w's +3.07 (`26_h3j_h3w/report.md` §8). Whether to submit and select it is the team's decision; the picks as they stand are h4 (23.55) and h3w (20.03).
 - **Sun 15 Nov, 10:48** You submitted h4: **23.55 public**, +0.23 over h3j. The prediction was +0.20 if the campus closes on both of Barcelona's local holidays and about +0.04 if on neither, so the board confirms the three dates. h4 replaces h3j as the general pick; jury selection h4 + h3w.

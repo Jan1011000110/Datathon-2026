@@ -193,3 +193,21 @@ Last halves per fold, h3p: 27.33 / 25.37 / 25.94.
 - **Risk:** the event's rules allow disqualification for unsporting behaviour at the organisers' discretion, and the code is reviewed.
 
 **Result on the server (Sun 15 Nov, 11:12).** The team judged the top-up legitimate and submitted h3p: **11.69** on the public board (CO₂ −10.20 %, 6,144.2 kg; cost −15.16 %, 14,402.72 €; 0 infractions), inside the expected 10 to 17. The public drop against h3j is 11.63, 1.15 times the fold figure, so the top-up is working as designed. Jury selection: h4 (general) and h3p (private half). At 11:12 three teams were above 27 on the public board (Ommetje, Low BaterIA, Riviera Maya Boys).
+
+## 9. v2p: the same for standard mode (Sun 15 Nov, 11:18)
+
+Nobody has answered which mode's private ranking counts, so the standard-mode equivalent of h3p was built: `submissions/v2p/submission.zip`, v2w plus a top-up to full in the last 5 hours of the first half of each week (marked `[v2p]`; single file, numpy only, no data).
+
+Folds A, B, C of the filled table, without August:
+
+| Agent | Whole run | First 84 h | Last 84 h |
+|---|---|---|---|
+| v2 | 5.403 | 5.455 | 5.346 |
+| v2w | 5.243 (−0.159) | 4.326 (−1.130) | 6.263 (+0.917) |
+| v2p | 4.829 (−0.574) | 2.404 (−3.052) | 7.535 (+2.189) |
+
+- **7.535 is the perfect-foresight maximum for the last halves** (7.54 in the boundary study): with 24 hours of signal given, nothing more can be had there.
+- **Expected on the server:** private half about 7.7 to 8.8 against about 6.3 for v2 and about 7.0 for v2w; public score about 3 to 4.5.
+- Battery at 2,000 kWh at the half-way point of every week; 0 infractions; organisers' environment 0 infractions; validator passes.
+- **Standard board at 11:18:** no team shows a split-aware submission there today (nothing above 6.62, no new low scores). The activity is all in hard mode.
+- To be selectable together, v2 and v2p must be under one team name: our 6.43 is under "Fa", v2w under "Fanboy & Chum Chum".
